@@ -1,6 +1,5 @@
 const CracoAlias = require('craco-alias')
 const { ModuleFederationPlugin } = require('webpack').container
-const ExternalTemplateRemotesPlugin = require('external-remotes-plugin')
 const {
   compilerOptions: { baseUrl },
 } = require('./tsconfig.json')
@@ -22,14 +21,14 @@ module.exports = {
         new ModuleFederationPlugin({
           name: 'master',
           remotes: {
-            app2: 'app2@http://localhost:3002/remoteEntry.js',
+            panel: 'panel@http://localhost:3002/index.js',
           },
           shared: {
-            react: { singleton: true },
-            'react-dom': { singleton: true },
+            react: { singleton: true, requiredVersion: '^17.0.2' },
+            'react-dom': { singleton: true, requiredVersion: '^17.0.2' },
+            'react-router-dom': { singleton: true, requiredVersion: '^5.3.0' },
           },
         }),
-        new ExternalTemplateRemotesPlugin(),
       ],
     },
   },

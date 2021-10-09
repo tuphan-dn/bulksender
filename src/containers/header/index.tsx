@@ -2,7 +2,7 @@ import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
 
 import logo from 'static/images/logo.svg'
 
-const Welcome = () => {
+const Header = () => {
   return (
     <Affix offsetTop={12}>
       <Row gutter={[24, 24]}>
@@ -23,4 +23,4 @@ const Welcome = () => {
   )
 }
 
-export default Welcome
+export default Header

@@ -1,11 +1,10 @@
-import { lazy, Suspense } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Layout, Row, Col } from 'antd'
 import Header from 'containers/header'
 import Welcome from 'containers/welcome'
-const RemoteApp = lazy(() => import('app2/App'))
+import AppLoader from 'components/appLoader'
 
-function App() {
+const App = () => {
   return (
     <Layout style={{ padding: 12, minHeight: '100vh' }}>
       <Row gutter={[24, 24]}>
@@ -19,9 +18,7 @@ function App() {
           </Switch>
         </Col>
         <Col span={24}>
-          <Suspense fallback={'loading...'}>
-            <RemoteApp />
-          </Suspense>
+          <AppLoader remoteUrl={'panel'} backgroundColor={'cyan'} />
         </Col>
       </Row>
     </Layout>

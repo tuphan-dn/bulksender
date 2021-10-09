@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import util from 'helpers/util'
+import { isTouchable } from 'helpers/util'
 
 /**
  * Interface & Utility
@@ -32,7 +32,7 @@ const NAME = 'ui'
 const initialState: State = {
   width: window.innerWidth,
   infix: getInfix(),
-  touchable: util.isTouchable(),
+  touchable: isTouchable(),
 }
 
 /**

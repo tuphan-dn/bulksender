@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.1"
   },
   "scripts": {
-    "start": "REACT_APP_ENV=development CI=false PORT=5000 craco start",
+    "start": "REACT_APP_ENV=development PORT=5000 craco start",
     "build": "craco build",
     "test": "craco test",
     "serve": "serve -s build -l 80",
@@ -51,7 +51,6 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.1",
     "craco-alias": "^3.0.1",
-    "external-remotes-plugin": "^1.0.0",
     "serve": "^12.0.1",
     "source-map-explorer": "^2.5.2"
   }

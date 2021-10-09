@@ -1,17 +1,9 @@
 import { Component } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
 
 import { Row, Col, Typography, Button } from 'antd'
 
-import { DynamicLogo } from 'helpers/loader'
-import { RootState, RootDispatch } from 'store'
-
-interface Props extends ConnectedProps<typeof connector>, RouteComponentProps {
-  appName: string
-  email: string
-  version: string
+interface Props {
+  remoteUrl: string
 }
 
 interface State {
@@ -35,16 +27,13 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   support = () => {
-    const { email, appName } = this.props
-    return window.open(
-      `mailto:${email}?subject=${appName} has failed`,
-      '_blank',
-    )
+    const { remoteUrl } = this.props
+    return window.open(`mailto:hi@sentre.io?subject=${remoteUrl} has failed`, '_blank')
   }
 
   render() {
     const { failed } = this.state
-    const { appName, version, children } = this.props
+    const { remoteUrl, children } = this.props
 
     if (failed || !children)
       return (
@@ -54,27 +43,18 @@ class ErrorBoundary extends Component<Props, State> {
           align="middle"
           justify="center"
         >
-          <Col>
-            <DynamicLogo name={appName} title={false} />
-          </Col>
           <Col span={24}>
             <Typography.Title level={4} style={{ textAlign: 'center' }}>
-              {appName}
+              {remoteUrl}
             </Typography.Title>
-            <p style={{ textAlign: 'center' }}>Version {version}</p>
           </Col>
           <Col span={24}>
             <p style={{ textAlign: 'center' }}>
               Oops! The application can't load properly
             </p>
           </Col>
-          <Col span={12}>
-            <Button type="primary" block>
-              Uninstall
-            </Button>
-          </Col>
-          <Col span={12}>
-            <Button type="text" onClick={this.support} block>
+          <Col span={24}>
+            <Button type="primary" onClick={this.support} block>
               Support
             </Button>
           </Col>
@@ -84,12 +64,4 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({})
-
-const mapDispatchToProps = (dispatch: RootDispatch) => {
-  return bindActionCreators({}, dispatch)
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-
-export default withRouter(connector(ErrorBoundary))
+export default ErrorBoundary
