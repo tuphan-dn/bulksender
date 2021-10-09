@@ -1,3 +1,3 @@
 # 2MF
 
-2mf is an example or experiement for Micro Frontend and Module Federation
+**2mf** is an example and an experiement for Micro Frontend and Module Federation

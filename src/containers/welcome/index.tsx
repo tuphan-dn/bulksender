@@ -9,16 +9,9 @@ const Welcome = () => {
         <Space direction="vertical" align="center">
           <Avatar size={128} src={logo} alt="logo" />
           <Typography.Text>
-            Edit <code>src/App.tsx</code> and save to reload.
+            <strong>2mf</strong> is an example and an experiement for Micro Frontend
+            and Module Federation.
           </Typography.Text>
-
-          <Typography.Link
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </Typography.Link>
         </Space>
       </Col>
     </Row>

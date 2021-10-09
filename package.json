@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.1"
   },
   "scripts": {
-    "start": "REACT_APP_ENV=development PORT=5000 craco start",
+    "start": "REACT_APP_ENV=development CI=false PORT=5000 craco start",
     "build": "craco build",
     "test": "craco test",
     "serve": "serve -s build -l 80",
