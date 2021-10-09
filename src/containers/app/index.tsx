@@ -1,24 +1,23 @@
-import logo from 'static/images/logo.svg'
-import './index.css'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { Layout, Row, Col } from 'antd'
+import Header from 'containers/header'
+import Welcome from 'containers/welcome'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout style={{ padding: 12, minHeight: '100vh' }}>
+      <Row gutter={[24, 24]}>
+        <Col span={24}>
+          <Header />
+        </Col>
+        <Col span={24}>
+          <Switch>
+            <Route exact path="/welcome" component={Welcome} />
+            <Redirect from="*" to="/welcome" />
+          </Switch>
+        </Col>
+      </Row>
+    </Layout>
   )
 }
 
