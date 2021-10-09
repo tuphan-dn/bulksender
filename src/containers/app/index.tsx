@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Layout, Row, Col } from 'antd'
 import Header from 'containers/header'
 import Welcome from 'containers/welcome'
+const RemoteApp = lazy(() => import('app2/App'))
 
 function App() {
   return (
@@ -15,6 +17,11 @@ function App() {
             <Route exact path="/welcome" component={Welcome} />
             <Redirect from="*" to="/welcome" />
           </Switch>
+        </Col>
+        <Col span={24}>
+          <Suspense fallback={'loading...'}>
+            <RemoteApp />
+          </Suspense>
         </Col>
       </Row>
     </Layout>
