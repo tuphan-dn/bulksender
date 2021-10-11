@@ -6,7 +6,7 @@ import { isTouchable } from 'helpers/util'
  * Interface & Utility
  */
 
-type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+type Infix = '-xs' | '-sm' | '-md' | '-lg' | '-xl' | '-xxl'
 
 export type State = {
   width: number
@@ -16,12 +16,12 @@ export type State = {
 
 const getInfix = (): Infix => {
   const width = window.innerWidth
-  if (width < 576) return 'xs'
-  if (width < 768) return 'sm'
-  if (width < 992) return 'md'
-  if (width < 1200) return 'lg'
-  if (width < 1400) return 'xl'
-  return 'xxl'
+  if (width < 576) return '-xs'
+  if (width < 768) return '-sm'
+  if (width < 992) return '-md'
+  if (width < 1200) return '-lg'
+  if (width < 1400) return '-xl'
+  return '-xxl'
 }
 
 /**

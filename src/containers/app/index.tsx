@@ -2,7 +2,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { Layout, Row, Col } from 'antd'
 import Header from 'containers/header'
 import Welcome from 'containers/welcome'
-import AppLoader from 'components/appLoader'
+import Dashboard from 'containers/dashboard'
 
 const App = () => {
   return (
@@ -14,11 +14,9 @@ const App = () => {
         <Col span={24}>
           <Switch>
             <Route exact path="/welcome" component={Welcome} />
+            <Route exact path="/dashboard" component={Dashboard} />
             <Redirect from="*" to="/welcome" />
           </Switch>
-        </Col>
-        <Col span={24}>
-          <AppLoader remoteUrl={'panel'} backgroundColor={'cyan'} />
         </Col>
       </Row>
     </Layout>

@@ -24,5 +24,4 @@
   "include": [
     "src"
   ],
-  "extends": "./tsconfig.ext.json"
 }

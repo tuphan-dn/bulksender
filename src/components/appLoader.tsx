@@ -1,7 +1,14 @@
-import { Suspense, lazy, useMemo, forwardRef } from 'react'
+import { Suspense, forwardRef } from 'react'
 
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'components/errorBoundary'
+import { useRemoteModule } from 'react-dynamic-remote-component'
+
+export type RemoteComponentManifest = {
+  url: string
+  scope: string
+  module: string
+}
 
 /**
  * App Loading
@@ -11,19 +18,24 @@ const AppLoading = () => {
 }
 
 /**
+ * Remote component
+ */
+const RemoteComponent = forwardRef<HTMLElement, RemoteComponentManifest & any>(
+  ({ manifest, ...props }, ref) => {
+    const { default: Component } = useRemoteModule(manifest)
+    return <Component {...props} ref={ref} />
+  },
+)
+
+/**
  * App Loader
  */
-const AppLoader = forwardRef<HTMLElement, { remoteUrl: string } & any>(
-  ({ remoteUrl, ...rest }, ref) => {
-    const Application = useMemo(
-      () => lazy(() => import(`applications/${remoteUrl}`)),
-      [remoteUrl],
-    )
-
+const AppLoader = forwardRef<HTMLElement, RemoteComponentManifest & any>(
+  ({ manifest, ...props }, ref) => {
     return (
-      <ErrorBoundary remoteUrl={remoteUrl}>
+      <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
         <Suspense fallback={<AppLoading />}>
-          <Application {...rest} ref={ref} />
+          <RemoteComponent manifest={manifest} {...props} ref={ref} />
         </Suspense>
       </ErrorBoundary>
     )
