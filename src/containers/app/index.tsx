@@ -14,7 +14,7 @@ const App = () => {
         <Col span={24}>
           <Switch>
             <Route exact path="/welcome" component={Welcome} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboard/:appId" component={Dashboard} />
             <Redirect from="*" to="/welcome" />
           </Switch>
         </Col>
