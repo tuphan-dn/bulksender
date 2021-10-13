@@ -13,6 +13,10 @@ module.exports = {
     senos: 'senos@http://localhost:5000/index.js',
   },
   exposes: {
+    // Your app
+    './app': 'view/app',
+    './widget': 'view/widget',
+    // SenOS
     './store': 'store',
     './store/ui.reducer': 'store/ui.reducer',
   },

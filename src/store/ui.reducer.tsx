@@ -6,7 +6,7 @@ import { isTouchable } from 'helpers/util'
  * Interface & Utility
  */
 
-type Infix = 'senos-xs' | 'senos-sm' | 'senos-md' | 'senos-lg' | 'senos-xl' | 'senos-xxl'
+type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 
 export type State = {
   width: number
@@ -16,12 +16,12 @@ export type State = {
 
 const getInfix = (): Infix => {
   const width = window.innerWidth
-  if (width < 576) return 'senos-xs'
-  if (width < 768) return 'senos-sm'
-  if (width < 992) return 'senos-md'
-  if (width < 1200) return 'senos-lg'
-  if (width < 1400) return 'senos-xl'
-  return 'senos-xxl'
+  if (width < 576) return 'xs'
+  if (width < 768) return 'sm'
+  if (width < 992) return 'md'
+  if (width < 1200) return 'lg'
+  if (width < 1400) return 'xl'
+  return 'xxl'
 }
 
 /**

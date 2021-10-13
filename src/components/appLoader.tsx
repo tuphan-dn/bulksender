@@ -3,12 +3,7 @@ import { Suspense, forwardRef } from 'react'
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'components/errorBoundary'
 import { useRemoteModule } from 'react-dynamic-remote-component'
-
-export type RemoteComponentManifest = {
-  url: string
-  scope: string
-  module: string
-}
+import { ComponentManifest } from 'senos.manifest'
 
 /**
  * App Loading
@@ -20,7 +15,7 @@ const AppLoading = () => {
 /**
  * Remote component
  */
-const RemoteComponent = forwardRef<HTMLElement, RemoteComponentManifest & any>(
+const RemoteComponent = forwardRef<HTMLElement, ComponentManifest & any>(
   ({ manifest, ...props }, ref) => {
     const { default: Component } = useRemoteModule(manifest)
     return <Component {...props} ref={ref} />
@@ -30,7 +25,7 @@ const RemoteComponent = forwardRef<HTMLElement, RemoteComponentManifest & any>(
 /**
  * App Loader
  */
-const AppLoader = forwardRef<HTMLElement, RemoteComponentManifest & any>(
+const AppLoader = forwardRef<HTMLElement, ComponentManifest & any>(
   ({ manifest, ...props }, ref) => {
     return (
       <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>

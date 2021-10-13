@@ -2,6 +2,7 @@ import { Row, Col, Typography, Avatar, Space } from 'antd'
 import AppIcon from './appIcon'
 
 import logo from 'static/images/logo.svg'
+import manifest from 'senos.manifest'
 
 const Welcome = () => {
   return (
@@ -17,12 +18,11 @@ const Welcome = () => {
       </Col>
       <Col span={24}>
         <Row gutter={[24, 24]}>
-          <Col>
-            <AppIcon appId="panel" />
-          </Col>
-          <Col>
-            <AppIcon appId="hello" />
-          </Col>
+          {Object.keys(manifest).map((appId) => (
+            <Col key={appId}>
+              <AppIcon appId={appId} />
+            </Col>
+          ))}
         </Row>
       </Col>
     </Row>

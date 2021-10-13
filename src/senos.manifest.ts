@@ -1,11 +1,15 @@
-import { RemoteComponentManifest } from 'components/appLoader'
+export type ComponentManifest = {
+  url: string
+  scope: string
+  module: string
+}
 
-export type Applications = Record<
+export type SenOSManifest = Record<
   string,
-  Record<'manifest', RemoteComponentManifest> & any
+  Record<'manifest', ComponentManifest> & any
 >
 
-const APPLICATIONS: Applications = {
+const manifest: SenOSManifest = {
   hello: {
     manifest: {
       url: 'http://localhost:5001/index.js',
@@ -23,4 +27,4 @@ const APPLICATIONS: Applications = {
   },
 }
 
-export default APPLICATIONS
+export default manifest

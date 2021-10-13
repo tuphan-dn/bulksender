@@ -1,10 +1,10 @@
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Layout, Row, Col } from 'antd'
-import Header from 'containers/header'
-import Welcome from 'containers/welcome'
-import Dashboard from 'containers/dashboard'
+import Header from 'view/header'
+import Welcome from 'view/welcome'
+import Dashboard from 'view/dashboard'
 
-const App = () => {
+const View = () => {
   return (
     <Layout style={{ padding: 12, minHeight: '100vh' }}>
       <Row gutter={[24, 24]}>
@@ -23,4 +23,4 @@ const App = () => {
   )
 }
 
-export default App
+export default View
