@@ -10,18 +10,18 @@ export type SenOSManifest = Record<
 >
 
 const manifest: SenOSManifest = {
-  hello: {
+  'senos-app': {
     manifest: {
-      url: 'http://localhost:5001/index.js',
-      scope: 'hello',
+      url: 'http://localhost:5000/index.js',
+      scope: 'senos',
       module: './app',
     },
   },
-  panel: {
+  'senos-widget': {
     manifest: {
-      url: 'http://localhost:3002/index.js',
-      scope: 'panel',
-      module: '.',
+      url: 'http://localhost:5000/index.js',
+      scope: 'senos',
+      module: './widget',
     },
     backgroundColor: 'cyan',
   },
