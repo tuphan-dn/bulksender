@@ -3,6 +3,7 @@ import middleware from './middleware'
 import devTools from './devTools'
 
 import ui from './ui.reducer'
+
 const store = configureStore({
   middleware,
   devTools: devTools('SenOS'),

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
 
 import App from 'containers/app'
-import store from 'store'
+import store from 'senos/store'
 import reportWebVitals from 'reportWebVitals'
 
 import 'static/styles/index.css'
