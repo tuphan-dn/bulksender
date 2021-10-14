@@ -12,7 +12,7 @@ export type SenOSManifest = Record<
 const manifest: SenOSManifest = {
   senos: {
     manifest: {
-      url: 'https://tuphan-dn.github.io/2mf/index.js',
+      url: 'http://localhost:5000/index.js',
       scope: 'senos',
       module: './',
     },

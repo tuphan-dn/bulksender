@@ -1,5 +1,13 @@
+const env = process.env.REACT_APP_ENV || 'development'
+const name = 'senos'
+const url = {
+  development: `http://localhost:5000`,
+  production: `https://tuphan-dn.github.io/2mf`,
+}
+const entrypoint = `${name}@${url[env]}/index.js`
+
 module.exports = {
-  name: 'senos',
+  name,
   filename: 'index.js',
   shared: {
     react: { singleton: true, requiredVersion: '^17.0.2' },
@@ -10,7 +18,7 @@ module.exports = {
     antd: { singleton: true, requiredVersion: '^4.17.0-alpha.5' },
   },
   remotes: {
-    senos: 'senos@https://tuphan-dn.github.io/2mf/index.js',
+    [name]: entrypoint,
   },
   exposes: {
     // Your app

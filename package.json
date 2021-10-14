@@ -1,7 +1,7 @@
 {
   "name": "2mf",
   "version": "0.1.0",
-  "homepage": "https://tuphan-dn.github.io/2mf",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@loadable/component": "^5.15.0",
