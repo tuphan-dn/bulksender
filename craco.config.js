@@ -9,19 +9,12 @@ module.exports = {
     ],
     configure: (webpackConfig, { env, paths }) => {
       // Bugfix: https://github.com/graphql/graphql-js/issues/2721#issuecomment-723008284
-      const {
-        module: { rules, ...rest },
-      } = webpackConfig
-      rules.push({
+      webpackConfig.module.rules.push({
         test: /\.m?js/,
         resolve: {
           fullySpecified: false,
         },
       })
-      webpackConfig.module = {
-        rules,
-        ...rest,
-      }
       return webpackConfig
     },
   },
