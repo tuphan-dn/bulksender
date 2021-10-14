@@ -18,5 +18,6 @@ module.exports = {
   exposes: {
     './store': 'store',
     './store/ui.reducer': 'store/ui.reducer',
+    './providers': 'helpers/providers',
   },
 }
