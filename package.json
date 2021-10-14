@@ -1,7 +1,7 @@
 {
   "name": "senhub",
   "version": "2.0.0",
-  "homepage": "./sen-hub",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@project-serum/sol-wallet-adapter": "^0.2.5",
