@@ -14,8 +14,7 @@ module.exports = {
   },
   exposes: {
     // Your app
-    './app': 'view/app',
-    './widget': 'view/widget',
+    './': 'app/view',
     // SenOS
     './store': 'store',
     './store/ui.reducer': 'store/ui.reducer',

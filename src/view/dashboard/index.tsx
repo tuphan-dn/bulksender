@@ -8,7 +8,10 @@ const Dashboard = () => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        <AppLoader {...manifest[appId]} />
+        <AppLoader type="Page" {...manifest[appId]} />
+      </Col>
+      <Col span={24}>
+        <AppLoader type="Widget" {...manifest[appId]} backgroundColor="cyan" />
       </Col>
     </Row>
   )

@@ -15,26 +15,28 @@ const AppLoading = () => {
 /**
  * Remote component
  */
-const RemoteComponent = forwardRef<HTMLElement, ComponentManifest & any>(
-  ({ manifest, ...props }, ref) => {
-    const { default: Component } = useRemoteModule(manifest)
-    return <Component {...props} ref={ref} />
-  },
-)
+const RemoteComponent = forwardRef<
+  HTMLElement,
+  { type: 'Page' | 'Widget' } & ComponentManifest & any
+>(({ type, manifest, ...props }, ref) => {
+  const { [type]: Component } = useRemoteModule(manifest)
+  return <Component {...props} ref={ref} />
+})
 
 /**
  * App Loader
  */
-const AppLoader = forwardRef<HTMLElement, ComponentManifest & any>(
-  ({ manifest, ...props }, ref) => {
-    return (
-      <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
-        <Suspense fallback={<AppLoading />}>
-          <RemoteComponent manifest={manifest} {...props} ref={ref} />
-        </Suspense>
-      </ErrorBoundary>
-    )
-  },
-)
+const AppLoader = forwardRef<
+  HTMLElement,
+  { type: 'Page' | 'Widget' } & ComponentManifest & any
+>(({ type, manifest, ...props }, ref) => {
+  return (
+    <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
+      <Suspense fallback={<AppLoading />}>
+        <RemoteComponent type={type} manifest={manifest} {...props} ref={ref} />
+      </Suspense>
+    </ErrorBoundary>
+  )
+})
 
 export default AppLoader
