@@ -2,12 +2,9 @@ import { Env } from './env'
 
 if (
   typeof process.env.REACT_APP_ID !== 'string' ||
-  typeof process.env.REACT_APP_LOCAL !== 'string' ||
-  typeof process.env.REACT_APP_GITHUB !== 'string'
+  typeof process.env.REACT_APP_URL !== 'string'
 )
-  throw new Error(
-    'Please add REACT_APP_ID, REACT_APP_LOCAL, and REACT_APP_GITHUB in .env!',
-  )
+  throw new Error('Please add REACT_APP_ID, REACT_APP_URL in .env!')
 
 /**
  * Contructor
@@ -18,29 +15,31 @@ type Config = {
   url: string
 }
 
+const shared = {
+  appId: process.env.REACT_APP_ID,
+  url: process.env.REACT_APP_URL,
+}
+
 const configs: Record<Env, Config> = {
   /**
    * Development configurations
    */
   development: {
-    appId: process.env.REACT_APP_ID,
-    url: process.env.REACT_APP_LOCAL,
+    ...shared,
   },
 
   /**
    * Staging configurations
    */
   staging: {
-    appId: process.env.REACT_APP_ID,
-    url: '',
+    ...shared,
   },
 
   /**
    * Production configurations
    */
   production: {
-    appId: process.env.REACT_APP_ID,
-    url: process.env.REACT_APP_GITHUB,
+    ...shared,
   },
 }
 
