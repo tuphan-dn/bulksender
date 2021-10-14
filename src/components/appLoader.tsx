@@ -3,7 +3,7 @@ import { Suspense, forwardRef } from 'react'
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'components/errorBoundary'
 import { useRemoteModule } from 'react-dynamic-remote-component'
-import { ComponentManifest } from 'senos.manifest'
+import { ComponentManifest } from 'senhub.manifest'
 
 /**
  * App Loading

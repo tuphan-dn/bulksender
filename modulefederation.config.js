@@ -16,9 +16,6 @@ module.exports = {
     [name]: `${name}@${url}/index.js`,
   },
   exposes: {
-    // Your app
-    './': 'app/view',
-    // SenOS
     './store': 'store',
     './store/ui.reducer': 'store/ui.reducer',
   },

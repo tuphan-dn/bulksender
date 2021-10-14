@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { Row, Col } from 'antd'
 import AppLoader from 'components/appLoader'
-import manifest from 'senos.manifest'
+import manifest from 'senhub.manifest'
 
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()

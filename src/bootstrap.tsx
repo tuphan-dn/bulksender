@@ -3,8 +3,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
 
-import View from 'view'
-import store from 'senos/store'
+import App from 'app'
+import store from 'senhub/store'
 import reportWebVitals from 'reportWebVitals'
 
 import 'static/styles/index.css'
@@ -21,7 +21,7 @@ ConfigProvider.config({
 render(
   <Provider store={store}>
     <BrowserRouter>
-      <View />
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'),

@@ -4,10 +4,16 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-    "@loadable/component": "^5.15.0",
+    "@project-serum/sol-wallet-adapter": "^0.2.5",
     "@reduxjs/toolkit": "^1.6.2",
+    "@senswap/sen-js": "^1.1.0",
+    "@solana/spl-token-registry": "^0.2.277",
     "antd": "^4.17.0-alpha.5",
+    "flexsearch": "^0.7.21",
+    "localforage": "^1.10.0",
+    "numeral": "^2.0.6",
     "react": "^17.0.2",
+    "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
     "react-dynamic-remote-component": "0.0.3",
     "react-redux": "^7.2.5",
@@ -51,6 +57,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.1",
     "craco-module-federation": "^1.1.0",
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "node-polyfill-webpack-plugin": "^1.1.4"
   }
 }

@@ -1,8 +1,8 @@
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Layout, Row, Col } from 'antd'
-import Header from 'view/header'
-import Welcome from 'view/welcome'
-import Dashboard from 'view/dashboard'
+import Header from 'app/header'
+import Welcome from 'app/welcome'
+import Dashboard from 'app/dashboard'
 
 const View = () => {
   return (

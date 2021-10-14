@@ -9,7 +9,7 @@ module.exports = {
   '@error-color': '#F2323F',
 
   // Fonts
-  '@font-family': "'Open Sans', sans-serif",
+  '@font-family': "'Nunito', sans-serif",
 
   // Border
   '@border-radius-base': '8px',

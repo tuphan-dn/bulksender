@@ -1,7 +1,7 @@
 import { Row, Col, Typography, Avatar, Space, Affix, Card, Button } from 'antd'
 import { useHistory } from 'react-router-dom'
 
-import logo from 'static/images/logo.svg'
+import logo from 'static/images/sen.svg'
 
 const Header = () => {
   const history = useHistory()

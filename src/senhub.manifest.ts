@@ -10,13 +10,13 @@ export type ComponentManifest = {
   module: string
 }
 
-export type SenOSManifest = Record<
+export type SenHubManifest = Record<
   string,
   Record<'manifest', ComponentManifest> & any
 >
 
-const manifest: SenOSManifest = {
-  senos: {
+const manifest: SenHubManifest = {
+  senhub: {
     manifest: {
       url: `${url}/index.js`,
       scope: appId,

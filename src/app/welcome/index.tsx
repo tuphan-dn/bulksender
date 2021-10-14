@@ -1,8 +1,8 @@
 import { Row, Col, Typography, Avatar, Space } from 'antd'
 import AppIcon from './appIcon'
 
-import logo from 'static/images/logo.svg'
-import manifest from 'senos.manifest'
+import logo from 'static/images/sen.svg'
+import manifest from 'senhub.manifest'
 
 const Welcome = () => {
   return (

@@ -6,7 +6,7 @@ type Sanitizer = {
 }
 
 // Bugfix: https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/Troubleshooting.md#excessive-use-of-memory-and-cpu
-const devTools = (appName: string = 'SenOS'): any => {
+const devTools = (appName: string = 'SenHub'): any => {
   if (configs.env !== 'development') return false
   return {
     name: appName,
