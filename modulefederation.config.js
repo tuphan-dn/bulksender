@@ -10,7 +10,7 @@ module.exports = {
     antd: { singleton: true, requiredVersion: '^4.17.0-alpha.5' },
   },
   remotes: {
-    senos: 'senos@http://https://tuphan-dn.github.io/2mf/index.js',
+    senos: 'senos@https://tuphan-dn.github.io/2mf/index.js',
   },
   exposes: {
     // Your app
