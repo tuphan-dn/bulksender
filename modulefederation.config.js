@@ -1,10 +1,9 @@
+const name = process.env.REACT_APP_ID
 const env = process.env.REACT_APP_ENV || 'development'
-const name = 'senos'
 const url = {
-  development: `http://localhost:5000`,
-  production: `https://tuphan-dn.github.io/2mf`,
+  development: process.env.REACT_APP_LOCAL,
+  production: process.env.REACT_APP_GITHUB,
 }
-const entrypoint = `${name}@${url[env]}/index.js`
 
 module.exports = {
   name,
@@ -18,7 +17,7 @@ module.exports = {
     antd: { singleton: true, requiredVersion: '^4.17.0-alpha.5' },
   },
   remotes: {
-    [name]: entrypoint,
+    [name]: `${name}@${url[env]}/index.js`,
   },
   exposes: {
     // Your app

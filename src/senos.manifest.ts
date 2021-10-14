@@ -1,3 +1,9 @@
+import configs from 'configs'
+
+const {
+  basics: { url, appId },
+} = configs
+
 export type ComponentManifest = {
   url: string
   scope: string
@@ -12,8 +18,8 @@ export type SenOSManifest = Record<
 const manifest: SenOSManifest = {
   senos: {
     manifest: {
-      url: 'http://localhost:5000/index.js',
-      scope: 'senos',
+      url: `${url}/index.js`,
+      scope: appId,
       module: './',
     },
   },
