@@ -2,13 +2,21 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 const cracoModuleFederation = require('craco-module-federation')
 
 module.exports = {
-  plugins: [{ plugin: cracoModuleFederation }],
+  plugins: [
+    {
+      plugin: cracoModuleFederation,
+      options: { useNamedChunkIds: true },
+    },
+  ],
   webpack: {
     plugins: [
-      new NodePolyfillPlugin(), // Support polyfill in webpack 5
+      // Support polyfill in webpack 5
+      new NodePolyfillPlugin({
+        excludeAliases: ['console', 'process'],
+      }),
     ],
     configure: (webpackConfig, { env, paths }) => {
-      // Bugfix: https://github.com/graphql/graphql-js/issues/2721#issuecomment-723008284
+      // Workaround: https://github.com/webpack/webpack/issues/11467#issuecomment-808618999/
       webpackConfig.module.rules.push({
         test: /\.m?js/,
         resolve: {

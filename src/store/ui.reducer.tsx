@@ -57,22 +57,10 @@ export const notify = createAsyncThunk(
   async ({ type, description, onClick }: Notification) => {
     if (!type) throw new Error('Notification type is not provided')
     if (!description) throw new Error('Description is not provided')
-    // Parse icon
-    let icon = (
-      <ion-icon name="information-circle" style={{ color: '#37CDFA' }} />
-    )
-    if (type === 'error')
-      icon = <ion-icon name="alert-circle" style={{ color: '#F2323F' }} />
-    if (type === 'warning')
-      icon = <ion-icon name="warning" style={{ color: '#FCB017' }} />
-    if (type === 'success')
-      icon = <ion-icon name="checkmark-circle" style={{ color: '#3DBA4E' }} />
     notification[type]({
       message: type.toUpperCase(),
       description,
       onClick,
-      closeIcon: <ion-icon name="close-outline" />,
-      icon,
       style: { cursor: 'pointer' },
     })
     return {}

@@ -8,6 +8,7 @@ import store from 'senhub/store'
 import reportWebVitals from 'reportWebVitals'
 
 import 'static/styles/index.css'
+
 ConfigProvider.config({
   theme: {
     primaryColor: '#F9575E',
