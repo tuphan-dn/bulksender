@@ -1,5 +1,5 @@
 import { render } from 'react-dom'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
 
@@ -20,9 +20,9 @@ ConfigProvider.config({
 
 render(
   <Provider store={store}>
-    <HashRouter>
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 )
