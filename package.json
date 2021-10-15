@@ -2,7 +2,6 @@
   "name": "senhub",
   "version": "2.0.0",
   "homepage": ".",
-  "private": true,
   "dependencies": {
     "@project-serum/sol-wallet-adapter": "^0.2.5",
     "@reduxjs/toolkit": "^1.6.2",
@@ -23,8 +22,8 @@
     "web-vitals": "^2.1.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "REACT_APP_ENV=development craco start",
+    "build": "REACT_APP_ENV=production craco build",
     "test": "craco test",
     "deploy": "npm run build && gh-pages -d build"
   },
