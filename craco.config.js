@@ -5,7 +5,6 @@ module.exports = {
   plugins: [
     {
       plugin: cracoModuleFederation,
-      options: { useNamedChunkIds: true },
     },
   ],
   webpack: {

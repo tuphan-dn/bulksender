@@ -1,18 +1,25 @@
+import { useSelector } from 'react-redux'
+
 import { Row, Col, Typography, Avatar, Space } from 'antd'
 import AppIcon from './appIcon'
 
 import logo from 'static/images/sen.svg'
 import manifest from 'senhub.manifest'
+import { RootState } from 'store'
 
 const Welcome = () => {
+  const { width, infix } = useSelector((state: RootState) => state.ui)
+
   return (
     <Row gutter={[24, 24]} justify="center">
       <Col>
         <Space direction="vertical" align="center">
           <Avatar size={128} src={logo} alt="logo" />
           <Typography.Text>
-            <strong>2mf</strong> is an example and an experiement for Micro
-            Frontend and Module Federation.
+            Screen Size: <strong>{width}</strong>
+          </Typography.Text>
+          <Typography.Text>
+            Screen Type: <strong>{infix}</strong>
           </Typography.Text>
         </Space>
       </Col>
