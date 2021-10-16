@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, lazy, Suspense } from 'react'
 
 const IonIcon = forwardRef<HTMLElement, { name: string; className?: string }>(
   ({ name, className, ...props }, ref) => {
@@ -12,3 +12,15 @@ const IonIcon = forwardRef<HTMLElement, { name: string; className?: string }>(
 )
 
 export default IonIcon
+
+export const RemoteIonIcon = forwardRef<
+  HTMLElement,
+  { name: string; className?: string }
+>((props, ref) => {
+  const IonIcon = lazy(() => import('senhub/ionicon'))
+  return (
+    <Suspense fallback={'loading...'}>
+      <IonIcon {...props} ref={ref} />
+    </Suspense>
+  )
+})

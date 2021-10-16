@@ -16,7 +16,7 @@ module.exports = {
     [name]: `${name}@${url}/index.js`,
   },
   exposes: {
-    './store': 'store',
     './providers': 'helpers/providers',
+    './ionicon': 'components/ionicon',
   },
 }

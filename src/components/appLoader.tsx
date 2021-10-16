@@ -17,8 +17,8 @@ const AppLoading = () => {
  */
 const RemoteComponent = forwardRef<
   HTMLElement,
-  { type: 'Page' | 'Widget' } & ComponentManifest & any
->(({ type, manifest, ...props }, ref) => {
+  { type?: string } & ComponentManifest & any
+>(({ type = 'default', manifest, ...props }, ref) => {
   const { [type]: Component } = useRemoteModule(manifest)
   return <Component {...props} ref={ref} />
 })

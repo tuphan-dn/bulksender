@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import App from 'app'
-import store from 'senhub/store'
+import store from 'store'
 import reportWebVitals from 'reportWebVitals'
 
 render(
