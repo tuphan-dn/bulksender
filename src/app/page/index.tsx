@@ -16,7 +16,8 @@ const Page = () => {
   return (
     <Row gutter={[24, 24]} align="middle">
       <Col span={24}>
-        <Typography.Text>Page: {address}</Typography.Text>
+        <Typography.Title level={5}>Sen Page</Typography.Title>
+        <Typography.Text>Address: {address}</Typography.Text>
       </Col>
       <Col>
         <Typography.Text>Counter: {counter}</Typography.Text>
