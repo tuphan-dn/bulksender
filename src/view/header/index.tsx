@@ -1,8 +1,8 @@
 import { useHistory } from 'react-router-dom'
 
 import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
-import Wallet from 'app/wallet'
-import WalletIntro from 'app/wallet/intro'
+import Wallet from 'view/wallet'
+import WalletIntro from 'view/wallet/intro'
 
 import logo from 'static/images/sen.svg'
 
@@ -24,7 +24,7 @@ const Header = () => {
                   style={{ cursor: 'pointer' }}
                 >
                   <Avatar src={logo} alt="logo" />
-                  <Typography.Text>SenHub</Typography.Text>
+                  <Typography.Text>Sentre</Typography.Text>
                 </Space>
               </Col>
               <Col>

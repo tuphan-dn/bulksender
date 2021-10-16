@@ -1,5 +1,5 @@
 const name = process.env.REACT_APP_ID
-const url = process.env.REACT_APP_URL
+const senhub = process.env.REACT_APP_SENHUB
 
 module.exports = {
   name,
@@ -13,9 +13,12 @@ module.exports = {
     antd: { singleton: true, requiredVersion: '^4.17.0-alpha.5' },
   },
   remotes: {
-    [name]: `${name}@${url}/index.js`,
+    senhub,
   },
   exposes: {
+    // app
+    './': 'app',
+    // senhub
     './providers': 'helpers/providers',
     './ionicon': 'components/ionicon',
   },

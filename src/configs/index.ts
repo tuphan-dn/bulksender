@@ -1,10 +1,10 @@
 import env from './env'
-import basics from './basics.config'
+import manifest from './manifest.config'
 import sol from './sol.config'
 
 const configs = {
   env,
-  basics: basics[env],
+  manifest: manifest[env],
   sol: sol[env],
 }
 

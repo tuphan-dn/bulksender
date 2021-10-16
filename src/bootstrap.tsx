@@ -2,14 +2,14 @@ import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import App from 'app'
+import View from 'view'
 import store from 'store'
 import reportWebVitals from 'reportWebVitals'
 
 render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <View />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'),

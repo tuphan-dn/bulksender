@@ -10,7 +10,7 @@ import pools from './pools.reducer'
 
 const store = configureStore({
   middleware,
-  devTools: devTools('SenHub'),
+  devTools: devTools('senhub'),
   reducer: {
     ui,
     wallet,

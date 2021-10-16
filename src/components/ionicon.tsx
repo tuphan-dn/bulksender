@@ -17,10 +17,10 @@ export const RemoteIonIcon = forwardRef<
   HTMLElement,
   { name: string; className?: string }
 >((props, ref) => {
-  const IonIcon = lazy(() => import('senhub/ionicon'))
+  const Component = lazy(() => import('senhub/ionicon'))
   return (
-    <Suspense fallback={'loading...'}>
-      <IonIcon {...props} ref={ref} />
+    <Suspense fallback="ionicon">
+      <Component {...props} ref={ref} />
     </Suspense>
   )
 })

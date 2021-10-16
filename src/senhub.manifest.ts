@@ -1,7 +1,7 @@
 import configs from 'configs'
 
 const {
-  basics: { url, appId },
+  manifest: { url, appId },
 } = configs
 
 export type ComponentManifest = {

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import App from 'app'
+import View from 'view'
 
 test('renders home contents', () => {
-  render(<App />)
+  render(<View />)
   const linkElement = screen.getByText(/Micro Frontend and Module Federation./i)
   expect(linkElement).toBeInTheDocument()
 })

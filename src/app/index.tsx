@@ -1,32 +1,27 @@
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { Layout, Row, Col } from 'antd'
-import Header from 'app/header'
-import Welcome from 'app/welcome'
-import Dashboard from 'app/dashboard'
+import { Provider } from 'react-redux'
+import { UIProvider, WalletProvider } from 'senhub/providers'
 
-import Watcher from 'app/watcher'
+import PageView from './page'
+import WidgetView from './widget'
 
-import 'static/styles/index.less'
+import model from './model'
 
-const View = () => {
+export const Page = () => {
   return (
-    <Layout style={{ padding: 12, minHeight: '100vh' }}>
-      <Row gutter={[24, 24]}>
-        <Col span={24}>
-          <Header />
-        </Col>
-        <Col span={24}>
-          <Switch>
-            <Route exact path="/welcome" component={Welcome} />
-            <Route exact path="/dashboard/:appId" component={Dashboard} />
-            <Redirect from="*" to="/welcome" />
-          </Switch>
-        </Col>
-      </Row>
-      {/* In-Background Run Jobs */}
-      <Watcher />
-    </Layout>
+    <WalletProvider>
+      <Provider store={model}>
+        <PageView />
+      </Provider>
+    </WalletProvider>
   )
 }
 
-export default View
+export const Widget = () => {
+  return (
+    <UIProvider>
+      <Provider store={model}>
+        <WidgetView />
+      </Provider>
+    </UIProvider>
+  )
+}
