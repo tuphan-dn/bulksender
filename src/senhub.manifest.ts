@@ -16,7 +16,7 @@ export type SenHubManifest = Record<
 >
 
 const manifest: SenHubManifest = {
-  senhub: {
+  [appId]: {
     manifest: {
       url: `${url}/index.js`,
       scope: appId,
