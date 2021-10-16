@@ -1,7 +1,6 @@
 {
   "name": "senpage",
   "version": "2.0.0",
-  "homepage": ".",
   "dependencies": {
     "@project-serum/sol-wallet-adapter": "^0.2.6",
     "@reduxjs/toolkit": "^1.6.2",
