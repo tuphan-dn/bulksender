@@ -3,7 +3,8 @@ import { Layout, Row, Col } from 'antd'
 import Header from 'app/header'
 import Welcome from 'app/welcome'
 import Dashboard from 'app/dashboard'
-import Utility from './utility'
+
+import Watcher from 'app/watcher'
 
 const View = () => {
   return (
@@ -20,8 +21,8 @@ const View = () => {
           </Switch>
         </Col>
       </Row>
-      {/* Background Run Jobs */}
-      <Utility />
+      {/* In-Background Run Jobs */}
+      <Watcher />
     </Layout>
   )
 }

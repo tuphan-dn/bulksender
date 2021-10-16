@@ -6,6 +6,7 @@ import {
   Component,
   forwardRef,
   ReactNode,
+  useMemo,
 } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -23,9 +24,7 @@ export type PoolProvider = {
  */
 const PoolContextProvider = ({ children }: { children: ReactNode }) => {
   const pools = useSelector((state: RootState) => state.pools)
-  const provider = {
-    pools,
-  }
+  const provider = useMemo(() => ({ pools }), [pools])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }
 export default PoolContextProvider

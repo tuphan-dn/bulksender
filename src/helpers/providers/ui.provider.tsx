@@ -7,6 +7,7 @@ import {
   forwardRef,
   useCallback,
   ReactNode,
+  useMemo,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -31,7 +32,7 @@ const UIContextProvider = ({ children }: { children: ReactNode }) => {
       await dispatch(_notify(...agrs)).unwrap(),
     [dispatch],
   )
-  const provider = { ui, notify }
+  const provider = useMemo(() => ({ ui, notify }), [ui, notify])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }
 export default UIContextProvider

@@ -6,6 +6,7 @@ import {
   Component,
   forwardRef,
   ReactNode,
+  useMemo,
 } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -23,9 +24,7 @@ export type AccountProvider = {
  */
 const AccountContextProvider = ({ children }: { children: ReactNode }) => {
   const accounts = useSelector((state: RootState) => state.accounts)
-  const provider = {
-    accounts,
-  }
+  const provider = useMemo(() => ({ accounts }), [accounts])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }
 export default AccountContextProvider

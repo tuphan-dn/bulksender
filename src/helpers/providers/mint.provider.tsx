@@ -7,6 +7,7 @@ import {
   forwardRef,
   useCallback,
   ReactNode,
+  useMemo,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -34,11 +35,10 @@ const MintContextProvider = ({ children }: { children: ReactNode }) => {
       await dispatch(_getMint(...agrs)).unwrap(),
     [dispatch],
   )
-  const provider = {
-    mints,
-    getMint,
-    tokenProvider,
-  }
+  const provider = useMemo(
+    () => ({ mints, getMint, tokenProvider }),
+    [mints, getMint],
+  )
   // Context provider
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }

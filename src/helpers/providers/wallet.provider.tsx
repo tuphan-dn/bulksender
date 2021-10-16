@@ -6,6 +6,7 @@ import {
   Component,
   forwardRef,
   ReactNode,
+  useMemo,
 } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -23,9 +24,8 @@ export type WalletProvider = {
  */
 const WalletContextProvider = ({ children }: { children: ReactNode }) => {
   const wallet = useSelector((state: RootState) => state.wallet)
-  const provider = {
-    wallet,
-  }
+  console.log(wallet)
+  const provider = useMemo(() => ({ wallet }), [wallet])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }
 export default WalletContextProvider
