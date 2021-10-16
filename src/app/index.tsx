@@ -6,6 +6,8 @@ import Dashboard from 'app/dashboard'
 
 import Watcher from 'app/watcher'
 
+import 'static/styles/index.less'
+
 const View = () => {
   return (
     <Layout style={{ padding: 12, minHeight: '100vh' }}>
