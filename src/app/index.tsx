@@ -1,9 +1,7 @@
 import { Provider } from 'react-redux'
 import { UIProvider, WalletProvider } from 'senhub/providers'
-
 import PageView from './page'
 import WidgetView from './widget'
-
 import model from './model'
 
 export const Page = () => {
