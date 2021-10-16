@@ -16,10 +16,17 @@ export type SenHubManifest = Record<
 >
 
 const manifest: SenHubManifest = {
-  senhub: {
+  [appId]: {
     manifest: {
       url: `${url}/index.js`,
       scope: appId,
+      module: './',
+    },
+  },
+  senpage: {
+    manifest: {
+      url: 'https://descartesnetwork.github.io/senpage/index.js',
+      scope: 'senpage',
       module: './',
     },
   },
