@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "build": "npm run build:production",
     "build:production": "craco build",
     "build:staging": "env-cmd -f .env.staging craco build",
     "test": "craco test",
