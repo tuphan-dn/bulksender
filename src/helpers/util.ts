@@ -1,9 +1,7 @@
 import { account } from '@senswap/sen-js'
 import configs from 'configs'
 
-const {
-  sol: { cluster },
-} = configs
+const { net } = configs
 
 export const isTouchable = () => {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0
@@ -27,7 +25,7 @@ export const shortenAddress = (address: string, num = 4, delimiter = '...') => {
 
 export const explorer = (addressOrTxId: string): string => {
   if (account.isAddress(addressOrTxId)) {
-    return `https://explorer.solana.com/address/${addressOrTxId}?cluster=${cluster}`
+    return `https://explorer.solana.com/address/${addressOrTxId}?cluster=${net}`
   }
-  return `https://explorer.solana.com/tx/${addressOrTxId}?cluster=${cluster}`
+  return `https://explorer.solana.com/tx/${addressOrTxId}?cluster=${net}`
 }

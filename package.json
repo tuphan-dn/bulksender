@@ -23,11 +23,12 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build:production": "craco build",
+    "build:staging": "env-cmd -f .env.staging craco build",
     "test": "craco test",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:production",
     "deploy": "gh-pages -d build",
-    "preserve": "npm run build",
+    "preserve": "npm run build:staging",
     "serve": "serve -s build -l 3000"
   },
   "eslintConfig": {
@@ -61,6 +62,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.1",
     "craco-module-federation": "^1.1.0",
+    "env-cmd": "^10.1.0",
     "gh-pages": "^3.2.3",
     "less": "^4.1.2",
     "less-loader": "^10.1.0",

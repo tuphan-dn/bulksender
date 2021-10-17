@@ -1,4 +1,4 @@
-import { Env } from './env'
+import { Env } from './runtime'
 
 if (
   typeof process.env.REACT_APP_ID !== 'string' ||
@@ -10,7 +10,7 @@ if (
  * Contructor
  */
 
-type Config = {
+type Conf = {
   appId: string
   url: string
 }
@@ -20,7 +20,7 @@ const shared = {
   url: process.env.REACT_APP_URL,
 }
 
-const configs: Record<Env, Config> = {
+const conf: Record<Env, Conf> = {
   /**
    * Development configurations
    */
@@ -46,4 +46,4 @@ const configs: Record<Env, Config> = {
 /**
  * Module exports
  */
-export default configs
+export default conf

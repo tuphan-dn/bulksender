@@ -1,5 +1,5 @@
 const KEY = 'senhub'
-const driver = window.sessionStorage
+const driver = window.localStorage
 
 const convert = (value: string | null) => {
   if (!value) return null

@@ -1,16 +1,14 @@
-import configs from 'configs'
-
-type Sanitizer = {
-  payload: any
-  type: string
-}
-
-// Bugfix: https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/Troubleshooting.md#excessive-use-of-memory-and-cpu
+// Bugfix performance
+// https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/Troubleshooting.md#excessive-use-of-memory-and-cpu
 const devTools = (appName: string): any => {
-  if (configs.env !== 'development') return false
+  if ((process.env.REACT_APP_ENV || 'development') !== 'development')
+    return false
   return {
     name: appName,
-    actionSanitizer: ({ payload, type }: Sanitizer) => ({ payload, type }),
+    actionSanitizer: ({ payload, type }: { payload: any; type: string }) => ({
+      payload,
+      type,
+    }),
   }
 }
 

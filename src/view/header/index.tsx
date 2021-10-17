@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
 import Wallet from 'view/wallet'
 import WalletIntro from 'view/wallet/intro'
+import NetSwitch from './netSwitch'
 
 import logo from 'static/images/sen.svg'
 
@@ -29,6 +30,9 @@ const Header = () => {
               </Col>
               <Col>
                 <WalletIntro />
+              </Col>
+              <Col>
+                <NetSwitch />
               </Col>
               <Col>
                 <Wallet />
