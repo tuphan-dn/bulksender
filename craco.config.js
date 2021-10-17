@@ -29,6 +29,10 @@ module.exports = {
   ],
   webpack: {
     configure: (webpackConfig, { env, paths }) => {
+      // React Refresh
+      // https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/394#issuecomment-877708732
+      // The bug is examined by people, please follow the link for updates
+
       // Fix fully specified
       // https://github.com/webpack/webpack/issues/11467#issuecomment-808618999/
       webpackConfig.module.rules.push({
