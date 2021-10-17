@@ -23,13 +23,6 @@ const manifest: SenHubManifest = {
       module: './',
     },
   },
-  senpage: {
-    manifest: {
-      url: 'https://descartesnetwork.github.io/senpage/index.js',
-      scope: 'senpage',
-      module: './',
-    },
-  },
 }
 
 export default manifest
