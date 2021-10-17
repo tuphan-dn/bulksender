@@ -5,7 +5,6 @@
  * look for asset/resource instead of file-loader
  */
 
-
 const path = require('path')
 const { deepClone, styleRuleByName } = require('./utils')
 

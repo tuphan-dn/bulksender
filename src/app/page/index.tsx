@@ -1,8 +1,11 @@
-import { Row, Col, Typography, Button } from 'antd'
-import { AppDispatch, AppState } from 'app/model'
-import { increaseCounter } from 'app/model/main.controller'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { Row, Col, Typography, Button, Space } from 'antd'
+import { RemoteIonIcon } from 'components/ionicon'
+
+import { AppDispatch, AppState } from 'app/model'
+import { increaseCounter } from 'app/model/main.controller'
 import { useWallet } from 'senhub/providers'
 
 const Page = () => {
@@ -16,7 +19,12 @@ const Page = () => {
   return (
     <Row gutter={[24, 24]} align="middle">
       <Col span={24}>
-        <Typography.Title level={5}>Page</Typography.Title>
+        <Space align="center">
+          <RemoteIonIcon name="newspaper-outline" />
+          <Typography.Title level={4}>Page</Typography.Title>
+        </Space>
+      </Col>
+      <Col span={24}>
         <Typography.Text>Address: {address}</Typography.Text>
       </Col>
       <Col>
