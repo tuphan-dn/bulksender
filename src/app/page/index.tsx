@@ -1,8 +1,11 @@
-import { Row, Col, Typography, Button } from 'antd'
-import { AppDispatch, AppState } from 'app/model'
-import { increaseCounter } from 'app/model/main.controller'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { Row, Col, Typography, Button, Space } from 'antd'
+import { RemoteIonIcon } from 'components/ionicon'
+
+import { AppDispatch, AppState } from 'app/model'
+import { increaseCounter } from 'app/model/main.controller'
 import { useWallet } from 'senhub/providers'
 
 const Page = () => {
