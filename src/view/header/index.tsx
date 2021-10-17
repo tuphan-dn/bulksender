@@ -17,7 +17,7 @@ const Header = () => {
       <Row gutter={[24, 24]}>
         <Col span={24}>
           <Card bodyStyle={{ padding: 16 }} hoverable>
-            <Row gutter={[24, 24]} align="middle" wrap={false}>
+            <Row gutter={[16, 16]} align="middle">
               <Col flex="auto">
                 <Space
                   align="center"
