@@ -5,7 +5,8 @@ import configs from 'configs'
 import supplementary, { sen } from './supplementary'
 
 const {
-  sol: { chainId, cluster },
+  net,
+  sol: { chainId },
 } = configs
 const DELIMITER = /[\W_]+/g
 const PRESET = {
@@ -27,13 +28,13 @@ class TokenProvider {
   private tokenList: TokenInfo[]
   private engine: typeof Document | undefined
   readonly chainId: typeof chainId
-  readonly cluster: typeof cluster
+  readonly cluster: typeof net
 
   constructor() {
     this.tokenList = []
     this.engine = undefined
     this.chainId = chainId
-    this.cluster = cluster
+    this.cluster = net
     // Init
     this._init()
   }

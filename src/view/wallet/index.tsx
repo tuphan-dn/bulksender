@@ -6,7 +6,7 @@ import { Space, Typography, Button } from 'antd'
 import IonIcon from 'components/ionicon'
 import Login from './login'
 
-import storage from './lib/storage'
+import session from 'helpers/session'
 import { RootDispatch, RootState } from 'store'
 import {
   connectWallet,
@@ -27,11 +27,11 @@ const Wallet = () => {
   const { address } = useSelector((state: RootState) => state.wallet)
 
   const reconnect = () => {
-    const walletType = storage.get('WalletType')
+    const walletType = session.get('WalletType')
     if (walletType === 'SecretKey')
-      return new SecretKeyWallet(storage.get('SecretKey'))
+      return new SecretKeyWallet(session.get('SecretKey'))
     if (walletType === 'Keystore')
-      return new SecretKeyWallet(storage.get('SecretKey'))
+      return new SecretKeyWallet(session.get('SecretKey'))
     if (walletType === 'Coin98') return new Coin98Wallet()
     if (walletType === 'Phantom') return new PhantomWallet()
     if (walletType === 'Sollet') return new SolletWallet()

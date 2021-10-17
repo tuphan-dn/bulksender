@@ -1,6 +1,9 @@
 import { Row, Col, Typography } from 'antd'
 
+import configs from 'configs'
 import { useUI } from 'senhub/providers'
+
+const { env } = configs
 
 const Widget = () => {
   const {
@@ -12,7 +15,7 @@ const Widget = () => {
       <Col span={24}>
         <Typography.Title level={5}>Sen Page</Typography.Title>
         <Typography.Text>
-          Widget: {width}px - {infix}
+          Env: {env} - {width}px - {infix}
         </Typography.Text>
       </Col>
     </Row>

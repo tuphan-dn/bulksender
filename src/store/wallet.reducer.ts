@@ -26,7 +26,7 @@ export type State = {
 
 const initializeWindowSenOs = async (wallet: any) => {
   const {
-    sol: { spltAddress, splataAddress, node, swapAddress },
+    sol: { node, spltAddress, splataAddress, swapAddress },
   } = configs
   window.senos = {
     wallet: wallet,

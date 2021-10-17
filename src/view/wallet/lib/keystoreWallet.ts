@@ -3,7 +3,7 @@ import * as nacl from 'tweetnacl'
 import { account, Keystore, Provider, Signature } from '@senswap/sen-js'
 
 import BaseWallet from './baseWallet'
-import storage from './storage'
+import session from 'helpers/session'
 
 type ExpanedProvider = Provider & { keypair: Keypair }
 
@@ -18,16 +18,16 @@ class KeystoreWallet extends BaseWallet {
     const keypair = account.fromKeystore(keystore, password)
     if (!keypair) throw new Error('Invalid ketstore or password')
     const secretKey = Buffer.from(keypair.secretKey).toString('hex')
-    storage.set('SecretKey', secretKey)
+    session.set('SecretKey', secretKey)
   }
 
   getProvider = async (): Promise<ExpanedProvider> => {
-    const secretKey = storage.get('SecretKey')
+    const secretKey = session.get('SecretKey')
     const keypair = account.fromSecretKey(secretKey)
     if (!keypair) throw new Error('Cannot get the keystore-based provider')
     const provider = {
       keypair,
-      disconnect: () => storage.clear('SecretKey'),
+      disconnect: () => session.clear('SecretKey'),
     }
     return provider
   }
