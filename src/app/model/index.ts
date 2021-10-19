@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import middleware from 'store/middleware'
 import devTools from 'store/devTools'
 
-import main from 'app/model/main.controller'
+import main from 'app/model/main.reducer'
 
 /**
  * Isolated store
