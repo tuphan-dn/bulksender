@@ -5,7 +5,7 @@ import { Row, Col, Typography, Button, Space } from 'antd'
 import { RemoteIonIcon } from 'components/ionicon'
 
 import { AppDispatch, AppState } from 'app/model'
-import { increaseCounter } from 'app/model/main.reducer'
+import { increaseCounter } from 'app/model/main.controller'
 import { useWallet } from 'senhub/providers'
 
 const Page = () => {
