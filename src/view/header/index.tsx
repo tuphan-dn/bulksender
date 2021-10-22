@@ -25,7 +25,9 @@ const Header = () => {
                   style={{ cursor: 'pointer' }}
                 >
                   <Avatar src={logo} alt="logo" />
-                  <Typography.Text>Sentre</Typography.Text>
+                  <Typography.Title level={5} style={{ marginLeft: -4 }}>
+                    Sentre
+                  </Typography.Title>
                 </Space>
               </Col>
               <Col>
