@@ -5,6 +5,7 @@ import manifest from 'senhub.manifest'
 
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
+
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
