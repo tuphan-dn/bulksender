@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
-import { Space, Typography, Button } from 'antd'
+import { Button } from 'antd'
 import IonIcon from 'components/ionicon'
 import Login from './login'
 
@@ -50,17 +50,16 @@ const Wallet = () => {
 
   if (!account.isAddress(address))
     return (
-      <Space>
-        <Typography.Text style={{ fontSize: 12 }}>
-          Connect Wallet
-        </Typography.Text>
+      <Fragment>
         <Button
           type="primary"
           icon={<IonIcon name="wallet-outline" />}
           onClick={() => dispatch(openWallet())}
-        />
+        >
+          Connect Wallet
+        </Button>
         <Login />
-      </Space>
+      </Fragment>
     )
 
   return (

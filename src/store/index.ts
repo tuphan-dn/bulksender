@@ -3,6 +3,7 @@ import middleware from './middleware'
 import devTools from './devTools'
 
 import ui from './ui.reducer'
+import flags from './flags.reducer'
 import wallet from './wallet.reducer'
 import accounts from './accounts.reducer'
 import mints from './mints.reducer'
@@ -13,6 +14,7 @@ const store = configureStore({
   devTools: devTools('senhub'),
   reducer: {
     ui,
+    flags,
     wallet,
     accounts,
     mints,
