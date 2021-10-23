@@ -1,5 +1,5 @@
 {
-  "name": "senpage",
+  "name": "senhub",
   "version": "2.0.0",
   "dependencies": {
     "@project-serum/sol-wallet-adapter": "^0.2.6",
