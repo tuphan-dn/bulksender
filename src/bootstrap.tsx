@@ -1,6 +1,7 @@
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { ConfigProvider } from 'antd'
 
 import View from 'view'
 import store from 'store'
@@ -8,9 +9,11 @@ import reportWebVitals from 'reportWebVitals'
 
 render(
   <Provider store={store}>
-    <BrowserRouter>
-      <View />
-    </BrowserRouter>
+    <ConfigProvider prefixCls="sentre">
+      <BrowserRouter>
+        <View />
+      </BrowserRouter>
+    </ConfigProvider>
   </Provider>,
   document.getElementById('root'),
 )
