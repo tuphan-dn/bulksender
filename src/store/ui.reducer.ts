@@ -14,11 +14,13 @@ export type Notification = {
   description: string
   onClick?: () => void
 }
+export type NetworkStatus = 0 | 1 | 2 | 3
 
 export type State = {
   width: number
   infix: Infix
   touchable: boolean
+  networkStatus: NetworkStatus
 }
 
 const getInfix = (): Infix => {
@@ -40,6 +42,7 @@ const initialState: State = {
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
+  networkStatus: 0,
 }
 
 /**
@@ -51,6 +54,13 @@ export const resize = createAsyncThunk(`${NAME}/resize`, async () => {
   const infix = getInfix()
   return { width, infix }
 })
+
+export const setNetworkStatus = createAsyncThunk(
+  `${NAME}/setNetworkStatus`,
+  async (networkStatus: NetworkStatus) => {
+    return { networkStatus }
+  },
+)
 
 export const notify = createAsyncThunk(
   `${NAME}/notify`,
@@ -79,6 +89,10 @@ const slice = createSlice({
     void builder
       .addCase(
         resize.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        setNetworkStatus.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(

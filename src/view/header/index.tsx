@@ -1,14 +1,18 @@
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
-import Wallet from 'view/wallet'
-import WalletIntro from 'view/wallet/intro'
-import NetSwitch from './netSwitch'
+import Wallet from 'view/header/wallet'
+import Settings from 'view/header/settings'
+import WalletIntro from 'view/header/wallet/intro'
 
 import logo from 'static/images/sen.svg'
+import { RootState } from 'store'
 
 const Header = () => {
   const history = useHistory()
+  const { address } = useSelector((state: RootState) => state.wallet)
 
   const home = () => history.push('/')
 
@@ -34,10 +38,7 @@ const Header = () => {
                 <WalletIntro />
               </Col>
               <Col>
-                <NetSwitch />
-              </Col>
-              <Col>
-                <Wallet />
+                {!account.isAddress(address) ? <Wallet /> : <Settings />}
               </Col>
             </Row>
           </Card>
