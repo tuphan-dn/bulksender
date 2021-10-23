@@ -3,6 +3,7 @@ import { Layout, Row, Col } from 'antd'
 import Header from 'view/header'
 import Welcome from 'view/welcome'
 import Dashboard from 'view/dashboard'
+import Page from 'view/page'
 
 import Watcher from 'view/watcher'
 
@@ -18,7 +19,8 @@ const View = () => {
         <Col span={24}>
           <Switch>
             <Route exact path="/welcome" component={Welcome} />
-            <Route exact path="/dashboard/:appId" component={Dashboard} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/page/:appId" component={Page} />
             <Redirect from="*" to="/welcome" />
           </Switch>
         </Col>

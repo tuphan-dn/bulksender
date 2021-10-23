@@ -23,10 +23,10 @@ const manifest: SenHubManifest = {
       module: './',
     },
   },
-  senpage: {
+  bulksender: {
     manifest: {
-      url: 'https://descartesnetwork.github.io/senpage/index.js',
-      scope: 'senpage',
+      url: 'https://descartesnetwork.github.io/bulksender/index.js',
+      scope: 'bulksender',
       module: './',
     },
   },
