@@ -16,7 +16,6 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
       Buffer: ['buffer', 'Buffer'],
     }),
   )
-  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
   // Fix unrecognized change / caching problem
   webpackConfig.cache.buildDependencies.config.push(
     path.join(context.paths.appPath, './craco.config.js'),
