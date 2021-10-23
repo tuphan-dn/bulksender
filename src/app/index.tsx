@@ -7,6 +7,7 @@ import WidgetView from './widget'
 
 import configs from 'configs'
 import model from './model'
+import 'static/styles/index.less'
 
 const {
   manifest: { appId },
