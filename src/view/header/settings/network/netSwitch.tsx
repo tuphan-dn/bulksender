@@ -11,7 +11,7 @@ const NetSwitch = () => {
     window.location.reload()
   }
   return (
-    <Select defaultValue={net} onChange={onSwitch}>
+    <Select defaultValue={net} onChange={onSwitch} size="small">
       <Select.Option value="devnet">Devnet</Select.Option>
       <Select.Option value="testnet">Testnet</Select.Option>
       <Select.Option value="mainnet">Mainnet</Select.Option>

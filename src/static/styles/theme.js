@@ -3,7 +3,7 @@
 module.exports = {
   // Prefix
   '@ant-prefix': 'sentre',
-  
+
   // Colors
   '@primary-color': '#F9575E',
   '@info-color': '#37CDFA',
@@ -23,7 +23,7 @@ module.exports = {
   // '@border-color-split': 'rgba(255, 255, 255, 0.2)',
 
   // Card
-  '@card-shadow': '0px 12px 32px 0px rgba(27, 28, 38, 0.12)',
+  '@card-shadow': '0px 8px 32px 0px rgba(27, 28, 38, 0.08)',
 
   // Card
   '@card-radius': '16px',
