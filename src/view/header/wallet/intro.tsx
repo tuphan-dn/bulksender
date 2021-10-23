@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import { account, utils } from '@senswap/sen-js'
-import numeral from 'numeral'
+import numbro from 'numbro'
 
 import { Space, Typography, Tooltip, Divider } from 'antd'
 import IonIcon from 'components/ionicon'
@@ -12,7 +12,7 @@ import { RootState } from 'store'
 const WalletIntro = () => {
   const { address, lamports } = useSelector((state: RootState) => state.wallet)
 
-  const balance = numeral(utils.undecimalize(lamports, 9)).format('0.[00]')
+  const balance = numbro(utils.undecimalize(lamports, 9)).format('0.[00]')
 
   if (!account.isAddress(address)) return <Fragment />
   return (
