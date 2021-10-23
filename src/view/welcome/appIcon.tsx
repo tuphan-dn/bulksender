@@ -6,7 +6,7 @@ const AppIcon = ({ appId }: { appId: string }) => {
   const history = useHistory()
 
   const launch = useCallback(() => {
-    return history.push(`/dashboard/${appId}`)
+    return history.push(`/page/${appId}`)
   }, [history, appId])
 
   return (

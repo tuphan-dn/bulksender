@@ -15,24 +15,24 @@ const {
 
 export const Page = () => {
   return (
-    <ConfigProvider prefixCls={appId}>
-      <WalletProvider>
-        <Provider store={model}>
+    <WalletProvider>
+      <Provider store={model}>
+        <ConfigProvider prefixCls={appId}>
           <PageView />
-        </Provider>
-      </WalletProvider>
-    </ConfigProvider>
+        </ConfigProvider>
+      </Provider>
+    </WalletProvider>
   )
 }
 
 export const Widget = () => {
   return (
-    <ConfigProvider prefixCls={appId}>
-      <UIProvider>
-        <Provider store={model}>
+    <UIProvider>
+      <Provider store={model}>
+        <ConfigProvider prefixCls={appId}>
           <WidgetView />
-        </Provider>
-      </UIProvider>
-    </ConfigProvider>
+        </ConfigProvider>
+      </Provider>
+    </UIProvider>
   )
 }
