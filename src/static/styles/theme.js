@@ -1,8 +1,8 @@
 // Available vars: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
-module.exports = {
+module.exports = (appId) => ({
   // Prefix
-  '@ant-prefix': 'sentre',
+  '@ant-prefix': appId,
 
   // Colors
   '@primary-color': '#F9575E',
@@ -27,4 +27,4 @@ module.exports = {
 
   // Card
   '@card-radius': '16px',
-}
+})

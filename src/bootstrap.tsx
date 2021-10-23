@@ -1,15 +1,21 @@
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { ConfigProvider } from 'antd'
 
+import { ConfigProvider } from 'antd'
 import View from 'view'
+
+import configs from 'configs'
 import store from 'store'
 import reportWebVitals from 'reportWebVitals'
 
+const {
+  manifest: { appId },
+} = configs
+
 render(
   <Provider store={store}>
-    <ConfigProvider prefixCls="sentre">
+    <ConfigProvider prefixCls={appId}>
       <BrowserRouter>
         <View />
       </BrowserRouter>

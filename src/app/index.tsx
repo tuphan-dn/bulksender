@@ -1,27 +1,37 @@
 import { Provider } from 'react-redux'
 import { UIProvider, WalletProvider } from 'senhub/providers'
 
+import { ConfigProvider } from 'antd'
 import PageView from './page'
 import WidgetView from './widget'
 
+import configs from 'configs'
 import model from './model'
+
+const {
+  manifest: { appId },
+} = configs
 
 export const Page = () => {
   return (
-    <WalletProvider>
-      <Provider store={model}>
-        <PageView />
-      </Provider>
-    </WalletProvider>
+    <ConfigProvider prefixCls={appId}>
+      <WalletProvider>
+        <Provider store={model}>
+          <PageView />
+        </Provider>
+      </WalletProvider>
+    </ConfigProvider>
   )
 }
 
 export const Widget = () => {
   return (
-    <UIProvider>
-      <Provider store={model}>
-        <WidgetView />
-      </Provider>
-    </UIProvider>
+    <ConfigProvider prefixCls={appId}>
+      <UIProvider>
+        <Provider store={model}>
+          <WidgetView />
+        </Provider>
+      </UIProvider>
+    </ConfigProvider>
   )
 }

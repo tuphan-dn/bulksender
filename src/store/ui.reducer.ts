@@ -14,6 +14,7 @@ export type Notification = {
   description: string
   onClick?: () => void
 }
+// 0: Failed, 1: Poor, 2: Moderate, 3: Good
 export type NetworkStatus = 0 | 1 | 2 | 3
 
 export type State = {
