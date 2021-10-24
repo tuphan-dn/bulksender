@@ -1,0 +1,47 @@
+{
+  "currentNetwork": "devnet",
+  "devnet": {
+    "nodeUrl": "https://api.devnet.solana.com",
+    "payer": {
+      "address": "9JoPyhqWqtwDEmHB48hoURtMRchwbgVmyYBmje2NJqGB",
+      "secretKey": "f0becc17211a99cc543ee8ee159f4affee8fc6c57718460215745e660ca8bbbe7b6cd458a81847ea9f17df24124194b764492254a1664944e1c4713c42eb0b08"
+    },
+    "program": {
+      "address": "FjkVzT6QJCQrgoZ8VoyAqysD5Mfa73ekpXWe9zDprWRA",
+      "secretKey": "3ea8c5919e3bcccb81c82fc9191ea411ace29e9003633eb11dfe47e53f4297b1daf732456f3a47ba2dfb8e11a419ccc497e94fb37160a69e2a64e306e2467ce5"
+    }
+  },
+  "testnet": {
+    "nodeUrl": "https://api.testnet.solana.com",
+    "payer": {
+      "address": "",
+      "secretKey": ""
+    },
+    "program": {
+      "address": "",
+      "secretKey": ""
+    }
+  },
+  "mainnet": {
+    "nodeUrl": "https://api.mainnet-beta.solana.com",
+    "payer": {
+      "address": "",
+      "secretKey": ""
+    },
+    "program": {
+      "address": "",
+      "secretKey": ""
+    }
+  },
+  "custom": {
+    "nodeUrl": "http://localhost:9090",
+    "payer": {
+      "address": "",
+      "secretKey": ""
+    },
+    "program": {
+      "address": "",
+      "secretKey": ""
+    }
+  }
+}
