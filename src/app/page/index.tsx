@@ -10,11 +10,15 @@ const Page = () => {
       <Col span={24}>
         <Typography.Title level={1}>Solana Bulk Sender</Typography.Title>
       </Col>
-      <Col span={24}>
-        <MintSelection />
-      </Col>
       <Col xs={{ span: 24 }} md={{ span: 12 }}>
-        <Collector />
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+            <Collector />
+          </Col>
+          <Col span={24}>
+            <MintSelection />
+          </Col>
+        </Row>
       </Col>
       <Col xs={{ span: 24 }} md={{ span: 12 }}>
         <Row gutter={[16, 16]}>

@@ -38,7 +38,7 @@ const MintSelection = () => {
     const { amount } = accounts[accountAddress] || { amount: BigInt(0) }
     const balance = utils.undecimalize(amount, decimals)
     return setBalance(balance)
-  }, [mintAddress, walletAddress, getMint])
+  }, [mintAddress, walletAddress, getMint, accounts])
 
   useEffect(() => {
     getBalance()

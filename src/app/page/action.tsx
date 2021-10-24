@@ -93,7 +93,7 @@ const Action = () => {
       }
     }
     await setLoading(false)
-  }, [bulk, mintAddress])
+  }, [bulk, mintAddress, notify])
   // Compute bulk
   const computeBulk = useCallback(async () => {
     if (error) return setBulk([])
@@ -119,7 +119,10 @@ const Action = () => {
         mintAddress,
         wallet,
       )
+      console.log(currentBulk.length, ok)
       if (ok) newBulk[newBulk.length - 1] = simulatedBulk
+      else if (currentBulk.length <= 1)
+        throw new Error('Cannot handle transactions')
       else newBulk.push([[address, amount]])
     }
     await setBulk(newBulk)
@@ -157,7 +160,7 @@ const Action = () => {
           type="primary"
           icon={<IonIcon name="send" />}
           onClick={send}
-          // disabled={error}
+          disabled={error}
           loading={loading}
           block
         >
