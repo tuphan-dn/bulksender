@@ -14,6 +14,7 @@ type Conf = {
   senAddress: string
   swapAddress: string
   taxmanAddress: string
+  bulksenderAddress: string
 } & typeof SOLVARS
 
 const conf: Record<Net, Conf> = {
@@ -21,36 +22,39 @@ const conf: Record<Net, Conf> = {
    * Development configurations
    */
   devnet: {
+    ...SOLVARS,
     node: 'https://api.devnet.solana.com',
     chainId: 103,
     senAddress: '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
     swapAddress: '4erFSLP7oBFSVC1t35jdxmbfxEhYCKfoM6XdG2BLR3UF',
     taxmanAddress: '8UaZw2jDhJzv5V53569JbCd3bD4BnyCfBH3sjwgajGS9',
-    ...SOLVARS,
+    bulksenderAddress: 'FjkVzT6QJCQrgoZ8VoyAqysD5Mfa73ekpXWe9zDprWRA',
   },
 
   /**
    * Staging configurations
    */
   testnet: {
+    ...SOLVARS,
     node: 'https://api.testnet.solana.com',
     chainId: 102,
     senAddress: '',
     swapAddress: '',
     taxmanAddress: '',
-    ...SOLVARS,
+    bulksenderAddress: '',
   },
 
   /**
    * Production configurations
    */
   mainnet: {
+    ...SOLVARS,
     node: 'https://api.mainnet-beta.solana.com',
     chainId: 101,
     senAddress: 'SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M',
     swapAddress: 'SSW7ooZ1EbEognq5GosbygA3uWW1Hq1NsFq6TsftCFV',
     taxmanAddress: '9doo2HZQEmh2NgfT3Yx12M89aoBheycYqH1eaR5gKb3e',
-    ...SOLVARS,
+    bulksenderAddress: '',
   },
 }
 

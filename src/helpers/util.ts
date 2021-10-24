@@ -29,3 +29,11 @@ export const explorer = (addressOrTxId: string): string => {
   }
   return `https://explorer.solana.com/tx/${addressOrTxId}?cluster=${net}`
 }
+
+export const toBigInt = (number: string): bigint => {
+  try {
+    return BigInt(number)
+  } catch (er) {
+    return BigInt(0)
+  }
+}

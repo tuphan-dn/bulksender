@@ -3,9 +3,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 /**
  * Interface & Utility
  */
-
+export type TransferData = Array<[string, string]>
 export type State = {
-  counter: number
+  mintAddress: string
+  data: TransferData /* address, amount */
 }
 
 /**
@@ -14,20 +15,25 @@ export type State = {
 
 const NAME = 'main'
 const initialState: State = {
-  counter: 0,
+  mintAddress: '',
+  data: [],
 }
 
 /**
  * Actions
  */
 
-export const increaseCounter = createAsyncThunk<State, void, { state: any }>(
-  `${NAME}/increaseCounter`,
-  async (_, { getState }) => {
-    const {
-      main: { counter },
-    } = getState()
-    return { counter: counter + 1 }
+export const setData = createAsyncThunk(
+  `${NAME}/setData`,
+  async (data: TransferData) => {
+    return { data }
+  },
+)
+
+export const setMintAddress = createAsyncThunk(
+  `${NAME}/setMintAddress`,
+  async (mintAddress: string) => {
+    return { mintAddress }
   },
 )
 
@@ -40,10 +46,15 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) =>
-    void builder.addCase(
-      increaseCounter.fulfilled,
-      (state, { payload }) => void Object.assign(state, payload),
-    ),
+    void builder
+      .addCase(
+        setData.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        setMintAddress.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      ),
 })
 
 export default slice.reducer
