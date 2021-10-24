@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
+import { useUI } from 'senhub/providers'
 
 import { Row, Col, Button, Typography, Space } from 'antd'
 import IonIcon from 'components/ionicon'
 
 import configs from 'configs'
 import { AppState } from 'app/model'
-import { toBigInt } from 'helpers/util'
+import { explorer, toBigInt } from 'helpers/util'
 import { TransferData, setData } from 'app/model/main.controller'
 import Bulksender from 'app/lib'
 
@@ -20,6 +21,7 @@ const Action = () => {
   const [loading, setLoading] = useState(false)
   const [bulk, setBulk] = useState<Array<TransferData>>([])
   const { data, mintAddress } = useSelector((state: AppState) => state.main)
+  const { notify } = useUI()
 
   // Need to merge
   const duplicated = useMemo(() => {
@@ -73,12 +75,22 @@ const Action = () => {
       senos: { wallet },
     } = window
     for (const transferData of bulk) {
-      await bulksender.checkedBulkTransfer(
-        transferData.map(([_, amount]) => toBigInt(amount)),
-        transferData.map(([address, _]) => address),
-        mintAddress,
-        wallet,
-      )
+      try {
+        const { txId } = await bulksender.checkedBulkTransfer(
+          transferData.map(([_, amount]) => toBigInt(amount)),
+          transferData.map(([address, _]) => address),
+          mintAddress,
+          wallet,
+        )
+        await notify({
+          type: 'success',
+          description: 'Successfully transfer tokens. Click to view details.',
+          onClick: () => window.open(explorer(txId), '_blank'),
+        })
+        console.log(txId)
+      } catch (er) {
+        await notify({ type: 'error', description: (er as any).message })
+      }
     }
     await setLoading(false)
   }, [bulk, mintAddress])
@@ -145,7 +157,7 @@ const Action = () => {
           type="primary"
           icon={<IonIcon name="send" />}
           onClick={send}
-          disabled={error}
+          // disabled={error}
           loading={loading}
           block
         >

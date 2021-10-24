@@ -1,5 +1,11 @@
 import { Provider } from 'react-redux'
-import { UIProvider, WalletProvider, AccountProvider } from 'senhub/providers'
+import {
+  UIProvider,
+  WalletProvider,
+  AccountProvider,
+  MintProvider,
+  PoolProvider,
+} from 'senhub/providers'
 
 import { ConfigProvider } from 'antd'
 import PageView from './page'
@@ -15,26 +21,40 @@ const {
 
 export const Page = () => {
   return (
-    <WalletProvider>
-      <AccountProvider>
-        <Provider store={model}>
-          <ConfigProvider prefixCls={appId}>
-            <PageView />
-          </ConfigProvider>
-        </Provider>
-      </AccountProvider>
-    </WalletProvider>
+    <UIProvider>
+      <WalletProvider>
+        <AccountProvider>
+          <MintProvider>
+            <PoolProvider>
+              <Provider store={model}>
+                <ConfigProvider prefixCls={appId}>
+                  <PageView />
+                </ConfigProvider>
+              </Provider>
+            </PoolProvider>
+          </MintProvider>
+        </AccountProvider>
+      </WalletProvider>
+    </UIProvider>
   )
 }
 
 export const Widget = () => {
   return (
     <UIProvider>
-      <Provider store={model}>
-        <ConfigProvider prefixCls={appId}>
-          <WidgetView />
-        </ConfigProvider>
-      </Provider>
+      <WalletProvider>
+        <AccountProvider>
+          <MintProvider>
+            <PoolProvider>
+              <Provider store={model}>
+                <ConfigProvider prefixCls={appId}>
+                  <WidgetView />
+                </ConfigProvider>
+              </Provider>
+            </PoolProvider>
+          </MintProvider>
+        </AccountProvider>
+      </WalletProvider>
     </UIProvider>
   )
 }

@@ -7,10 +7,10 @@ import Representor from './representor'
 const Page = () => {
   return (
     <Row gutter={[24, 24]}>
-      <Col span={12}>
+      <Col span={24}>
         <Typography.Title level={1}>Solana Bulk Sender</Typography.Title>
       </Col>
-      <Col span={12}>
+      <Col span={24}>
         <MintSelection />
       </Col>
       <Col xs={{ span: 24 }} md={{ span: 12 }}>
