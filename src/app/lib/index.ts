@@ -46,27 +46,6 @@ class Bulksender extends Tx {
   }
 
   /**
-   * Simulate a transaction
-   * @param transaction
-   * @returns
-   */
-  private simulateTransaction = async (
-    transaction: Transaction,
-  ): Promise<boolean> => {
-    const {
-      value: { err },
-    } = await this.connection.simulateTransaction(transaction)
-    if (
-      err &&
-      (err as any).InstructionError &&
-      ((err as any).InstructionError[1] === 'ProgramFailedToComplete' ||
-        (err as any).InstructionError[1] === 'ComputationalBudgetExceeded')
-    )
-      return false
-    return true
-  }
-
-  /**
    * Checked transfer
    * @param amount Number of tokens
    * @param dstAddress Destination address (wallet address)
@@ -226,7 +205,7 @@ class Bulksender extends Tx {
    * @param dstAddresses Destination address (wallet address)
    * @param mintAddress Mint Address
    * @param wallet
-   * @returns Transaction id
+   * @returns Error
    */
   simulateBulkTransfer = async (
     amounts: bigint[],
@@ -242,7 +221,11 @@ class Bulksender extends Tx {
       wallet,
     )
     // Simulate the transaction
-    return await this.simulateTransaction(transaction)
+    const {
+      value: { err },
+    } = await this.connection.simulateTransaction(transaction)
+    if (err) return false
+    return true
   }
 
   /**

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { account } from '@senswap/sen-js'
-import { useUI } from 'senhub/providers'
+import { account, AccountData } from '@senswap/sen-js'
+import { useUI, useAccount, useWallet } from 'senhub/providers'
 
 import { Row, Col, Button, Typography, Space } from 'antd'
 import IonIcon from 'components/ionicon'
@@ -19,9 +19,16 @@ const {
 const Action = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<boolean | string>(false)
   const [bulk, setBulk] = useState<Array<TransferData>>([])
   const { data, mintAddress } = useSelector((state: AppState) => state.main)
   const { notify } = useUI()
+  const { accounts } = useAccount() as {
+    accounts: { [key: string]: AccountData }
+  }
+  const {
+    wallet: { address: walletAddress },
+  } = useWallet()
 
   // Need to merge
   const duplicated = useMemo(() => {
@@ -35,18 +42,6 @@ const Action = () => {
     if (duplicatedElements.length > 0) return true
     return false
   }, [data])
-  // No error
-  const error = useMemo(() => {
-    if (!data || !data.length) return true
-    if (!account.isAddress(mintAddress)) return true
-    const failedElements = data.filter(([address, amount]) => {
-      if (!account.isAddress(address)) return true
-      if (!toBigInt(amount)) return true
-      return false
-    })
-    if (failedElements.length > 0) return true
-    return false
-  }, [data, mintAddress])
   // Merge duplicated addresses (must call when no error)
   const merge = useCallback(async () => {
     const nextData = [] as TransferData
@@ -94,6 +89,41 @@ const Action = () => {
     }
     await setLoading(false)
   }, [bulk, mintAddress, notify])
+
+  // Checked error
+  const checkError = useCallback(async () => {
+    // Check data length
+    if (!data || !data.length) return setError(true)
+    // Check wallet address
+    if (!account.isAddress(mintAddress)) return setError(true)
+    // Check data contents
+    const failedElements = data.filter(([address, amount]) => {
+      if (!account.isAddress(address)) return true
+      if (!toBigInt(amount)) return true
+      return false
+    })
+    if (failedElements.length > 0) return setError(true)
+    // Check balance
+    const {
+      senos: { splt },
+    } = window
+    const accountAddress = await splt.deriveAssociatedAddress(
+      walletAddress,
+      mintAddress,
+    )
+    const { amount: balance } = accounts[accountAddress] || {
+      amount: BigInt(0),
+    }
+    const amount = data.reduce((a, [_, b]) => a + toBigInt(b), BigInt(0))
+    if (balance < amount) return setError('Not enough token balance')
+    // No error
+    return setError(false)
+  }, [data, mintAddress, accounts, walletAddress])
+
+  useEffect(() => {
+    checkError()
+  }, [checkError])
+
   // Compute bulk
   const computeBulk = useCallback(async () => {
     if (error) return setBulk([])
@@ -119,11 +149,13 @@ const Action = () => {
         mintAddress,
         wallet,
       )
-      console.log(currentBulk.length, ok)
       if (ok) newBulk[newBulk.length - 1] = simulatedBulk
-      else if (currentBulk.length <= 1)
-        throw new Error('Cannot handle transactions')
-      else newBulk.push([[address, amount]])
+      else if (currentBulk.length <= 1) {
+        await setError(
+          'Cannot handle the transaction. Make sure that your SOL balance is enough to pay fees.',
+        )
+        return setLoading(false)
+      } else newBulk.push([[address, amount]])
     }
     await setBulk(newBulk)
     return setLoading(false)
@@ -136,20 +168,31 @@ const Action = () => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Space>
-          <IonIcon name="information-circle-outline" />
-          <Typography.Text type={bulk.length ? undefined : 'secondary'}>
-            To send tokens to <strong>{data.length}</strong> address(es), you
-            will need to sign <strong>{bulk.length}</strong> time(s).
-          </Typography.Text>
-        </Space>
+        {typeof error === 'string' ? (
+          <Space>
+            <IonIcon
+              name="information-circle-outline"
+              style={{ color: '#F2323F' }}
+            />
+            <Typography.Text type="danger">{error}</Typography.Text>
+          </Space>
+        ) : (
+          <Space>
+            <IonIcon name="information-circle-outline" />
+            <Typography.Text type={bulk.length ? undefined : 'secondary'}>
+              To send tokens to <strong>{data.length}</strong> address(es), you
+              will need to sign <strong>{bulk.length}</strong> time(s) with the
+              total estimated fee is ~{bulk.length * 0.005} SOL.
+            </Typography.Text>
+          </Space>
+        )}
       </Col>
       <Col span={12}>
         <Button
           type="text"
           icon={<IonIcon name="git-merge-outline" />}
           onClick={merge}
-          disabled={loading || error || !duplicated}
+          disabled={loading || !!error || !duplicated}
           block
         >
           Merge
@@ -160,7 +203,7 @@ const Action = () => {
           type="primary"
           icon={<IonIcon name="send" />}
           onClick={send}
-          disabled={error}
+          disabled={!!error}
           loading={loading}
           block
         >
