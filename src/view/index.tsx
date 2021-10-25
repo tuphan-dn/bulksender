@@ -8,6 +8,7 @@ import Page from 'view/page'
 import Watcher from 'view/watcher'
 
 import 'static/styles/index.less'
+import Utility from './utility'
 
 const View = () => {
   return (
@@ -27,6 +28,7 @@ const View = () => {
       </Row>
       {/* In-Background Run Jobs */}
       <Watcher />
+      <Utility />
     </Layout>
   )
 }
