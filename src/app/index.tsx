@@ -6,7 +6,7 @@ import PageView from './page'
 import WidgetView from './widget'
 
 import configs from 'app/configs'
-import model from './model'
+import model from 'app/model'
 import 'theme/index.less'
 
 const {
