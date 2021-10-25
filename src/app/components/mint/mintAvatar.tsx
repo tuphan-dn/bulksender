@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { PoolData } from '@senswap/sen-js'
 
 import { Avatar } from 'antd'
-import IonIcon from 'components/ionicon'
+import IonIcon from 'shared/ionicon'
 
 import { usePool, useMint } from 'senhub/providers'
 

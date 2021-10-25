@@ -4,19 +4,17 @@ import { account, AccountData } from '@senswap/sen-js'
 import { useAccount, useWallet } from 'senhub/providers'
 
 import { Row, Col, Button, Typography, Space } from 'antd'
-import IonIcon from 'components/ionicon'
+import IonIcon from 'shared/ionicon'
 
-import configs from 'configs'
+import configs from 'app/configs'
 import { AppState } from 'app/model'
-import { explorer, toBigInt } from 'helpers/util'
+import { explorer, toBigInt } from 'shared/util'
 import { TransferData, setData } from 'app/model/main.controller'
 import Bulksender from 'app/lib'
 
 const {
   sol: { spltAddress, splataAddress, bulksenderAddress, node },
 } = configs
-
-console.log(configs)
 
 const Action = () => {
   const dispatch = useDispatch()

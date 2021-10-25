@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import middleware from 'store/middleware'
-import devTools from 'store/devTools'
+import middleware from 'os/store/middleware'
+import devTools from 'os/store/devTools'
 
 import main from 'app/model/main.controller'
 

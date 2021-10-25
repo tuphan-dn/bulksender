@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import Papa from 'papaparse'
 
 import { Row, Col, Upload, Space, Button, Typography } from 'antd'
-import IonIcon from 'components/ionicon'
+import IonIcon from 'shared/ionicon'
 import { TransferData, setData } from 'app/model/main.controller'
 
 const parse = (file: any): Promise<TransferData> => {

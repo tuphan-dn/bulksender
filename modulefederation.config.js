@@ -19,7 +19,6 @@ module.exports = {
     // app
     './': 'app',
     // senhub
-    './providers': 'helpers/providers',
-    './ionicon': 'components/ionicon',
+    './providers': 'os/providers',
   },
 }

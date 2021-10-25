@@ -11,8 +11,8 @@ import { ConfigProvider } from 'antd'
 import PageView from './page'
 import WidgetView from './widget'
 
-import configs from 'configs'
-import model from './model'
+import configs from 'app/configs'
+import model from 'app/model'
 import 'static/styles/index.less'
 
 const {

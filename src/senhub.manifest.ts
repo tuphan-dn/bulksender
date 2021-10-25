@@ -1,4 +1,4 @@
-import configs from 'configs'
+import configs from 'app/configs'
 
 const {
   manifest: { url, appId },

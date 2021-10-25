@@ -1,9 +1,7 @@
 import { Row, Col, Typography } from 'antd'
 
-import configs from 'configs'
+import { env } from 'shared/runtime'
 import { useUI } from 'senhub/providers'
-
-const { env } = configs
 
 const Widget = () => {
   const {

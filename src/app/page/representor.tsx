@@ -12,11 +12,11 @@ import {
   Divider,
   Space,
 } from 'antd'
-import IonIcon from 'components/ionicon'
+import IonIcon from 'shared/ionicon'
 
 import { setData } from 'app/model/main.controller'
 import { AppState } from 'app/model'
-import { toBigInt } from 'helpers/util'
+import { toBigInt } from 'shared/util'
 
 const Line = ({
   index,
