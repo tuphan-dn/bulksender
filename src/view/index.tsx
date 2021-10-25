@@ -6,9 +6,9 @@ import Dashboard from 'view/dashboard'
 import Page from 'view/page'
 
 import Watcher from 'view/watcher'
+import Utility from 'view/utility'
 
 import 'static/styles/index.less'
-import Utility from './utility'
 
 const View = () => {
   return (
