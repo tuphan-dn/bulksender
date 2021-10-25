@@ -1,4 +1,4 @@
-import storage from 'shared/storage'
+import storage from './storage'
 
 export type Env = 'development' | 'staging' | 'production'
 export const env: Env = (process.env.REACT_APP_ENV as Env) || 'development'
