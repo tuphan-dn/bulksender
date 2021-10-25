@@ -13,7 +13,7 @@ import WidgetView from './widget'
 
 import configs from 'app/configs'
 import model from 'app/model'
-import 'static/styles/index.less'
+import 'theme/index.less'
 
 const {
   manifest: { appId },

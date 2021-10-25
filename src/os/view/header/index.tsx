@@ -7,7 +7,7 @@ import Wallet from 'os/view/header/wallet'
 import Settings from 'os/view/header/settings'
 import WalletIntro from 'os/view/header/wallet/intro'
 
-import logo from 'static/images/sen.svg'
+import logo from 'os/static/images/sen.svg'
 import { RootState } from 'os/store'
 
 const Header = () => {

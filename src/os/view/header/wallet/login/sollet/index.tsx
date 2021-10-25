@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
-import SOLLET from 'static/images/sollet.png'
+import SOLLET from 'os/static/images/sollet.png'
 import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SolletWallet } from '../../lib'

@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
-import COIN98 from 'static/images/coin98.png'
+import COIN98 from 'os/static/images/coin98.png'
 import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { Coin98Wallet } from '../../lib'
