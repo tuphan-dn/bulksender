@@ -8,8 +8,8 @@ import {
 } from 'senhub/providers'
 
 import { ConfigProvider } from 'antd'
-import PageView from './page'
-import WidgetView from './widget'
+import PageView from 'app/page'
+import WidgetView from 'app/widget'
 
 import configs from 'app/configs'
 import model from 'app/model'
