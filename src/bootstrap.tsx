@@ -13,6 +13,12 @@ const {
   manifest: { appId },
 } = configs
 
+// Notification global context
+// https://ant.design/components/notification/#Why-I-can-not-access-context,-redux,-ConfigProvider-locale/prefixCls-in-notification
+ConfigProvider.config({
+  prefixCls: appId,
+})
+
 render(
   <Provider store={store}>
     <ConfigProvider prefixCls={appId}>
