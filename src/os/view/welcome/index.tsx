@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Row, Col, Typography, Avatar, Space } from 'antd'
 import AppIcon from './appIcon'
 
-import logo from 'static/images/sen.svg'
+import logo from 'os/static/images/sen.svg'
 import manifest from 'senhub.manifest'
 import { RootState } from 'os/store'
 

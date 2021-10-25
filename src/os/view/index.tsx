@@ -7,7 +7,7 @@ import Page from 'os/view/page'
 
 import Watcher from 'os/view/watcher'
 
-import 'static/styles/index.less'
+import 'theme/index.less'
 
 const View = () => {
   return (

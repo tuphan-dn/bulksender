@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
-import PHANTOM from 'static/images/phantom.png'
+import PHANTOM from 'os/static/images/phantom.png'
 import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { PhantomWallet } from '../../lib'

@@ -4,7 +4,7 @@ const CracoLessPlugin = require('./plugins/craco-less')
 const CracoModuleFederation = require('./plugins/craco-module-federation')
 const CracoCompatibility = require('./plugins/craco-compatibility')
 const CracoSilence = require('./plugins/craco-silence')
-const theme = require('./src/static/styles/theme.js')
+const theme = require('./src/theme')
 
 module.exports = {
   plugins: [
