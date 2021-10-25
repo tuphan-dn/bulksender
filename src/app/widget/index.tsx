@@ -1,10 +1,8 @@
 import { Row, Col, Typography, Space } from 'antd'
-import { RemoteIonIcon } from 'components/ionicon'
+import IonIcon from 'shared/ionicon'
 
-import configs from 'configs'
+import { env } from 'shared/runtime'
 import { useUI } from 'senhub/providers'
-
-const { env } = configs
 
 const Widget = () => {
   const {
@@ -15,7 +13,7 @@ const Widget = () => {
     <Row gutter={[24, 24]}>
       <Col span={24}>
         <Space align="center">
-          <RemoteIonIcon name="apps-outline" />
+          <IonIcon name="apps-outline" />
           <Typography.Title level={4}>Widget</Typography.Title>
         </Space>
       </Col>

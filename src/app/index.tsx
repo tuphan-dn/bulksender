@@ -5,7 +5,7 @@ import { ConfigProvider } from 'antd'
 import PageView from './page'
 import WidgetView from './widget'
 
-import configs from 'configs'
+import configs from 'app/configs'
 import model from './model'
 
 const {

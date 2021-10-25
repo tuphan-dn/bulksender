@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
-import { RemoteIonIcon } from 'components/ionicon'
+import IonIcon from 'shared/ionicon'
 
 import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'
@@ -20,7 +20,7 @@ const Page = () => {
     <Row gutter={[24, 24]} align="middle">
       <Col span={24}>
         <Space align="center">
-          <RemoteIonIcon name="newspaper-outline" />
+          <IonIcon name="newspaper-outline" />
           <Typography.Title level={4}>Page</Typography.Title>
         </Space>
       </Col>

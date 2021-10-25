@@ -3,10 +3,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import { ConfigProvider } from 'antd'
-import View from 'view'
+import View from 'os/view'
 
-import configs from 'configs'
-import store from 'store'
+import configs from 'app/configs'
+import store from 'os/store'
 import reportWebVitals from 'reportWebVitals'
 
 const {
