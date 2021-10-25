@@ -1,8 +1,8 @@
 // Available vars: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
-module.exports = (appId) => ({
+module.exports = {
   // Prefix
-  '@ant-prefix': appId,
+  '@ant-prefix': 'sentre',
 
   // Colors
   '@primary-color': '#F9575E',
@@ -23,8 +23,8 @@ module.exports = (appId) => ({
   // '@border-color-split': 'rgba(255, 255, 255, 0.2)',
 
   // Card
-  '@card-shadow': '0px 8px 32px 0px rgba(27, 28, 38, 0.08)',
+  '@card-shadow': '0px 8px 32px 0px rgba(0, 0, 0, 0.12)',
 
   // Card
   '@card-radius': '16px',
-})
+}
