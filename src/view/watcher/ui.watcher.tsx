@@ -2,6 +2,8 @@ import { Fragment, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Connection } from '@solana/web3.js'
 
+import { notification } from 'antd'
+
 import configs from 'configs'
 import { RootDispatch } from 'store'
 import { resize, setNetworkStatus } from 'store/ui.reducer'
@@ -12,8 +14,31 @@ const {
 const connection = new Connection(node)
 let intervalId: ReturnType<typeof setTimeout> | undefined
 
+export type Notification = {
+  type: 'error' | 'warning' | 'success' | 'info'
+  description: string
+  onClick?: () => void
+}
+
+declare global {
+  interface Window {
+    notify: ({ type, description, onClick }: Notification) => void
+  }
+}
+
 const UIWatcher = () => {
+  const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch<RootDispatch>()
+
+  // Notification system
+  window.notify = ({ type, description, onClick = () => {} }: Notification) => {
+    return api[type]({
+      message: type.toUpperCase(),
+      description,
+      onClick,
+      style: { cursor: 'pointer' },
+    })
+  }
 
   // Intervally ping solana cluster
   const ping = useCallback(async () => {
@@ -38,13 +63,13 @@ const UIWatcher = () => {
       if (intervalId) clearInterval(intervalId)
     }
   }, [ping])
-  
+
   // Listen window events
   useEffect(() => {
     window.onresize = () => dispatch(resize())
   }, [dispatch])
 
-  return <Fragment />
+  return <Fragment>{contextHolder}</Fragment>
 }
 
 export default UIWatcher
