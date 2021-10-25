@@ -1,10 +1,12 @@
 require('dotenv-cra').config() // https://github.com/gsoft-inc/craco/issues/180
 
-const CracoLessPlugin = require('./plugins/craco-less')
+const {
+  CracoAppLessPlugin,
+  CracoOsLessPlugin,
+} = require('./plugins/craco-less')
 const CracoModuleFederation = require('./plugins/craco-module-federation')
 const CracoCompatibility = require('./plugins/craco-compatibility')
 const CracoSilence = require('./plugins/craco-silence')
-const theme = require('./src/theme')
 
 module.exports = {
   plugins: [
@@ -12,12 +14,23 @@ module.exports = {
       plugin: CracoModuleFederation,
     },
     {
-      plugin: CracoLessPlugin,
+      plugin: CracoAppLessPlugin,
       options: {
         lessLoaderOptions: {
           lessOptions: {
             javascriptEnabled: true,
-            modifyVars: theme(process.env.REACT_APP_ID),
+            modifyVars: require('./src/app/static/styles/theme'),
+          },
+        },
+      },
+    },
+    {
+      plugin: CracoOsLessPlugin,
+      options: {
+        lessLoaderOptions: {
+          lessOptions: {
+            javascriptEnabled: true,
+            modifyVars: require('./src/os/static/styles/theme'),
           },
         },
       },
