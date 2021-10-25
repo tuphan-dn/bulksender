@@ -4,7 +4,6 @@ import { account } from '@senswap/sen-js'
 
 import { RootDispatch, RootState } from 'store'
 import { getPools, upsetPool } from 'store/pools.reducer'
-import { notify } from 'store/ui.reducer'
 import configs from 'configs'
 
 const {
@@ -26,12 +25,10 @@ const PoolWatcher = () => {
       if (!account.isAddress(walletAddress)) return
       await dispatch(getPools()).unwrap()
     } catch (er) {
-      await dispatch(
-        notify({
-          type: 'error',
-          description: 'Cannot fetch data of pools',
-        }),
-      )
+      return window.notify({
+        type: 'error',
+        description: 'Cannot fetch data of pools',
+      })
     }
   }, [dispatch, walletAddress])
   // Watch account changes

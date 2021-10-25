@@ -5,7 +5,6 @@ import { Row, Card, Col, Avatar } from 'antd'
 import PHANTOM from 'static/images/phantom.png'
 import { RootDispatch } from 'store'
 import { connectWallet } from 'store/wallet.reducer'
-import { notify } from 'store/ui.reducer'
 import { PhantomWallet } from '../../lib'
 
 const Phantom = () => {
@@ -14,18 +13,19 @@ const Phantom = () => {
   const connect = async () => {
     const { solana } = window
     if (!solana?.isPhantom)
-      return dispatch(
-        notify({
-          type: 'warning',
-          description:
-            'Phantom Wallet is not installed. If this is the first time you install Phantom wallet, please restart your browser to complete the setup.',
-        }),
-      )
+      return window.notify({
+        type: 'warning',
+        description:
+          'Phantom Wallet is not installed. If this is the first time you install Phantom wallet, please restart your browser to complete the setup.',
+      })
     const wallet = new PhantomWallet()
     try {
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er) {
-      return dispatch(notify({ type: 'error', description: (er as Error).message }))
+      return window.notify({
+        type: 'error',
+        description: (er as Error).message,
+      })
     }
   }
 

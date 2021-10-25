@@ -13,7 +13,6 @@ import {
   openWallet,
   disconnectWallet,
 } from 'store/wallet.reducer'
-import { notify } from 'store/ui.reducer'
 import {
   Coin98Wallet,
   PhantomWallet,
@@ -44,7 +43,10 @@ const Wallet = () => {
     try {
       if (wallet) dispatch(connectWallet(wallet)).unwrap()
     } catch (er) {
-      dispatch(notify({ type: 'error', description: (er as Error).message }))
+      return window.notify({
+        type: 'error',
+        description: (er as Error).message,
+      })
     }
   }, [dispatch])
 

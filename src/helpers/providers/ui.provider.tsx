@@ -5,34 +5,26 @@ import {
   cloneElement,
   Component,
   forwardRef,
-  useCallback,
   ReactNode,
   useMemo,
 } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import { RootState, RootDispatch } from 'store'
-import { notify as _notify, State as UIState } from 'store/ui.reducer'
+import { RootState } from 'store'
+import { State as UIState } from 'store/ui.reducer'
 
 const Context = createContext<UIProvider>({} as UIProvider)
 
 export type UIProvider = {
   ui: UIState
-  notify: (...agrs: Parameters<typeof _notify>) => Promise<{}>
 }
 
 /**
  * UI Context Provider
  */
 const UIContextProvider = ({ children }: { children: ReactNode }) => {
-  const dispatch = useDispatch<RootDispatch>()
   const ui = useSelector((state: RootState) => state.ui)
-  const notify = useCallback(
-    async (...agrs: Parameters<typeof _notify>) =>
-      await dispatch(_notify(...agrs)).unwrap(),
-    [dispatch],
-  )
-  const provider = useMemo(() => ({ ui, notify }), [ui, notify])
+  const provider = useMemo(() => ({ ui }), [ui])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }
 export default UIContextProvider
