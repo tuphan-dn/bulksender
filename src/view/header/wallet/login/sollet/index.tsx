@@ -5,7 +5,6 @@ import { Row, Card, Col, Avatar } from 'antd'
 import SOLLET from 'static/images/sollet.png'
 import { RootDispatch } from 'store'
 import { connectWallet } from 'store/wallet.reducer'
-import { notify } from 'store/ui.reducer'
 import { SolletWallet } from '../../lib'
 
 const Sollet = () => {
@@ -16,9 +15,10 @@ const Sollet = () => {
     try {
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er) {
-      return dispatch(
-        notify({ type: 'error', description: (er as Error).message }),
-      )
+      return window.notify({
+        type: 'error',
+        description: (er as Error).message,
+      })
     }
   }
 

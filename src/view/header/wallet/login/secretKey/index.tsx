@@ -7,7 +7,6 @@ import IonIcon from 'components/ionicon'
 
 import { RootDispatch } from 'store'
 import { connectWallet } from 'store/wallet.reducer'
-import { notify } from 'store/ui.reducer'
 import { SecretKeyWallet } from '../../lib'
 
 const SecretKey = () => {
@@ -16,19 +15,18 @@ const SecretKey = () => {
 
   const connect = async () => {
     if (!secretKey)
-      return dispatch(
-        notify({
-          type: 'warning',
-          description: 'Please enter your secret key',
-        }),
-      )
+      return window.notify({
+        type: 'warning',
+        description: 'Please enter your secret key',
+      })
     const wallet = new SecretKeyWallet(secretKey)
     try {
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er) {
-      return dispatch(
-        notify({ type: 'error', description: (er as Error).message }),
-      )
+      return window.notify({
+        type: 'error',
+        description: (er as Error).message,
+      })
     }
   }
 

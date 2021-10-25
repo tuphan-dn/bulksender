@@ -7,7 +7,6 @@ import NewKeyStore from './newKeystore'
 
 import { RootDispatch } from 'store'
 import { connectWallet } from 'store/wallet.reducer'
-import { notify } from 'store/ui.reducer'
 import { KeystoreWallet } from '../../lib'
 
 const KeyStore = () => {
@@ -33,26 +32,23 @@ const KeyStore = () => {
 
   const connect = async () => {
     if (!keystore)
-      return dispatch(
-        notify({
-          type: 'warning',
-          description: 'Please upload your keystore',
-        }),
-      )
+      return window.notify({
+        type: 'warning',
+        description: 'Please upload your keystore',
+      })
     if (!password)
-      return dispatch(
-        notify({
-          type: 'warning',
-          description: 'Please enter your password to unlock your wallet',
-        }),
-      )
+      return window.notify({
+        type: 'warning',
+        description: 'Please enter your password to unlock your wallet',
+      })
     try {
       const wallet = new KeystoreWallet(keystore as any, password)
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er) {
-      return dispatch(
-        notify({ type: 'error', description: (er as Error).message }),
-      )
+      return window.notify({
+        type: 'error',
+        description: (er as Error).message,
+      })
     }
   }
 

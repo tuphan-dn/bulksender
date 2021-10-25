@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { RootDispatch, RootState } from 'store'
-import { notify } from 'store/ui.reducer'
 import { getAccounts, upsetAccount } from 'store/accounts.reducer'
 
 // Watch id
@@ -22,12 +21,10 @@ const AccountWatcher = () => {
       if (!account.isAddress(walletAddress)) return
       await dispatch(getAccounts({ owner: walletAddress })).unwrap()
     } catch (er) {
-      await dispatch(
-        notify({
-          type: 'error',
-          description: 'Cannot fetch data of accounts',
-        }),
-      )
+      return window.notify({
+        type: 'error',
+        description: 'Cannot fetch data of accounts',
+      })
     }
   }, [dispatch, walletAddress])
   // Watch account changes

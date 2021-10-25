@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { notification } from 'antd'
 
 import { isTouchable } from 'helpers/util'
 
@@ -8,12 +7,6 @@ import { isTouchable } from 'helpers/util'
  */
 
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-
-export type Notification = {
-  type: 'error' | 'warning' | 'success' | 'info'
-  description: string
-  onClick?: () => void
-}
 // 0: Failed, 1: Poor, 2: Moderate, 3: Good
 export type NetworkStatus = 0 | 1 | 2 | 3
 
@@ -63,21 +56,6 @@ export const setNetworkStatus = createAsyncThunk(
   },
 )
 
-export const notify = createAsyncThunk(
-  `${NAME}/notify`,
-  async ({ type, description, onClick }: Notification) => {
-    if (!type) throw new Error('Notification type is not provided')
-    if (!description) throw new Error('Description is not provided')
-    notification[type]({
-      message: type.toUpperCase(),
-      description,
-      onClick,
-      style: { cursor: 'pointer' },
-    })
-    return {}
-  },
-)
-
 /**
  * Usual procedure
  */
@@ -94,10 +72,6 @@ const slice = createSlice({
       )
       .addCase(
         setNetworkStatus.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        notify.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })
