@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account, AccountData } from '@senswap/sen-js'
-import { useUI, useAccount, useWallet } from 'senhub/providers'
+import { useAccount, useWallet } from 'senhub/providers'
 
 import { Row, Col, Button, Typography, Space } from 'antd'
 import IonIcon from 'components/ionicon'
@@ -22,7 +22,6 @@ const Action = () => {
   const [error, setError] = useState<boolean | string>(false)
   const [bulk, setBulk] = useState<Array<TransferData>>([])
   const { data, mintAddress } = useSelector((state: AppState) => state.main)
-  const { notify } = useUI()
   const { accounts } = useAccount() as {
     accounts: { [key: string]: AccountData }
   }
@@ -77,18 +76,17 @@ const Action = () => {
           mintAddress,
           wallet,
         )
-        await notify({
+        window.notify({
           type: 'success',
           description: 'Successfully transfer tokens. Click to view details.',
           onClick: () => window.open(explorer(txId), '_blank'),
         })
-        console.log(txId)
       } catch (er) {
-        await notify({ type: 'error', description: (er as any).message })
+        window.notify({ type: 'error', description: (er as any).message })
       }
     }
     await setLoading(false)
-  }, [bulk, mintAddress, notify])
+  }, [bulk, mintAddress])
 
   // Checked error
   const checkError = useCallback(async () => {
