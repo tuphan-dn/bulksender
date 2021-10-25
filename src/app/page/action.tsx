@@ -16,6 +16,8 @@ const {
   sol: { spltAddress, splataAddress, bulksenderAddress, node },
 } = configs
 
+console.log(configs)
+
 const Action = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
