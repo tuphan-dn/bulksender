@@ -25,7 +25,7 @@ const initialState: State = {}
  */
 
 export const getPools = createAsyncThunk(`${NAME}/getPools`, async () => {
-  const { swap } = window.senos
+  const { swap } = window.sentre
   // Get all pools
   const value: Array<{ pubkey: PublicKey; account: AccountInfo<Buffer> }> =
     await swap.connection.getProgramAccounts(swap.swapProgramId, {
@@ -53,7 +53,7 @@ export const getPool = createAsyncThunk<
     pools: { [address]: data },
   } = getState()
   if (data) return { [address]: data }
-  const { swap } = window.senos
+  const { swap } = window.sentre
   const raw = await swap.getPoolData(address)
   return { [address]: raw }
 })

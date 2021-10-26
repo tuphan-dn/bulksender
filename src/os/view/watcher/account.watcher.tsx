@@ -32,7 +32,7 @@ const AccountWatcher = () => {
     if (!account.isAddress(walletAddress))
       return console.warn('Wallet is not connected')
     if (watchId) return console.warn('Already watched')
-    const { splt } = window.senos || {}
+    const { splt } = window.sentre || {}
     const filters = [{ memcmp: { bytes: walletAddress, offset: 32 } }]
     watchId = splt?.watch((er: string | null, re: any) => {
       if (er) return console.error(er)
@@ -58,7 +58,7 @@ const AccountWatcher = () => {
     return () => {
       ;(async () => {
         try {
-          await window.senos.splt.unwatch(watchId)
+          await window.sentre.splt.unwatch(watchId)
         } catch (er) {}
       })()
       watchId = 0

@@ -7,3 +7,14 @@ declare namespace JSX {
     'ion-icon': any
   }
 }
+
+// declare global {
+//   interface Window {
+//     sentre: {
+//       wallet: WalletInterface
+//       lamports: Lamports
+//       splt: SPLT
+//       swap: Swap
+//     }
+//   }
+// }
