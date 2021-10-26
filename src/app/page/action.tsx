@@ -66,7 +66,7 @@ const Action = () => {
       node,
     )
     const {
-      senos: { wallet },
+      sentre: { wallet },
     } = window
     for (const transferData of bulk) {
       try {
@@ -106,7 +106,7 @@ const Action = () => {
     if (failedElements.length > 0) return setError(true)
     // Check balance
     const {
-      senos: { splt },
+      sentre: { splt },
     } = window
     const accountAddress = await splt.deriveAssociatedAddress(
       walletAddress,
@@ -136,7 +136,7 @@ const Action = () => {
       node,
     )
     const {
-      senos: { wallet },
+      sentre: { wallet },
     } = window
     let currentData = [...data]
     const newBulk: Array<TransferData> = [[]]

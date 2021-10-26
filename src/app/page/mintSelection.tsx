@@ -26,7 +26,7 @@ const MintSelection = () => {
     if (!account.isAddress(mintAddress) || !account.isAddress(walletAddress))
       return setBalance('0')
     const {
-      senos: { splt },
+      sentre: { splt },
     } = window
     const {
       [mintAddress]: { decimals },
