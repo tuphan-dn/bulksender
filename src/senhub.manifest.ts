@@ -6,29 +6,19 @@ const {
 
 export type ComponentManifest = {
   url: string
-  scope: string
-  module: string
+  appId: string
 }
 
-export type SenHubManifest = Record<
-  string,
-  Record<'manifest', ComponentManifest> & any
->
+export type SenHubManifest = Record<string, ComponentManifest>
 
 const manifest: SenHubManifest = {
   [appId]: {
-    manifest: {
-      url: `${url}/index.js`,
-      scope: appId,
-      module: './',
-    },
+    url: `${url}/index.js`,
+    appId,
   },
   bulksender: {
-    manifest: {
-      url: 'https://descartesnetwork.github.io/bulksender/index.js',
-      scope: 'bulksender',
-      module: './',
-    },
+    url: 'https://descartesnetwork.github.io/bulksender/index.js',
+    appId: 'bulksender',
   },
 }
 

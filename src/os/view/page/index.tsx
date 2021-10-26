@@ -11,7 +11,7 @@ const Dashboard = () => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        <AppLoader type="Page" {...manifest[appId]} />
+        <AppLoader type="page" {...manifest[appId]} />
       </Col>
     </Row>
   )

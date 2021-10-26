@@ -1,8 +1,9 @@
-import { Suspense, forwardRef } from 'react'
+import { Suspense, forwardRef, cloneElement } from 'react'
 
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
 import { useRemoteModule } from 'react-dynamic-remote-component'
+import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 import { ComponentManifest } from 'senhub.manifest'
 
 /**
@@ -13,14 +14,18 @@ const AppLoading = () => {
 }
 
 /**
- * Remote component
+ * Remote static
  */
-const RemoteComponent = forwardRef<
+const RemoteStatic = forwardRef<
   HTMLElement,
-  { type?: string } & ComponentManifest & any
->(({ type = 'default', manifest, ...props }, ref) => {
-  const { [type]: Component } = useRemoteModule(manifest)
-  return <Component {...props} ref={ref} />
+  {
+    type?: string
+    manifest: RemoteModule
+    render: (url: string) => JSX.Element
+  }
+>(({ type = 'default', manifest, render }, ref) => {
+  const { [type]: url } = useRemoteModule(manifest)
+  return cloneElement(render(url), { ref })
 })
 
 /**
@@ -28,15 +33,35 @@ const RemoteComponent = forwardRef<
  */
 export const StaticLoader = forwardRef<
   HTMLElement,
-  { type: 'logo' | 'panel' | 'readme'; manifest: ComponentManifest }
->(({ type, manifest }, ref) => {
+  {
+    type: 'logo' | 'panel' | 'readme'
+    render: (url: string) => JSX.Element
+  } & ComponentManifest
+>(({ type, url, appId, render }, ref) => {
+  const manifest = { url, scope: appId, module: `./static` }
   return (
     <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>
-        <RemoteComponent type={type} manifest={manifest} ref={ref} />
+        <RemoteStatic
+          type={type}
+          manifest={manifest}
+          render={render}
+          ref={ref}
+        />
       </Suspense>
     </ErrorBoundary>
   )
+})
+
+/**
+ * Remote component
+ */
+const RemoteComponent = forwardRef<
+  HTMLElement,
+  { type?: string; manifest: RemoteModule }
+>(({ manifest, ...props }, ref) => {
+  const { default: Component } = useRemoteModule(manifest)
+  return <Component {...props} ref={ref} />
 })
 
 /**
@@ -44,12 +69,13 @@ export const StaticLoader = forwardRef<
  */
 const AppLoader = forwardRef<
   HTMLElement,
-  { type: 'Page' | 'Widget'; manifest: ComponentManifest } & any
->(({ type, manifest, ...props }, ref) => {
+  { type: 'page' | 'widget' } & ComponentManifest
+>(({ type, url, appId, ...props }, ref) => {
+  const manifest = { url, scope: appId, module: `./${type}` }
   return (
-    <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
+    <ErrorBoundary remoteUrl={url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>
-        <RemoteComponent type={type} manifest={manifest} {...props} ref={ref} />
+        <RemoteComponent manifest={manifest} {...props} ref={ref} />
       </Suspense>
     </ErrorBoundary>
   )

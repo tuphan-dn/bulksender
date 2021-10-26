@@ -8,7 +8,7 @@ const Dashboard = () => {
     <Row gutter={[24, 24]}>
       {Object.keys(manifest).map((appId, i) => (
         <Col key={appId + i}>
-          <AppLoader type="Widget" {...manifest[appId]} />
+          <AppLoader type="widget" {...manifest[appId]} />
         </Col>
       ))}
     </Row>
