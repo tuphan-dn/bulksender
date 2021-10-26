@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
+
 import { Row, Col } from 'antd'
 import AppLoader from 'os/components/appLoader'
+
 import manifest from 'senhub.manifest'
 
 const Dashboard = () => {

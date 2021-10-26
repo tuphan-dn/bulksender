@@ -6,6 +6,8 @@ import WidgetView from 'app/widget'
 
 import model from 'app/model'
 
+export { default as logo } from 'app/static/images/logo.png'
+
 export const Page = () => {
   return (
     <WalletProvider>

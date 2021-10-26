@@ -24,11 +24,27 @@ const RemoteComponent = forwardRef<
 })
 
 /**
+ * Static Loader
+ */
+export const StaticLoader = forwardRef<
+  HTMLElement,
+  { type: 'logo' | 'panel' | 'readme'; manifest: ComponentManifest }
+>(({ type, manifest }, ref) => {
+  return (
+    <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
+      <Suspense fallback={<AppLoading />}>
+        <RemoteComponent type={type} manifest={manifest} ref={ref} />
+      </Suspense>
+    </ErrorBoundary>
+  )
+})
+
+/**
  * App Loader
  */
 const AppLoader = forwardRef<
   HTMLElement,
-  { type: 'Page' | 'Widget' } & ComponentManifest & any
+  { type: 'Page' | 'Widget'; manifest: ComponentManifest } & any
 >(({ type, manifest, ...props }, ref) => {
   return (
     <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
