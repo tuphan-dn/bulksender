@@ -4,11 +4,6 @@ import { decode } from 'bs58'
 
 import BaseWallet from './baseWallet'
 
-declare global {
-  interface Window {
-    coin98: any
-  }
-}
 
 class Coin98Wallet extends BaseWallet {
   constructor() {

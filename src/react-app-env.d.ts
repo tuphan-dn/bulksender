@@ -1,20 +1,34 @@
 /// <reference types="react-scripts" />
 
+// Declare global
+type SentreNotification = {
+  type: 'error' | 'warning' | 'success' | 'info'
+  description: string
+  onClick?: () => void
+}
+interface Window {
+  // Sentre
+  sentre: {
+    wallet: import('@senswap/sen-js').WalletInterface
+    lamports: import('@senswap/sen-js').Lamports
+    splt: import('@senswap/sen-js').SPLT
+    swap: import('@senswap/sen-js').Swap
+  }
+  // Utility
+  notify: ({ type, description, onClick }: SentreNotification) => void
+  // Partner wallet
+  coin98: any
+  solana: any
+  Slope: any
+}
+
+// Declare module
 declare module 'senhub/*'
 declare module 'flexsearch'
+
+// Declare namespace
 declare namespace JSX {
   interface IntrinsicElements {
     'ion-icon': any
   }
 }
-
-// declare global {
-//   interface Window {
-//     sentre: {
-//       wallet: WalletInterface
-//       lamports: Lamports
-//       splt: SPLT
-//       swap: Swap
-//     }
-//   }
-// }

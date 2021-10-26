@@ -1,22 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Lamports, SPLT, Swap, WalletInterface } from '@senswap/sen-js'
+import { Lamports, SPLT, Swap } from '@senswap/sen-js'
 
 import configs from 'os/configs'
 
 /**
  * Interface & Utility
  */
-
-declare global {
-  interface Window {
-    sentre: {
-      wallet: WalletInterface
-      lamports: Lamports
-      splt: SPLT
-      swap: Swap
-    }
-  }
-}
 
 export type State = {
   visible: boolean
