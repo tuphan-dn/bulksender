@@ -11,15 +11,15 @@ const WidgetLayout = () => {
   console.log(dndContext)
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[16, 16]}>
       {Object.keys(manifest).map((appId, i) => (
         <Col key={appId + i}>
           <StaticLoader
             type="logo"
             {...manifest[appId]}
-            render={(url) => (
+            render={(src) => (
               <Avatar
-                src={url}
+                src={src}
                 shape="square"
                 size={64}
                 style={{ cursor: 'pointer' }}
