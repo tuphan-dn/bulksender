@@ -18,7 +18,12 @@ const WidgetLayout = () => {
             type="logo"
             {...manifest[appId]}
             render={(url) => (
-              <Avatar src={url} shape="square" size={64}>
+              <Avatar
+                src={url}
+                shape="square"
+                size={64}
+                style={{ cursor: 'pointer' }}
+              >
                 <IonIcon name="image-outline" />
               </Avatar>
             )}
