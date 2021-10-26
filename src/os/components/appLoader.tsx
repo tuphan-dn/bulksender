@@ -1,4 +1,4 @@
-import { Suspense, forwardRef } from 'react'
+import { Suspense, forwardRef, cloneElement } from 'react'
 
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
@@ -17,10 +17,25 @@ const AppLoading = () => {
  */
 const RemoteComponent = forwardRef<
   HTMLElement,
-  { type?: string } & ComponentManifest & any
+  { type?: string; manifest: ComponentManifest }
 >(({ type = 'default', manifest, ...props }, ref) => {
   const { [type]: Component } = useRemoteModule(manifest)
   return <Component {...props} ref={ref} />
+})
+
+/**
+ * Remote static
+ */
+const RemoteStatic = forwardRef<
+  HTMLElement,
+  {
+    type?: string
+    manifest: ComponentManifest
+    render: (url: string) => JSX.Element
+  }
+>(({ type = 'default', manifest, render }, ref) => {
+  const { [type]: url } = useRemoteModule(manifest)
+  return cloneElement(render(url), { ref })
 })
 
 /**
@@ -28,12 +43,21 @@ const RemoteComponent = forwardRef<
  */
 export const StaticLoader = forwardRef<
   HTMLElement,
-  { type: 'logo' | 'panel' | 'readme'; manifest: ComponentManifest }
->(({ type, manifest }, ref) => {
+  {
+    type: 'logo' | 'panel' | 'readme'
+    manifest: ComponentManifest
+    render: (url: string) => JSX.Element
+  }
+>(({ type, manifest, render }, ref) => {
   return (
     <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>
-        <RemoteComponent type={type} manifest={manifest} ref={ref} />
+        <RemoteStatic
+          type={type}
+          manifest={manifest}
+          render={render}
+          ref={ref}
+        />
       </Suspense>
     </ErrorBoundary>
   )
@@ -44,7 +68,7 @@ export const StaticLoader = forwardRef<
  */
 const AppLoader = forwardRef<
   HTMLElement,
-  { type: 'Page' | 'Widget'; manifest: ComponentManifest } & any
+  { type: 'Page' | 'Widget'; manifest: ComponentManifest }
 >(({ type, manifest, ...props }, ref) => {
   return (
     <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
