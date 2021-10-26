@@ -103,6 +103,10 @@ const Add = ({
   const onAmount = (val: string) => {
     return onChange({ ...value, amount: val })
   }
+  const onCallback = () => {
+    if (!account.isAddress(address) || !toBigInt(amount)) return
+    return onClick()
+  }
   return (
     <Row gutter={[16, 8]} align="middle" wrap={false}>
       <Col span={12}>
@@ -115,7 +119,7 @@ const Add = ({
         <Button
           type="primary"
           icon={<IonIcon name="add-outline" />}
-          onClick={onClick}
+          onClick={onCallback}
         />
       </Col>
     </Row>
