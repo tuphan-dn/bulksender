@@ -1,6 +1,16 @@
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import { Row, Col, Button, Popover, Typography, Divider, Badge } from 'antd'
+import {
+  Row,
+  Col,
+  Button,
+  Popover,
+  Typography,
+  Divider,
+  Badge,
+  Tooltip,
+} from 'antd'
 import IonIcon from 'shared/ionicon'
 import Wallet from '../wallet'
 import Mode from './mode'
@@ -8,15 +18,31 @@ import Network, { parseType } from './network'
 
 import { RootState } from 'os/store'
 
-const Settings = () => {
+const QuickSettings = () => {
+  const history = useHistory()
   const { networkStatus } = useSelector((state: RootState) => state.ui)
 
   const content = (
     <Row gutter={[16, 16]} style={{ maxWidth: 300 }}>
       <Col span={24}>
-        <Typography.Title level={5} type="secondary">
-          System Settings
-        </Typography.Title>
+        <Row gutter={[16, 16]} align="middle">
+          <Col flex="auto">
+            <Typography.Title level={5} type="secondary">
+              Quick Settings
+            </Typography.Title>
+          </Col>
+          <Col>
+            <Tooltip title="Go to Settings">
+              <Button
+                // type="secondary"
+                size="small"
+                icon={<IonIcon name="open-outline" />}
+                onClick={() => history.push('/settings')}
+                block
+              />
+            </Tooltip>
+          </Col>
+        </Row>
       </Col>
       <Col span={24}>
         <Mode />
@@ -46,4 +72,4 @@ const Settings = () => {
   )
 }
 
-export default Settings
+export default QuickSettings

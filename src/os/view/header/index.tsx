@@ -4,7 +4,7 @@ import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
 import Wallet from 'os/view/header/wallet'
-import Settings from 'os/view/header/settings'
+import QuickSettings from 'os/view/header/quickSettings'
 import WalletIntro from 'os/view/header/wallet/intro'
 
 import logo from 'os/static/images/sen.svg'
@@ -38,7 +38,7 @@ const Header = () => {
                 <WalletIntro />
               </Col>
               <Col>
-                {!account.isAddress(address) ? <Wallet /> : <Settings />}
+                {!account.isAddress(address) ? <Wallet /> : <QuickSettings />}
               </Col>
             </Row>
           </Card>

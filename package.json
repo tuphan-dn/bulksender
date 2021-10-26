@@ -2,6 +2,7 @@
   "name": "senhub",
   "version": "2.0.0",
   "dependencies": {
+    "@dnd-kit/core": "^4.0.1",
     "@project-serum/sol-wallet-adapter": "^0.2.6",
     "@reduxjs/toolkit": "^1.6.2",
     "@senswap/sen-js": "^1.1.0",

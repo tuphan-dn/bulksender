@@ -19,6 +19,8 @@ const {
   manifest: { appId },
 } = configs
 
+export { default as logo } from 'app/static/images/logo.png'
+
 export const Page = () => {
   return (
     <UIProvider>
