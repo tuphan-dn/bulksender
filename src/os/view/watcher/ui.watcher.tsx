@@ -14,24 +14,16 @@ const {
 const connection = new Connection(node)
 let intervalId: ReturnType<typeof setTimeout> | undefined
 
-export type Notification = {
-  type: 'error' | 'warning' | 'success' | 'info'
-  description: string
-  onClick?: () => void
-}
-
-declare global {
-  interface Window {
-    notify: ({ type, description, onClick }: Notification) => void
-  }
-}
-
 const UIWatcher = () => {
   const [api, contextHolder] = notification.useNotification()
   const dispatch = useDispatch<RootDispatch>()
 
   // Notification system
-  window.notify = ({ type, description, onClick = () => {} }: Notification) => {
+  window.notify = ({
+    type,
+    description,
+    onClick = () => {},
+  }: SentreNotification) => {
     return api[type]({
       message: type.toUpperCase(),
       description,

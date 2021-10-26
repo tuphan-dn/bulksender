@@ -5,12 +5,6 @@ import { decode, encode } from 'bs58'
 
 import BaseWallet from './baseWallet'
 
-declare global {
-  interface Window {
-    Slope: any
-  }
-}
-
 class SlopeWallet extends BaseWallet {
   private provider: any
   constructor() {

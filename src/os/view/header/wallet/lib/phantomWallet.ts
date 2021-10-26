@@ -4,12 +4,6 @@ import { account, Signature, SignedMessage } from '@senswap/sen-js'
 
 import BaseWallet from './baseWallet'
 
-declare global {
-  interface Window {
-    solana: any
-  }
-}
-
 class PhantomWallet extends BaseWallet {
   constructor() {
     super('Phantom')
