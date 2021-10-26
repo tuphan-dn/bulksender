@@ -17,7 +17,9 @@ module.exports = {
   },
   exposes: {
     // app
-    './': 'app',
+    './page': 'app/page.app',
+    './widget': 'app/widget.app',
+    './static': 'app/static.app',
     // senhub
     './providers': 'os/providers',
   },

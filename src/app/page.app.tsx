@@ -9,7 +9,6 @@ import {
 
 import { ConfigProvider } from 'antd'
 import PageView from 'app/page'
-import WidgetView from 'app/widget'
 
 import configs from 'app/configs'
 import model from 'app/model'
@@ -19,9 +18,7 @@ const {
   manifest: { appId },
 } = configs
 
-export { default as logo } from 'app/static/images/logo.png'
-
-export const Page = () => {
+const Page = () => {
   return (
     <UIProvider>
       <WalletProvider>
@@ -41,22 +38,4 @@ export const Page = () => {
   )
 }
 
-export const Widget = () => {
-  return (
-    <UIProvider>
-      <WalletProvider>
-        <AccountProvider>
-          <MintProvider>
-            <PoolProvider>
-              <Provider store={model}>
-                <ConfigProvider prefixCls={appId}>
-                  <WidgetView />
-                </ConfigProvider>
-              </Provider>
-            </PoolProvider>
-          </MintProvider>
-        </AccountProvider>
-      </WalletProvider>
-    </UIProvider>
-  )
-}
+export default Page

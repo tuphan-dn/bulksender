@@ -1,8 +1,8 @@
-
 import { Row, Col, Avatar } from 'antd'
 import { StaticLoader } from 'os/components/appLoader'
 
 import manifest from 'senhub.manifest'
+import IonIcon from 'shared/ionicon'
 
 const WidgetLayout = () => {
   return (
@@ -12,7 +12,11 @@ const WidgetLayout = () => {
           <StaticLoader
             type="logo"
             {...manifest[appId]}
-            render={(url) => <Avatar src={url} shape="square" size="large" />}
+            render={(url) => (
+              <Avatar src={url} shape="square" size={64}>
+                <IonIcon name="image-outline" />
+              </Avatar>
+            )}
           />
         </Col>
       ))}
