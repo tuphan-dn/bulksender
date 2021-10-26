@@ -40,7 +40,7 @@ export const StaticLoader = forwardRef<
 >(({ type, url, appId, render }, ref) => {
   const manifest = { url, scope: appId, module: `./static` }
   return (
-    <ErrorBoundary remoteUrl={manifest?.url || 'Unknown'}>
+    <ErrorBoundary remoteUrl={url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>
         <RemoteStatic
           type={type}
