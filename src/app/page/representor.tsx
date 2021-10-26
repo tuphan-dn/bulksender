@@ -127,10 +127,11 @@ const Representor = () => {
   const [record, setRecord] = useState({ address: '', amount: '' })
   const { data } = useSelector((state: AppState) => state.main)
 
-  const add = () => {
+  const add = async () => {
     const nextData = [...data]
     nextData.push([record.address, record.amount])
-    return dispatch(setData(nextData))
+    await dispatch(setData(nextData))
+    return setRecord({ address: '', amount: '' })
   }
   const remove = (index: number) => {
     const nextData = [...data]
