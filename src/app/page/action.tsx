@@ -93,7 +93,8 @@ const Action = () => {
     // Check data length
     if (!data || !data.length) return setError(true)
     // Check wallet address
-    if (!account.isAddress(mintAddress)) return setError(true)
+    if (!account.isAddress(mintAddress))
+      return setError('Please connect your wallet')
     // Check data contents
     const failedElements = data.filter(([address, amount]) => {
       if (!account.isAddress(address)) return true

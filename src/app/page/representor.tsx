@@ -11,12 +11,15 @@ import {
   Tooltip,
   Divider,
   Space,
+  Input,
 } from 'antd'
 import IonIcon from 'shared/ionicon'
+import NumericInput from 'shared/numericInput'
 
 import { setData } from 'app/model/main.controller'
 import { AppState } from 'app/model'
 import { toBigInt } from 'shared/util'
+import { ChangeEvent, useState } from 'react'
 
 const Line = ({
   index,
@@ -29,7 +32,7 @@ const Line = ({
   index: number
   address: string
   amount: string
-  onClick: (index: number) => void
+  onClick?: (index: number) => void
   warning?: string
   error?: string
 }) => {
@@ -84,10 +87,51 @@ const Line = ({
   )
 }
 
+const Add = ({
+  value,
+  onClick = () => {},
+  onChange = () => {},
+}: {
+  value: { address: string; amount: string }
+  onClick?: () => void
+  onChange?: (value: { address: string; amount: string }) => void
+}) => {
+  const { address, amount } = value
+  const onAddress = (e: ChangeEvent<HTMLInputElement>) => {
+    return onChange({ ...value, address: e.target.value })
+  }
+  const onAmount = (val: string) => {
+    return onChange({ ...value, amount: val })
+  }
+  return (
+    <Row gutter={[16, 8]} align="middle" wrap={false}>
+      <Col span={12}>
+        <Input placeholder="Address" value={address} onChange={onAddress} />
+      </Col>
+      <Col flex="auto">
+        <NumericInput placeholder="Amount" value={amount} onChange={onAmount} />
+      </Col>
+      <Col>
+        <Button
+          type="primary"
+          icon={<IonIcon name="add-outline" />}
+          onClick={onClick}
+        />
+      </Col>
+    </Row>
+  )
+}
+
 const Representor = () => {
   const dispatch = useDispatch()
+  const [record, setRecord] = useState({ address: '', amount: '' })
   const { data } = useSelector((state: AppState) => state.main)
 
+  const add = () => {
+    const nextData = [...data]
+    nextData.push([record.address, record.amount])
+    return dispatch(setData(nextData))
+  }
   const remove = (index: number) => {
     const nextData = [...data]
     nextData.splice(index, 1)
@@ -136,6 +180,9 @@ const Representor = () => {
             </Col>
           )
         })}
+        <Col span={24}>
+          <Add value={record} onChange={setRecord} onClick={add} />
+        </Col>
       </Row>
     </Card>
   )
