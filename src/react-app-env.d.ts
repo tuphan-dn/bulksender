@@ -21,6 +21,9 @@ interface Window {
   solana: any
   Slope: any
 }
+interface BigInt {
+  toJSON: (this: bigint) => string
+}
 
 // Declare module
 declare module 'senhub/*'

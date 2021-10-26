@@ -1,9 +1,10 @@
 import { Suspense, forwardRef, cloneElement } from 'react'
+import { useRemoteModule } from 'react-dynamic-remote-component'
+import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
-import { useRemoteModule } from 'react-dynamic-remote-component'
-import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
+
 import { ComponentManifest } from 'senhub.manifest'
 
 /**

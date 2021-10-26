@@ -2,9 +2,9 @@ import { useDndContext } from '@dnd-kit/core'
 
 import { Row, Col, Avatar } from 'antd'
 import { StaticLoader } from 'os/components/appLoader'
+import IonIcon from 'shared/ionicon'
 
 import manifest from 'senhub.manifest'
-import IonIcon from 'shared/ionicon'
 
 const WidgetLayout = () => {
   const dndContext = useDndContext()
