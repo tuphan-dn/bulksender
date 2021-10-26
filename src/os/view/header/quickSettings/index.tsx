@@ -34,9 +34,8 @@ const QuickSettings = () => {
           <Col>
             <Tooltip title="Go to Settings">
               <Button
-                // type="secondary"
                 size="small"
-                icon={<IonIcon name="open-outline" />}
+                icon={<IonIcon name="file-tray-full-outline" />}
                 onClick={() => history.push('/settings')}
                 block
               />

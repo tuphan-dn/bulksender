@@ -15,18 +15,18 @@ const AppLoading = () => {
 }
 
 /**
- * Remote static
+ * Remote Static
  */
 const RemoteStatic = forwardRef<
   HTMLElement,
   {
     type?: string
     manifest: RemoteModule
-    render: (url: string) => JSX.Element
+    render: (src: string) => JSX.Element
   }
 >(({ type = 'default', manifest, render }, ref) => {
-  const { [type]: url } = useRemoteModule(manifest)
-  return cloneElement(render(url), { ref })
+  const { [type]: src } = useRemoteModule(manifest)
+  return cloneElement(render(src), { ref })
 })
 
 /**
@@ -39,7 +39,7 @@ export const StaticLoader = forwardRef<
     render: (url: string) => JSX.Element
   } & ComponentManifest
 >(({ type, url, appId, render }, ref) => {
-  const manifest = { url, scope: appId, module: `./static` }
+  const manifest = { url, scope: appId, module: `./static.${appId}` }
   return (
     <ErrorBoundary remoteUrl={url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>
@@ -72,7 +72,7 @@ const AppLoader = forwardRef<
   HTMLElement,
   { type: 'page' | 'widget' } & ComponentManifest
 >(({ type, url, appId, ...props }, ref) => {
-  const manifest = { url, scope: appId, module: `./${type}` }
+  const manifest = { url, scope: appId, module: `./${type}.${appId}` }
   return (
     <ErrorBoundary remoteUrl={url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>
