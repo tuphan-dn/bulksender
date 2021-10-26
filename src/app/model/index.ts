@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import middleware from 'os/store/middleware'
-import devTools from 'os/store/devTools'
+import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
 
 import main from 'app/model/main.controller'
 
@@ -8,7 +7,8 @@ import main from 'app/model/main.controller'
  * Isolated store
  */
 const model = configureStore({
-  middleware,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware(bigintSerializationMiddleware),
   devTools: devTools('myapp'),
   reducer: {
     main,

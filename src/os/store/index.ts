@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import middleware from './middleware'
-import devTools from './devTools'
+import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
 
 import ui from './ui.reducer'
 import flags from './flags.reducer'
@@ -10,7 +9,8 @@ import mints from './mints.reducer'
 import pools from './pools.reducer'
 
 const store = configureStore({
-  middleware,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware(bigintSerializationMiddleware),
   devTools: devTools('senhub'),
   reducer: {
     ui,
