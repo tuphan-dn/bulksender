@@ -30,7 +30,7 @@ export const getMint = createAsyncThunk<
     } = getState()
     if (data) return { [address]: data }
   }
-  const { splt } = window.senos
+  const { splt } = window.sentre
   const raw = await splt.getMintData(address)
   return { [address]: raw }
 })

@@ -23,7 +23,7 @@ export const getAccounts = createAsyncThunk(
   async ({ owner }: { owner: string }) => {
     if (!account.isAddress(owner))
       throw new Error('Invalid owner/wallet address')
-    const { splt } = window.senos
+    const { splt } = window.sentre
     const ownerPublicKey = account.fromAddress(owner)
     const { value } = await splt.connection.getTokenAccountsByOwner(
       ownerPublicKey,
@@ -49,7 +49,7 @@ export const getAccount = createAsyncThunk<
     accounts: { [address]: data },
   } = getState()
   if (data) return { [address]: data }
-  const { splt } = window.senos
+  const { splt } = window.sentre
   const raw = await splt.getAccountData(address)
   return { [address]: raw }
 })

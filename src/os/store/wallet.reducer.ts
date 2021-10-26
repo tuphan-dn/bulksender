@@ -9,7 +9,7 @@ import configs from 'os/configs'
 
 declare global {
   interface Window {
-    senos: {
+    sentre: {
       wallet: WalletInterface
       lamports: Lamports
       splt: SPLT
@@ -28,7 +28,7 @@ const initializeWindowSenOs = async (wallet: any) => {
   const {
     sol: { node, spltAddress, splataAddress, swapAddress },
   } = configs
-  window.senos = {
+  window.sentre = {
     wallet: wallet,
     lamports: new Lamports(node),
     splt: new SPLT(spltAddress, splataAddress, node),
@@ -37,7 +37,7 @@ const initializeWindowSenOs = async (wallet: any) => {
 }
 
 const destroyWindowSenOs = async () => {
-  if (window.senos?.wallet) window.senos.wallet.disconnect()
+  if (window.sentre?.wallet) window.sentre.wallet.disconnect()
   await initializeWindowSenOs(null)
 }
 
@@ -70,7 +70,7 @@ export const connectWallet = createAsyncThunk(
     if (!wallet) throw new Error('Invalid wallet instance')
     await initializeWindowSenOs(wallet)
     const address = await wallet.getAddress()
-    const lamports = await window.senos.lamports.getLamports(address)
+    const lamports = await window.sentre.lamports.getLamports(address)
     return { address, lamports: BigInt(lamports), visible: false }
   },
 )

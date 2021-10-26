@@ -15,14 +15,14 @@ const WalletWatcher = () => {
   const watchData = useCallback(async () => {
     if (!account.isAddress(address)) {
       try {
-        await window.senos.lamports.unwatch(watchId)
+        await window.sentre.lamports.unwatch(watchId)
       } catch (er) {
         /* Nothing */
       }
       watchId = null
     } else {
       if (watchId) return console.warn('Already watched')
-      watchId = window.senos.lamports.watch(
+      watchId = window.sentre.lamports.watch(
         address,
         (er: string | null, re: number | null) => {
           if (er) return console.warn(er)
