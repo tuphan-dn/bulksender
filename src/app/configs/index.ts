@@ -1,9 +1,7 @@
-import { env, net } from 'shared/runtime'
-import manifest from './manifest.config'
+import { net } from 'shared/runtime'
 import sol from './sol.config'
 
 const configs = {
-  manifest: manifest[env],
   sol: sol[net],
 }
 
