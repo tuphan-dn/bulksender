@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 
-import { Row, Col, Drawer, Button } from 'antd'
+import { Row, Col, Drawer, Button, Switch } from 'antd'
 import IonIcon from 'shared/ionicon'
 import WalletIntro from './walletIntro'
 import WidgetLayout from './widgetLayout'
@@ -8,6 +8,8 @@ import WidgetLayout from './widgetLayout'
 import register from 'senhub.register'
 
 const ControlCenter = () => {
+  const [editable, setEditable] = useState(false)
+  const [pages, setPages] = useState([Object.keys(register), []])
   const [visible, setVisible] = useState(true)
 
   return (
@@ -27,7 +29,14 @@ const ControlCenter = () => {
             <WalletIntro />
           </Col>
           <Col span={24}>
-            <WidgetLayout pages={[Object.keys(register), []]} />
+            <Switch onChange={setEditable} size="small" />
+          </Col>
+          <Col span={24}>
+            <WidgetLayout
+              pages={pages}
+              onChange={setPages}
+              disabled={!editable}
+            />
           </Col>
         </Row>
       </Drawer>

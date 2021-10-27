@@ -30,9 +30,11 @@ const mixedStrategy = (
 const WidgetLayout = ({
   pages,
   onChange = () => {},
+  disabled = false,
 }: {
   pages: string[][]
   onChange?: (pages: string[][]) => void
+  disabled?: boolean
 }) => {
   const [internalPages, setInternalPages] = useState(pages)
   const [activeId, setActiveId] = useState<string>('')
@@ -108,20 +110,20 @@ const WidgetLayout = ({
       onDragEnd={onDragEnd}
     >
       <Row gutter={[16, 16]}>
-        <Col span={24}>
-          {internalPages.map((appIds, i) => (
-            <DroppablePage key={i} index={i} items={appIds}>
-              {appIds.map((appId, i) => (
-                <DraggableIcon key={appId} appId={appId} />
+        {internalPages.map((appIds, i) => (
+          <Col key={i} span={24}>
+            <DroppablePage index={i} items={appIds} disabled={disabled}>
+              {appIds.map((appId) => (
+                <DraggableIcon key={appId} appId={appId} disabled={disabled} />
               ))}
             </DroppablePage>
-          ))}
-        </Col>
+          </Col>
+        ))}
       </Row>
       <DragOverlay>
         {activeId ? (
           <span style={{ opacity: 0.5 }}>
-            <AppIcon appId={activeId} />{' '}
+            <AppIcon appId={activeId} />
           </span>
         ) : null}
       </DragOverlay>
