@@ -1,3 +1,9 @@
+import configs from 'app/configs'
+
+const {
+  manifest: { url, appId },
+} = configs
+
 export type ComponentManifest = {
   url: string
   appId: string
@@ -7,9 +13,9 @@ export type ComponentManifest = {
 export type SenHubRegister = Record<string, ComponentManifest>
 
 const register: SenHubRegister = {
-  [process.env.REACT_APP_ID as string]: {
-    url: `${process.env.REACT_APP_URL}/index.js`,
-    appId: process.env.REACT_APP_ID as string,
+  [appId]: {
+    url: `${url}/index.js`,
+    appId,
     name: 'My App',
   },
 }
