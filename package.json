@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "dependencies": {
     "@dnd-kit/core": "^4.0.1",
+    "@dnd-kit/sortable": "^5.0.0",
     "@project-serum/sol-wallet-adapter": "^0.2.6",
     "@reduxjs/toolkit": "^1.6.2",
     "@senswap/sen-js": "^1.1.0",

@@ -26,7 +26,7 @@ const RemoteStatic = forwardRef<
   }
 >(({ type = 'default', manifest, render }, ref) => {
   const { [type]: src } = useRemoteModule(manifest)
-  return cloneElement(render(src), { ref })
+  return cloneElement(render(src), ref ? { ref } : {})
 })
 
 /**
