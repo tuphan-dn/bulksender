@@ -4,7 +4,7 @@ import { Row, Col, Avatar } from 'antd'
 import { StaticLoader } from 'os/components/appLoader'
 import IonIcon from 'shared/ionicon'
 
-import manifest from 'senhub.manifest'
+import register from 'senhub.register'
 
 const WidgetLayout = () => {
   const dndContext = useDndContext()
@@ -12,11 +12,11 @@ const WidgetLayout = () => {
 
   return (
     <Row gutter={[16, 16]}>
-      {Object.keys(manifest).map((appId, i) => (
+      {Object.keys(register).map((appId, i) => (
         <Col key={appId + i}>
           <StaticLoader
             type="logo"
-            {...manifest[appId]}
+            {...register[appId]}
             render={(src) => (
               <Avatar
                 src={src}

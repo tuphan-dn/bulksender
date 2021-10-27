@@ -4,7 +4,7 @@ import { Row, Col, Typography, Avatar, Space } from 'antd'
 import AppIcon from './appIcon'
 
 import logo from 'os/static/images/sen.svg'
-import manifest from 'senhub.manifest'
+import register from 'senhub.register'
 import { RootState } from 'os/store'
 
 const Welcome = () => {
@@ -25,7 +25,7 @@ const Welcome = () => {
       </Col>
       <Col span={24}>
         <Row gutter={[24, 24]}>
-          {Object.keys(manifest).map((appId) => (
+          {Object.keys(register).map((appId) => (
             <Col key={appId}>
               <AppIcon appId={appId} />
             </Col>
