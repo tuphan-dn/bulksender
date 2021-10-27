@@ -5,6 +5,8 @@ import IonIcon from 'shared/ionicon'
 import WalletIntro from './walletIntro'
 import WidgetLayout from './widgetLayout'
 
+import register from 'senhub.register'
+
 const ControlCenter = () => {
   const [visible, setVisible] = useState(true)
 
@@ -25,7 +27,7 @@ const ControlCenter = () => {
             <WalletIntro />
           </Col>
           <Col span={24}>
-            <WidgetLayout />
+            <WidgetLayout pages={[Object.keys(register), []]} />
           </Col>
         </Row>
       </Drawer>

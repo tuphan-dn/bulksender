@@ -19,8 +19,6 @@ import AppIcon from 'os/components/appIcon'
 import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
 
-import register from 'senhub.register'
-
 // Mixed Strategy
 const mixedStrategy = (
   ...args: Parameters<typeof rectIntersection | typeof closestCorners>
@@ -29,8 +27,14 @@ const mixedStrategy = (
   return intersecting ? intersecting : closestCorners(...args)
 }
 
-const WidgetLayout = () => {
-  const [pages, setPages] = useState([Object.keys(register), []])
+const WidgetLayout = ({
+  pages,
+  onChange = () => {},
+}: {
+  pages: string[][]
+  onChange?: (pages: string[][]) => void
+}) => {
+  const [internalPages, setInternalPages] = useState(pages)
   const [activeId, setActiveId] = useState<string>('')
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
 
@@ -43,7 +47,7 @@ const WidgetLayout = () => {
         pageIndex = data.current.index
         appIndex = -1
       } else {
-        pages.forEach((appIds, i) =>
+        internalPages.forEach((appIds, i) =>
           appIds.forEach((appId: string, j: number) => {
             if (appId === id) {
               pageIndex = i
@@ -54,7 +58,7 @@ const WidgetLayout = () => {
       }
       return [pageIndex, appIndex]
     },
-    [pages],
+    [internalPages],
   )
 
   const onDragStart = ({ active }: DragStartEvent) => setActiveId(active.id)
@@ -65,9 +69,9 @@ const WidgetLayout = () => {
         ? findContainer(over)
         : [activePageIndex, activeAppIndex]
       // New page instances
-      const newPages = [...pages]
-      const activePage = [...pages[activePageIndex]]
-      const overPage = [...pages[overPageIndex]]
+      const newPages = [...internalPages]
+      const activePage = [...internalPages[activePageIndex]]
+      const overPage = [...internalPages[overPageIndex]]
       if (activePageIndex === overPageIndex) {
         // Sort the page
         const newPage = arrayMove(
@@ -87,11 +91,13 @@ const WidgetLayout = () => {
         newPages[activePageIndex] = activePage
         newPages[overPageIndex] = overPage
       }
-      return setPages(newPages)
+      return setInternalPages(newPages)
     },
-    [pages, findContainer],
+    [internalPages, findContainer],
   )
-  const onDragEnd = ({ over, active }: DragEndEvent) => {}
+  const onDragEnd = ({ over, active }: DragEndEvent) => {
+    return onChange(internalPages)
+  }
 
   return (
     <DndContext
@@ -103,7 +109,7 @@ const WidgetLayout = () => {
     >
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          {pages.map((appIds, i) => (
+          {internalPages.map((appIds, i) => (
             <DroppablePage key={i} index={i} items={appIds}>
               {appIds.map((appId, i) => (
                 <DraggableIcon key={appId} appId={appId} />
