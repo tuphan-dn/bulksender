@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 
-import { Row, Col, Drawer, Button, Switch } from 'antd'
+import { Row, Col, Drawer, Button, Switch, Typography, Divider } from 'antd'
 import IonIcon from 'shared/ionicon'
 import WalletIntro from './walletIntro'
 import WidgetLayout from './widgetLayout'
@@ -29,6 +29,12 @@ const ControlCenter = () => {
             <WalletIntro />
           </Col>
           <Col span={24}>
+            <Divider />
+          </Col>
+          <Col flex="auto">
+            <Typography.Text>Customize the workspace</Typography.Text>
+          </Col>
+          <Col>
             <Switch onChange={setEditable} size="small" />
           </Col>
           <Col span={24}>
