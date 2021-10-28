@@ -25,8 +25,9 @@ const RemoteStatic = forwardRef<
     render: (src: string) => JSX.Element
   }
 >(({ type = 'default', manifest, render }, ref) => {
-  const { email } = useRemoteModule(manifest)
-  return cloneElement(render(email), ref ? { ref } : {})
+  const { [type]: src, email } = useRemoteModule(manifest)
+  console.log(email)
+  return cloneElement(render(src), ref ? { ref } : {})
 })
 
 /**
@@ -39,7 +40,7 @@ export const StaticLoader = forwardRef<
     render: (url: string) => JSX.Element
   } & ComponentManifest
 >(({ type, url, appId, render }, ref) => {
-  const manifest = { url, scope: appId, module: './static' }
+  const manifest = { url, scope: appId, module: './asset' }
   return (
     <ErrorBoundary remoteUrl={url || 'Unknown'}>
       <Suspense fallback={<AppLoading />}>

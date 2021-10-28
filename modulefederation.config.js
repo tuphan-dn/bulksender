@@ -19,7 +19,7 @@ module.exports = {
     // app
     './page': 'app/page.app',
     './widget': 'app/widget.app',
-    './static': 'app/static.app',
+    './asset': 'app/asset.app',
     // senhub
     './providers': 'os/providers',
   },
