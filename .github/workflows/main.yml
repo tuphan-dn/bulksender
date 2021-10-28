@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Welcome
-        run: echo Start deploying SenPage
+        run: echo Start deploying SenHub
       - name: Checkout git
         uses: actions/checkout@v2
       - name: Install dependencies
