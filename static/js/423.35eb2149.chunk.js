@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksenhub=self.webpackChunksenhub||[]).push([[423],{48423:function(e,n,t){t.r(n),t.d(n,{logo:function(){return u},email:function(){return a}});var u=t(17100),a="tuphan@descartes.network"},17100:function(e,n,t){e.exports=t.p+"static/media/logo.1e3475aabcdd9e1626aa.png"}}]);
+//# sourceMappingURL=423.35eb2149.chunk.js.map

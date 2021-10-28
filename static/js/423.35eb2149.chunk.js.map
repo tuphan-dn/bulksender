@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/423.35eb2149.chunk.js","mappings":"0LACaA,EAAQ,4B","sources":["app/static.app.tsx"],"sourcesContent":["export { default as logo } from 'app/static/images/logo.png'\nexport const email = 'tuphan@descartes.network'\n"],"names":["email"],"sourceRoot":""}
