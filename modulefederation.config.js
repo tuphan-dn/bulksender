@@ -11,7 +11,6 @@ module.exports = {
     '@reduxjs/toolkit': { singleton: true, requiredVersion: '^1.6.2' },
     'react-redux': { singleton: true, requiredVersion: '^7.2.5' },
     antd: { singleton: true, requiredVersion: '^4.17.0-alpha.7' },
-    'ipfs-core': { singleton: true, requiredVersion: '^0.11.1' },
   },
   remotes: {
     senhub,
