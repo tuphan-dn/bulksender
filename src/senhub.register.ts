@@ -16,7 +16,7 @@ const register: SenHubRegister = {
   [appId]: {
     url: `${url}/index.js`,
     appId,
-    name: 'My App',
+    name: 'Bulk Sender',
   },
 }
 
