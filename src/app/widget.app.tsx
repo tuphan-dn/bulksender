@@ -18,8 +18,6 @@ const {
   manifest: { appId },
 } = configs
 
-export { default as logo } from 'app/static/images/logo.png'
-
 const Widget = () => {
   return (
     <UIProvider>
