@@ -114,7 +114,12 @@ const WidgetLayout = ({
           <Col key={i} span={24}>
             <DroppablePage index={i} items={appIds} disabled={disabled}>
               {appIds.map((appId) => (
-                <DraggableIcon key={appId} appId={appId} disabled={disabled} />
+                <DraggableIcon
+                  key={appId}
+                  appId={appId}
+                  disabled={disabled}
+                  size={48}
+                />
               ))}
             </DroppablePage>
           </Col>

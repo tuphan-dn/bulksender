@@ -11,7 +11,9 @@
     "antd": "^4.17.0-alpha.7",
     "bs58": "^4.0.1",
     "flexsearch": "^0.7.21",
+    "ipfs-core": "^0.11.1",
     "js-file-download": "^0.4.12",
+    "localforage": "^1.10.0",
     "numbro": "^2.3.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -69,6 +71,7 @@
     "gh-pages": "^3.2.3",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
-    "serve": "^12.0.1"
+    "serve": "^12.0.1",
+    "util": "^0.12.4"
   }
 }

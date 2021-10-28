@@ -16,6 +16,11 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
       Buffer: ['buffer', 'Buffer'],
     }),
   )
+  // Add util polyfill
+  // (For IPFS compatibility)
+  webpackConfig.resolve.fallback = {
+    util: require.resolve('util/'),
+  }
   // Fix unrecognized change / caching problem
   webpackConfig.cache.buildDependencies.config.push(
     path.join(context.paths.appPath, './craco.config.js'),

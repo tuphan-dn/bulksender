@@ -19,7 +19,9 @@ const AppIcon = ({ appId, size = 64 }: { appId: string; size?: number }) => {
           >
             <IonIcon name="image-outline" />
           </Avatar>
-          <Typography.Paragraph style={{ fontSize: 12, textAlign: 'center' }}>
+          <Typography.Paragraph
+            style={{ fontSize: size / 4.5, textAlign: 'center' }}
+          >
             {register[appId].name}
           </Typography.Paragraph>
         </Space>

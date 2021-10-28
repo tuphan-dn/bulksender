@@ -4,11 +4,10 @@ import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
 import Wallet from 'os/view/header/wallet'
-import QuickSettings from 'os/view/header/quickSettings'
+import Shelf from './shelf'
 
 import logo from 'os/static/images/sen.svg'
 import { RootState } from 'os/store'
-import ControlCenter from './controlCenter'
 
 const Header = () => {
   const history = useHistory()
@@ -34,16 +33,7 @@ const Header = () => {
                   </Typography.Title>
                 </Space>
               </Col>
-              <Col>
-                {!account.isAddress(address) ? (
-                  <Wallet />
-                ) : (
-                  <Space>
-                    <ControlCenter />
-                    <QuickSettings />
-                  </Space>
-                )}
-              </Col>
+              <Col>{!account.isAddress(address) ? <Wallet /> : <Shelf />}</Col>
             </Row>
           </Card>
         </Col>
