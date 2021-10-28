@@ -1,1 +1,3 @@
-export { default as logo } from 'app/static/images/logo.png'
+import logo from 'app/static/images/logo.png'
+
+export { logo }
