@@ -66,7 +66,7 @@ const Wallet = () => {
 
   return (
     <Button
-      type="primary"
+      type="text"
       icon={<IonIcon name="power-outline" />}
       onClick={() => dispatch(disconnectWallet())}
       block

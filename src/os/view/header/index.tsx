@@ -4,8 +4,7 @@ import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Avatar, Space, Affix, Card } from 'antd'
 import Wallet from 'os/view/header/wallet'
-import QuickSettings from 'os/view/header/quickSettings'
-import WalletIntro from 'os/view/header/wallet/intro'
+import Shelf from './shelf'
 
 import logo from 'os/static/images/sen.svg'
 import { RootState } from 'os/store'
@@ -18,7 +17,7 @@ const Header = () => {
 
   return (
     <Affix offsetTop={12}>
-      <Row gutter={[24, 24]}>
+      <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card bodyStyle={{ padding: 16 }} hoverable>
             <Row gutter={[16, 16]} align="middle">
@@ -34,12 +33,7 @@ const Header = () => {
                   </Typography.Title>
                 </Space>
               </Col>
-              <Col>
-                <WalletIntro />
-              </Col>
-              <Col>
-                {!account.isAddress(address) ? <Wallet /> : <QuickSettings />}
-              </Col>
+              <Col>{!account.isAddress(address) ? <Wallet /> : <Shelf />}</Col>
             </Row>
           </Card>
         </Col>

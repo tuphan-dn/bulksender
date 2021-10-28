@@ -22,6 +22,7 @@ const initializeWindowSenOs = async (wallet: any) => {
     lamports: new Lamports(node),
     splt: new SPLT(spltAddress, splataAddress, node),
     swap: new Swap(swapAddress, spltAddress, splataAddress, node),
+    ipfs: undefined,
   }
 }
 
