@@ -1,6 +1,7 @@
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import { Layout, Row, Col } from 'antd'
+import PrivateRoute from 'os/components/privateRoute'
 import Header from 'os/view/header'
 import Welcome from 'os/view/welcome'
 import Dashboard from 'os/view/dashboard'
@@ -21,7 +22,7 @@ const View = () => {
           <Switch>
             <Route exact path="/welcome" component={Welcome} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/page/:appId" component={Page} />
+            <PrivateRoute exact path="/page/:appId" component={Page} />
             <Route exact path="/store" component={Market} />
             <Redirect from="*" to="/welcome" />
           </Switch>
