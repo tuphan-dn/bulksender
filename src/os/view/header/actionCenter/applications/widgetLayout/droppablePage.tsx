@@ -27,7 +27,7 @@ const DroppablePage = ({
     ? { transition: 'all 0.25s ease-in-out' }
     : {
         transition: 'all 0.25s ease-in-out',
-        backgroundColor: 'lightgray',
+        background: '#00000010',
         padding: 16,
         borderRadius: 16,
       }

@@ -15,6 +15,7 @@ export type State = {
   infix: Infix
   touchable: boolean
   networkStatus: NetworkStatus
+  actionCenterVisible: boolean
 }
 
 const getInfix = (): Infix => {
@@ -37,6 +38,7 @@ const initialState: State = {
   infix: getInfix(),
   touchable: isTouchable(),
   networkStatus: 0,
+  actionCenterVisible: false,
 }
 
 /**
@@ -56,6 +58,13 @@ export const setNetworkStatus = createAsyncThunk(
   },
 )
 
+export const setActionCenterVisible = createAsyncThunk(
+  `${NAME}/setActionCenterVisible`,
+  async (visible: boolean) => {
+    return { actionCenterVisible: visible }
+  },
+)
+
 /**
  * Usual procedure
  */
@@ -72,6 +81,10 @@ const slice = createSlice({
       )
       .addCase(
         setNetworkStatus.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        setActionCenterVisible.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })

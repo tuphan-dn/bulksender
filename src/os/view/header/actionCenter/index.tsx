@@ -1,24 +1,30 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Col, Drawer, Button, Tabs } from 'antd'
 import IonIcon from 'shared/ionicon'
-import ActionCenter from './actionCenter'
-import SystemSettings from './systemSettings'
+import Applications from './applications'
+import Settings from './settings'
 
-const Shelf = () => {
-  const [visible, setVisible] = useState(false)
+import { RootDispatch, RootState } from 'os/store'
+import { setActionCenterVisible } from 'os/store/ui.reducer'
+
+const ActionCenter = () => {
+  const dispatch = useDispatch<RootDispatch>()
+  const { actionCenterVisible } = useSelector((state: RootState) => state.ui)
 
   return (
     <Fragment>
       <Button
         type="text"
-        icon={<IonIcon name="options-outline" />}
-        onClick={() => setVisible(!visible)}
+        icon={<IonIcon name="menu" />}
+        onClick={() => dispatch(setActionCenterVisible(!actionCenterVisible))}
       />
       <Drawer
-        visible={visible}
-        onClose={() => setVisible(false)}
+        visible={actionCenterVisible}
+        onClose={() => dispatch(setActionCenterVisible(false))}
         closable={false}
+        contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
       >
         <Row gutter={[16, 16]} style={{ marginTop: -16 }}>
           <Col span={24}>
@@ -28,7 +34,7 @@ const Shelf = () => {
                 <Button
                   type="text"
                   icon={<IonIcon name="close-outline" />}
-                  onClick={() => setVisible(false)}
+                  onClick={() => dispatch(setActionCenterVisible(false))}
                 />
               }
             >
@@ -36,23 +42,23 @@ const Shelf = () => {
                 tab={
                   <span>
                     <IonIcon name="grid-outline" />
-                    Action Center
+                    Applications
                   </span>
                 }
                 key="action-center"
               >
-                <ActionCenter />
+                <Applications />
               </Tabs.TabPane>
               <Tabs.TabPane
                 tab={
                   <span>
                     <IonIcon name="settings-outline" />
-                    System Settings
+                    Settings
                   </span>
                 }
                 key="system-settings"
               >
-                <SystemSettings />
+                <Settings />
               </Tabs.TabPane>
             </Tabs>
           </Col>
@@ -62,4 +68,4 @@ const Shelf = () => {
   )
 }
 
-export default Shelf
+export default ActionCenter

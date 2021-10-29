@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import {
   DndContext,
   DragEndEvent,
@@ -19,6 +21,9 @@ import AppIcon from 'os/components/appIcon'
 import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
 
+import { RootDispatch } from 'os/store'
+import { setActionCenterVisible } from 'os/store/ui.reducer'
+
 // Mixed Strategy
 const mixedStrategy = (
   ...args: Parameters<typeof rectIntersection | typeof closestCorners>
@@ -36,9 +41,16 @@ const WidgetLayout = ({
   onChange?: (pages: string[][]) => void
   disabled?: boolean
 }) => {
+  const history = useHistory()
+  const dispatch = useDispatch<RootDispatch>()
   const [internalPages, setInternalPages] = useState(pages)
   const [activeId, setActiveId] = useState<string>('')
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
+
+  const open = async (appId: string) => {
+    await dispatch(setActionCenterVisible(false))
+    return history.push(`/page/${appId}`)
+  }
 
   // Derive container
   const findContainer = useCallback(
@@ -119,6 +131,7 @@ const WidgetLayout = ({
                   appId={appId}
                   disabled={disabled}
                   size={48}
+                  onClick={() => open(appId)}
                 />
               ))}
             </DroppablePage>
