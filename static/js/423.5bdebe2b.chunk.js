@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbulksender=self.webpackChunkbulksender||[]).push([[423],{48423:function(e,n,u){u.r(n),u.d(n,{logo:function(){return a}});var a=u(17100)},17100:function(e,n,u){e.exports=u.p+"static/media/logo.1e3475aabcdd9e1626aa.png"}}]);
