@@ -130,7 +130,7 @@ const WidgetLayout = ({
                   key={appId}
                   appId={appId}
                   disabled={disabled}
-                  size={48}
+                  size={64}
                   onClick={() => open(appId)}
                 />
               ))}

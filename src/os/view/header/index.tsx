@@ -20,13 +20,14 @@ const NavButton = ({
   route: string
 }) => {
   const history = useHistory()
+  const { width } = useSelector((state: RootState) => state.ui)
 
   return (
     <Button
       type="text"
-      size="small"
       icon={<IonIcon name={iconName} />}
       onClick={() => history.push(route)}
+      size={width >= 768 ? 'middle' : 'small'}
     >
       {title}
     </Button>
@@ -41,10 +42,12 @@ const Header = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card bodyStyle={{ padding: 16 }} hoverable>
-            <Row gutter={[16, 16]} align="middle" wrap={false}>
+            <Row gutter={[8, 8]} align="middle" wrap={false}>
               <Col flex="auto">
+                <Brand style={{ margin: '-3px 8px 0px 0px', height: 22 }} />
+              </Col>
+              <Col>
                 <Space align="center">
-                  <Brand style={{ margin: '-3px 8px 0px 4px', height: 22 }} />
                   <NavButton
                     iconName="home-outline"
                     route="/home"
