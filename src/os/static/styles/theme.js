@@ -1,8 +1,9 @@
 // Available vars: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
 
 module.exports = {
-  // Prefix
+  // Common
   '@ant-prefix': 'sentre',
+  // '@component-background': '#F4F4F5',
 
   // Colors
   '@primary-color': '#F9575E',

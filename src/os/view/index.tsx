@@ -5,6 +5,7 @@ import Header from 'os/view/header'
 import Welcome from 'os/view/welcome'
 import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
+import Market from 'os/view/market'
 
 import Watcher from 'os/view/watcher'
 import 'os/static/styles/index.os.less'
@@ -21,6 +22,7 @@ const View = () => {
             <Route exact path="/welcome" component={Welcome} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/page/:appId" component={Page} />
+            <Route exact path="/store" component={Market} />
             <Redirect from="*" to="/welcome" />
           </Switch>
         </Col>

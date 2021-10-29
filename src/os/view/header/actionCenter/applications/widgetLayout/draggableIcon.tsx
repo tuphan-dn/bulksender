@@ -10,10 +10,12 @@ import AppIcon from 'os/components/appIcon'
 const DraggableIcon = ({
   appId,
   size = 64,
+  onClick = () => {},
   disabled = false,
 }: {
   appId: string
   size?: number
+  onClick?: () => void
   disabled?: boolean
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -35,7 +37,7 @@ const DraggableIcon = ({
       {...attributes}
       ref={setNodeRef}
     >
-      <AppIcon appId={appId} size={size} />
+      <AppIcon appId={appId} size={size} onClick={onClick} />
     </Col>
   )
 }

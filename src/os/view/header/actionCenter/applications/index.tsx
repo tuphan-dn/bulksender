@@ -6,7 +6,7 @@ import WidgetLayout from './widgetLayout'
 
 import register from 'senhub.register'
 
-const ActionCenter = () => {
+const Applications = () => {
   const [editable, setEditable] = useState(false)
   const [pages, setPages] = useState([Object.keys(register), []])
 
@@ -28,4 +28,4 @@ const ActionCenter = () => {
   )
 }
 
-export default ActionCenter
+export default Applications

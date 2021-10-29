@@ -24,6 +24,7 @@ import {
 const Wallet = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { address } = useSelector((state: RootState) => state.wallet)
+  const { width } = useSelector((state: RootState) => state.ui)
 
   const reconnect = () => {
     const walletType = session.get('WalletType')
@@ -58,7 +59,7 @@ const Wallet = () => {
           icon={<IonIcon name="wallet-outline" />}
           onClick={() => dispatch(openWallet())}
         >
-          Connect Wallet
+          {width >= 768 ? 'Connect Wallet' : ''}
         </Button>
         <Login />
       </Fragment>
