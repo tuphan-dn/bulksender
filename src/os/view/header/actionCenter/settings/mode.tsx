@@ -37,8 +37,8 @@ const Mode = () => {
         </Col>
         <Col span={24}>
           <Typography.Paragraph type="secondary" style={{ fontSize: 12 }}>
-            By enabling the professional mode, your workspace will be a screen
-            of widgets.
+            By enabling the professional mode, your workspace will be a set of
+            widgets.
           </Typography.Paragraph>
         </Col>
       </Row>
