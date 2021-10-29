@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/static/js/main.10f29fb8.js",
+    "main.js": "/static/js/main.35612f2c.js",
     "bulksender.js": "/index.js",
     "static/css/957.644429ef.chunk.css": "/static/css/957.644429ef.chunk.css",
-    "static/js/957.1e0e6f5c.chunk.js": "/static/js/957.1e0e6f5c.chunk.js",
+    "static/js/957.bb9cd64c.chunk.js": "/static/js/957.bb9cd64c.chunk.js",
     "static/js/413.38eada42.chunk.js": "/static/js/413.38eada42.chunk.js",
     "static/js/299.ba7757f8.chunk.js": "/static/js/299.ba7757f8.chunk.js",
     "static/js/276.8a7cb353.chunk.js": "/static/js/276.8a7cb353.chunk.js",
@@ -30,12 +30,13 @@
     "static/media/sen-full.png": "/static/media/sen-full.658f05fff127284973db.png",
     "static/media/sollet.png": "/static/media/sollet.7634ae143af8347b13c1.png",
     "static/media/coin98.png": "/static/media/coin98.d4a8d3199bc374898921.png",
+    "static/media/sen-lite.png": "/static/media/sen-lite.210754c276178acec395.png",
     "index.html": "/index.html",
     "static/media/slope.svg": "/static/media/slope.de08dadb3988dd770e2d0d58acf15a09.svg",
-    "main.10f29fb8.js.map": "/static/js/main.10f29fb8.js.map",
+    "main.35612f2c.js.map": "/static/js/main.35612f2c.js.map",
     "index.js.map": "/index.js.map",
     "957.644429ef.chunk.css.map": "/static/css/957.644429ef.chunk.css.map",
-    "957.1e0e6f5c.chunk.js.map": "/static/js/957.1e0e6f5c.chunk.js.map",
+    "957.bb9cd64c.chunk.js.map": "/static/js/957.bb9cd64c.chunk.js.map",
     "413.38eada42.chunk.js.map": "/static/js/413.38eada42.chunk.js.map",
     "299.ba7757f8.chunk.js.map": "/static/js/299.ba7757f8.chunk.js.map",
     "276.8a7cb353.chunk.js.map": "/static/js/276.8a7cb353.chunk.js.map",
@@ -58,6 +59,6 @@
     "2.c767c810.chunk.css.map": "/static/css/2.c767c810.chunk.css.map"
   },
   "entrypoints": [
-    "static/js/main.10f29fb8.js"
+    "static/js/main.35612f2c.js"
   ]
 }
