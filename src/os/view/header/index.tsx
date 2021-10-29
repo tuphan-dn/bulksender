@@ -44,7 +44,7 @@ const Header = () => {
             <Row gutter={[16, 16]} align="middle" wrap={false}>
               <Col flex="auto">
                 <Space align="center">
-                  <Brand style={{ margin: '0px 8px 3px 4px', height: 25 }} />
+                  <Brand style={{ margin: '-3px 8px 0px 4px', height: 22 }} />
                   <NavButton
                     iconName="home-outline"
                     route="/home"
