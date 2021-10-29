@@ -24,7 +24,7 @@ const ActionCenter = () => {
         visible={actionCenterVisible}
         onClose={() => dispatch(setActionCenterVisible(false))}
         closable={false}
-        contentWrapperStyle={{ width: '100%', maxWidth: 375 }}
+        contentWrapperStyle={{ width: '100%', maxWidth: 400 }}
       >
         <Row gutter={[16, 16]} style={{ marginTop: -16 }}>
           <Col span={24}>
