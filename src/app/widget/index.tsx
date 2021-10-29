@@ -11,7 +11,7 @@ const Widget = () => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        <Typography.Title level={5}>Widget</Typography.Title>
+        <Typography.Title level={5}>BulkSender Widget</Typography.Title>
         <Typography.Text>
           Env: {env} - {width}px - {infix}
         </Typography.Text>

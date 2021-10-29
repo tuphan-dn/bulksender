@@ -28,7 +28,10 @@ class ErrorBoundary extends Component<Props, State> {
 
   support = () => {
     const { remoteUrl } = this.props
-    return window.open(`mailto:hi@sentre.io?subject=${remoteUrl} has failed`, '_blank')
+    return window.open(
+      `mailto:hi@sentre.io?subject=${remoteUrl} has failed`,
+      '_blank',
+    )
   }
 
   render() {
