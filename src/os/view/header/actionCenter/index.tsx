@@ -17,7 +17,7 @@ const ActionCenter = () => {
     <Fragment>
       <Button
         type="text"
-        icon={<IonIcon name="menu" />}
+        icon={<IonIcon name="menu" style={{ fontSize: 20 }} />}
         onClick={() => dispatch(setActionCenterVisible(!actionCenterVisible))}
       />
       <Drawer

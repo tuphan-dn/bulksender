@@ -8,10 +8,12 @@ const AppIcon = ({
   appId,
   size = 64,
   onClick = () => {},
+  name = true,
 }: {
   appId: string
   size?: number
   onClick?: () => void
+  name?: boolean
 }) => {
   return (
     <StaticLoader
@@ -27,11 +29,13 @@ const AppIcon = ({
           >
             <IonIcon name="image-outline" />
           </Avatar>
-          <Typography.Paragraph
-            style={{ fontSize: size / 4.5, textAlign: 'center' }}
-          >
-            {register[appId].name}
-          </Typography.Paragraph>
+          {name ? (
+            <Typography.Paragraph
+              style={{ fontSize: size / 4.5, textAlign: 'center' }}
+            >
+              {register[appId].name}
+            </Typography.Paragraph>
+          ) : null}
         </Space>
       )}
     />

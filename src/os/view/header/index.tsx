@@ -9,6 +9,7 @@ import Brand from 'os/components/brand'
 import ActionCenter from './actionCenter'
 
 import { RootState } from 'os/store'
+import ContextMenu from './contextMenu'
 
 const NavButton = ({
   iconName,
@@ -27,24 +28,30 @@ const NavButton = ({
       type="text"
       icon={<IonIcon name={iconName} />}
       onClick={() => history.push(route)}
-      size={width >= 768 ? 'middle' : 'small'}
     >
-      {title}
+      {width >= 768 ? title : null}
     </Button>
   )
 }
 
 const Header = () => {
   const { address } = useSelector((state: RootState) => state.wallet)
+  const { width } = useSelector((state: RootState) => state.ui)
 
   return (
     <Affix offsetTop={12}>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <Card bodyStyle={{ padding: 16 }} hoverable>
+          <Card bodyStyle={{ padding: 16, maxHeight: 64 }} hoverable>
             <Row gutter={[8, 8]} align="middle" wrap={false}>
+              <Col>
+                <Brand
+                  style={{ margin: '-3px 16px 0px 0px', height: 22 }}
+                  lite={width < 768}
+                />
+              </Col>
               <Col flex="auto">
-                <Brand style={{ margin: '-3px 8px 0px 0px', height: 22 }} />
+                <ContextMenu />
               </Col>
               <Col>
                 <Space align="center">

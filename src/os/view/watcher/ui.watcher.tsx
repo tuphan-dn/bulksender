@@ -7,6 +7,7 @@ import { notification } from 'antd'
 import configs from 'os/configs'
 import { RootDispatch } from 'os/store'
 import { resize, setNetworkStatus } from 'os/store/ui.reducer'
+import IonIcon from 'shared/ionicon'
 
 const {
   sol: { node },
@@ -29,6 +30,7 @@ const UIWatcher = () => {
       description,
       onClick,
       style: { cursor: 'pointer' },
+      closeIcon: <IonIcon name="close-outline" />,
     })
   }
 
