@@ -53,7 +53,7 @@ const ActionCenter = () => {
                 tab={
                   <span>
                     <IonIcon name="settings-outline" />
-                    System Settings
+                    Settings
                   </span>
                 }
                 key="system-settings"
