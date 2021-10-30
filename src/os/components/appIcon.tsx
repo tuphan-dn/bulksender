@@ -31,7 +31,10 @@ const AppIcon = ({
           </Avatar>
           {name ? (
             <Typography.Paragraph
-              style={{ fontSize: size / 4.5, textAlign: 'center' }}
+              style={{
+                fontSize: Math.floor(size / 4.5),
+                textAlign: 'center',
+              }}
             >
               {register[appId].name}
             </Typography.Paragraph>

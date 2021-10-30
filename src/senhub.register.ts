@@ -9,11 +9,21 @@ const register: SenHubRegister = {
     url: `${url}/index.js`,
     appId,
     name: 'My App',
+    author: {
+      name: '',
+      email: ''
+    },
+    description: ''
   },
   bulksender: {
     url: 'https://descartesnetwork.github.io/bulksender/index.js',
     appId: 'bulksender',
     name: 'Bulk Sender',
+    author: {
+      name: 'Tu Phan',
+      email: 'tuphan@descartes.network'
+    },
+    description: 'Single sign, multiple transactions'
   },
 }
 

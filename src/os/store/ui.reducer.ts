@@ -7,14 +7,11 @@ import { isTouchable } from 'shared/util'
  */
 
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-// 0: Failed, 1: Poor, 2: Moderate, 3: Good
-export type NetworkStatus = 0 | 1 | 2 | 3
 
 export type State = {
   width: number
   infix: Infix
   touchable: boolean
-  networkStatus: NetworkStatus
   actionCenterVisible: boolean
 }
 
@@ -37,7 +34,6 @@ const initialState: State = {
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
-  networkStatus: 0,
   actionCenterVisible: false,
 }
 
@@ -50,13 +46,6 @@ export const resize = createAsyncThunk(`${NAME}/resize`, async () => {
   const infix = getInfix()
   return { width, infix }
 })
-
-export const setNetworkStatus = createAsyncThunk(
-  `${NAME}/setNetworkStatus`,
-  async (networkStatus: NetworkStatus) => {
-    return { networkStatus }
-  },
-)
 
 export const setActionCenterVisible = createAsyncThunk(
   `${NAME}/setActionCenterVisible`,
@@ -77,10 +66,6 @@ const slice = createSlice({
     void builder
       .addCase(
         resize.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        setNetworkStatus.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(

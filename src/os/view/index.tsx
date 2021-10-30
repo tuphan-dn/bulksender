@@ -7,6 +7,7 @@ import Welcome from 'os/view/welcome'
 import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
 import Market from 'os/view/market'
+import AppViewer from './market/appViewer'
 
 import Watcher from 'os/view/watcher'
 import 'os/static/styles/index.os.less'
@@ -24,6 +25,7 @@ const View = () => {
             <Route exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/page/:appId" component={Page} />
             <Route exact path="/store" component={Market} />
+            <Route exact path="/store/:appId" component={AppViewer} />
             <Redirect from="*" to="/welcome" />
           </Switch>
         </Col>
