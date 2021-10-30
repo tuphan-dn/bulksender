@@ -59,7 +59,7 @@ const Header = () => {
                   />
                   <NavButton
                     iconName="bag-handle-outline"
-                    route="/store"
+                    route="/page/sen-store"
                     title="Store"
                   />
                 </Space>
