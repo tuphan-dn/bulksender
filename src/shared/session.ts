@@ -1,4 +1,4 @@
-const KEY = 'senhub'
+const KEY = 'sentre'
 const driver = window.sessionStorage
 
 const convert = (value: string | null) => {

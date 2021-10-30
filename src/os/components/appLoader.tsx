@@ -5,8 +5,6 @@ import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 import { Skeleton } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
 
-import { ComponentManifest } from 'senhub.register'
-
 /**
  * App Loading
  */
