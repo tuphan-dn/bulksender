@@ -1,6 +1,8 @@
 /// <reference types="react-scripts" />
 
-// Declare global
+/**
+ * Declare global
+ */
 type SentreNotification = {
   type: 'error' | 'warning' | 'success' | 'info'
   description: string
@@ -13,7 +15,7 @@ interface Window {
     lamports: import('@senswap/sen-js').Lamports
     splt: import('@senswap/sen-js').SPLT
     swap: import('@senswap/sen-js').Swap
-    ipfs: ReturnType<import('ipfs-core').create>
+    ipfs?: ReturnType<import('ipfs-core').create>
   }
   // Utility
   notify: ({ type, description, onClick }: SentreNotification) => void
@@ -22,15 +24,33 @@ interface Window {
   solana: any
   Slope: any
 }
+
+// For bigint serialization
 interface BigInt {
   toJSON: (this: bigint) => string
 }
 
-// Declare module
+// Application ID management
+type AppIds = Array<string>
+type AppPage = Array<AppIds>
+// Application manifest
+type ComponentManifest = {
+  url: string
+  appId: string
+  name: string
+}
+// List of application manifests
+type SenHubRegister = Record<string, ComponentManifest>
+
+/**
+ * Declare module
+ */
 declare module 'senhub/*'
 declare module 'flexsearch'
 
-// Declare namespace
+/**
+ * Declare namespace
+ */
 declare namespace JSX {
   interface IntrinsicElements {
     'ion-icon': any

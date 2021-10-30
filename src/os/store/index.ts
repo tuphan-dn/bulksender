@@ -3,6 +3,7 @@ import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
 
 import ui from './ui.reducer'
 import flags from './flags.reducer'
+import page from './page.reducer'
 import wallet from './wallet.reducer'
 import accounts from './accounts.reducer'
 import mints from './mints.reducer'
@@ -11,10 +12,11 @@ import pools from './pools.reducer'
 const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(bigintSerializationMiddleware),
-  devTools: devTools('senhub'),
+  devTools: devTools('sentre'),
   reducer: {
     ui,
     flags,
+    page,
     wallet,
     accounts,
     mints,

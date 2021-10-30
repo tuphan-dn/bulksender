@@ -36,14 +36,16 @@ class PDB {
 
   all = async (): Promise<any> => {
     let data: any = {}
-    const apps = ((await this.createInstance('senhub').getItem('apps')) || [])
+    const appIds = (
+      (await this.createInstance('sentre').getItem('appIds')) || []
+    )
       .flat()
-      .concat(['senhub'])
-    for (const app of apps) {
-      data[app] = {}
-      const instance = this.createInstance(app)
+      .concat(['sentre'])
+    for (const appId of appIds) {
+      data[appId] = {}
+      const instance = this.createInstance(appId)
       await instance.iterate((value: string, key: string) => {
-        data[app][key] = value
+        data[appId][key] = value
       })
     }
     return data
@@ -58,10 +60,10 @@ class PDB {
     // Download data
     const data = await this.ipfs.get(cid)
     // Apply to storage
-    for (const app in data) {
-      const instance = await this.createInstance(app)
-      for (const key in data[app]) {
-        const value = data[app][key]
+    for (const appId in data) {
+      const instance = await this.createInstance(appId)
+      for (const key in data[appId]) {
+        const value = data[appId][key]
         await instance.setItem(key, value)
       }
     }

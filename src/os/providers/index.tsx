@@ -5,6 +5,7 @@ export {
   withWallet,
   useWallet,
 } from './wallet.provider'
+export { default as PageProvider, withPage, usePage } from './page.provider'
 export {
   default as AccountProvider,
   withAccount,

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
-import { Row, Col, Space, Affix, Card, Button } from 'antd'
+import { Row, Col, Space, Affix, Card, Button, Divider } from 'antd'
 import IonIcon from 'shared/ionicon'
 import Wallet from 'os/view/header/wallet'
 import Brand from 'os/components/brand'
@@ -43,14 +43,17 @@ const Header = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card bodyStyle={{ padding: 16, maxHeight: 64 }} hoverable>
-            <Row gutter={[8, 8]} align="middle" wrap={false}>
+            <Row gutter={[12, 12]} align="middle" wrap={false}>
               <Col>
-                <Brand
-                  style={{ margin: '-3px 16px 0px 0px', height: 22 }}
-                  lite={width < 768}
+                <Brand style={{ height: 22 }} lite={width < 768} />
+              </Col>
+              <Col>
+                <Divider
+                  type="vertical"
+                  style={{ margin: `0px ${width < 768 ? 4 : 8}px` }}
                 />
               </Col>
-              <Col flex="auto">
+              <Col flex="auto" style={{ width: 0 }} className="scrollbar">
                 <ContextMenu />
               </Col>
               <Col>
