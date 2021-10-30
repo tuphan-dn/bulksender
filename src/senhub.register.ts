@@ -11,9 +11,9 @@ const register: SenHubRegister = {
     name: 'My App',
   },
   bulksender: {
-    url: 'https://descartesnetwork.github.io/senstore/index.js',
-    appId: 'senstore',
-    name: 'Sen Store',
+    url: 'https://descartesnetwork.github.io/bulksender/index.js',
+    appId: 'bulksender',
+    name: 'Bulk Sender',
   },
 }
 
