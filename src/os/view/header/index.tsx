@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
@@ -7,9 +8,10 @@ import IonIcon from 'shared/ionicon'
 import Wallet from 'os/view/header/wallet'
 import Brand from 'os/components/brand'
 import ActionCenter from './actionCenter'
-
-import { RootState } from 'os/store'
 import ContextMenu from './contextMenu'
+
+import { RootDispatch, RootState } from 'os/store'
+import { loadPage } from 'os/store/page.reducer'
 
 const NavButton = ({
   iconName,
@@ -35,8 +37,13 @@ const NavButton = ({
 }
 
 const Header = () => {
+  const dispatch = useDispatch<RootDispatch>()
   const { address } = useSelector((state: RootState) => state.wallet)
   const { width } = useSelector((state: RootState) => state.ui)
+
+  useEffect(() => {
+    if (account.isAddress(address)) dispatch(loadPage())
+  }, [dispatch, address])
 
   return (
     <Affix offsetTop={12}>

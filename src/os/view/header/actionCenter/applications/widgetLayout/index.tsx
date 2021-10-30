@@ -37,8 +37,8 @@ const WidgetLayout = ({
   onChange = () => {},
   disabled = false,
 }: {
-  pages: string[][]
-  onChange?: (pages: string[][]) => void
+  pages: AppPage
+  onChange?: (pages: AppPage) => void
   disabled?: boolean
 }) => {
   const history = useHistory()
