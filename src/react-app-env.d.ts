@@ -38,6 +38,11 @@ type ComponentManifest = {
   url: string
   appId: string
   name: string
+  author: {
+    name: string
+    email: string
+  }
+  description: string
 }
 // List of application manifests
 type SenHubRegister = Record<string, ComponentManifest>
@@ -45,6 +50,7 @@ type SenHubRegister = Record<string, ComponentManifest>
 /**
  * Declare module
  */
+declare module '*.md'
 declare module 'senhub/*'
 declare module 'flexsearch'
 

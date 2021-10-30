@@ -37,6 +37,7 @@ const ActionCenter = () => {
                   onClick={() => dispatch(setActionCenterVisible(false))}
                 />
               }
+              destroyInactiveTabPane
             >
               <Tabs.TabPane
                 tab={
