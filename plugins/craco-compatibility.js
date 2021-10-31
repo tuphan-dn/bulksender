@@ -5,10 +5,6 @@ const path = require('path')
 const webpack = require('webpack')
 
 const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
-  // React Refresh
-  // https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/394#issuecomment-877708732
-  // The bug is examined by people, please follow the link for updates
-
   // Add buffer to webpack 5 polyfill
   // https://github.com/diegomura/react-pdf/issues/1029
   webpackConfig.plugins.push(

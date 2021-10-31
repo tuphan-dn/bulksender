@@ -48,7 +48,7 @@ const Header = () => {
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
       <Col>
-        <Brand style={{ height: 22, cursor: 'pointer' }} lite={width < 768} />
+        <Brand style={{ height: 24, cursor: 'pointer' }} lite={width < 768} />
       </Col>
       <Col flex="auto">
         <ContextMenu />
