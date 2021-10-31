@@ -1,1 +1,3 @@
-# My App
+# Bulk Sender
+
+Single sign, Multiple transactions.
