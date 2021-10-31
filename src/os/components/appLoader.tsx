@@ -2,15 +2,8 @@ import { Suspense, forwardRef, cloneElement } from 'react'
 import { useRemoteModule } from 'react-dynamic-remote-component'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 
-import { Skeleton } from 'antd'
+import { Skeleton, Spin } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
-
-/**
- * App Loading
- */
-const AppLoading = () => {
-  return <Skeleton active />
-}
 
 /**
  * Remote Static
@@ -40,7 +33,7 @@ export const StaticLoader = forwardRef<
   const manifest = { url, scope: appId, module: './static' }
   return (
     <ErrorBoundary remoteUrl={url || 'Unknown'}>
-      <Suspense fallback={<AppLoading />}>
+      <Suspense fallback={<Spin size="small" />}>
         <RemoteStatic
           type={type}
           manifest={manifest}
@@ -72,7 +65,7 @@ const AppLoader = forwardRef<
   const manifest = { url, scope: appId, module: `./${type}` }
   return (
     <ErrorBoundary remoteUrl={url || 'Unknown'}>
-      <Suspense fallback={<AppLoading />}>
+      <Suspense fallback={<Skeleton active />}>
         <RemoteComponent manifest={manifest} {...props} ref={ref} />
       </Suspense>
     </ErrorBoundary>
