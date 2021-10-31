@@ -1,17 +1,12 @@
 import { Select } from 'antd'
 
-import { net } from 'shared/runtime'
-import storage from 'shared/storage'
+import { net, onSwitchNetwork } from 'shared/runtime'
 
 const NetSwitch = () => {
-  const onSwitch = (value: string) => {
-    storage.set('network', value)
-    window.location.reload()
-  }
   return (
-    <Select defaultValue={net} onChange={onSwitch} size="small">
+    <Select defaultValue={net} onChange={onSwitchNetwork} size="small">
       <Select.Option value="devnet">Devnet</Select.Option>
-      <Select.Option value="testnet">Testnet</Select.Option>
+      {/* <Select.Option value="testnet">Testnet</Select.Option> */}
       <Select.Option value="mainnet">Mainnet</Select.Option>
     </Select>
   )
