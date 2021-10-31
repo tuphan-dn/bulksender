@@ -4,6 +4,7 @@ import { account } from '@senswap/sen-js'
 
 import { Row, Col, Badge, Divider } from 'antd'
 import AppIcon from 'os/components/appIcon'
+import More from './more'
 
 import { RootState } from 'os/store'
 
@@ -13,7 +14,6 @@ const ContextMenu = () => {
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appPage } = useSelector((state: RootState) => state.page)
   const { params } = useRouteMatch<{ appId: string }>('/page/:appId') || {}
-  const currentAppId = params?.appId
 
   if (!account.isAddress(address)) return null
   return (
@@ -28,7 +28,7 @@ const ContextMenu = () => {
         <Row gutter={[12, 12]} wrap={false} align="middle">
           {appPage.flat().map((appId) => (
             <Col key={appId}>
-              <Badge dot={currentAppId === appId} color="cyan" offset={[-4, 4]}>
+              <Badge dot={params?.appId === appId} color="cyan" offset={[-4, 4]}>
                 <AppIcon
                   appId={appId}
                   size={32}
@@ -38,6 +38,9 @@ const ContextMenu = () => {
               </Badge>
             </Col>
           ))}
+          <Col>
+            <More />
+          </Col>
         </Row>
       </Col>
     </Row>
