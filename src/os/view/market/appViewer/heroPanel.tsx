@@ -42,13 +42,13 @@ const HeroPanel = ({ appId }: { appId: string }) => {
   } = register[appId]
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[16, 16]}>
       <Col span={24}>
         <AppPanel appId={appId} />
       </Col>
       <Col span={24}>
         <Card>
-          <Row gutter={[24, 24]}>
+          <Row gutter={[16, 16]}>
             <Col>
               <AppIcon appId={appId} size={48} name={false} />
             </Col>

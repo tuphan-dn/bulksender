@@ -1,4 +1,4 @@
-import { Image } from 'antd'
+import { Row, Col, Image } from 'antd'
 import { StaticLoader } from 'os/components/appLoader'
 
 import register from 'senhub.register'
@@ -15,13 +15,11 @@ const AppPanel = ({
       type="panel"
       {...register[appId]}
       render={(src) => (
-        <Image
-          src={src}
-          width="100%"
-          height="auto"
-          onClick={onClick}
-          preview={false}
-        />
+        <Row>
+          <Col span={24} style={{ lineHeight: 0 }}>
+            <Image src={src} width="100%" onClick={onClick} preview={false} />
+          </Col>
+        </Row>
       )}
     />
   )
