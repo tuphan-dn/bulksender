@@ -19,7 +19,7 @@ const View = () => {
       <Affix>
         <Card
           style={{
-            marginBottom: 24,
+            marginBottom: 12,
             borderRadius: '0px 0px 16px 16px',
           }}
           bodyStyle={{ padding: 16 }}
