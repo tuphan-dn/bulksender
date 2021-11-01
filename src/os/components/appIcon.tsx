@@ -20,7 +20,11 @@ const AppIcon = ({
       type="logo"
       {...register[appId]}
       render={(src) => (
-        <Space direction="vertical" style={{ width: size }} onClick={onClick}>
+        <Space
+          direction="vertical"
+          style={{ width: size, textAlign: 'center' }}
+          onClick={onClick}
+        >
           <Avatar
             src={src}
             shape="square"
@@ -30,14 +34,13 @@ const AppIcon = ({
             <IonIcon name="image-outline" />
           </Avatar>
           {name ? (
-            <Typography.Paragraph
+            <Typography.Text
               style={{
                 fontSize: Math.floor(size / 4.5),
-                textAlign: 'center',
               }}
             >
               {register[appId].name}
-            </Typography.Paragraph>
+            </Typography.Text>
           ) : null}
         </Space>
       )}
