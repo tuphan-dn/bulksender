@@ -23,21 +23,14 @@ const GroupAppIcon = ({
         height: size,
         width: size,
         padding: 2,
-        borderRadius: 4,
+        borderRadius: 8,
         backgroundColor: '#ccc',
         cursor: 'pointer',
       }}
       onClick={onClick}
     >
       {Array.from(Array(limit).keys()).map((_, i) => (
-        <Col
-          key={i}
-          span={12}
-          style={{
-            height: subsize,
-            lineHeight: 1,
-          }}
-        >
+        <Col key={i} span={12} style={{ lineHeight: 0 }}>
           <StaticLoader
             type="logo"
             {...register[page[i]]}
