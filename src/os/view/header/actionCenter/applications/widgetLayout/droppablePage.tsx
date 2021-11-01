@@ -30,6 +30,7 @@ const DroppablePage = ({
         background: '#00000010',
         padding: 16,
         borderRadius: 16,
+        minHeight: 100,
       }
 
   return (

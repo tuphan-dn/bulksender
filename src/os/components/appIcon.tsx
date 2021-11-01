@@ -34,6 +34,7 @@ const AppIcon = ({
               style={{
                 fontSize: Math.floor(size / 4.5),
                 textAlign: 'center',
+                marginBottom: 0
               }}
             >
               {register[appId].name}
