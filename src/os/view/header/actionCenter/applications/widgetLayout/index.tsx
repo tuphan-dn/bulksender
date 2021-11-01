@@ -49,7 +49,7 @@ const WidgetLayout = ({
 
   const open = async (appId: string) => {
     await dispatch(setActionCenterVisible(false))
-    return history.push(`/page/${appId}`)
+    return history.push(`/app/${appId}`)
   }
 
   // Derive container

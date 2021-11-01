@@ -35,7 +35,7 @@ const View = () => {
             <Switch>
               <Route exact path="/welcome" component={Welcome} />
               <Route exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/page/:appId" component={Page} />
+              <PrivateRoute exact path="/app/:appId" component={Page} />
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
               <Redirect from="*" to="/welcome" />

@@ -5,6 +5,8 @@ import WidgetView from 'app/widget'
 
 import model from 'app/model'
 
+export const size: WidgetSize = 'small'
+
 const Widget = () => {
   return (
     <UIProvider>

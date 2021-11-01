@@ -55,7 +55,7 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          <NavButton iconName="home-outline" route="/home" title="Home" />
+          <NavButton iconName="home-outline" route="/dashboard" title="Home" />
           <NavButton
             iconName="bag-handle-outline"
             route="/store"

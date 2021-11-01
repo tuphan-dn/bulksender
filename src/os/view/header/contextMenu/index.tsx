@@ -13,7 +13,7 @@ const ContextMenu = () => {
   const { width } = useSelector((state: RootState) => state.ui)
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appPage } = useSelector((state: RootState) => state.page)
-  const { params } = useRouteMatch<{ appId: string }>('/page/:appId') || {}
+  const { params } = useRouteMatch<{ appId: string }>('/app/:appId') || {}
 
   if (!account.isAddress(address)) return null
   return (
@@ -33,7 +33,7 @@ const ContextMenu = () => {
                   appId={appId}
                   size={32}
                   name={false}
-                  onClick={() => history.push(`/page/${appId}`)}
+                  onClick={() => history.push(`/app/${appId}`)}
                 />
               </Badge>
             </Col>

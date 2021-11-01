@@ -46,6 +46,8 @@ type ComponentManifest = {
 }
 // List of application manifests
 type SenHubRegister = Record<string, ComponentManifest>
+// Widget size
+type WidgetSize = 'small' | 'middle' | 'large'
 
 /**
  * Declare module
