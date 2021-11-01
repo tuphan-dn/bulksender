@@ -1,14 +1,19 @@
+import { useSelector } from 'react-redux'
+
 import { Row, Col } from 'antd'
-import AppLoader from 'os/components/appLoader'
+import { WidgetLoader } from 'os/components/appLoader'
 
 import register from 'senhub.register'
+import { RootState } from 'os/store'
 
 const Dashboard = () => {
+  const { appPage } = useSelector((state: RootState) => state.page)
+
   return (
     <Row gutter={[24, 24]}>
-      {Object.keys(register).map((appId, i) => (
-        <Col key={appId + i}>
-          <AppLoader type="widget" {...register[appId]} />
+      {appPage.flat().map((appId) => (
+        <Col key={appId}>
+          <WidgetLoader {...register[appId]} />
         </Col>
       ))}
     </Row>

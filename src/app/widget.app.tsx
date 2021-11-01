@@ -18,6 +18,8 @@ const {
   manifest: { appId },
 } = configs
 
+export const size: WidgetSize = 'small'
+
 const Widget = () => {
   return (
     <UIProvider>

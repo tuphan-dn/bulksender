@@ -21,7 +21,7 @@ const AppViewer = () => {
   const installed = useMemo(() => {
     return account.isAddress(address) && appPage.flat().includes(appId)
   }, [address, appPage, appId])
-  const to = () => history.push(`/page/${appId}`)
+  const to = () => history.push(`/app/${appId}`)
   const onBack = () => history.goBack()
 
   return (

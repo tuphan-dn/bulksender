@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
-import AppLoader from 'os/components/appLoader'
+import { PageLoader } from 'os/components/appLoader'
 
 import register from 'senhub.register'
 
@@ -11,7 +11,7 @@ const Dashboard = () => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        <AppLoader type="page" {...register[appId]} />
+        <PageLoader {...register[appId]} />
       </Col>
     </Row>
   )

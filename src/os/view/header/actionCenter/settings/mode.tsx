@@ -13,7 +13,7 @@ const Mode = () => {
 
   const onSwitch = async (checked: boolean) => {
     const mode = checked ? 'professional' : 'focus'
-    const page = checked ? '/dashboard' : '/page'
+    const page = checked ? '/dashboard' : '/app'
     await dispatch(setMode(mode))
     return history.push(page)
   }

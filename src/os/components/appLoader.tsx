@@ -56,20 +56,33 @@ const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
 )
 
 /**
- * App Loader
+ * Page Loader
  */
-const AppLoader = forwardRef<
-  HTMLElement,
-  { type: 'page' | 'widget' } & ComponentManifest
->(({ type, url, appId, ...props }, ref) => {
-  const manifest = { url, scope: appId, module: `./${type}` }
-  return (
-    <ErrorBoundary remoteUrl={url || 'Unknown'}>
-      <Suspense fallback={<Skeleton active />}>
-        <RemoteComponent manifest={manifest} {...props} ref={ref} />
-      </Suspense>
-    </ErrorBoundary>
-  )
-})
+export const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
+  ({ url, appId, ...props }, ref) => {
+    const manifest = { url, scope: appId, module: './page' }
+    return (
+      <ErrorBoundary remoteUrl={url || 'Unknown'}>
+        <Suspense fallback={<Skeleton active />}>
+          <RemoteComponent manifest={manifest} {...props} ref={ref} />
+        </Suspense>
+      </ErrorBoundary>
+    )
+  },
+)
 
-export default AppLoader
+/**
+ * Widget Loader
+ */
+export const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
+  ({ url, appId, ...props }, ref) => {
+    const manifest = { url, scope: appId, module: './widget' }
+    return (
+      <ErrorBoundary remoteUrl={url || 'Unknown'}>
+        <Suspense fallback={<Skeleton active />}>
+          <RemoteComponent manifest={manifest} {...props} ref={ref} />
+        </Suspense>
+      </ErrorBoundary>
+    )
+  },
+)
