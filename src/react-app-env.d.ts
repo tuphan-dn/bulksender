@@ -32,7 +32,6 @@ interface BigInt {
 
 // Application ID management
 type AppIds = Array<string>
-type AppPage = Array<AppIds>
 // Application manifest
 type ComponentManifest = {
   url: string
