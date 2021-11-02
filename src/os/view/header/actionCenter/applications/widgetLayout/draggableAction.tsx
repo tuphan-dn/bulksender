@@ -1,6 +1,12 @@
 import { useSortable } from '@dnd-kit/sortable'
-import { Col, ColProps } from 'antd'
-import { ReactNode } from 'react'
+import { ColProps } from 'antd'
+import {
+  Children,
+  cloneElement,
+  Fragment,
+  isValidElement,
+  ReactNode,
+} from 'react'
 
 /**
  * DraggableIcon render as a Col
@@ -8,7 +14,6 @@ import { ReactNode } from 'react'
 const DraggableAction = ({
   id,
   children,
-  ...rest
 }: {
   id: string
   children: ReactNode
@@ -17,11 +22,15 @@ const DraggableAction = ({
     id: id,
   })
 
-  return (
-    <Col id={id} ref={setNodeRef} {...rest}>
-      {children}
-    </Col>
-  )
+  const ChildrenWithProps = Children.map(children, (child) => {
+    if (isValidElement(child)) {
+      const childProps = { id, ref: setNodeRef }
+      return cloneElement(child, childProps)
+    }
+    return child
+  })
+
+  return <Fragment>{ChildrenWithProps}</Fragment>
 }
 
 export default DraggableAction

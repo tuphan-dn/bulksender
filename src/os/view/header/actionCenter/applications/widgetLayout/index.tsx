@@ -24,7 +24,6 @@ import DraggableIcon from './draggableIcon'
 
 import { RootDispatch } from 'os/store'
 import { setActionCenterVisible } from 'os/store/ui.reducer'
-import { uninstallApp } from 'os/store/page.reducer'
 import DraggableAction from './draggableAction'
 
 // Mixed Strategy
@@ -126,11 +125,8 @@ const WidgetLayout = ({
   )
   const onDragEnd = ({ over, active }: DragEndEvent) => {
     let newPages = internalPages
-
     if (over?.id === 'action-remove') {
       const activeId = active.id
-      dispatch(uninstallApp(activeId))
-
       newPages = newPages.map((appIds) =>
         appIds.filter((appId) => appId !== activeId),
       )
@@ -146,6 +142,7 @@ const WidgetLayout = ({
   const onRemovePage = (pageIdx: number) => {
     onChange(internalPages.filter((val, idx) => idx !== pageIdx))
   }
+
   return (
     <DndContext
       sensors={sensors}
@@ -157,7 +154,12 @@ const WidgetLayout = ({
       <Row gutter={[16, 16]}>
         {internalPages.map((appIds, i) => (
           <Col key={i} span={24}>
-            <DroppablePage index={i} items={appIds} disabled={disabled}>
+            <DroppablePage
+              index={i}
+              items={appIds}
+              disabled={disabled}
+              onRemove={onRemovePage}
+            >
               {appIds.map((appId) => (
                 <DraggableIcon
                   key={appId}
@@ -167,32 +169,25 @@ const WidgetLayout = ({
                   onClick={() => open(appId)}
                 />
               ))}
-              {!disabled && !appIds.length && (
-                <Col flex="auto" style={{ textAlign: 'end' }}>
-                  <Button
-                    type="text"
-                    icon={<IonIcon name="close-outline" />}
-                    onClick={() => onRemovePage(i)}
-                  />
-                </Col>
-              )}
             </DroppablePage>
           </Col>
         ))}
         {!disabled && (
           <Col span={24}>
-            <Row gutter={[12, 12]} justify="space-between">
-              <DraggableAction id="action-remove" span={12}>
-                <Button
-                  block
-                  disabled={!activeId}
-                  type={actionId ? 'primary' : undefined}
-                  className="contained"
-                  icon={<IonIcon name="trash-outline" />}
-                >
-                  Drag to delete app
-                </Button>
-              </DraggableAction>
+            <Row gutter={[12, 12]}>
+              <Col span={12}>
+                <DraggableAction id="action-remove" span={12}>
+                  <Button
+                    block
+                    disabled={!activeId}
+                    type={actionId ? 'primary' : undefined}
+                    className="contained"
+                    icon={<IonIcon name="trash-outline" />}
+                  >
+                    Drag to delete app
+                  </Button>
+                </DraggableAction>
+              </Col>
               <Col span={12}>
                 <Button
                   block
