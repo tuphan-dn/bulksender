@@ -2,7 +2,8 @@ import { ReactNode } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 
-import { Row, Col } from 'antd'
+import { Row, Col, Button } from 'antd'
+import IonIcon from 'shared/ionicon'
 
 /**
  * DroppablePage render as a Row
@@ -12,11 +13,13 @@ const DroppablePage = ({
   items,
   children,
   disabled = false,
+  onRemove,
 }: {
   index: number
   items: string[]
   children: ReactNode
   disabled?: boolean
+  onRemove?: (index: number) => void
 }) => {
   const { setNodeRef } = useDroppable({
     id: `droppable-${index}`,
@@ -38,7 +41,19 @@ const DroppablePage = ({
       <Row id={`droppable-${index}`} gutter={[16, 16]} ref={setNodeRef}>
         <Col span={24}>
           <div style={style}>
-            <Row gutter={[16, 16]}>{children}</Row>
+            <Row gutter={[16, 16]}>
+              {children}
+              {/* Button Remove Page */}
+              {onRemove && !disabled && !items.length && (
+                <Col flex="auto" style={{ textAlign: 'end' }}>
+                  <Button
+                    type="text"
+                    icon={<IonIcon name="close-outline" />}
+                    onClick={() => onRemove(index)}
+                  />
+                </Col>
+              )}
+            </Row>
           </div>
         </Col>
       </Row>
