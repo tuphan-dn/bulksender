@@ -13,7 +13,7 @@ const Page = () => {
             <Typography.Title level={3}>Solana Bulk Sender</Typography.Title>
           </Col>
           <Col xs={{ span: 24 }} md={{ span: 12 }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               <Col span={24}>
                 <MintSelection />
               </Col>
@@ -23,7 +23,7 @@ const Page = () => {
             </Row>
           </Col>
           <Col xs={{ span: 24 }} md={{ span: 12 }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               <Col span={24}>
                 <Representor />
               </Col>
