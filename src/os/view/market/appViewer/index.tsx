@@ -16,11 +16,11 @@ const AppViewer = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { appId } = useParams<{ appId: string }>()
   const { address } = useSelector((state: RootState) => state.wallet)
-  const { appPage } = useSelector((state: RootState) => state.page)
+  const { appIds } = useSelector((state: RootState) => state.page)
 
   const installed = useMemo(() => {
-    return account.isAddress(address) && appPage.flat().includes(appId)
-  }, [address, appPage, appId])
+    return account.isAddress(address) && appIds.includes(appId)
+  }, [address, appIds, appId])
   const to = () => history.push(`/app/${appId}`)
   const onBack = () => history.goBack()
 

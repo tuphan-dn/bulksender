@@ -8,14 +8,13 @@ import PDB from 'shared/pdb'
  */
 
 export type State = {
-  appPage: AppPage
+  appIds: AppIds
   farvoriteAppIds: AppIds
 }
 
-const troubleshoot = (appPage?: AppPage): AppPage => {
-  if (!appPage || !Array.isArray(appPage)) return [[]]
-  if (!appPage.length) return [[]]
-  return appPage.map((row) => row.filter((appId) => appId))
+const troubleshoot = (appIds?: AppIds): AppIds => {
+  if (!appIds || !Array.isArray(appIds)) return []
+  return appIds.filter((appId) => appId)
 }
 
 /**
@@ -24,7 +23,7 @@ const troubleshoot = (appPage?: AppPage): AppPage => {
 
 const NAME = 'page'
 const initialState: State = {
-  appPage: [[]],
+  appIds: [],
   farvoriteAppIds: [],
 }
 
@@ -41,27 +40,27 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     if (!account.isAddress(address))
       throw new Error('Wallet is not connected yet')
     const db = new PDB(address).createInstance('sentre')
-    const appPage = troubleshoot(
-      (await db.getItem('appPage')) || initialState.appPage,
+    const appIds = troubleshoot(
+      (await db.getItem('appIds')) || initialState.appIds,
     )
-    return { appPage }
+    return { appIds }
   },
 )
 
 export const updatePage = createAsyncThunk<
   Partial<State>,
-  AppPage,
+  AppIds,
   { state: any }
->(`${NAME}/updatePage`, async (appPage, { getState }) => {
+>(`${NAME}/updatePage`, async (appIds, { getState }) => {
   const {
     wallet: { address },
   } = getState()
   if (!account.isAddress(address))
     throw new Error('Wallet is not connected yet')
-  appPage = troubleshoot(appPage)
+  appIds = troubleshoot(appIds)
   const pdb = new PDB(address)
-  await pdb.createInstance('sentre').setItem('appPage', appPage)
-  return { appPage }
+  await pdb.createInstance('sentre').setItem('appIds', appIds)
+  return { appIds }
 })
 
 export const installApp = createAsyncThunk<
@@ -71,16 +70,16 @@ export const installApp = createAsyncThunk<
 >(`${NAME}/installApp`, async (appId, { getState }) => {
   const {
     wallet: { address },
-    page: { appPage },
+    page: { appIds },
   } = getState()
   if (!account.isAddress(address))
     throw new Error('Wallet is not connected yet')
-  if (appPage.flat().includes(appId)) return {}
-  const newAppPage: AppPage = appPage.map((page: string[]) => [...page])
-  newAppPage[newAppPage.length - 1].push(appId)
+  if (appIds.includes(appId)) return {}
+  const newAppIds: AppIds = [...appIds]
+  newAppIds.push(appId)
   const pdb = new PDB(address)
-  await pdb.createInstance('sentre').setItem('appPage', newAppPage)
-  return { appPage: newAppPage }
+  await pdb.createInstance('sentre').setItem('appIds', newAppIds)
+  return { appIds: newAppIds }
 })
 
 export const uninstallApp = createAsyncThunk<
@@ -90,18 +89,16 @@ export const uninstallApp = createAsyncThunk<
 >(`${NAME}/uninstallApp`, async (appId, { getState }) => {
   const {
     wallet: { address },
-    page: { appPage },
+    page: { appIds },
   } = getState()
   if (!account.isAddress(address))
     throw new Error('Wallet is not connected yet')
-  if (!appPage.flat().includes(appId)) return {}
-  const newAppPage = appPage.map((page: string[]) =>
-    page.filter((_appId) => _appId !== appId),
-  )
+  if (!appIds.includes(appId)) return {}
+  const newAppIds = appIds.filter((_appId: string) => _appId !== appId)
   const pdb = new PDB(address)
-  await pdb.createInstance('sentre').setItem('appPage', newAppPage)
+  await pdb.createInstance('sentre').setItem('appIds', newAppIds)
   await pdb.dropInstance(appId)
-  return { appPage: newAppPage }
+  return { appIds: newAppIds }
 })
 
 /**

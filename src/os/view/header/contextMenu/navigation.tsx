@@ -10,10 +10,10 @@ import { RootState } from 'os/store'
 const Navigation = () => {
   const history = useHistory()
   const { params } = useRouteMatch<{ appId: string }>('/app/:appId') || {}
-  const { appPage } = useSelector((state: RootState) => state.page)
+  const { appIds } = useSelector((state: RootState) => state.page)
   return (
     <Row gutter={[12, 12]} wrap={false} align="middle">
-      {appPage.flat().map((appId) => (
+      {appIds.map((appId) => (
         <Col key={appId}>
           <Badge dot={params?.appId === appId} color="cyan" offset={[-4, 4]}>
             <AppIcon
