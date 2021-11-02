@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Row, Col } from 'antd'
+import { Row, Col, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 
 import register from 'senhub.register'
@@ -45,11 +45,23 @@ const Market = () => {
 
   return (
     <Row gutter={[16, 24]}>
+      {appIds?.length ? (
+        <Col span={24}>
+          <Typography.Title level={4} type="secondary">
+            Search Results
+          </Typography.Title>
+        </Col>
+      ) : null}
       {appIds?.map((appId) => (
         <Col key={appId}>
           <AppIcon appId={appId} onClick={() => to(appId)} />
         </Col>
       ))}
+      <Col span={24}>
+        <Typography.Title level={4} type="secondary">
+          All applications
+        </Typography.Title>
+      </Col>
       {Object.keys(register).map((appId) => (
         <Col key={appId}>
           <AppIcon appId={appId} onClick={() => to(appId)} />
