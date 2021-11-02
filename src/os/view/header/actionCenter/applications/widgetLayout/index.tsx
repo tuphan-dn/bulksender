@@ -37,10 +37,12 @@ const mixedStrategy = (
 const WidgetLayout = ({
   pages,
   onChange = () => {},
+  onRemove = () => {},
   disabled = false,
 }: {
   pages: AppPage
   onChange?: (pages: AppPage) => void
+  onRemove?: (appId: string) => void
   disabled?: boolean
 }) => {
   const history = useHistory()
@@ -123,6 +125,7 @@ const WidgetLayout = ({
     },
     [internalPages, findContainer],
   )
+
   const onDragEnd = ({ over, active }: DragEndEvent) => {
     let newPages = internalPages
     if (over?.id === 'action-remove') {
@@ -130,6 +133,7 @@ const WidgetLayout = ({
       newPages = newPages.map((appIds) =>
         appIds.filter((appId) => appId !== activeId),
       )
+      onRemove(activeId)
       setInternalPages(newPages)
     }
 
@@ -176,7 +180,7 @@ const WidgetLayout = ({
           <Col span={24}>
             <Row gutter={[12, 12]}>
               <Col span={12}>
-                <DraggableAction id="action-remove" span={12}>
+                <DraggableAction id="action-remove">
                   <Button
                     block
                     disabled={!activeId}

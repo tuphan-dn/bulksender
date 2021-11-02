@@ -1,5 +1,4 @@
 import { useSortable } from '@dnd-kit/sortable'
-import { ColProps } from 'antd'
 import {
   Children,
   cloneElement,
@@ -17,7 +16,7 @@ const DraggableAction = ({
 }: {
   id: string
   children: ReactNode
-} & ColProps) => {
+}) => {
   const { setNodeRef } = useSortable({
     id: id,
   })

@@ -6,7 +6,7 @@ import WalletIntro from './walletIntro'
 import WidgetLayout from './widgetLayout'
 
 import { RootDispatch, RootState } from 'os/store'
-import { updatePage } from 'os/store/page.reducer'
+import { uninstallApp, updatePage } from 'os/store/page.reducer'
 
 const Applications = () => {
   const dispatch = useDispatch<RootDispatch>()
@@ -16,6 +16,13 @@ const Applications = () => {
   const setPages = useCallback(
     (appPage) => {
       return dispatch(updatePage(appPage))
+    },
+    [dispatch],
+  )
+
+  const onRemove = useCallback(
+    (appId: string) => {
+      dispatch(uninstallApp(appId))
     },
     [dispatch],
   )
@@ -35,6 +42,7 @@ const Applications = () => {
         <WidgetLayout
           pages={appPage}
           onChange={setPages}
+          onRemove={onRemove}
           disabled={!editable}
         />
       </Col>
