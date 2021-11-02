@@ -7,8 +7,10 @@ import { isTouchable } from 'shared/util'
  */
 
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+export type Theme = 'light' | 'dark'
 
 export type State = {
+  theme: Theme
   width: number
   infix: Infix
   touchable: boolean
@@ -31,6 +33,7 @@ const getInfix = (): Infix => {
 
 const NAME = 'ui'
 const initialState: State = {
+  theme: 'light',
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
@@ -40,6 +43,13 @@ const initialState: State = {
 /**
  * Actions
  */
+
+export const setTheme = createAsyncThunk(
+  `${NAME}/setTheme`,
+  async (theme: Theme) => {
+    return { theme }
+  },
+)
 
 export const resize = createAsyncThunk(`${NAME}/resize`, async () => {
   const width = window.innerWidth
@@ -64,6 +74,10 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     void builder
+      .addCase(
+        setTheme.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
       .addCase(
         resize.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),

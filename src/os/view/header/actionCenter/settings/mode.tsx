@@ -1,21 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 
 import { Row, Col, Switch, Typography, Card } from 'antd'
+import IonIcon from 'shared/ionicon'
 
 import { RootDispatch, RootState } from 'os/store'
-import { setMode } from 'os/store/flags.reducer'
+import { setTheme } from 'os/store/ui.reducer'
 
 const Mode = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const history = useHistory()
-  const { mode } = useSelector((state: RootState) => state.flags)
+  const { theme } = useSelector((state: RootState) => state.ui)
 
-  const onSwitch = async (checked: boolean) => {
-    const mode = checked ? 'professional' : 'focus'
-    const page = checked ? '/dashboard' : '/app'
-    await dispatch(setMode(mode))
-    return history.push(page)
+  const onSwitch = (checked: boolean) => {
+    return dispatch(setTheme(checked ? 'dark' : 'light'))
   }
 
   return (
@@ -24,21 +20,23 @@ const Mode = () => {
         <Col span={24}>
           <Row gutter={[8, 8]} wrap={false}>
             <Col flex="auto">
-              <Typography.Text>Pro Mode</Typography.Text>
+              <Typography.Text>Theme</Typography.Text>
             </Col>
             <Col>
               <Switch
                 size="small"
-                checked={mode === 'professional'}
+                checked={theme === 'dark'}
                 onChange={onSwitch}
+                checkedChildren={<IonIcon name="moon-outline" />}
+                unCheckedChildren={<IonIcon name="sunny-outline" />}
               />
             </Col>
           </Row>
         </Col>
         <Col span={24}>
           <Typography.Paragraph type="secondary" style={{ fontSize: 12 }}>
-            By enabling the professional mode, your workspace will be a set of
-            widgets.
+            Dark mode will prolong your battery life, and reduce eye strain in
+            low-light conditions.
           </Typography.Paragraph>
         </Col>
       </Row>
