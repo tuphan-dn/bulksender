@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
@@ -9,19 +9,17 @@ import { RootState } from 'os/store'
 
 const Welcome = () => {
   const history = useHistory()
+  const location = useLocation()
   const { address: walletAddress } = useSelector(
     (state: RootState) => state.wallet,
   )
 
   // Redirect callback
   useEffect(() => {
-    const {
-      location: { search },
-    } = history
-    const params = new URLSearchParams(search)
+    const params = new URLSearchParams(location.search)
     const redirect = decodeURI(params.get('redirect') || '/welcome')
     if (account.isAddress(walletAddress)) return history.push(redirect)
-  }, [walletAddress, history])
+  }, [walletAddress, history, location.search])
 
   return (
     <Row gutter={[24, 24]} justify="center">

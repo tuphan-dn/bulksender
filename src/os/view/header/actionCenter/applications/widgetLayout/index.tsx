@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {
   DndContext,
@@ -21,10 +21,11 @@ import IonIcon from 'shared/ionicon'
 import AppIcon from 'os/components/appIcon'
 import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
-
-import { RootDispatch } from 'os/store'
-import { setActionCenterVisible } from 'os/store/ui.reducer'
 import DraggableAction from './draggableAction'
+
+import { RootDispatch, RootState } from 'os/store'
+import { setActionCenterVisible } from 'os/store/ui.reducer'
+import { uninstallApp, updatePage } from 'os/store/page.reducer'
 
 // Mixed Strategy
 const mixedStrategy = (
@@ -34,27 +35,18 @@ const mixedStrategy = (
   return intersecting ? intersecting : closestCorners(...args)
 }
 
-const WidgetLayout = ({
-  pages,
-  onChange = () => {},
-  onRemove = () => {},
-  disabled = false,
-}: {
-  pages: AppPage
-  onChange?: (pages: AppPage) => void
-  onRemove?: (appId: string) => void
-  disabled?: boolean
-}) => {
+const WidgetLayout = ({ disabled = true }: { disabled?: boolean }) => {
   const history = useHistory()
   const dispatch = useDispatch<RootDispatch>()
   const [internalPages, setInternalPages] = useState<AppPage>([])
   const [activeId, setActiveId] = useState<string>('')
   const [actionId, setActionId] = useState('')
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
+  const { appPage } = useSelector((state: RootState) => state.page)
 
   useEffect(() => {
-    setInternalPages(pages)
-  }, [pages])
+    setInternalPages(appPage)
+  }, [appPage])
 
   const open = async (appId: string) => {
     await dispatch(setActionCenterVisible(false))
@@ -88,11 +80,8 @@ const WidgetLayout = ({
 
   const onDragOver = useCallback(
     ({ over, active }: DragOverEvent) => {
-      if (over?.id?.startsWith('action-')) {
-        return setActionId(over.id)
-      } else {
-        setActionId('')
-      }
+      if (over?.id?.startsWith('action-')) return setActionId(over.id)
+      else setActionId('')
 
       const [activePageIndex, activeAppIndex] = findContainer(active)
       const [overPageIndex, overAppIndex] = over
@@ -126,25 +115,28 @@ const WidgetLayout = ({
     [internalPages, findContainer],
   )
 
-  const onDragEnd = ({ over, active }: DragEndEvent) => {
+  const onDragEnd = async ({ over, active }: DragEndEvent) => {
     let newPages = internalPages
     if (over?.id === 'action-remove') {
       const activeId = active.id
       newPages = newPages.map((appIds) =>
         appIds.filter((appId) => appId !== activeId),
       )
-      onRemove(activeId)
-      setInternalPages(newPages)
+      await setInternalPages(newPages)
+      return dispatch(uninstallApp(activeId))
     }
-
     setActiveId('')
-    onChange(newPages)
+    return dispatch(updatePage(newPages))
   }
 
-  const onAddNewPage = () => setInternalPages([...internalPages, []])
+  const onAddPage = () => {
+    const newPages = [...internalPages, []]
+    return dispatch(updatePage(newPages))
+  }
 
   const onRemovePage = (pageIdx: number) => {
-    onChange(internalPages.filter((val, idx) => idx !== pageIdx))
+    const newPages = internalPages.filter((val, idx) => idx !== pageIdx)
+    return dispatch(updatePage(newPages))
   }
 
   return (
@@ -188,7 +180,7 @@ const WidgetLayout = ({
                     className="contained"
                     icon={<IonIcon name="trash-outline" />}
                   >
-                    Drag to delete app
+                    Drop to delete
                   </Button>
                 </DraggableAction>
               </Col>
@@ -197,7 +189,7 @@ const WidgetLayout = ({
                   block
                   className="contained"
                   icon={<IonIcon name="add-outline" />}
-                  onClick={onAddNewPage}
+                  onClick={onAddPage}
                 >
                   New Page
                 </Button>
