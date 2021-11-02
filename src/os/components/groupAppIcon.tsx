@@ -1,6 +1,4 @@
-import { Row, Col, Avatar } from 'antd'
 import { StaticLoader } from 'os/components/appLoader'
-import IonIcon from 'shared/ionicon'
 
 import register from 'senhub.register'
 
@@ -14,42 +12,42 @@ const GroupAppIcon = ({
   onClick: () => void
 }) => {
   const limit = page.length < 4 ? page.length : 4
-  const subsize = (size - 8) / 2
+  const subsize = (size - 12) / 2
 
   return (
-    <Row
-      gutter={[2, 2]}
+    <div
       style={{
         height: size,
         width: size,
+        borderRadius: 8,
         padding: 2,
-        borderRadius: 4,
-        backgroundColor: '#ccc',
+        backgroundColor: '#cccccc',
         cursor: 'pointer',
+        lineHeight: 1,
+        display: 'flex',
       }}
       onClick={onClick}
     >
       {Array.from(Array(limit).keys()).map((_, i) => (
-        <Col
+        <StaticLoader
           key={i}
-          span={12}
-          style={{
-            height: subsize,
-            lineHeight: 1,
-          }}
-        >
-          <StaticLoader
-            type="logo"
-            {...register[page[i]]}
-            render={(src) => (
-              <Avatar src={src} shape="square" size={subsize}>
-                <IonIcon name="image-outline" />
-              </Avatar>
-            )}
-          />
-        </Col>
+          type="logo"
+          {...register[page[i]]}
+          render={(src) => (
+            <img
+              src={src}
+              style={{
+                height: subsize,
+                width: subsize,
+                borderRadius: 4,
+                margin: 2,
+              }}
+              alt={src}
+            />
+          )}
+        />
       ))}
-    </Row>
+    </div>
   )
 }
 

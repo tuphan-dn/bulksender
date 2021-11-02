@@ -77,7 +77,7 @@ const ContextMenu = () => {
         />
       </Col>
       <Col flex="auto" style={{ width: 0 }} className="scrollbar">
-        {pathname.split('/')[1] === 'dashboard' ? (
+        {pathname.startsWith('/dashboard') ? (
           <InDashboardMenu />
         ) : (
           <InAppMenu />
