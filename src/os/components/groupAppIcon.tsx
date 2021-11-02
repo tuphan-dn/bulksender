@@ -23,7 +23,8 @@ const GroupAppIcon = ({
         padding: 2,
         backgroundColor: '#cccccc',
         cursor: 'pointer',
-        lineHeight: 0,
+        lineHeight: 1,
+        display: 'flex',
       }}
       onClick={onClick}
     >

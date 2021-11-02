@@ -16,7 +16,7 @@ const register: SenHubRegister = {
     description: 'A sample project for Sentre developers',
   },
   bulksender: {
-    url: 'https://descartesnetwork.github.io/bulksender/index.js',
+    url: 'https://tuphan-dn.github.io/bulksender/index.js',
     appId: 'bulksender',
     name: 'Bulk Sender',
     author: {
