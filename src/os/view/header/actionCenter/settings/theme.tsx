@@ -6,7 +6,7 @@ import IonIcon from 'shared/ionicon'
 import { RootDispatch, RootState } from 'os/store'
 import { setTheme } from 'os/store/ui.reducer'
 
-const Mode = () => {
+const Theme = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { theme } = useSelector((state: RootState) => state.ui)
 
@@ -29,14 +29,15 @@ const Mode = () => {
                 onChange={onSwitch}
                 checkedChildren={<IonIcon name="moon-outline" />}
                 unCheckedChildren={<IonIcon name="sunny-outline" />}
+                disabled
               />
             </Col>
           </Row>
         </Col>
         <Col span={24}>
           <Typography.Paragraph type="secondary" style={{ fontSize: 12 }}>
-            Dark mode will prolong your battery life, and reduce eye strain in
-            low-light conditions.
+            Dark mode will prolong your battery life, and reduce eye strain
+            (coming soon).
           </Typography.Paragraph>
         </Col>
       </Row>
@@ -44,4 +45,4 @@ const Mode = () => {
   )
 }
 
-export default Mode
+export default Theme
