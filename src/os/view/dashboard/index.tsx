@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux'
 import { Row, Col } from 'antd'
 import { WidgetLoader } from 'os/components/appLoader'
 
-import register from 'senhub.register'
 import { RootState } from 'os/store'
 
 const Dashboard = () => {
-  const { appIds } = useSelector((state: RootState) => state.page)
+  const { appIds, register } = useSelector((state: RootState) => state.page)
 
   return (
     <Row gutter={[24, 24]}>

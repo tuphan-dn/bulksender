@@ -1,8 +1,10 @@
+import { useSelector } from 'react-redux'
+
 import { Row, Col, Card, Typography, Divider } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import AppPanel from 'os/components/appPanel'
 
-import register from 'senhub.register'
+import { RootState } from 'os/store'
 
 const TitleAndValue = ({
   title,
@@ -35,6 +37,7 @@ const TitleAndValue = ({
 }
 
 const HeroPanel = ({ appId }: { appId: string }) => {
+  const { register } = useSelector((state: RootState) => state.page)
   const { description, author, name } = register[appId] || {}
 
   return (

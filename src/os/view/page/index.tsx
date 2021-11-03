@@ -5,12 +5,11 @@ import { Row, Col } from 'antd'
 import { PageLoader } from 'os/components/appLoader'
 import NotFound from './notFound'
 
-import register from 'senhub.register'
 import { RootState } from 'os/store'
 
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
-  const { appIds } = useSelector((state: RootState) => state.page)
+  const { appIds, register } = useSelector((state: RootState) => state.page)
 
   if (!register[appId]) return null
   return (

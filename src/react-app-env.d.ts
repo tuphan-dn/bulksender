@@ -42,6 +42,7 @@ type ComponentManifest = {
     email: string
   }
   description: string
+  verified: boolean
 }
 // List of application manifests
 type SenHubRegister = Record<string, ComponentManifest | undefined>

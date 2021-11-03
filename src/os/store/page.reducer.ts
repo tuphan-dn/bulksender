@@ -2,12 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { account } from '@senswap/sen-js'
 
 import PDB from 'shared/pdb'
+import configs from 'os/configs'
+
+const {
+  register: { senreg, extra },
+} = configs
 
 /**
  * Interface & Utility
  */
 
 export type State = {
+  register: SenHubRegister
   appIds: AppIds
   farvoriteAppIds: AppIds
 }
@@ -16,6 +22,14 @@ const troubleshoot = (appIds?: AppIds): AppIds => {
   if (!appIds || !Array.isArray(appIds)) return []
   return appIds.filter((appId) => appId)
 }
+const fetchRegister = async () => {
+  try {
+    const re = await fetch(senreg)
+    return re.json()
+  } catch (er) {
+    return {}
+  }
+}
 
 /**
  * Store constructor
@@ -23,6 +37,7 @@ const troubleshoot = (appIds?: AppIds): AppIds => {
 
 const NAME = 'page'
 const initialState: State = {
+  register: {},
   appIds: [],
   farvoriteAppIds: [],
 }
@@ -39,11 +54,14 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     } = getState()
     if (!account.isAddress(address))
       throw new Error('Wallet is not connected yet')
+    // Fetch user's apps
     const db = new PDB(address).createInstance('sentre')
     const appIds = troubleshoot(
       (await db.getItem('appIds')) || initialState.appIds,
     )
-    return { appIds }
+    // Fetch register
+    const register = await fetchRegister()
+    return { appIds, register: { ...register, ...extra } }
   },
 )
 

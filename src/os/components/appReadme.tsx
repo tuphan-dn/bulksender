@@ -1,10 +1,11 @@
 import { useEffect, createRef, Component, Suspense } from 'react'
+import { useSelector } from 'react-redux'
 import { Remarkable } from 'remarkable'
 
 import { Row, Col, Typography, Spin } from 'antd'
 import { RemoteStatic } from 'os/components/appLoader'
 
-import register from 'senhub.register'
+import { RootState } from 'os/store'
 
 type Props = {
   appId: string
@@ -53,6 +54,7 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 }
 
 const AppReadme = (props: Props) => {
+  const { register } = useSelector((state: RootState) => state.page)
   const { appId } = props
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }

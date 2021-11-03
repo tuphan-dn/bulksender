@@ -21,7 +21,10 @@ const WalletIntro = () => {
     <Card bodyStyle={{ padding: 16 }} hoverable>
       <Row gutter={[16, 16]} align="middle">
         <Col flex="auto">
-          <Tooltip title={`${utils.undecimalize(lamports, 9)} SOL`}>
+          <Tooltip
+            placement="topLeft"
+            title={`${utils.undecimalize(lamports, 9)} SOL`}
+          >
             <Typography.Title level={3}>
               {balance} <span style={{ color: '#03E1FF' }}>◎</span>
             </Typography.Title>

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 
-import register from 'senhub.register'
 import SearchEngine from './searchEngine'
 import { RootDispatch, RootState } from 'os/store'
 import { setLoading } from 'os/store/search.reducer'
@@ -13,10 +12,11 @@ import { setLoading } from 'os/store/search.reducer'
 let searching: ReturnType<typeof setTimeout> | undefined
 
 const Market = () => {
-  const dispatch = useDispatch<RootDispatch>()
   const history = useHistory()
-  const { value } = useSelector((state: RootState) => state.search)
+  const dispatch = useDispatch<RootDispatch>()
   const [appIds, setAppIds] = useState<string[]>()
+  const { value } = useSelector((state: RootState) => state.search)
+  const { register } = useSelector((state: RootState) => state.page)
 
   const to = (appId: string) => history.push(`/store/${appId}`)
 
@@ -37,7 +37,7 @@ const Market = () => {
       await dispatch(setLoading(false))
       return window.scrollTo(0, 0)
     }, 1000)
-  }, [value, dispatch])
+  }, [value, dispatch, register])
 
   useEffect(() => {
     onSearch()
