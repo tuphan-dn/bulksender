@@ -1,10 +1,13 @@
-import { useEffect, createRef } from 'react'
+import { useEffect, createRef, Component, Suspense } from 'react'
 import { Remarkable } from 'remarkable'
-
-import { Row, Col } from 'antd'
-import { StaticLoader } from 'os/components/appLoader'
+import { Row, Col, Typography, Spin } from 'antd'
 
 import register from 'senhub.register'
+import { RemoteStatic } from 'os/components/appLoader'
+
+type Props = {
+  appId: string
+}
 
 const Markdown = ({ src }: { src: string }) => {
   const ref = createRef<HTMLDivElement>()
@@ -30,14 +33,44 @@ const Markdown = ({ src }: { src: string }) => {
     </Row>
   )
 }
+class ErrorBoundary extends Component<Props, { failed: boolean }> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      failed: false,
+    }
+  }
 
-const AppReadme = ({ appId }: { appId: string }) => {
+  componentDidCatch(error: Error) {
+    return this.setState({ failed: Boolean(error) })
+  }
+
+  render() {
+    const { failed } = this.state
+    const { children } = this.props
+
+    if (failed || !children)
+      return <Typography.Text>Cannot load the README.md</Typography.Text>
+
+    return children
+  }
+}
+
+const AppReadme = (props: Props) => {
+  const { appId } = props
+  const { url } = register[appId]
+  const manifest = { url, scope: appId, module: './static' }
+
   return (
-    <StaticLoader
-      type="readme"
-      {...register[appId]}
-      render={(src) => <Markdown src={src} />}
-    />
+    <ErrorBoundary {...props}>
+      <Suspense fallback={<Spin />}>
+        <RemoteStatic
+          type={'logo'}
+          manifest={manifest}
+          render={(src) => <Markdown src={src} />}
+        />
+      </Suspense>
+    </ErrorBoundary>
   )
 }
 
