@@ -8,12 +8,14 @@ import ErrorBoundary from 'os/components/errorBoundary'
 /**
  * Remote Static
  */
+type StaticType = 'logo' | 'panel' | 'readme' | 'widgetConfig'
+
 export const RemoteStatic = forwardRef<
   HTMLElement,
   {
-    type?: string
+    type?: StaticType
     manifest: RemoteModule
-    render: (src: string) => JSX.Element
+    render: (src: any) => JSX.Element
   }
 >(({ type = 'default', manifest, render }, ref) => {
   const { [type]: src } = useRemoteModule(manifest)
@@ -26,7 +28,7 @@ export const RemoteStatic = forwardRef<
 export const StaticLoader = forwardRef<
   HTMLElement,
   {
-    type: 'logo' | 'panel' | 'readme'
+    type: StaticType
     render: (url: string) => JSX.Element
   } & ComponentManifest
 >(({ type, url, appId, render }, ref) => {
@@ -48,7 +50,7 @@ export const StaticLoader = forwardRef<
 /**
  * Remote component
  */
-const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
+export const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
   ({ manifest, ...props }, ref) => {
     const { default: Component } = useRemoteModule(manifest)
     return <Component {...props} ref={ref} />
@@ -71,18 +73,3 @@ export const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
   },
 )
 
-/**
- * Widget Loader
- */
-export const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
-  ({ url, appId, ...props }, ref) => {
-    const manifest = { url, scope: appId, module: './widget' }
-    return (
-      <ErrorBoundary remoteUrl={url || 'Unknown'}>
-        <Suspense fallback={<Skeleton active />}>
-          <RemoteComponent manifest={manifest} {...props} ref={ref} />
-        </Suspense>
-      </ErrorBoundary>
-    )
-  },
-)
