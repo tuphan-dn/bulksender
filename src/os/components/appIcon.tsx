@@ -29,7 +29,6 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
     const { children } = this.props
 
     if (failed || !children) return <RawAppIcon {...this.props} src={null} />
-
     return children
   }
 }
@@ -74,7 +73,7 @@ const AppIcon = (props: Props) => {
     <ErrorBoundary {...props}>
       <Suspense fallback={<Spin />}>
         <RemoteStatic
-          type={'logo'}
+          type="logo"
           manifest={manifest}
           render={(src) => <RawAppIcon {...props} src={src} />}
         />
