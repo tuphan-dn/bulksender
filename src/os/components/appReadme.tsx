@@ -1,8 +1,9 @@
 import { useEffect, createRef, Component, Suspense } from 'react'
 import { Remarkable } from 'remarkable'
-import { Row, Col, Typography, Spin } from 'antd'
 
+import { Row, Col, Typography, Spin } from 'antd'
 import { RemoteStatic } from 'os/components/appLoader'
+
 import register from 'senhub.register'
 
 type Props = {
@@ -33,6 +34,7 @@ const Markdown = ({ src }: { src: string }) => {
     </Row>
   )
 }
+
 class ErrorBoundary extends Component<Props, { failed: boolean }> {
   constructor(props: Props) {
     super(props)
@@ -51,7 +53,6 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 
     if (failed || !children)
       return <Typography.Text>Cannot load the README.md</Typography.Text>
-
     return children
   }
 }
