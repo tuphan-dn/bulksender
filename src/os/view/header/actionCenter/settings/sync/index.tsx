@@ -20,7 +20,7 @@ const Sync = () => {
   const onRestore = async () => {
     console.log('onRestore')
     const re = await pdb.restore(
-      'QmYomukE7ke3kpq3bk2pBLHKWsTaGmkcbGvMYLXnXPcuL6',
+      'QmdxL9t5BMUjMkZD5VZ7McJzfR9gcv6ZZcXRvXzCNrGNVS',
     )
     console.log(re)
   }

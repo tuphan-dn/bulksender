@@ -40,7 +40,7 @@ const Search = () => {
           bordered={false}
           onChange={onChange}
           value={value}
-          suffix={
+          prefix={
             value ? (
               <Button
                 type="text"

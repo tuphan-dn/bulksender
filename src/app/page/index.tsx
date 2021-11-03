@@ -1,5 +1,6 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { usePDB } from 'senhub/providers'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
 import IonIcon from 'shared/ionicon'
@@ -12,9 +13,14 @@ const Page = () => {
   const {
     wallet: { address },
   } = useWallet()
+  const pdb = usePDB()
   const dispatch = useDispatch<AppDispatch>()
   const { counter } = useSelector((state: AppState) => state.main)
+
   const increase = useCallback(() => dispatch(increaseCounter()), [dispatch])
+  useEffect(() => {
+    if (pdb.isInitialized) pdb.setItem('counter', counter)
+  }, [pdb, counter])
 
   return (
     <Row gutter={[24, 24]} align="middle">
