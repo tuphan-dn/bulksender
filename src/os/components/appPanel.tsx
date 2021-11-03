@@ -52,7 +52,7 @@ const AppPanel = (props: Props) => {
     <ErrorBoundary {...props}>
       <Suspense fallback={<Spin />}>
         <RemoteStatic
-          type={'panel'}
+          type="panel"
           manifest={manifest}
           render={(src) => <RawAppPanel {...props} src={src} />}
         />
