@@ -48,7 +48,9 @@ class SearchEngine {
         if (!appIds.includes(appId)) return appIds.push(appId)
       })
     })
-    return appIds.map((appId) => this.register[appId].appId)
+    return appIds.map(
+      (appId) => (this.register[appId] as ComponentManifest).appId,
+    )
   }
 }
 

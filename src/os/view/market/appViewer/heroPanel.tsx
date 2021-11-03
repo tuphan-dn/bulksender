@@ -35,11 +35,7 @@ const TitleAndValue = ({
 }
 
 const HeroPanel = ({ appId }: { appId: string }) => {
-  const {
-    description,
-    author: { name, email },
-    name: appName,
-  } = register[appId]
+  const { description, author, name } = register[appId] || {}
 
   return (
     <Row gutter={[16, 16]}>
@@ -53,16 +49,24 @@ const HeroPanel = ({ appId }: { appId: string }) => {
               <AppIcon appId={appId} size={48} name={false} />
             </Col>
             <Col span={24}>
-              <TitleAndValue title="Name" value={appName} divider />
+              <TitleAndValue title="Name" value={name || ''} divider />
             </Col>
             <Col span={24}>
-              <TitleAndValue title="Author" value={name} divider />
+              <TitleAndValue
+                title="Author"
+                value={author?.name || ''}
+                divider
+              />
             </Col>
             <Col span={24}>
-              <TitleAndValue title="Support" value={email} divider />
+              <TitleAndValue
+                title="Support"
+                value={author?.email || ''}
+                divider
+              />
             </Col>
             <Col span={24}>
-              <TitleAndValue title="Description" value={description} />
+              <TitleAndValue title="Description" value={description || ''} />
             </Col>
           </Row>
         </Card>

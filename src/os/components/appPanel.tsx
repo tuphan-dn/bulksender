@@ -44,7 +44,7 @@ const RawAppPanel = ({ src, onClick = () => {} }: Props & { src: string }) => {
 
 const AppPanel = (props: Props) => {
   const { appId } = props
-  const { url } = register[appId]
+  const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
   return (
