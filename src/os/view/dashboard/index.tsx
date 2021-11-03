@@ -12,7 +12,7 @@ const Dashboard = () => {
   return (
     <Row gutter={[24, 24]}>
       {appIds.map((appId) => {
-        if (register[appId]) return null
+        if (!register[appId]) return null
         return (
           <Col key={appId}>
             <WidgetLoader {...(register[appId] as ComponentManifest)} />
