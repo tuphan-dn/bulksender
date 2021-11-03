@@ -1,8 +1,9 @@
 import { Component, ReactNode, Suspense } from 'react'
+
 import { Space, Avatar, Typography, Spin } from 'antd'
 import IonIcon from 'shared/ionicon'
-
 import { RemoteStatic } from 'os/components/appLoader'
+
 import register from 'senhub.register'
 
 type Props = {
@@ -34,7 +35,7 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 }
 
 const RawAppIcon = (props: Props & { src: ReactNode }) => {
-  const { src, appId, onClick, size = 64, name = true } = props
+  const { src, appId, onClick = () => {}, size = 64, name = true } = props
   const { name: appName } = register[appId]
 
   return (

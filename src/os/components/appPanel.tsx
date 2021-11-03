@@ -28,12 +28,11 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 
     if (failed || !children)
       return <RawAppPanel {...this.props} src={ERROR_IMG} />
-
     return children
   }
 }
 
-const RawAppPanel = ({ src, onClick }: Props & { src: string }) => {
+const RawAppPanel = ({ src, onClick = () => {} }: Props & { src: string }) => {
   return (
     <Row>
       <Col span={24} style={{ lineHeight: 0 }}>
