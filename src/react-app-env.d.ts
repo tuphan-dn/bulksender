@@ -44,7 +44,7 @@ type ComponentManifest = {
   description: string
 }
 // List of application manifests
-type SenHubRegister = Record<string, ComponentManifest>
+type SenHubRegister = Record<string, ComponentManifest | undefined>
 // Widget size
 type WidgetSize = 'small' | 'middle' | 'large'
 

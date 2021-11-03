@@ -12,11 +12,12 @@ const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
   const { appIds } = useSelector((state: RootState) => state.page)
 
+  if (!register[appId]) return null
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
         {appIds.includes(appId) ? (
-          <PageLoader {...register[appId]} />
+          <PageLoader {...(register[appId] as ComponentManifest)} />
         ) : (
           <NotFound appId={appId} />
         )}

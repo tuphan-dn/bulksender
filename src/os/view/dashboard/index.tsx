@@ -11,11 +11,14 @@ const Dashboard = () => {
 
   return (
     <Row gutter={[24, 24]}>
-      {appIds.map((appId) => (
-        <Col key={appId}>
-          <WidgetLoader {...register[appId]} />
-        </Col>
-      ))}
+      {appIds.map((appId) => {
+        if (register[appId]) return null
+        return (
+          <Col key={appId}>
+            <WidgetLoader {...(register[appId] as ComponentManifest)} />
+          </Col>
+        )
+      })}
     </Row>
   )
 }

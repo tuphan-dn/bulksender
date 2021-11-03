@@ -36,7 +36,7 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 
 const RawAppIcon = (props: Props & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 64, name = true } = props
-  const { name: appName } = register[appId]
+  const { name: appName } = register[appId] || { name: 'Unknown' }
 
   return (
     <Space
@@ -67,7 +67,7 @@ const RawAppIcon = (props: Props & { src: ReactNode }) => {
 
 const AppIcon = (props: Props) => {
   const { appId } = props
-  const { url } = register[appId]
+  const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
   return (

@@ -54,7 +54,7 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 
 const AppReadme = (props: Props) => {
   const { appId } = props
-  const { url } = register[appId]
+  const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
   return (
