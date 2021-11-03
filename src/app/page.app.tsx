@@ -10,8 +10,8 @@ import {
 import { ConfigProvider } from 'antd'
 import PageView from 'app/page'
 
-import configs from 'app/configs'
 import model from 'app/model'
+import configs from 'app/configs'
 import 'app/static/styles/index.less'
 
 const {

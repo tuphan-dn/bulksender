@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
@@ -9,7 +10,6 @@ import HeroPanel from './heroPanel'
 
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
-import { useMemo } from 'react'
 
 const AppViewer = () => {
   const history = useHistory()
