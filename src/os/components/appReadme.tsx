@@ -2,8 +2,8 @@ import { useEffect, createRef, Component, Suspense } from 'react'
 import { Remarkable } from 'remarkable'
 import { Row, Col, Typography, Spin } from 'antd'
 
-import register from 'senhub.register'
 import { RemoteStatic } from 'os/components/appLoader'
+import register from 'senhub.register'
 
 type Props = {
   appId: string
@@ -65,7 +65,7 @@ const AppReadme = (props: Props) => {
     <ErrorBoundary {...props}>
       <Suspense fallback={<Spin />}>
         <RemoteStatic
-          type={'logo'}
+          type={'readme'}
           manifest={manifest}
           render={(src) => <Markdown src={src} />}
         />
