@@ -8,7 +8,7 @@ import ErrorBoundary from 'os/components/errorBoundary'
 /**
  * Remote Static
  */
-type StaticType = 'logo' | 'panel' | 'readme' | 'widgetConfig'
+type StaticType = 'logo' | 'panel' | 'readme'
 
 export const RemoteStatic = forwardRef<
   HTMLElement,
