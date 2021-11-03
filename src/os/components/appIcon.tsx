@@ -1,10 +1,11 @@
 import { Component, ReactNode, Suspense } from 'react'
+import { useSelector } from 'react-redux'
 
 import { Space, Avatar, Typography, Spin } from 'antd'
 import IonIcon from 'shared/ionicon'
 import { RemoteStatic } from 'os/components/appLoader'
 
-import register from 'senhub.register'
+import { RootState } from 'os/store'
 
 type Props = {
   appId: string
@@ -36,6 +37,7 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
 
 const RawAppIcon = (props: Props & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 64, name = true } = props
+  const { register } = useSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
 
   return (
@@ -67,6 +69,7 @@ const RawAppIcon = (props: Props & { src: ReactNode }) => {
 
 const AppIcon = (props: Props) => {
   const { appId } = props
+  const { register } = useSelector((state: RootState) => state.page)
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 

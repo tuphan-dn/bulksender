@@ -41,24 +41,18 @@ const Search = () => {
           onChange={onChange}
           value={value}
           prefix={
-            value ? (
-              <Button
-                type="text"
-                size="small"
-                icon={<IonIcon name="close-circle-outline" />}
-                loading={loading}
-                disabled={disabled}
-                onClick={onClear}
-              />
-            ) : (
-              <Button
-                type="text"
-                size="small"
-                icon={<IonIcon name="search-outline" />}
-                loading={loading}
-                disabled={disabled}
-              />
-            )
+            <Button
+              type="text"
+              size="small"
+              icon={
+                <IonIcon
+                  name={value ? 'close-circle-outline' : 'search-outline'}
+                />
+              }
+              loading={loading}
+              disabled={disabled}
+              onClick={value ? onClear : () => {}}
+            />
           }
           disabled={disabled}
         />

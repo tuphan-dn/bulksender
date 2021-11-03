@@ -1,8 +1,10 @@
-import { Row, Col, Image, Spin } from 'antd'
 import { Component, Suspense } from 'react'
+import { useSelector } from 'react-redux'
 
-import register from 'senhub.register'
+import { Row, Col, Image, Spin } from 'antd'
 import { RemoteStatic } from 'os/components/appLoader'
+
+import { RootState } from 'os/store'
 import ERROR_IMG from 'os/static/images/error-image.svg'
 
 type Props = {
@@ -43,6 +45,7 @@ const RawAppPanel = ({ src, onClick = () => {} }: Props & { src: string }) => {
 }
 
 const AppPanel = (props: Props) => {
+  const { register } = useSelector((state: RootState) => state.page)
   const { appId } = props
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
