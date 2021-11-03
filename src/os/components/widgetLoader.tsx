@@ -1,6 +1,6 @@
 import { Component, forwardRef, Suspense } from 'react'
-import { Typography, Row, Col, Button, Spin } from 'antd'
 
+import { Typography, Row, Col, Button, Spin } from 'antd'
 import { RemoteStatic } from 'os/components/appLoader'
 import WidgetContainer from './widgetContainer'
 import { RemoteComponent } from './appLoader'
@@ -77,7 +77,6 @@ export const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
       <ErrorBoundary {...props}>
         <Suspense fallback={<WidgetLoading />}>
           <RemoteStatic
-            type="widgetConfig"
             manifest={manifest}
             render={(widgetConfig: WidgetConfig) => {
               return (
