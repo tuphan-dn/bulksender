@@ -9,11 +9,7 @@ export const SolidCard = ({ children }: { children: ReactNode }) => {
   return (
     <Card
       className="scrollbar"
-      style={{
-        background: '#FFFFFF',
-        boxShadow: '0px 1px 3px rgba(33, 36, 51, 0.16)',
-        height: '100%',
-      }}
+      style={{ height: '100%' }}
       bodyStyle={{ padding: 16, height: '100%' }}
       bordered={false}
     >
