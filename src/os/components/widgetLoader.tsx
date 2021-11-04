@@ -1,9 +1,28 @@
-import { Component, forwardRef, Suspense } from 'react'
+import { cloneElement, Component, forwardRef, Suspense } from 'react'
+import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
+import { useRemoteModule } from 'react-dynamic-remote-component'
 
 import { Typography, Row, Col, Button, Spin } from 'antd'
-import { RemoteStatic } from 'os/components/appLoader'
 import WidgetContainer from './widgetContainer'
-import { RemoteComponent } from './appLoader'
+
+type WidgetComponentSrc = {
+  default: any
+  widgetConfig: WidgetConfig
+}
+
+/**
+ * Remote component
+ */
+const RemoteComponent = forwardRef<
+  HTMLElement,
+  {
+    manifest: RemoteModule
+    render: (src: any) => JSX.Element
+  }
+>(({ manifest, render }, ref) => {
+  const src = useRemoteModule(manifest)
+  return cloneElement(render(src), ref ? { ref } : {})
+})
 
 class ErrorBoundary extends Component<ComponentManifest, { failed: boolean }> {
   constructor(props: ComponentManifest) {
@@ -76,12 +95,13 @@ export const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
     return (
       <ErrorBoundary {...props}>
         <Suspense fallback={<WidgetLoading />}>
-          <RemoteStatic
+          <RemoteComponent
             manifest={manifest}
-            render={(widgetConfig: WidgetConfig) => {
+            render={(src: WidgetComponentSrc) => {
+              const { default: WidgetBody, widgetConfig } = src
               return (
                 <WidgetContainer {...widgetConfig}>
-                  <RemoteComponent manifest={manifest} {...props} ref={ref} />
+                  <WidgetBody {...props} ref={ref} />
                 </WidgetContainer>
               )
             }}
