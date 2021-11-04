@@ -50,7 +50,7 @@ export const StaticLoader = forwardRef<
 /**
  * Remote component
  */
-export const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
+const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
   ({ manifest, ...props }, ref) => {
     const { default: Component } = useRemoteModule(manifest)
     return <Component {...props} ref={ref} />
@@ -72,4 +72,3 @@ export const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
     )
   },
 )
-
