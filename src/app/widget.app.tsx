@@ -5,7 +5,10 @@ import WidgetView from 'app/widget'
 
 import model from 'app/model'
 
-export const size: WidgetSize = 'small'
+export const widgetConfig: WidgetConfig = {
+  size: 'small',
+  type: 'solid',
+}
 
 const Widget = () => {
   return (
