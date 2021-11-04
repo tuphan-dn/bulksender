@@ -15,7 +15,7 @@ export const RemoteStatic = forwardRef<
   {
     type?: StaticType
     manifest: RemoteModule
-    render: (src: any) => JSX.Element
+    render: (src: string) => JSX.Element
   }
 >(({ type = 'default', manifest, render }, ref) => {
   const { [type]: src } = useRemoteModule(manifest)
