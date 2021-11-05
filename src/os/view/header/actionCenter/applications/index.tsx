@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
-import { Row, Col, Switch, Typography } from 'antd'
+import { Row, Col, Switch, Typography, Divider } from 'antd'
 import WalletIntro from './walletIntro'
-import WidgetLayout from './widgetLayout'
+import DashboardWidget from './dashboardWidget'
+import HeaderWidget from './headerWidget'
 
 const Applications = () => {
   const [editable, setEditable] = useState(false)
@@ -18,8 +19,13 @@ const Applications = () => {
       <Col>
         <Switch onChange={setEditable} size="small" />
       </Col>
+
       <Col span={24}>
-        <WidgetLayout disabled={!editable} />
+        <DashboardWidget disabled={!editable} />
+      </Col>
+      <Divider />
+      <Col span={24}>
+        <HeaderWidget disabled={!editable} />
       </Col>
     </Row>
   )

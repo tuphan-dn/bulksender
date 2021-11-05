@@ -6,11 +6,11 @@ import { WidgetLoader } from 'os/components/widgetLoader'
 import { RootState } from 'os/store'
 
 const Dashboard = () => {
-  const { appIds, register } = useSelector((state: RootState) => state.page)
+  const { widgetIds, register } = useSelector((state: RootState) => state.page)
 
   return (
     <Row gutter={[24, 24]}>
-      {appIds.map((appId) => {
+      {widgetIds.map((appId) => {
         if (!register[appId]) return null
         return (
           <WidgetLoader
