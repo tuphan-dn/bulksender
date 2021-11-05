@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
-import { Row, Col } from 'antd'
-import { WidgetLoader } from 'os/components/appLoader'
+import { Row } from 'antd'
+import { WidgetLoader } from 'os/components/widgetLoader'
 
 import { RootState } from 'os/store'
 
@@ -13,9 +13,10 @@ const Dashboard = () => {
       {appIds.map((appId) => {
         if (!register[appId]) return null
         return (
-          <Col key={appId}>
-            <WidgetLoader {...(register[appId] as ComponentManifest)} />
-          </Col>
+          <WidgetLoader
+            key={appId}
+            {...(register[appId] as ComponentManifest)}
+          />
         )
       })}
     </Row>

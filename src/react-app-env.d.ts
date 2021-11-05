@@ -48,6 +48,11 @@ type ComponentManifest = {
 type SenHubRegister = Record<string, ComponentManifest | undefined>
 // Widget size
 type WidgetSize = 'small' | 'middle' | 'large'
+type WidgetType = 'default' | 'solid' 
+type WidgetConfig = {
+  size?: WidgetSize
+  type?: WidgetType
+}
 
 /**
  * Declare module

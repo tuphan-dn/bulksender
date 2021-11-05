@@ -18,7 +18,10 @@ const {
   manifest: { appId },
 } = configs
 
-export const size: WidgetSize = 'small'
+export const widgetConfig: WidgetConfig = {
+  size: 'small',
+  type: 'solid',
+}
 
 const Widget = () => {
   return (
