@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { CSSProperties, Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
@@ -21,7 +21,7 @@ import {
   SlopeWallet,
 } from './lib'
 
-const Wallet = () => {
+const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const dispatch = useDispatch<RootDispatch>()
   const { address } = useSelector((state: RootState) => state.wallet)
 
@@ -54,6 +54,7 @@ const Wallet = () => {
     return (
       <Fragment>
         <Button
+          style={style}
           type="primary"
           icon={<IonIcon name="wallet-outline" />}
           onClick={() => dispatch(openWallet())}
@@ -66,6 +67,7 @@ const Wallet = () => {
 
   return (
     <Button
+      style={style}
       type="text"
       icon={<IonIcon name="power-outline" />}
       onClick={() => dispatch(disconnectWallet())}

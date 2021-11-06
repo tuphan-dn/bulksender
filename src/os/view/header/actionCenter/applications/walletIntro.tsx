@@ -18,33 +18,50 @@ const WalletIntro = () => {
 
   if (!account.isAddress(address)) return <Fragment />
   return (
-    <Card bodyStyle={{ padding: 16 }} hoverable>
-      <Row gutter={[16, 16]} align="middle">
-        <Col flex="auto">
-          <Tooltip
-            placement="topLeft"
-            title={`${utils.undecimalize(lamports, 9)} SOL`}
-          >
-            <Typography.Title level={3}>
-              {balance} <span style={{ color: '#03E1FF' }}>◎</span>
-            </Typography.Title>
-          </Tooltip>
-        </Col>
-        <Col>
-          <Typography.Title
-            level={5}
-            type="secondary"
-            onClick={explore}
-            style={{ cursor: 'pointer' }}
-          >
-            <Space>
-              {shortenAddress(address, 3, '...')}
-              <IonIcon name="open-outline" />
-            </Space>
-          </Typography.Title>
+    <Card
+      style={{
+        backgroundColor: '#5D6CCF',
+      }}
+      bodyStyle={{ padding: 16 }}
+      hoverable
+    >
+      <Row gutter={[8, 8]} align="middle">
+        <Col span={24}>
+          <Row gutter={[8, 8]} align="middle">
+            <Col flex="auto">
+              <Typography.Text style={{ color: '#BEC4EC' }}>
+                <span style={{ color: '#03E1FF' }}>◎</span> SOL
+              </Typography.Text>
+            </Col>
+            <Col>
+              <Typography.Text
+                onClick={explore}
+                style={{ cursor: 'pointer', color: '#BEC4EC' }}
+              >
+                <Space>
+                  {shortenAddress(address, 3, '...')}
+                  <IonIcon name="open-outline" />
+                </Space>
+              </Typography.Text>
+            </Col>
+          </Row>
         </Col>
         <Col span={24}>
-          <Wallet />
+          <Row gutter={[8, 8]} align="bottom">
+            <Col flex="auto">
+              <Tooltip
+                placement="topLeft"
+                title={`${utils.undecimalize(lamports, 9)} SOL`}
+              >
+                <Typography.Title level={3} style={{ color: '#E9E9EB' }}>
+                  {balance}
+                </Typography.Title>
+              </Tooltip>
+            </Col>
+            <Col style={{ marginRight: -12 }}>
+              <Wallet style={{ color: '#E9E9EB' }} />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Card>
