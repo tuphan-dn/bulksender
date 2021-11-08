@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { RootDispatch, RootState } from 'os/store'
 import { uninstallApp, updatePage } from 'os/store/page.reducer'
 import WidgetLayout from './widgetLayout'
-import { Button, Col, Modal, Row, Typography } from 'antd'
+import { Button, Col, Modal, Row, Space, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import { useHistory } from 'react-router-dom'
 import { setActionCenterVisible } from 'os/store/ui.reducer'
@@ -48,25 +48,27 @@ const HeaderWidget = ({ disabled = true }: { disabled?: boolean }) => {
   return (
     <Row gutter={[16, 24]}>
       <Col span={24}>
+        {disabled && !appIds.length ? (
+          <Typography.Text type="secondary"> No application</Typography.Text>
+        ) : null}
+        {!disabled && !appIds.length ? (
+          <Button
+            block
+            type="primary"
+            className="contained"
+            icon={<IonIcon name="bag-handle-outline" />}
+            onClick={onGotoStore}
+          >
+            Go to store
+          </Button>
+        ) : null}
         <WidgetLayout
           disabled={disabled}
           appIds={appIds.filter((id) => id !== statusUninstall.appId)}
           onChange={onChange}
           onRemove={onConfirmUninstall}
           removeLabel="Drag to uninstall"
-          emptyLabel={disabled ? 'No application' : ''}
         />
-        {!disabled && !appIds.length ? (
-          <Button
-            block
-            type="primary"
-            className="contained"
-            icon={<IonIcon name="trash-outline" />}
-            onClick={onGotoStore}
-          >
-            Go to store
-          </Button>
-        ) : null}
       </Col>
       <Modal
         closable={false}
@@ -74,14 +76,23 @@ const HeaderWidget = ({ disabled = true }: { disabled?: boolean }) => {
         okText="Uninstall"
         onOk={onUninstall}
         onCancel={onCloseUninstall}
+        centered
       >
-        <Row gutter={[4, 4]}>
-          <Typography.Title level={5}>
-            Do you want to uninstall "{register[statusUninstall.appId]?.name}"?
-          </Typography.Title>
-          <Typography.Text>
-            Uninstalling this application will lose its data.
-          </Typography.Text>
+        <Row gutter={[4, 4]} >
+          <Space align="baseline">
+              <Typography.Text type="warning">
+                <IonIcon name="alert-circle-outline" />
+              </Typography.Text>
+              <Space direction="vertical" size={0}>
+              <Typography.Title level={5}>
+                Do you want to uninstall "
+                {register[statusUninstall.appId]?.name}"?
+              </Typography.Title>
+              <Typography.Text>
+                Uninstalling this application will lose its data.
+              </Typography.Text>
+              </Space>
+          </Space>
         </Row>
       </Modal>
     </Row>

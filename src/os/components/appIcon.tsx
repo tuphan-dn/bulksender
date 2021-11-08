@@ -44,10 +44,7 @@ const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
   return (
     <Space
       direction="vertical"
-      style={{
-        width: size,
-        textAlign: 'center',
-      }}
+      style={{ width: size, textAlign: 'center' }}
       onClick={onClick}
     >
       <Avatar
@@ -72,7 +69,7 @@ const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
 }
 
 const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
-  const { src, appId, onClick = () => {}, size = 64, name = true } = props
+  const { src, appId, onClick = () => {}, size = 32, name = true } = props
   const { register } = useSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
 

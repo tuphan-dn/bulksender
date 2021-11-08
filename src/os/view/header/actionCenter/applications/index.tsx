@@ -16,10 +16,10 @@ const Applications = () => {
       </Col>
       {/* Dashboard */}
       <Col span={24}>
-        <Row justify="space-between" gutter={[12, 12]}>
+        <Row justify="space-between" gutter={[12, 24]}>
           <Col>
             <Typography.Title level={5}>
-              Let's customize your dashboard
+              Widget in dashboard
             </Typography.Title>
           </Col>
           <Col>
@@ -36,10 +36,10 @@ const Applications = () => {
       </Col>
       {/* Header */}
       <Col span={24}>
-        <Row justify="space-between" gutter={[12, 12]}>
+        <Row justify="space-between" gutter={[12, 24]}>
           <Col>
             <Typography.Title level={5}>
-              Let's customize your dashboard
+              All app
             </Typography.Title>
           </Col>
           <Col>

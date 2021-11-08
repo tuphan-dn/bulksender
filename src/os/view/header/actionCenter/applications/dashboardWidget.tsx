@@ -12,12 +12,13 @@ import DragAppLayout from './widgetLayout'
 const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
   const dispatch = useDispatch<RootDispatch>()
   const { appIds, widgetIds } = useSelector((state: RootState) => state.page)
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false)
+  const [isOpenAddWidget, setIsOpenAddWidget] = useState(false)
   const [appSelected, setAppSelected] = useState<AppIds>([])
 
   const onChange = (appIds: AppIds) => {
     dispatch(updateDashboard(appIds))
   }
+
   const onRemoveWidget = (appId: string) => {
     dispatch(removeWidget(appId))
   }
@@ -29,34 +30,36 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
     setAppSelected([...appSelected, appId])
   }
 
-  const onCloseDrawer = () => {
+  const onCloseAddWidget = () => {
     setAppSelected([])
-    setIsOpenDrawer(false)
+    setIsOpenAddWidget(false)
   }
 
   const onAddWidget = () => {
     dispatch(addWidget(appSelected))
-    onCloseDrawer()
+    onCloseAddWidget()
   }
 
   return (
     <Row gutter={[16, 24]}>
       <Col span={24}>
+        {disabled && !widgetIds.length ? (
+          <Typography.Text type="secondary">No widget</Typography.Text>
+        ) : null}
         <DragAppLayout
           disabled={disabled}
           appIds={widgetIds}
           onChange={onChange}
           onRemove={widgetIds.length ? onRemoveWidget : undefined}
           removeLabel="Drag to remove"
-          onAdd={() => setIsOpenDrawer(true)}
+          onAdd={() => setIsOpenAddWidget(true)}
           addLabel="Add widget"
-          emptyLabel={disabled ? 'No widget' : ''}
         />
       </Col>
       {/* Drawer Add Widget Dashboard */}
       <Drawer
-        visible={isOpenDrawer}
-        onClose={onCloseDrawer}
+        visible={isOpenAddWidget}
+        onClose={onCloseAddWidget}
         closable={false}
         contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
         bodyStyle={{ paddingTop: 0 }}
@@ -66,7 +69,7 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
           <Button
             type="text"
             icon={<IonIcon name="close-outline" />}
-            onClick={onCloseDrawer}
+            onClick={onCloseAddWidget}
           />
         }
         footer={

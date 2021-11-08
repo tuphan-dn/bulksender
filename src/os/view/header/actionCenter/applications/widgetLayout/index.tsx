@@ -42,7 +42,6 @@ type Props = {
   removeLabel?: string
   onAdd?: () => void
   addLabel?: string
-  emptyLabel: string
 }
 
 const WidgetLayout = (props: Props) => {
@@ -54,7 +53,6 @@ const WidgetLayout = (props: Props) => {
     removeLabel,
     onAdd,
     addLabel,
-    emptyLabel,
   } = props
   const history = useHistory()
   const dispatch = useDispatch<RootDispatch>()
@@ -134,7 +132,6 @@ const WidgetLayout = (props: Props) => {
               />
             ))}
           </DroppablePage>
-          {!appIds.length && emptyLabel}
         </Col>
         {!disabled && (
           <Fragment>
