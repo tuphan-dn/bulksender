@@ -136,7 +136,7 @@ const WidgetLayout = (props: Props) => {
         {!disabled && (
           <Fragment>
             {onRemove && (
-              <Col flex="auto">
+              <Col span={onAdd ? 12 : 24}>
                 <DraggableAction id="action-remove">
                   <Button
                     block
@@ -151,7 +151,7 @@ const WidgetLayout = (props: Props) => {
               </Col>
             )}
             {onAdd && (
-              <Col span={12}>
+              <Col span={onRemove ? 12 : 24}>
                 <Button
                   block
                   className="contained"

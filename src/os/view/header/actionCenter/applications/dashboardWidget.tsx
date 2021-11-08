@@ -24,7 +24,7 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
 
   const onSelectApp = (appId: string) => {
     if (appSelected.includes(appId)) {
-      return setAppSelected(appSelected.filter((id) => id === appId))
+      return setAppSelected(appSelected.filter((id) => id !== appId))
     }
     setAppSelected([...appSelected, appId])
   }
@@ -39,8 +39,23 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
     onCloseDrawer()
   }
 
-  const DrawerAddWidget = () => {
-    return (
+  return (
+    <Row gutter={[16, 24]}>
+      <Col span={24}>
+        <Typography.Paragraph>
+          Let's customize your dashboard
+        </Typography.Paragraph>
+        <DragAppLayout
+          disabled={disabled}
+          appIds={widgetIds}
+          onChange={onChange}
+          onRemove={onRemoveWidget}
+          removeLabel="Drag to remove"
+          onAdd={() => setIsOpenDrawer(true)}
+          addLabel="Add widget"
+        />
+      </Col>
+      {/* Drawer Add Widget Dashboard */}
       <Drawer
         visible={isOpenDrawer}
         onClose={onCloseDrawer}
@@ -72,32 +87,13 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
               className="contained"
               icon={<IonIcon name="add-outline" />}
               onClick={onAddWidget}
+              disabled={!appSelected.length}
             >
               Add Widget
             </Button>
           </Col>
         </Row>
       </Drawer>
-    )
-  }
-
-  return (
-    <Row gutter={[16, 24]}>
-      <DrawerAddWidget />
-      <Col span={24}>
-        <Typography.Paragraph>
-          Let's customize your dashboard
-        </Typography.Paragraph>
-        <DragAppLayout
-          disabled={disabled}
-          appIds={widgetIds}
-          onChange={onChange}
-          onRemove={onRemoveWidget}
-          removeLabel="Drag to remove"
-          onAdd={() => setIsOpenDrawer(true)}
-          addLabel="Add widget"
-        />
-      </Col>
     </Row>
   )
 }
