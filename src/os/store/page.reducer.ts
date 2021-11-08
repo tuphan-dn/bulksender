@@ -91,7 +91,7 @@ export const installApp = createAsyncThunk<
 >(`${NAME}/installApp`, async (appId, { getState }) => {
   const {
     wallet: { address },
-    page: { appIds },
+    page: { appIds, widgetIds },
   } = getState()
   if (!account.isAddress(address))
     throw new Error('Wallet is not connected yet')
@@ -100,7 +100,7 @@ export const installApp = createAsyncThunk<
   newAppIds.push(appId)
   const pdb = new PDB(address)
   await pdb.createInstance('sentre').setItem('appIds', newAppIds)
-  return { appIds: newAppIds }
+  return { appIds: newAppIds, widgetIds: [...widgetIds, appId] }
 })
 
 export const uninstallApp = createAsyncThunk<
