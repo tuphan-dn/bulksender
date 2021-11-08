@@ -6,26 +6,49 @@ import DashboardWidget from './dashboardWidget'
 import HeaderWidget from './headerWidget'
 
 const Applications = () => {
-  const [editable, setEditable] = useState(false)
+  const [editableDashboard, setEditableDashboard] = useState(false)
+  const [editableHeader, setEditableHeader] = useState(false)
 
   return (
     <Row gutter={[16, 24]}>
       <Col span={24}>
         <WalletIntro />
       </Col>
-      <Col flex="auto">
-        <Typography.Text>To customize your workspace</Typography.Text>
-      </Col>
-      <Col>
-        <Switch onChange={setEditable} size="small" />
-      </Col>
-
+      {/* Dashboard */}
       <Col span={24}>
-        <DashboardWidget disabled={!editable} />
+        <Row justify="space-between" gutter={[12, 12]}>
+          <Col>
+            <Typography.Title level={5}>
+              Let's customize your dashboard
+            </Typography.Title>
+          </Col>
+          <Col>
+            <Switch onChange={setEditableDashboard} size="small" />
+          </Col>
+          <Col span={24}>
+            <DashboardWidget disabled={!editableDashboard} />
+          </Col>
+        </Row>
       </Col>
-      <Divider />
+      {/* Divider */}
       <Col span={24}>
-        <HeaderWidget disabled={!editable} />
+        <Divider style={{ margin: 0 }} />
+      </Col>
+      {/* Header */}
+      <Col span={24}>
+        <Row justify="space-between" gutter={[12, 12]}>
+          <Col>
+            <Typography.Title level={5}>
+              Let's customize your dashboard
+            </Typography.Title>
+          </Col>
+          <Col>
+            <Switch onChange={setEditableHeader} size="small" />
+          </Col>
+          <Col span={24}>
+            <HeaderWidget disabled={!editableHeader} />
+          </Col>
+        </Row>
       </Col>
     </Row>
   )

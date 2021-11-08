@@ -19,6 +19,42 @@ const Dashboard = () => {
           />
         )
       })}
+       {widgetIds.map((appId) => {
+        if (!register[appId]) return null
+        return (
+          <WidgetLoader
+            key={appId}
+            {...(register[appId] as ComponentManifest)}
+          />
+        )
+      })}
+       {widgetIds.map((appId) => {
+        if (!register[appId]) return null
+        return (
+          <WidgetLoader
+            key={appId}
+            {...(register[appId] as ComponentManifest)}
+          />
+        )
+      })}
+       {widgetIds.map((appId) => {
+        if (!register[appId]) return null
+        return (
+          <WidgetLoader
+            key={appId}
+            {...(register[appId] as ComponentManifest)}
+          />
+        )
+      })}
+       {widgetIds.map((appId) => {
+        if (!register[appId]) return null
+        return (
+          <WidgetLoader
+            key={appId}
+            {...(register[appId] as ComponentManifest)}
+          />
+        )
+      })}
     </Row>
   )
 }

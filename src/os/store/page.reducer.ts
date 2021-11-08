@@ -98,9 +98,11 @@ export const installApp = createAsyncThunk<
   if (appIds.includes(appId)) return {}
   const newAppIds: AppIds = [...appIds]
   newAppIds.push(appId)
+  const newWidgetIds = [...widgetIds, appId]
   const pdb = new PDB(address)
   await pdb.createInstance('sentre').setItem('appIds', newAppIds)
-  return { appIds: newAppIds, widgetIds: [...widgetIds, appId] }
+  await pdb.createInstance('sentre').setItem('widgetIds', newWidgetIds)
+  return { appIds: newAppIds, widgetIds: newWidgetIds }
 })
 
 export const uninstallApp = createAsyncThunk<

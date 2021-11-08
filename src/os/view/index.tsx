@@ -16,7 +16,7 @@ const View = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {/* Header */}
-      <Affix>
+      <Affix offsetBottom={0}> 
         <Card
           style={{
             marginBottom: 12,

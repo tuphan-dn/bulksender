@@ -42,6 +42,7 @@ type Props = {
   removeLabel?: string
   onAdd?: () => void
   addLabel?: string
+  emptyLabel: string
 }
 
 const WidgetLayout = (props: Props) => {
@@ -50,9 +51,10 @@ const WidgetLayout = (props: Props) => {
     appIds,
     onChange,
     onRemove,
-    onAdd,
     removeLabel,
+    onAdd,
     addLabel,
+    emptyLabel,
   } = props
   const history = useHistory()
   const dispatch = useDispatch<RootDispatch>()
@@ -132,10 +134,11 @@ const WidgetLayout = (props: Props) => {
               />
             ))}
           </DroppablePage>
+          {!appIds.length && emptyLabel}
         </Col>
         {!disabled && (
           <Fragment>
-            {onRemove && (
+            {onRemove && appIds.length ? (
               <Col span={onAdd ? 12 : 24}>
                 <DraggableAction id="action-remove">
                   <Button
@@ -149,7 +152,7 @@ const WidgetLayout = (props: Props) => {
                   </Button>
                 </DraggableAction>
               </Col>
-            )}
+            ) : null}
             {onAdd && (
               <Col span={onRemove ? 12 : 24}>
                 <Button

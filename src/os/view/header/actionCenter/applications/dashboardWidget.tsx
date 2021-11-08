@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootDispatch, RootState } from 'os/store'
 import { addWidget, removeWidget, updateDashboard } from 'os/store/page.reducer'
 
-import { Button, Checkbox, Col, Drawer, Row, Typography } from 'antd'
+import { Button, Col, Drawer, Row, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import AppIcon from 'os/components/appIcon'
 import DragAppLayout from './widgetLayout'
@@ -42,17 +42,15 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
   return (
     <Row gutter={[16, 24]}>
       <Col span={24}>
-        <Typography.Paragraph>
-          Let's customize your dashboard
-        </Typography.Paragraph>
         <DragAppLayout
           disabled={disabled}
           appIds={widgetIds}
           onChange={onChange}
-          onRemove={onRemoveWidget}
+          onRemove={widgetIds.length ? onRemoveWidget : undefined}
           removeLabel="Drag to remove"
           onAdd={() => setIsOpenDrawer(true)}
           addLabel="Add widget"
+          emptyLabel={disabled ? 'No widget' : ''}
         />
       </Col>
       {/* Drawer Add Widget Dashboard */}
@@ -61,38 +59,72 @@ const DashboardWidget = ({ disabled = true }: { disabled?: boolean }) => {
         onClose={onCloseDrawer}
         closable={false}
         contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
+        bodyStyle={{ paddingTop: 0 }}
         destroyOnClose
+        title="Widget list"
+        extra={
+          <Button
+            type="text"
+            icon={<IonIcon name="close-outline" />}
+            onClick={onCloseDrawer}
+          />
+        }
+        footer={
+          <Row gutter={[16, 24]} style={{ padding: '0 24px' }}>
+            <Col span={12}>
+              <Button block className="contained" onClick={onAddWidget}>
+                Cancel
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button
+                block
+                type="primary"
+                className="contained"
+                onClick={onAddWidget}
+                disabled={!appSelected.length}
+              >
+                OK
+              </Button>
+            </Col>
+          </Row>
+        }
       >
-        <Row gutter={[16, 24]}>
-          {appIds
-            .filter((appId) => !widgetIds.includes(appId))
-            .map((appId) => {
-              return (
-                <Col key={appId}>
+        {appIds
+          .filter((appId) => !widgetIds.includes(appId))
+          .map((appId) => {
+            const isChecked = appSelected.includes(appId)
+            return (
+              <Row
+                justify="space-between"
+                align="middle"
+                key={appId}
+                style={{ height: 56, borderBottom: '0.5px solid #f0f0f0' }}
+              >
+                <Col>
                   <AppIcon
                     appId={appId}
-                    size={64}
+                    size={32}
                     onClick={() => onSelectApp(appId)}
+                    direction="horizontal"
                   />
-                  <Checkbox checked={appSelected.includes(appId)}></Checkbox>
                 </Col>
-              )
-            })}
-        </Row>
-        <Row gutter={[16, 24]}>
-          <Col span={24}>
-            <Button
-              block
-              type="primary"
-              className="contained"
-              icon={<IonIcon name="add-outline" />}
-              onClick={onAddWidget}
-              disabled={!appSelected.length}
-            >
-              Add Widget
-            </Button>
-          </Col>
-        </Row>
+                <Col>
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={
+                      isChecked ? (
+                        <Typography.Text type="success">
+                          <IonIcon name="checkmark-outline" />
+                        </Typography.Text>
+                      ) : null
+                    }
+                  />
+                </Col>
+              </Row>
+            )
+          })}
       </Drawer>
     </Row>
   )
