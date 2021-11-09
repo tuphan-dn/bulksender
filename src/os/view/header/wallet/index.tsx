@@ -69,7 +69,7 @@ const Wallet = () => {
       type="text"
       icon={<IonIcon name="power-outline" />}
       onClick={() => dispatch(disconnectWallet())}
-      block
+      style={{ color: '#E9E9EB', paddingRight: 0, paddingTop:0 }}
     >
       Disconnect
     </Button>
