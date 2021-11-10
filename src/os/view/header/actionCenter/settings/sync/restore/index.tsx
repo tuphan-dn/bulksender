@@ -50,16 +50,9 @@ const Restore = ({ isOpen, onClose }: Props) => {
     setRestoreInfo(restoreInfo)
   }
 
-  function onClear() {
-    setStep('restore')
-    onClose()
-  }
-
   if (step === 'confirm')
-    return (
-      <ConfirmRestore isOpen={true} onClose={onClear} cid={restoreInfo.cid} />
-    )
-
+    return <ConfirmRestore onClose={onClose} cid={restoreInfo.cid} />
+    
   return (
     <Modal
       title="Restore"

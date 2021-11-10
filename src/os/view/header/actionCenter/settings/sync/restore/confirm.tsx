@@ -7,12 +7,11 @@ import IonIcon from 'shared/ionicon'
 import PDB from 'shared/pdb'
 
 type Props = {
-  isOpen: boolean
   onClose: () => void
   cid: string
 }
 
-export default function ConfirmRestore({ cid, isOpen, onClose }: Props) {
+export default function ConfirmRestore({ cid, onClose }: Props) {
   const { address } = useSelector((state: RootState) => state.wallet)
   const pdb = useMemo(() => {
     if (!account.isAddress(address)) return null
@@ -36,7 +35,7 @@ export default function ConfirmRestore({ cid, isOpen, onClose }: Props) {
   }
   return (
     <Modal
-      visible={isOpen}
+      visible
       okText="Restore"
       onOk={onRestore}
       onCancel={onClose}

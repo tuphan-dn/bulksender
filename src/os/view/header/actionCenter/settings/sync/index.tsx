@@ -12,8 +12,14 @@ const Sync = () => {
   return (
     <Card bodyStyle={{ padding: 16 }} hoverable>
       {/* Modal */}
-      <Backup isOpen={isOpenBackup} onClose={() => setIsOpenBackup(false)} />
-      <Restore isOpen={isOpenRestore} onClose={() => setIsOpenRestore(false)} />
+      {isOpenBackup && <Backup onClose={() => setIsOpenBackup(false)} />}
+      {isOpenRestore && (
+        <Restore
+          isOpen={isOpenRestore}
+          onClose={() => setIsOpenRestore(false)}
+        />
+      )}
+
       {/* Content */}
       <Row gutter={[16, 20]}>
         <Col span={24}>
