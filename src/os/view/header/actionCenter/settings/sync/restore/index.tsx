@@ -52,7 +52,7 @@ const Restore = ({ isOpen, onClose }: Props) => {
 
   if (step === 'confirm')
     return <ConfirmRestore onClose={onClose} cid={restoreInfo.cid} />
-    
+
   return (
     <Modal
       title="Restore"
@@ -93,7 +93,7 @@ const Restore = ({ isOpen, onClose }: Props) => {
           />
         </Col>
         <Col span={24}>
-          <Preview value={restoreInfo.data} />
+          <Preview value={restoreInfo.data} title="Data" />
         </Col>
         <Col span={24}></Col>
       </Row>

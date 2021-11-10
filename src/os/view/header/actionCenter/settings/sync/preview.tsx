@@ -1,26 +1,34 @@
-import { Row, Col } from 'antd'
+import { Row, Col, Typography } from 'antd'
 import ReactJson from 'react-json-view'
 
-const Preview = ({ value = {} }: { value: object }) => {
+const Preview = ({ value = {}, title }: { value: object; title?: string }) => {
   return (
-    <Row
-      gutter={[16, 16]}
-      style={{
-        backgroundColor: '#E9E9EB',
-        padding: '12px 16px',
-        borderRadius: 8,
-      }}
-    >
+    <Row gutter={[8, 8]}>
+      {title && (
+        <Col span={24}>
+          <Typography.Text type="secondary">{title}</Typography.Text>
+        </Col>
+      )}
       <Col span={24}>
-        <ReactJson
-          src={value}
-          style={{ background: 'transparent', fontSize: 12 }}
-          iconStyle="circle"
-          displayDataTypes={false}
-          displayObjectSize={false}
-          enableClipboard={false}
-          indentWidth={2}
-        />
+        <Row
+          style={{
+            backgroundColor: '#E9E9EB',
+            borderRadius: 8,
+            padding: '12px 16px',
+          }}
+        >
+          <Col span={24}>
+            <ReactJson
+              src={value}
+              style={{ background: 'transparent', fontSize: 12 }}
+              iconStyle="circle"
+              displayDataTypes={false}
+              displayObjectSize={false}
+              enableClipboard={false}
+              indentWidth={2}
+            />
+          </Col>
+        </Row>
       </Col>
     </Row>
   )

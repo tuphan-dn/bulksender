@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'os/store'
 import PDB from 'shared/pdb'
 
-import { Col, Row, Typography } from 'antd'
+import { Col, Row } from 'antd'
 import Preview from '../../preview'
 
 const ReviewData = () => {
@@ -19,12 +19,9 @@ const ReviewData = () => {
   }, [walletAddress])
 
   return (
-    <Row gutter={[8, 8]}>
+    <Row>
       <Col span={24}>
-        <Typography.Text type="secondary">Data</Typography.Text>
-      </Col>
-      <Col span={24}>
-        <Preview value={data} />
+        <Preview value={data} title="Data" />
       </Col>
     </Row>
   )

@@ -8,7 +8,7 @@ const Policy = () => {
       </Col>
       <Col span={24}>
         <Row
-          gutter={[16, 16]}
+          gutter={[0, 16]}
           style={{
             backgroundColor: '#E9E9EB',
             padding: '12px 16px',
