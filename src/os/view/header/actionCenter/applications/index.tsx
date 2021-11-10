@@ -18,9 +18,7 @@ const Applications = () => {
       <Col span={24}>
         <Row justify="space-between" gutter={[12, 24]}>
           <Col>
-            <Typography.Title level={5}>
-              Widget in dashboard
-            </Typography.Title>
+            <Typography.Title level={5}>Widgets in dashboard</Typography.Title>
           </Col>
           <Col>
             <Switch onChange={setEditableDashboard} size="small" />
@@ -38,9 +36,7 @@ const Applications = () => {
       <Col span={24}>
         <Row justify="space-between" gutter={[12, 24]}>
           <Col>
-            <Typography.Title level={5}>
-              All app
-            </Typography.Title>
+            <Typography.Title level={5}>All appplications</Typography.Title>
           </Col>
           <Col>
             <Switch onChange={setEditableHeader} size="small" />
