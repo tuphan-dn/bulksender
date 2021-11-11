@@ -46,7 +46,7 @@ const HeroPanel = ({ appId }: { appId: string }) => {
         <AppPanel appId={appId} />
       </Col>
       <Col span={24}>
-        <Card>
+        <Card bordered={false}>
           <Row gutter={[16, 16]}>
             <Col>
               <AppIcon appId={appId} size={48} name={false} />

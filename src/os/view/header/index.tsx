@@ -39,7 +39,7 @@ const NavButton = ({
 const Header = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { address } = useSelector((state: RootState) => state.wallet)
-  const { width } = useSelector((state: RootState) => state.ui)
+  const { width, theme } = useSelector((state: RootState) => state.ui)
 
   useEffect(() => {
     if (account.isAddress(address)) dispatch(loadPage())
@@ -48,14 +48,22 @@ const Header = () => {
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
       <Col>
-        <Brand style={{ height: 24, cursor: 'pointer' }} lite={width < 768} />
+        <Brand
+          style={{ height: 24, cursor: 'pointer' }}
+          lite={width < 768}
+          darkTheme={theme === 'dark'}
+        />
       </Col>
       <Col flex="auto">
         <ContextMenu />
       </Col>
       <Col>
         <Space align="center">
-          <NavButton iconName="grid-outline" route="/dashboard" title="Dashboard" />
+          <NavButton
+            iconName="grid-outline"
+            route="/dashboard"
+            title="Dashboard"
+          />
           <NavButton
             iconName="bag-handle-outline"
             route="/store"
