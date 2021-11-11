@@ -1,38 +1,40 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { account, utils } from '@senswap/sen-js'
+import { utils } from '@senswap/sen-js'
 import numbro from 'numbro'
-
-import { Row, Col, Tooltip, Space, Card } from 'antd'
-import Wallet from '../../../wallet'
-import CardIcon from './cardIcon'
-import CardText from './cardText'
 
 import { explorer, shortenAddress, asyncWait } from 'shared/util'
 import { RootState } from 'os/store'
-import './index.less'
+import { fetchCGK } from 'shared/helper'
+
+import { Row, Col, Tooltip, Space, Card, Typography } from 'antd'
+import Wallet from '../../../wallet'
+import CardIcon from './cardIcon'
 import PriceChange from './priceChange'
 import { QR } from './QRcode'
-import { fetchCGK } from 'shared/helper'
+import './index.less'
+
+const CARD_TEXT_STYLE = { color: '#BEC4EC', fontSize: 12 }
+const CARD_TITLE_STYLE = { color: '#E9E9EB', fontWeight: 700 }
 
 const WalletIntro = () => {
   const { address, lamports } = useSelector((state: RootState) => state.wallet)
   const [copied, setCopied] = useState(false)
   const [isHiddenBalance, setIsHiddenBalance] = useState(false)
-  const [price, setPrice] = useState(0)
-  const [priceChange, setPriceChange] = useState(0)
+  const [cgkData, setCgkData] = useState<CgkData>()
 
   const balance = numbro(utils.undecimalize(lamports, 9)).format('0.[000]')
+  const balanceValue = useMemo(() => {
+    if (!cgkData) return 0
+    return numbro(Number(balance) * cgkData.price).format('0,0.[000]')
+  }, [balance, cgkData])
+
   const explore = () => window.open(explorer(address), '_blank')
-  const balanceRate = useMemo(() => {
-    return numbro(Number(balance) * price).format('0,0.[000]')
-  }, [balance, price])
 
   useEffect(() => {
     ;(async () => {
-      const { price, priceChange } = (await fetchCGK('solana')) || {}
-      setPrice(price || 0)
-      setPriceChange(priceChange || 0)
+      const cgkData = await fetchCGK('solana')
+      setCgkData(cgkData)
     })()
   }, [])
 
@@ -42,8 +44,6 @@ const WalletIntro = () => {
     await asyncWait(1500)
     setCopied(false)
   }
-
-  if (!account.isAddress(address)) return <Fragment />
 
   return (
     <Card className="card-wallet" bordered={false}>
@@ -57,9 +57,7 @@ const WalletIntro = () => {
               >
                 <Space size={6}>
                   <span style={{ color: '#03E1FF' }}>◎</span>
-                  <CardText fontSize={12} color="#BEC4EC">
-                    SOL
-                  </CardText>
+                  <Typography.Text style={CARD_TEXT_STYLE}>SOL</Typography.Text>
                   <CardIcon
                     name={`eye${isHiddenBalance ? '-off-' : '-'}outline`}
                     onClick={() => setIsHiddenBalance(!isHiddenBalance)}
@@ -68,23 +66,26 @@ const WalletIntro = () => {
               </Tooltip>
             </Col>
             <Col span={12} style={{ textAlign: 'end' }}>
-              <CardText color="#BEC4EC">Wallet address</CardText>
+              <Typography.Text style={CARD_TEXT_STYLE}>
+                Wallet address
+              </Typography.Text>
             </Col>
             <Col span={12}>
               <Space direction="vertical" size={0}>
-                <CardText level={3} color="#E9E9EB">
+                <Typography.Title level={3} style={CARD_TITLE_STYLE}>
                   {!isHiddenBalance ? balance : '******'}
-                </CardText>
-                <CardText color="#BEC4EC">
-                  {!isHiddenBalance ? `~ $${balanceRate}` : 'ಠ_ಠ'}
-                </CardText>
+                </Typography.Title>
+                <Typography.Text style={{ ...CARD_TEXT_STYLE, fontSize: 14 }}>
+                  {!isHiddenBalance ? `~ $${balanceValue}` : 'ಠ_ಠ'}
+                </Typography.Text>
               </Space>
             </Col>
             <Col span={12} style={{ textAlign: 'end' }}>
               <Space size={10}>
-                <CardText type="secondary" onClick={explore}>
+                <Typography.Text style={{ color: '#E9E9EB' }} onClick={explore}>
                   {shortenAddress(address, 3, '...')}
-                </CardText>
+                </Typography.Text>
+
                 <Tooltip placement="topLeft" title="Copied" visible={copied}>
                   <CardIcon name="copy-outline" onClick={onCopy} />
                 </Tooltip>
@@ -96,13 +97,16 @@ const WalletIntro = () => {
         <Col span={24}>
           <Row gutter={[16, 4]} align="middle">
             <Col span={24}>
-              <CardText color="#BEC4EC" fontSize={12}>
+              <Typography.Text style={CARD_TEXT_STYLE}>
                 24h SOL price
-              </CardText>
+              </Typography.Text>
             </Col>
 
             <Col span={12} style={{ paddingLeft: 6 }}>
-              <PriceChange price={price} priceChange={priceChange} />
+              <PriceChange
+                price={cgkData?.price}
+                priceChange={cgkData?.priceChange}
+              />
             </Col>
             <Col span={12} style={{ textAlign: 'end' }}>
               <Wallet />

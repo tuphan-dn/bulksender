@@ -1,7 +1,6 @@
 import { Typography, Space } from 'antd'
 import { BaseType } from 'antd/lib/typography/Base'
 import numbro from 'numbro'
-import { type } from 'os'
 import IonIcon from 'shared/ionicon'
 
 const arrow = (priceChange: number) => {
@@ -20,8 +19,8 @@ const arrow = (priceChange: number) => {
 }
 
 const percentage = ({
-  price,
-  priceChange,
+  price = 0,
+  priceChange = 0,
 }: {
   price: number
   priceChange: number
