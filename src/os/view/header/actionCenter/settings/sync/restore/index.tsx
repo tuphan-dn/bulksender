@@ -15,12 +15,12 @@ type Props = {
   isOpen: boolean
   onClose: () => void
 }
-type Step = 'restore' | 'confirm'
+
 const ipfs = new IPFS()
 
 const Restore = ({ isOpen, onClose }: Props) => {
   const { address } = useSelector((state: RootState) => state.wallet)
-  const [step, setStep] = useState<Step>('restore')
+  const [isConfirm, setIsConfirm] = useState(false)
   const [restoreInfo, setRestoreInfo] = useState({
     link: '',
     cid: '',
@@ -50,7 +50,7 @@ const Restore = ({ isOpen, onClose }: Props) => {
     setRestoreInfo(restoreInfo)
   }
 
-  if (step === 'confirm')
+  if (isConfirm)
     return <ConfirmRestore onClose={onClose} cid={restoreInfo.cid} />
 
   return (
@@ -66,7 +66,7 @@ const Restore = ({ isOpen, onClose }: Props) => {
             <Button
               type="primary"
               icon={<IonIcon name="push-outline" />}
-              onClick={() => setStep('confirm')}
+              onClick={() => setIsConfirm(true)}
               disabled={!restoreInfo.cid}
               block
             >
