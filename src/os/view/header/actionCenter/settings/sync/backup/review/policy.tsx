@@ -21,18 +21,18 @@ const Policy = () => {
             </Typography.Title>
             <ul style={{ paddingLeft: 16 }}>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   Because Sentre never collects your data, so the data is
                   locally available.
                 </Typography.Text>
               </li>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   You can move data in the current device to a new one.
                 </Typography.Text>
               </li>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   Restore data in case your device is broken or suddenly lost.
                 </Typography.Text>
               </li>
@@ -42,13 +42,13 @@ const Policy = () => {
             <Typography.Title level={5}>What is IPFS?</Typography.Title>
             <ul style={{ paddingLeft: 16 }}>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   IPFS is a decentralized database. By high availability, data
                   can be fetched via an internet connection.
                 </Typography.Text>
               </li>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   Everyone can publicly access data on it, and even your stored
                   data.
                 </Typography.Text>
@@ -61,12 +61,12 @@ const Policy = () => {
             </Typography.Title>
             <ul style={{ paddingLeft: 16 }}>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   Make sure that no sensitive data is in the storage.
                 </Typography.Text>
               </li>
               <li>
-                <Typography.Text type="secondary">
+                <Typography.Text>
                   It's rarely happened, but there is a little chance of losing
                   your data on IPFS.
                 </Typography.Text>

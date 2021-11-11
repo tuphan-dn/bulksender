@@ -85,7 +85,7 @@ const Restore = ({ isOpen, onClose }: Props) => {
                 type="text"
                 size="small"
                 style={{ marginLeft: -7 }}
-                icon={<IonIcon name="cube-outline" />}
+                icon={<IonIcon name="link-outline" />}
               />
             }
             value={restoreInfo.link}

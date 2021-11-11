@@ -17,7 +17,7 @@ export default function BackupSuccess({ link, onClose }: Props) {
   }
   return (
     <Modal
-      title="Backup"
+      closable={false}
       centered
       visible
       maskClosable={false}
