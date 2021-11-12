@@ -8,7 +8,7 @@
 const path = require('path')
 const { deepClone, styleRuleByName } = require('./utils')
 
-const lessRegex = /\.os\.less$/
+const lessRegex = [/\.light\.os\.less$/, /\.os\.less$/]
 const lessModuleRegex = /\.module\.less$/
 
 const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
@@ -135,7 +135,7 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     baseRule: sassRule,
     overrideRule: {
       test: lessRegex,
-      exclude: lessModuleRegex,
+      exclude: [lessModuleRegex, /\.dark\.os\.less$/],
     },
   })
 
