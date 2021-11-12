@@ -4,7 +4,7 @@ export type LimitConfig = {
 }
 
 export type CacheConfig = {
-  ttl: number //millisecond
+  ttl: number // millisecond
 }
 
 export type SingleFlightConfig = {
@@ -12,13 +12,13 @@ export type SingleFlightConfig = {
   cache?: CacheConfig
 }
 
-//10 request per 1 second
+// 10 request per 1 second
 export const DEFAULT_LIMIT_CONFIG: LimitConfig = {
   calls: 10,
   time: 1000,
 }
 
-//10 request per 1 second
+// 10 request per 1 second
 export const DEFAULT_CACHE_CONFIG: CacheConfig = {
   ttl: 30000,
 }

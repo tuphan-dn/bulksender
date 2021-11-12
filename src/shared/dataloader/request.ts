@@ -1,10 +1,7 @@
 export interface IRequestQueue {
   key: string
-
   add(resolve: any, reject: any): void
-
   resolves(data: any): void
-
   rejects(error: any): void
 }
 
@@ -27,6 +24,7 @@ export class RequestQueue implements IRequestQueue {
       resolve(data)
     }
   }
+
   rejects(error: any) {
     while (this.rejectQueue.length > 0) {
       const reject = this.rejectQueue.shift()

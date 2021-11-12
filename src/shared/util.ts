@@ -1,4 +1,5 @@
 import { account } from '@senswap/sen-js'
+import numbro from 'numbro'
 import { net } from 'shared/runtime'
 
 export const isTouchable = () => {
@@ -26,4 +27,11 @@ export const explorer = (addressOrTxId: string): string => {
     return `https://explorer.solana.com/address/${addressOrTxId}?cluster=${net}`
   }
   return `https://explorer.solana.com/tx/${addressOrTxId}?cluster=${net}`
+}
+
+export const numeric = (
+  value?: number | string | BigInt,
+): ReturnType<typeof numbro> => {
+  if (!value) return numbro('0')
+  return numbro(value)
 }
