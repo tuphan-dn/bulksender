@@ -27,7 +27,7 @@ const Sync = () => {
 
   return (
     <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>
-      <Row gutter={[16, 20]}>
+      <Row gutter={[16, 24]}>
         <Col span={24}>
           <Typography.Text>Backup & Restore</Typography.Text>
         </Col>

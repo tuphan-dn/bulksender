@@ -43,7 +43,7 @@ const Theme = () => {
               style={{ fontSize: 12, margin: 0 }}
             >
               {theme === 'dark'
-                ? 'Dark mode will prolong your battery life, and reduce eye strain'
+                ? "Dark mode will prolong device's power consumption, and reduce eye strain"
                 : "Make graphics smoother, but might increase your device's power consumption"}
             </Typography.Paragraph>
           </Space>
