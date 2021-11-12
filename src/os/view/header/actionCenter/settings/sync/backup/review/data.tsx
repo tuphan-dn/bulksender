@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import { Col, Row, Typography } from 'antd'
+import JsonViewer from 'os/components/jsonViewer'
+
 import { RootState } from 'os/store'
 import PDB from 'shared/pdb'
-
-import { Col, Row } from 'antd'
-import Preview from '../../preview'
 
 const ReviewData = () => {
   const { address: walletAddress } = useSelector(
@@ -19,11 +19,15 @@ const ReviewData = () => {
   }, [walletAddress])
 
   return (
-    <Row>
+    <Row gutter={[8, 8]}>
       <Col span={24}>
-        <Preview value={data} title="Data" />
+        <Typography.Text type="secondary">Data</Typography.Text>
+      </Col>
+      <Col span={24}>
+        <JsonViewer value={data} />
       </Col>
     </Row>
   )
 }
+
 export default ReviewData

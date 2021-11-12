@@ -6,22 +6,16 @@ import Backup from './backup'
 import Restore from './restore'
 
 const Sync = () => {
-  const [isOpenBackup, setIsOpenBackup] = useState(false)
-  const [isOpenRestore, setIsOpenRestore] = useState(false)
+  const [visibleBackup, setVisibleBackup] = useState(false)
+  const [visibleRestore, setVisibleRestore] = useState(false)
 
   return (
-    <Card bodyStyle={{ padding: 16 }} hoverable>
+    <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>
       {/* Modal */}
-      {isOpenBackup && <Backup onClose={() => setIsOpenBackup(false)} />}
-      {isOpenRestore && (
-        <Restore
-          isOpen={isOpenRestore}
-          onClose={() => setIsOpenRestore(false)}
-        />
-      )}
-
+      {visibleBackup && <Backup onClose={() => setVisibleBackup(false)} />}
+      {visibleRestore && <Restore onClose={() => setVisibleRestore(false)} />}
       {/* Content */}
-      <Row gutter={[16, 20]}>
+      <Row gutter={[16, 24]}>
         <Col span={24}>
           <Typography.Text>Backup & Restore</Typography.Text>
         </Col>
@@ -31,7 +25,7 @@ const Sync = () => {
               <Button
                 type="primary"
                 icon={<IonIcon name="cloud-done-outline" />}
-                onClick={() => setIsOpenBackup(true)}
+                onClick={() => setVisibleBackup(true)}
                 block
               >
                 Backup
@@ -40,7 +34,7 @@ const Sync = () => {
             <Col span={24}>
               <Button
                 icon={<IonIcon name="archive-outline" />}
-                onClick={() => setIsOpenRestore(true)}
+                onClick={() => setVisibleRestore(true)}
                 block
               >
                 Restore

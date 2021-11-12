@@ -1,20 +1,25 @@
+import { useCallback } from 'react'
+
 import { Button, Col, Image, Input, Modal, Row, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
+
 import SuccessImg from 'os/static/images/success.png'
 
-type Props = {
+const BackupSuccess = ({
+  link,
+  onClose = () => {},
+}: {
   link: string
-  onClose: () => void
-}
-
-export default function BackupSuccess({ link, onClose }: Props) {
-  const onCopyLink = () => {
+  onClose?: () => void
+}) => {
+  const onCopy = useCallback(() => {
     navigator.clipboard.writeText(link)
     return window.notify({
       type: 'success',
       description: 'Link has been copied!',
     })
-  }
+  }, [link])
+
   return (
     <Modal
       closable={false}
@@ -22,8 +27,6 @@ export default function BackupSuccess({ link, onClose }: Props) {
       visible
       maskClosable={false}
       onCancel={onClose}
-      closeIcon={<IonIcon name="close" />}
-      bodyStyle={{ maxHeight: '70vh', overflowX: 'auto' }}
       footer={null}
     >
       <Row
@@ -53,7 +56,7 @@ export default function BackupSuccess({ link, onClose }: Props) {
                 type="text"
                 size="small"
                 icon={<IonIcon name="copy-outline" />}
-                onClick={onCopyLink}
+                onClick={onCopy}
               />
             }
             value={link}
@@ -63,14 +66,16 @@ export default function BackupSuccess({ link, onClose }: Props) {
           <Button
             type="primary"
             onClick={() => {
-              onCopyLink()
+              onCopy()
               onClose()
             }}
           >
-            Copy and close
+            Copy and Close
           </Button>
         </Col>
       </Row>
     </Modal>
   )
 }
+
+export default BackupSuccess
