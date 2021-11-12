@@ -60,8 +60,14 @@ export default function BackupSuccess({ link, onClose }: Props) {
           />
         </Col>
         <Col span={24}>
-          <Button type="primary" onClick={onClose}>
-            OK
+          <Button
+            type="primary"
+            onClick={() => {
+              onCopyLink()
+              onClose()
+            }}
+          >
+            Copy and close
           </Button>
         </Col>
       </Row>
