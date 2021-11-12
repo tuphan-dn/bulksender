@@ -1,63 +1,48 @@
-import { useState, useMemo, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { account } from '@senswap/sen-js'
+
+import { Row, Col, Button, Modal, Input } from 'antd'
+import IonIcon from 'shared/ionicon'
+import JsonViewer from 'os/components/jsonViewer'
+import ConfirmRestore from './confirm'
 
 import { RootState } from 'os/store'
 import PDB from 'shared/pdb'
 import IPFS from 'shared/pdb/ipfs'
 
-import { Row, Col, Button, Modal, Input } from 'antd'
-import IonIcon from 'shared/ionicon'
-import Preview from '../preview'
-import ConfirmRestore from './confirm'
-
-type Props = {
-  isOpen: boolean
-  onClose: () => void
-}
-
-const ipfs = new IPFS()
-
-const Restore = ({ isOpen, onClose }: Props) => {
+const Restore = ({ onClose = () => {} }: { onClose?: () => void }) => {
   const { address } = useSelector((state: RootState) => state.wallet)
-  const [isConfirm, setIsConfirm] = useState(false)
-  const [restoreInfo, setRestoreInfo] = useState({
-    link: '',
-    cid: '',
-    data: {},
-  })
+  const [link, setLink] = useState('')
+  const [cid, setCID] = useState('')
+  const [data, setData] = useState({})
+  const [confirmed, setConfirmed] = useState(false)
 
-  const pdb = useMemo(() => {
-    if (!account.isAddress(address)) return null
-    return new PDB(address)
-  }, [address])
-
-  async function onChangeLinkRestore(e: ChangeEvent<HTMLInputElement>) {
-    const restoreInfo = {
-      link: e.target.value,
-      cid: '',
-      data: {},
+  // Parse CID
+  useEffect(() => {
+    try {
+      const { search } = new URL(link)
+      const params = new URLSearchParams(search)
+      return setCID(params.get('cid') as string)
+    } catch (er) {
+      return setCID('')
     }
-    //Parse cid
-    const { search } = new URL(restoreInfo.link)
-    const params = new URLSearchParams(search)
-    const newCid = params.get('cid') as string
-    if (IPFS.isCID(newCid)) restoreInfo.cid = newCid
-    //Parse data
-    if (newCid && pdb) {
-      restoreInfo.data = await ipfs.get(newCid)
-    }
-    setRestoreInfo(restoreInfo)
-  }
+  }, [link])
+  // Parse data
+  useEffect(() => {
+    ;(async () => {
+      if (!IPFS.isCID(cid)) return setData({})
+      const pdb = new PDB(address)
+      const data = await pdb.fetch(cid)
+      return setData(data)
+    })()
+  }, [address, cid])
 
-  if (isConfirm)
-    return <ConfirmRestore onClose={onClose} cid={restoreInfo.cid} />
-
+  if (confirmed) return <ConfirmRestore onClose={onClose} cid={cid} />
   return (
     <Modal
       title="Restore"
       centered
-      visible={isOpen}
+      visible
       onCancel={onClose}
       closeIcon={<IonIcon name="close" />}
       footer={
@@ -65,9 +50,10 @@ const Restore = ({ isOpen, onClose }: Props) => {
           <Col span={24}>
             <Button
               type="primary"
+              size="small"
               icon={<IonIcon name="push-outline" />}
-              onClick={() => setIsConfirm(true)}
-              disabled={!restoreInfo.cid}
+              onClick={() => setConfirmed(true)}
+              disabled={!IPFS.isCID(cid)}
               block
             >
               Restore
@@ -79,7 +65,7 @@ const Restore = ({ isOpen, onClose }: Props) => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Input
-            placeholder="https://app.senswap.com/sync?cid=..."
+            placeholder="https://hub.sentre.io/sync?cid=..."
             prefix={
               <Button
                 type="text"
@@ -88,14 +74,15 @@ const Restore = ({ isOpen, onClose }: Props) => {
                 icon={<IonIcon name="link-outline" />}
               />
             }
-            value={restoreInfo.link}
-            onChange={onChangeLinkRestore}
+            value={link}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setLink(e.target.value || '')
+            }
           />
         </Col>
         <Col span={24}>
-          <Preview value={restoreInfo.data} title="Data" />
+          <JsonViewer value={data} />
         </Col>
-        <Col span={24}></Col>
       </Row>
     </Modal>
   )

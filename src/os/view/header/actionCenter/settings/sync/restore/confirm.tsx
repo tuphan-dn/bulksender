@@ -1,38 +1,34 @@
-import { account } from '@senswap/sen-js'
-import { Modal, Row, Space, Typography } from 'antd'
-import { RootState } from 'os/store'
-import { useMemo } from 'react'
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Modal, Row, Space, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
+
+import { RootState } from 'os/store'
 import PDB from 'shared/pdb'
 
-type Props = {
-  onClose: () => void
+const ConfirmRestore = ({
+  cid,
+  onClose = () => {},
+}: {
+  onClose?: () => void
   cid: string
-}
-
-export default function ConfirmRestore({ cid, onClose }: Props) {
+}) => {
   const { address } = useSelector((state: RootState) => state.wallet)
-  const pdb = useMemo(() => {
-    if (!account.isAddress(address)) return null
-    return new PDB(address)
-  }, [address])
 
-  async function onRestore() {
-    if (!pdb)
+  const onRestore = useCallback(async () => {
+    try {
+      const pdb = new PDB(address)
+      await pdb.restore(cid)
+      return (window.location.href = '/welcome')
+    } catch (er) {
       return window.notify({
         type: 'error',
-        description: 'Please connect he wallet first',
+        description: (er as any).message,
       })
-    if (!cid)
-      return window.notify({
-        type: 'error',
-        description: 'Invalid backup link format',
-      })
-    await pdb.restore(cid)
-    onClose()
-    return (window.location.href = '/home')
-  }
+    }
+  }, [address, cid])
+
   return (
     <Modal
       visible
@@ -57,3 +53,5 @@ export default function ConfirmRestore({ cid, onClose }: Props) {
     </Modal>
   )
 }
+
+export default ConfirmRestore
