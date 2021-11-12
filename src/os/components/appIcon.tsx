@@ -12,6 +12,7 @@ type Props = {
   size?: number
   onClick?: () => void
   name?: boolean
+  direction?: 'vertical' | 'horizontal'
 }
 
 class ErrorBoundary extends Component<Props, { failed: boolean }> {
@@ -35,7 +36,7 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
   }
 }
 
-const RawAppIcon = (props: Props & { src: ReactNode }) => {
+const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 64, name = true } = props
   const { register } = useSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
@@ -65,6 +66,34 @@ const RawAppIcon = (props: Props & { src: ReactNode }) => {
       ) : null}
     </Space>
   )
+}
+
+const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
+  const { src, appId, onClick = () => {}, size = 32, name = true } = props
+  const { register } = useSelector((state: RootState) => state.page)
+  const { name: appName } = register[appId] || { name: 'Unknown' }
+
+  return (
+    <Space
+      style={{
+        textAlign: 'center',
+        cursor: 'pointer',
+      }}
+      size={12}
+      onClick={onClick}
+    >
+      <Avatar src={src} shape="square" size={size}>
+        <IonIcon name="image-outline" />
+      </Avatar>
+      {name ? <Typography.Text>{appName}</Typography.Text> : null}
+    </Space>
+  )
+}
+
+const RawAppIcon = (props: Props & { src: ReactNode }) => {
+  const { direction = 'vertical' } = props
+  if (direction === 'vertical') return <RawVerticalAppIcon {...props} />
+  return <RawHorizontalAppIcon {...props} />
 }
 
 const AppIcon = (props: Props) => {

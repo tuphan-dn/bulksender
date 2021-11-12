@@ -67,11 +67,16 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
 
   return (
     <Button
-      style={style}
       type="text"
       icon={<IonIcon name="power-outline" />}
       onClick={() => dispatch(disconnectWallet())}
-      block
+      style={{
+        color: '#E9E9EB',
+        padding: 0,
+        background: 'transparent',
+        height: 'auto',
+        ...style,
+      }}
     >
       Disconnect
     </Button>
