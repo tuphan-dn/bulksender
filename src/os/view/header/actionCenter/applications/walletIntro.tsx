@@ -24,6 +24,7 @@ const WalletIntro = () => {
       }}
       bodyStyle={{ padding: 16 }}
       hoverable
+      bordered={false}
     >
       <Row gutter={[8, 8]} align="middle">
         <Col span={24}>
