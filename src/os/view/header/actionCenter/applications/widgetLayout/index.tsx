@@ -105,9 +105,8 @@ const WidgetLayout = (props: Props) => {
   }
 
   const onDragEnd = async (event: DragEndEvent) => {
-    if (activeId) setActiveId('') //disable button action after drag
+    if (activeId) setActiveId('') // Disable button action after drag
     if (handleRemove(event)) return
-
     return onChange(internalAppIds)
   }
 

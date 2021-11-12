@@ -37,7 +37,7 @@ const initialState: State = {
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
-  actionCenterVisible: true,
+  actionCenterVisible: false,
 }
 
 /**

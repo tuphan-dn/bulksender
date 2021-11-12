@@ -44,7 +44,7 @@ const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
   return (
     <Space
       direction="vertical"
-      style={{ width: size, textAlign: 'center' }}
+      style={{ width: size, textAlign: 'center', lineHeight: 1 }}
       onClick={onClick}
     >
       <Avatar
@@ -76,10 +76,9 @@ const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
   return (
     <Space
       style={{
-        textAlign: 'center',
         cursor: 'pointer',
+        lineHeight: 1,
       }}
-      size={12}
       onClick={onClick}
     >
       <Avatar src={src} shape="square" size={size}>

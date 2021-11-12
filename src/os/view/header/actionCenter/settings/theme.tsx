@@ -21,7 +21,7 @@ const Theme = () => {
           <Row gutter={[8, 8]} wrap={false} align="middle">
             <Col flex="auto">
               <IonIcon
-                name={theme === 'dark' ? 'sunny-outline' : 'moon-outline'}
+                name={theme === 'dark' ? 'moon-outline' : 'sunny-outline'}
               />
             </Col>
             <Col>
