@@ -29,8 +29,6 @@ const Theme = () => {
                 size="small"
                 checked={theme === 'dark'}
                 onChange={onSwitch}
-                // checkedChildren={<IonIcon name="moon-outline" />}
-                // unCheckedChildren={<IonIcon name="sunny-outline" />}
               />
             </Col>
           </Row>

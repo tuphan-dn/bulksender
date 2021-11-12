@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -12,24 +13,21 @@ import AppViewer from './market/appViewer'
 
 import Watcher from 'os/view/watcher'
 import { RootState } from 'os/store'
-import 'os/static/styles/index.os.less'
-import 'os/static/theme/index.os.light.less'
-import 'os/static/theme/dark/index.os.dark.less'
-import { useEffect } from 'react'
+import 'os/static/styles/index.light.os.less'
+import 'os/static/styles/index.dark.os.less'
 
 const View = () => {
   const {
     ui: { theme },
   } = useSelector((state: RootState) => state)
 
+  const prefix = useMemo(() => `${theme}-sentre`, [theme])
   useEffect(() => {
-    if (theme === 'dark')
-      return document.body.setAttribute('class', 'theme-dark')
-    return document.body.setAttribute('class', 'theme-light')
-  }, [theme])
+    return document.body.setAttribute('class', prefix)
+  }, [theme, prefix])
 
   return (
-    <ConfigProvider prefixCls={`sentre-${theme}`}>
+    <ConfigProvider prefixCls={prefix}>
       <Layout style={{ minHeight: '100vh' }}>
         {/* Header */}
         <Affix>

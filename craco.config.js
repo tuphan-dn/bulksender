@@ -2,9 +2,8 @@ require('dotenv-cra').config() // https://github.com/gsoft-inc/craco/issues/180
 
 const {
   CracoAppLessPlugin,
-  CracoOsLessPlugin,
-  CracoOsDarkLessPlugin,
-  CracoOsLightLessPlugin,
+  CracoDarkOsLessPlugin,
+  CracoLightOsLessPlugin,
 } = require('./plugins/craco-less')
 const CracoModuleFederation = require('./plugins/craco-module-federation')
 const CracoCompatibility = require('./plugins/craco-compatibility')
@@ -15,39 +14,34 @@ module.exports = {
     {
       plugin: CracoModuleFederation,
     },
+    // Os style loaders
     {
-      plugin: CracoOsLessPlugin,
+      plugin: CracoLightOsLessPlugin,
       options: {
         lessLoaderOptions: {
           lessOptions: {
             javascriptEnabled: true,
-            modifyVars: require('./src/os/static/styles/theme'),
+            modifyVars: {
+              '@ant-prefix': 'light-sentre',
+            },
           },
         },
       },
     },
     {
-      plugin: CracoOsDarkLessPlugin,
+      plugin: CracoDarkOsLessPlugin,
       options: {
         lessLoaderOptions: {
           lessOptions: {
             javascriptEnabled: true,
-            modifyVars: require('./src/os/static/theme/dark'),
+            modifyVars: {
+              '@ant-prefix': 'dark-sentre',
+            },
           },
         },
       },
     },
-    {
-      plugin: CracoOsLightLessPlugin,
-      options: {
-        lessLoaderOptions: {
-          lessOptions: {
-            javascriptEnabled: true,
-            modifyVars: require('./src/os/static/theme'),
-          },
-        },
-      },
-    },
+    // App style loaders
     {
       plugin: CracoAppLessPlugin,
       options: {
