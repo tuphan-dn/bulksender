@@ -5,6 +5,7 @@ import { Row, Col, Typography, Space, Badge, Card } from 'antd'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'
+import IonIcon from 'shared/ionicon'
 
 const {
   sol: { node },
@@ -69,7 +70,10 @@ const Network = () => {
         <Col span={24}>
           <Row gutter={[8, 8]} wrap={false}>
             <Col flex="auto">
-              <Typography.Text>Solana Network</Typography.Text>
+              <Space>
+                <IonIcon name="wifi-outline" />
+                <Typography.Text>Solana Network</Typography.Text>
+              </Space>
             </Col>
             <Col>
               <NetSwitch />
