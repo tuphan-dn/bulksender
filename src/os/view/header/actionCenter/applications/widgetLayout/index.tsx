@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { Fragment, useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {
   DndContext,
@@ -17,15 +17,14 @@ import {
 import { arrayMove } from '@dnd-kit/sortable'
 
 import { Row, Col, Button } from 'antd'
-import IonIcon from 'shared/ionicon'
 import AppIcon from 'os/components/appIcon'
 import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
-import DraggableAction from './draggableAction'
 
-import { RootDispatch, RootState } from 'os/store'
+import { RootDispatch } from 'os/store'
 import { setActionCenterVisible } from 'os/store/ui.reducer'
-import { uninstallApp, updatePage } from 'os/store/page.reducer'
+import DraggableAction from './draggableAction'
+import IonIcon from 'shared/ionicon'
 
 // Mixed Strategy
 const mixedStrategy = (
@@ -35,14 +34,33 @@ const mixedStrategy = (
   return intersecting ? intersecting : closestCorners(...args)
 }
 
-const WidgetLayout = ({ disabled = true }: { disabled?: boolean }) => {
+type Props = {
+  disabled?: boolean
+  appIds: AppIds
+  onChange: (appIds: AppIds) => void
+  onRemove?: (appId: string) => void
+  removeLabel?: string
+  onAdd?: () => void
+  addLabel?: string
+}
+
+const WidgetLayout = (props: Props) => {
+  const {
+    disabled = true,
+    appIds,
+    onChange,
+    onRemove,
+    removeLabel,
+    onAdd,
+    addLabel,
+  } = props
   const history = useHistory()
   const dispatch = useDispatch<RootDispatch>()
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
+
   const [internalAppIds, setInternalPages] = useState<AppIds>([])
   const [activeId, setActiveId] = useState<string>('')
-  const [actionId, setActionId] = useState('')
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
-  const { appIds } = useSelector((state: RootState) => state.page)
+  const [action, setAction] = useState('')
 
   useEffect(() => {
     setInternalPages(appIds)
@@ -57,8 +75,8 @@ const WidgetLayout = ({ disabled = true }: { disabled?: boolean }) => {
   const onDragOver = useCallback(
     ({ over, active }: DragOverEvent) => {
       // Remove an app
-      if (over?.id?.startsWith('action-')) return setActionId(over.id)
-      else setActionId('')
+      if (over?.id?.startsWith('action-')) return setAction(over.id)
+      else setAction('')
       // Sort apps
       const activeAppIndex = active.id
       const overAppIndex = over?.id || activeAppIndex
@@ -73,16 +91,23 @@ const WidgetLayout = ({ disabled = true }: { disabled?: boolean }) => {
     },
     [internalAppIds],
   )
-  const onDragEnd = async ({ over, active }: DragEndEvent) => {
-    if (over?.id === 'action-remove') {
-      const activeId = active.id
-      const newInternalAppIds = internalAppIds.filter(
-        (appId) => appId !== activeId,
-      )
-      await setInternalPages(newInternalAppIds)
-      return dispatch(uninstallApp(activeId))
-    }
-    return dispatch(updatePage(internalAppIds))
+
+  const handleRemove = ({ over, active }: DragEndEvent): boolean => {
+    if (!onRemove || over?.id !== 'action-remove') return false
+
+    const activeId = active.id
+    const newInternalAppIds = internalAppIds.filter(
+      (appId) => appId !== activeId,
+    )
+    setInternalPages(newInternalAppIds)
+    onRemove(activeId)
+    return true
+  }
+
+  const onDragEnd = async (event: DragEndEvent) => {
+    if (activeId) setActiveId('') // Disable button action after drag
+    if (handleRemove(event)) return
+    return onChange(internalAppIds)
   }
 
   return (
@@ -108,19 +133,35 @@ const WidgetLayout = ({ disabled = true }: { disabled?: boolean }) => {
           </DroppablePage>
         </Col>
         {!disabled && (
-          <Col span={24}>
-            <DraggableAction id="action-remove">
-              <Button
-                block
-                disabled={!activeId}
-                type={actionId ? 'primary' : undefined}
-                className="contained"
-                icon={<IonIcon name="trash-outline" />}
-              >
-                Drop here to delete
-              </Button>
-            </DraggableAction>
-          </Col>
+          <Fragment>
+            {onRemove && appIds.length ? (
+              <Col span={onAdd ? 12 : 24}>
+                <DraggableAction id="action-remove">
+                  <Button
+                    block
+                    disabled={!activeId}
+                    type={action ? 'primary' : undefined}
+                    className="contained"
+                    icon={<IonIcon name="trash-outline" />}
+                  >
+                    {removeLabel}
+                  </Button>
+                </DraggableAction>
+              </Col>
+            ) : null}
+            {onAdd && (
+              <Col span={onRemove ? 12 : 24}>
+                <Button
+                  block
+                  className="contained"
+                  icon={<IonIcon name="add-outline" />}
+                  onClick={onAdd}
+                >
+                  {addLabel}
+                </Button>
+              </Col>
+            )}
+          </Fragment>
         )}
       </Row>
       <DragOverlay>

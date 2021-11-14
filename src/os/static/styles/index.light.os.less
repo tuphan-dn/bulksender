@@ -1,0 +1,84 @@
+/**
+ * Available vars: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+ */
+
+@import '~antd/dist/antd.less';
+@import './common/vars.os.less';
+@import './common/polyfill.os.less';
+@import './common/typography.os.less';
+@import './common/scrollbar.os.less';
+
+// Colors
+@primary-color: @PRIMARY;
+@info-color: @INFO;
+@success-color: @SUCCESS;
+@warning-color: @WARNING;
+@error-color: @ERROR;
+@popover-background: @NEUTRAL100;
+@body-background: @NEUTRAL05;
+@component-background: @NEUTRAL05;
+
+// Typography
+@font-family: 'Nunito', sans-serif;
+@text-color: @NEUTRAL100;
+@text-color-secondary: @NEUTRAL60;
+@heading-color: @NEUTRAL100;
+@disabled-color: @NEUTRAL40;
+@typography-title-margin-top: 0px;
+@typography-title-margin-bottom: 0px;
+
+// Border
+@border-radius-base: 8px;
+@border-color-base: @NEUTRAL20;
+@border-width-base: 1px;
+@popover-customize-border-color: @border-color-base;
+@border-color-split: @border-color-base;
+
+// Card
+@card-radius: @border-radius-base * 2;
+@card-actions-background: @NEUTRAL05;
+@card-background: @NEUTRAL05;
+@card-shadow: @LIGHT_SHADOW2;
+
+// Modal
+@modal-header-bg: @NEUTRAL05;
+@modal-content-bg: @NEUTRAL05;
+@modal-footer-bg: @NEUTRAL05;
+@modal-footer-padding-horizontal: 24px;
+
+// Drawer
+@drawer-bg: @NEUTRAL05;
+
+// Button
+@btn-font-weight: 700;
+@btn-height-base: @height-base + 8;
+@btn-height-lg: @height-lg + 8;
+@btn-height-sm: @height-sm + 8;
+@btn-padding-horizontal-base: @padding-md;
+@btn-padding-horizontal-lg: @btn-padding-horizontal-base;
+@btn-padding-horizontal-sm: @btn-padding-horizontal-base;
+
+// Input
+@input-height-base: @height-lg;
+@input-height-lg: @height-lg + 8;
+@input-height-sm: @height-sm;
+@input-placeholder-color: @NEUTRAL60;
+
+// Divider
+@divider-color: @NEUTRAL10;
+
+// Checkbox
+@checkbox-border-radius: @border-radius-base / 2;
+
+// Patch
+.light-sentre {
+  background: url('../images/light-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-attachment: fixed;
+}
+.@{ant-prefix}-card {
+  box-shadow: @LIGHT_SHADOW1;
+}

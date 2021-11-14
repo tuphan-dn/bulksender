@@ -1,25 +1,22 @@
-import { useState } from 'react'
-
-import { Row, Col, Switch, Typography } from 'antd'
+import { Row, Col, Divider } from 'antd'
 import WalletIntro from './walletIntro'
-import WidgetLayout from './widgetLayout'
+import WidgetsInDashboard from './widgetsInDashboard'
+import AllApplications from './allApplications'
 
 const Applications = () => {
-  const [editable, setEditable] = useState(false)
-
   return (
-    <Row gutter={[16, 24]}>
+    <Row gutter={[24, 24]}>
       <Col span={24}>
         <WalletIntro />
       </Col>
-      <Col flex="auto">
-        <Typography.Text>To customize your workspace</Typography.Text>
-      </Col>
-      <Col>
-        <Switch onChange={setEditable} size="small" />
+      <Col span={24}>
+        <WidgetsInDashboard />
       </Col>
       <Col span={24}>
-        <WidgetLayout disabled={!editable} />
+        <Divider style={{ margin: 0 }} />
+      </Col>
+      <Col span={24}>
+        <AllApplications />
       </Col>
     </Row>
   )

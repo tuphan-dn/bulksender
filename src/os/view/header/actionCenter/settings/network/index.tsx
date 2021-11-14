@@ -64,7 +64,7 @@ const Network = () => {
   }, [ping])
 
   return (
-    <Card bodyStyle={{ padding: 16 }} hoverable>
+    <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>
       <Row gutter={[8, 8]}>
         <Col span={24}>
           <Row gutter={[8, 8]} wrap={false}>

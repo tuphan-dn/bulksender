@@ -53,7 +53,16 @@ type WidgetConfig = {
   size?: WidgetSize
   type?: WidgetType
 }
-
+type CgkData = {
+  icon: any;
+  symbol: any;
+  name: any;
+  address: any;
+  rank: any;
+  price: any;
+  priceChange: any;
+  totalVolume: any;
+}
 /**
  * Declare module
  */

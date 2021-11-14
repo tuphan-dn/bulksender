@@ -17,6 +17,10 @@ class PDB {
     this.ipfs = new IPFS()
   }
 
+  /**
+   * Local
+   */
+
   createInstance = (appId: string): any => {
     return localForage.createInstance({
       driver: this.driver,
@@ -51,6 +55,14 @@ class PDB {
     return data
   }
 
+  /**
+   * Cloud
+   */
+
+  fetch = async (cid: string) => {
+    return await this.ipfs.get(cid)
+  }
+
   backup = async () => {
     const data = await this.all()
     return await this.ipfs.set(data)
@@ -58,7 +70,7 @@ class PDB {
 
   restore = async (cid: string) => {
     // Download data
-    const data = await this.ipfs.get(cid)
+    const data = await this.fetch(cid)
     // Apply to storage
     for (const appId in data) {
       const instance = await this.createInstance(appId)

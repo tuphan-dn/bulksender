@@ -1,0 +1,22 @@
+.card-wallet {
+  position: relative !important;
+  background-image: url('../../../../../static/images/card-bg.png') !important;
+  background-position: center !important;
+  background-size: cover !important;
+  margin-bottom: 8px !important;
+  .sentre-card-body {
+    padding: 16px;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 24px);
+    height: 100%;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(93, 108, 207, 0.4);
+    border-radius: 16px;
+    z-index: -1;
+  }
+}

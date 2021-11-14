@@ -1,33 +1,21 @@
-import { Row, Col, Button, Card, Typography } from 'antd'
-import { RootState } from 'os/store'
-import { useSelector } from 'react-redux'
-import IonIcon from 'shared/ionicon'
+import { useState } from 'react'
 
-import PDB from 'shared/pdb'
+import { Row, Col, Button, Card, Typography } from 'antd'
+import IonIcon from 'shared/ionicon'
+import Backup from './backup'
+import Restore from './restore'
 
 const Sync = () => {
-  const { address: walletAddress } = useSelector(
-    (state: RootState) => state.wallet,
-  )
-
-  const pdb = new PDB(walletAddress)
-
-  const onBackup = async () => {
-    console.log('onBackup')
-    const re = await pdb.backup()
-    console.log(re)
-  }
-  const onRestore = async () => {
-    console.log('onRestore')
-    const re = await pdb.restore(
-      'QmdxL9t5BMUjMkZD5VZ7McJzfR9gcv6ZZcXRvXzCNrGNVS',
-    )
-    console.log(re)
-  }
+  const [visibleBackup, setVisibleBackup] = useState(false)
+  const [visibleRestore, setVisibleRestore] = useState(false)
 
   return (
-    <Card bodyStyle={{ padding: 16 }} hoverable>
-      <Row gutter={[16, 20]}>
+    <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>
+      {/* Modal */}
+      {visibleBackup && <Backup onClose={() => setVisibleBackup(false)} />}
+      {visibleRestore && <Restore onClose={() => setVisibleRestore(false)} />}
+      {/* Content */}
+      <Row gutter={[16, 24]}>
         <Col span={24}>
           <Typography.Text>Backup & Restore</Typography.Text>
         </Col>
@@ -37,7 +25,7 @@ const Sync = () => {
               <Button
                 type="primary"
                 icon={<IonIcon name="cloud-done-outline" />}
-                onClick={onBackup}
+                onClick={() => setVisibleBackup(true)}
                 block
               >
                 Backup
@@ -46,7 +34,7 @@ const Sync = () => {
             <Col span={24}>
               <Button
                 icon={<IonIcon name="archive-outline" />}
-                onClick={onRestore}
+                onClick={() => setVisibleRestore(true)}
                 block
               >
                 Restore
