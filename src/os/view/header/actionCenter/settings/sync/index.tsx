@@ -15,7 +15,7 @@ const Sync = () => {
       {visibleBackup && <Backup onClose={() => setVisibleBackup(false)} />}
       {visibleRestore && <Restore onClose={() => setVisibleRestore(false)} />}
       {/* Content */}
-      <Row gutter={[16, 24]}>
+      <Row gutter={[16, 22]}>
         <Col span={24}>
           <Typography.Text>Backup & Restore</Typography.Text>
         </Col>

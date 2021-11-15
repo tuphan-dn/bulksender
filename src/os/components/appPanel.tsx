@@ -1,4 +1,4 @@
-import { Component, Suspense } from 'react'
+import { Component, ReactNode, Suspense } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Row, Col, Image, Spin } from 'antd'
@@ -10,6 +10,7 @@ import ERROR_IMG from 'os/static/images/error-image.svg'
 type Props = {
   appId: string
   onClick?: () => void
+  children?: ReactNode
 }
 
 class ErrorBoundary extends Component<Props, { failed: boolean }> {
@@ -18,6 +19,11 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
     this.state = {
       failed: false,
     }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
   }
 
   componentDidCatch(error: Error) {

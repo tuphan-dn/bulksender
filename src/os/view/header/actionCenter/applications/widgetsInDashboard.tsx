@@ -60,7 +60,7 @@ const WidgetsInDashboard = () => {
         onClose={onClose}
         closable={false}
         contentWrapperStyle={{ width: '75%', maxWidth: 300 }}
-        title="Widget list"
+        title={<Typography.Title level={5}>Widget list</Typography.Title>}
         extra={
           <Button
             type="text"
@@ -106,7 +106,6 @@ const WidgetsInDashboard = () => {
                     <Col>
                       <Button
                         type="text"
-                        size="small"
                         icon={
                           <Typography.Text type="success">
                             <IonIcon name="checkmark-outline" />

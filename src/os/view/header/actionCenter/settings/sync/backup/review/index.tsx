@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button, Checkbox, Col, Modal, Row } from 'antd'
+import { Button, Checkbox, Col, Modal, Row, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import ReviewManual from './manual'
 import ReviewData from './data'
@@ -16,7 +16,7 @@ const Review = ({
 
   return (
     <Modal
-      title="Backup"
+      title={<Typography.Title level={5}>Backup</Typography.Title>}
       centered
       visible
       onCancel={onClose}
@@ -26,7 +26,6 @@ const Review = ({
         <Button
           disabled={!acceptable}
           type="primary"
-          size="small"
           block
           icon={<IonIcon name="cloud-upload-outline" />}
           onClick={onOk}
