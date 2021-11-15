@@ -48,7 +48,9 @@ module.exports = {
         lessLoaderOptions: {
           lessOptions: {
             javascriptEnabled: true,
-            // modifyVars: require('./src/app/static/styles/theme'),
+            modifyVars: {
+              '@ant-prefix': process.env.REACT_APP_ID,
+            },
           },
         },
       },
