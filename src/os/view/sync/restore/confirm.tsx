@@ -9,10 +9,12 @@ import PDB from 'shared/pdb'
 
 const ConfirmRestore = ({
   cid,
+  visible,
   onClose = () => {},
 }: {
   onClose?: () => void
   cid: string
+  visible: boolean
 }) => {
   const { address } = useSelector((state: RootState) => state.wallet)
 
@@ -31,7 +33,7 @@ const ConfirmRestore = ({
 
   return (
     <Modal
-      visible
+      visible={visible}
       okText="Restore"
       onOk={onRestore}
       onCancel={onClose}
@@ -46,7 +48,10 @@ const ConfirmRestore = ({
             <Typography.Title level={5}>
               Do you want to Restore?
             </Typography.Title>
-            <Typography.Text>Some data will be lost.</Typography.Text>
+            <Typography.Text>
+              The current data on your device will be overridden and no longer
+              could be retrieved.
+            </Typography.Text>
           </Space>
         </Space>
       </Row>
