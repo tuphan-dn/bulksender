@@ -50,7 +50,6 @@ const Restore = ({ onClose = () => {} }: { onClose?: () => void }) => {
           <Col span={24}>
             <Button
               type="primary"
-              size="small"
               icon={<IonIcon name="push-outline" />}
               onClick={() => setConfirmed(true)}
               disabled={!IPFS.isCID(cid)}

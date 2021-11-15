@@ -26,7 +26,6 @@ const Review = ({
         <Button
           disabled={!acceptable}
           type="primary"
-          size="small"
           block
           icon={<IonIcon name="cloud-upload-outline" />}
           onClick={onOk}

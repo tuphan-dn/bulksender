@@ -106,7 +106,6 @@ const WidgetsInDashboard = () => {
                     <Col>
                       <Button
                         type="text"
-                        size="small"
                         icon={
                           <Typography.Text type="success">
                             <IonIcon name="checkmark-outline" />
