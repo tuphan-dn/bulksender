@@ -33,7 +33,7 @@ const WidgetsInDashboard = () => {
   }
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[16, 16]}>
       <Col flex="auto">
         <Typography.Title level={5}>Widgets in dashboard</Typography.Title>
       </Col>

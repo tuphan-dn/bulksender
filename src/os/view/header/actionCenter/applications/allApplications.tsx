@@ -37,7 +37,7 @@ const AllApplications = () => {
   }
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[16, 16]}>
       <Col flex="auto">
         <Typography.Title level={5}>All applications</Typography.Title>
       </Col>
