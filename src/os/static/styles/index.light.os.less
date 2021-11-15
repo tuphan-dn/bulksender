@@ -9,59 +9,59 @@
 @import './common/scrollbar.os.less';
 
 // Colors
-@primary-color: @PRIMARY;
-@info-color: @INFO;
-@success-color: @SUCCESS;
-@warning-color: @WARNING;
-@error-color: @ERROR;
-@popover-background: @NEUTRAL100;
-@body-background: @NEUTRAL05;
-@component-background: @NEUTRAL05;
-@disabled-bg: @NEUTRAL10;
+@primary-color: @SENTRE_PRIMARY;
+@info-color: @SENTRE_INFO;
+@success-color: @SENTRE_SUCCESS;
+@warning-color: @SENTRE_WARNING;
+@error-color: @SENTRE_ERROR;
+@popover-background: @SENTRE_NEUTRAL100;
+@body-background: @SENTRE_NEUTRAL05;
+@component-background: @SENTRE_NEUTRAL05;
+@disabled-bg: @SENTRE_NEUTRAL10;
 
 // Typography
 @font-family: 'Nunito', sans-serif;
-@text-color: @NEUTRAL100;
-@text-color-secondary: @NEUTRAL60;
-@heading-color: @NEUTRAL100;
-@disabled-color: @NEUTRAL40;
+@text-color: @SENTRE_NEUTRAL100;
+@text-color-secondary: @SENTRE_NEUTRAL60;
+@heading-color: @SENTRE_NEUTRAL100;
+@disabled-color: @SENTRE_NEUTRAL40;
 @typography-title-margin-top: 0px;
 @typography-title-margin-bottom: 0px;
 
 // Border
 @border-radius-base: 8px;
-@border-color-base: @NEUTRAL20;
+@border-color-base: @SENTRE_NEUTRAL20;
 @border-width-base: 1px;
 @popover-customize-border-color: @border-color-base;
 @border-color-split: @border-color-base;
 
 // Card
 @card-radius: @border-radius-base * 2;
-@card-actions-background: @NEUTRAL05;
-@card-background: @NEUTRAL05;
-@card-shadow: @LIGHT_SHADOW2;
+@card-actions-background: @SENTRE_NEUTRAL05;
+@card-background: @SENTRE_NEUTRAL05;
+@card-shadow: @SENTRE_LIGHT_SHADOW2;
 
 // Modal
-@modal-header-bg: @NEUTRAL05;
-@modal-content-bg: @NEUTRAL05;
-@modal-footer-bg: @NEUTRAL05;
+@modal-header-bg: @SENTRE_NEUTRAL05;
+@modal-content-bg: @SENTRE_NEUTRAL05;
+@modal-footer-bg: @SENTRE_NEUTRAL05;
 @modal-footer-padding-horizontal: 24px;
 
 // Drawer
-@drawer-bg: @NEUTRAL05;
+@drawer-bg: @SENTRE_NEUTRAL05;
 
 // Button
 @btn-font-weight: 700;
 @btn-padding-horizontal-base: @padding-md;
 @btn-padding-horizontal-lg: @btn-padding-horizontal-base;
 @btn-padding-horizontal-sm: @btn-padding-horizontal-base;
-@btn-default-border: @NEUTRAL20;
+@btn-default-border: @SENTRE_NEUTRAL20;
 
 // Input
-@input-placeholder-color: @NEUTRAL60;
+@input-placeholder-color: @SENTRE_NEUTRAL60;
 
 // Divider
-@divider-color: @NEUTRAL10;
+@divider-color: @SENTRE_NEUTRAL10;
 @divider-orientation-margin: 0;
 
 // Checkbox
@@ -76,6 +76,9 @@
   background-origin: border-box;
   background-attachment: fixed;
 }
+.@{ant-prefix}-layout {
+  background: unset;
+}
 .@{ant-prefix}-card {
-  box-shadow: @LIGHT_SHADOW1;
+  box-shadow: @SENTRE_LIGHT_SHADOW1;
 }
