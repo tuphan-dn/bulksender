@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Row, Col, Button, Modal, Input } from 'antd'
+import { Row, Col, Button, Modal, Input, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import JsonViewer from 'os/components/jsonViewer'
 import ConfirmRestore from './confirm'
@@ -40,7 +40,7 @@ const Restore = ({ onClose = () => {} }: { onClose?: () => void }) => {
   if (confirmed) return <ConfirmRestore onClose={onClose} cid={cid} />
   return (
     <Modal
-      title="Restore"
+      title={<Typography.Title level={5}>Restore</Typography.Title>}
       centered
       visible
       onCancel={onClose}
