@@ -68,6 +68,7 @@
     "@types/node": "^16.10.3",
     "@types/qrcode.react": "^1.0.2",
     "@types/react": "^17.0.27",
+    "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.1",
     "@types/remarkable": "^2.0.3",

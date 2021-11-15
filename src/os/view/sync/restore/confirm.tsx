@@ -9,12 +9,12 @@ import PDB from 'shared/pdb'
 
 const ConfirmRestore = ({
   cid,
-  isOpen,
+  visible,
   onClose = () => {},
 }: {
   onClose?: () => void
   cid: string
-  isOpen: boolean
+  visible: boolean
 }) => {
   const { address } = useSelector((state: RootState) => state.wallet)
 
@@ -33,7 +33,7 @@ const ConfirmRestore = ({
 
   return (
     <Modal
-      visible={isOpen}
+      visible={visible}
       okText="Restore"
       onOk={onRestore}
       onCancel={onClose}

@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import { Button, Card, Checkbox, Col, Row, Typography } from 'antd'
+import IonIcon from 'shared/ionicon'
 import BackupSuccess from './backupSuccess'
 import ReviewManual from './reviewManual'
 import ReviewData from './reviewData'
 
 import { RootState } from 'os/store'
 import PDB from 'shared/pdb'
-import { Button, Card, Checkbox, Col, Row, Typography } from 'antd'
-import IonIcon from 'shared/ionicon'
 
 const Backup = () => {
   const { address: walletAddress } = useSelector(

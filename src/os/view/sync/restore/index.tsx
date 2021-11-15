@@ -16,8 +16,9 @@ const Restore = () => {
   const [link, setLink] = useState('')
   const [cid, setCID] = useState('')
   const [data, setData] = useState({})
-  const [isOpen, setIsOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   // Parse CID
   useEffect(() => {
     try {
@@ -40,12 +41,12 @@ const Restore = () => {
   // Parse data
   useEffect(() => {
     ;(async () => {
-      setIsLoading(true)
+      setLoading(true)
       if (!IPFS.isCID(cid)) return setData({})
       const pdb = new PDB(address)
       const data = await pdb.fetch(cid)
       setData(data)
-      setIsLoading(false)
+      setLoading(false)
     })()
   }, [address, cid])
 
@@ -79,10 +80,10 @@ const Restore = () => {
               <Button
                 type="primary"
                 icon={<IonIcon name="push-outline" />}
-                onClick={() => setIsOpen(true)}
+                onClick={() => setVisible(true)}
                 disabled={!IPFS.isCID(cid)}
                 block
-                loading={isLoading}
+                loading={loading}
               >
                 Restore
               </Button>
@@ -90,7 +91,11 @@ const Restore = () => {
           </Row>
         </Card>
       </Col>
-      <ConfirmRestore isOpen={isOpen} onClose={() => setIsOpen(false)} cid={cid} />
+      <ConfirmRestore
+        visible={visible}
+        onClose={() => setVisible(false)}
+        cid={cid}
+      />
     </Row>
   )
 }
