@@ -48,7 +48,10 @@ const ConfirmRestore = ({
             <Typography.Title level={5}>
               Do you want to Restore?
             </Typography.Title>
-            <Typography.Text>Some data will be lost.</Typography.Text>
+            <Typography.Text>
+              The current data on your device will be overridden and no longer
+              could be retrieved.
+            </Typography.Text>
           </Space>
         </Space>
       </Row>

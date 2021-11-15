@@ -11,13 +11,12 @@ import PDB from 'shared/pdb'
 import IPFS from 'shared/pdb/ipfs'
 
 const Restore = () => {
-  const { address } = useSelector((state: RootState) => state.wallet)
-
   const [link, setLink] = useState('')
   const [cid, setCID] = useState('')
   const [data, setData] = useState({})
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
+  const { address } = useSelector((state: RootState) => state.wallet)
 
   // Parse CID
   useEffect(() => {
@@ -41,12 +40,12 @@ const Restore = () => {
   // Parse data
   useEffect(() => {
     ;(async () => {
-      setLoading(true)
+      await setLoading(true)
       if (!IPFS.isCID(cid)) return setData({})
       const pdb = new PDB(address)
       const data = await pdb.fetch(cid)
-      setData(data)
-      setLoading(false)
+      await setData(data)
+      return setLoading(false)
     })()
   }, [address, cid])
 
