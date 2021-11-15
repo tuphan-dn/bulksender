@@ -61,7 +61,7 @@ const WalletIntro = () => {
           <Row gutter={[16, 4]} align="bottom">
             <Col span={24}>
               <Typography.Text style={CARD_TEXT_STYLE}>
-                24h SOL price
+                Solana 24h price
               </Typography.Text>
             </Col>
             <Col span={12} style={{ paddingLeft: 6 }}>

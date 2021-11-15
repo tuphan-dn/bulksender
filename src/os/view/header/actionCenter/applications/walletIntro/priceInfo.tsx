@@ -5,10 +5,10 @@ const PriceInfo = () => {
   return (
     <Space size={4}>
       <Typography.Text>
-        <PriceIndicator ticket="solana" colorized />
+        <Price ticket="solana" colorized />
       </Typography.Text>
       <Typography.Text>
-        <Price ticket="solana" colorized />
+        <PriceIndicator ticket="solana" colorized />
       </Typography.Text>
       <Typography.Text>
         <PriceChange ticket="solana" colorized />
