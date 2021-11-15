@@ -17,14 +17,16 @@ import SuccessImg from 'os/static/images/success.png'
 
 const BackupSuccess = ({
   link,
+  isOpen,
   onClose = () => {},
 }: {
   link: string
+  isOpen: boolean
   onClose?: () => void
 }) => {
   const [copied, setCopied] = useState(false)
 
-  const onCopy = useCallback(() => {
+  const onCopy = useCallback(async () => {
     setCopied(true)
     setTimeout(() => {
       setCopied(false)
@@ -35,10 +37,11 @@ const BackupSuccess = ({
     <Modal
       closable={false}
       centered
-      visible
+      visible={isOpen}
       maskClosable={false}
       onCancel={onClose}
       footer={null}
+      destroyOnClose
     >
       <Row
         gutter={[20, 20]}

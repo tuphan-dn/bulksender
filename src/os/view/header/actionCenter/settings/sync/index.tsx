@@ -1,20 +1,17 @@
-import { useState } from 'react'
+import { useHistory } from 'react-router'
+import { useDispatch } from 'react-redux'
 
 import { Row, Col, Button, Card, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
-import Backup from './backup'
-import Restore from './restore'
+
+import { setActionCenterVisible } from 'os/store/ui.reducer'
 
 const Sync = () => {
-  const [visibleBackup, setVisibleBackup] = useState(false)
-  const [visibleRestore, setVisibleRestore] = useState(false)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   return (
     <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>
-      {/* Modal */}
-      {visibleBackup && <Backup onClose={() => setVisibleBackup(false)} />}
-      {visibleRestore && <Restore onClose={() => setVisibleRestore(false)} />}
-      {/* Content */}
       <Row gutter={[16, 22]}>
         <Col span={24}>
           <Typography.Text>Backup & Restore</Typography.Text>
@@ -25,7 +22,10 @@ const Sync = () => {
               <Button
                 type="primary"
                 icon={<IonIcon name="cloud-done-outline" />}
-                onClick={() => setVisibleBackup(true)}
+                onClick={() => {
+                  dispatch(setActionCenterVisible(false))
+                  history.push('/sync')
+                }}
                 block
               >
                 Backup
@@ -34,7 +34,10 @@ const Sync = () => {
             <Col span={24}>
               <Button
                 icon={<IonIcon name="archive-outline" />}
-                onClick={() => setVisibleRestore(true)}
+                onClick={() => {
+                  dispatch(setActionCenterVisible(false))
+                  history.push('/sync?cid=')
+                }}
                 block
               >
                 Restore
