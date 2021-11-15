@@ -1,33 +1,47 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-import { Button, Col, Image, Input, Modal, Row, Typography } from 'antd'
+import {
+  Button,
+  Col,
+  Image,
+  Input,
+  Modal,
+  Row,
+  Tooltip,
+  Typography,
+} from 'antd'
 import IonIcon from 'shared/ionicon'
 
 import SuccessImg from 'os/static/images/success.png'
 
 const BackupSuccess = ({
   link,
+  isOpen,
   onClose = () => {},
 }: {
   link: string
+  isOpen: boolean
   onClose?: () => void
 }) => {
-  const onCopy = useCallback(() => {
-    navigator.clipboard.writeText(link)
-    return window.notify({
-      type: 'success',
-      description: 'Link has been copied!',
-    })
-  }, [link])
+  const [copied, setCopied] = useState(false)
+
+  const onCopy = useCallback(async () => {
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 1500)
+  }, [])
 
   return (
     <Modal
       closable={false}
       centered
-      visible
+      visible={isOpen}
       maskClosable={false}
       onCancel={onClose}
       footer={null}
+      destroyOnClose
     >
       <Row
         gutter={[20, 20]}
@@ -52,26 +66,25 @@ const BackupSuccess = ({
               />
             }
             suffix={
-              <Button
-                type="text"
-                size="small"
-                icon={<IonIcon name="copy-outline" />}
-                onClick={onCopy}
-              />
+              <Tooltip title="Copied" visible={copied}>
+                <CopyToClipboard text={link} onCopy={onCopy}>
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={<IonIcon name="copy-outline" />}
+                  />
+                </CopyToClipboard>
+              </Tooltip>
             }
             value={link}
           />
         </Col>
         <Col span={24}>
-          <Button
-            type="primary"
-            onClick={() => {
-              onCopy()
-              onClose()
-            }}
-          >
-            Copy and Close
-          </Button>
+          <CopyToClipboard text={link} onCopy={onCopy}>
+            <Button type="primary" onClick={onClose}>
+              Copy and Close
+            </Button>
+          </CopyToClipboard>
         </Col>
       </Row>
     </Modal>

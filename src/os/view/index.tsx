@@ -10,6 +10,7 @@ import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
 import Market from 'os/view/market'
 import AppViewer from './market/appViewer'
+import Sync from './sync'
 
 import Watcher from 'os/view/watcher'
 import { RootState } from 'os/store'
@@ -48,8 +49,13 @@ const View = () => {
             <Col span={24}>
               <Switch>
                 <Route exact path="/welcome" component={Welcome} />
-                <Route exact path="/dashboard/:pageId?" component={Dashboard} />
+                <PrivateRoute
+                  exact
+                  path="/dashboard/:pageId?"
+                  component={Dashboard}
+                />
                 <PrivateRoute exact path="/app/:appId" component={Page} />
+                <PrivateRoute exact path="/sync" component={Sync} />
                 <Route exact path="/store" component={Market} />
                 <Route exact path="/store/:appId" component={AppViewer} />
                 <Redirect from="*" to="/welcome" />
