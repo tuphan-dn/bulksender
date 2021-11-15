@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Drawer, Row, Typography, Switch, Divider } from 'antd'
 import IonIcon from 'shared/ionicon'
 import AppIcon from 'os/components/appIcon'
-import DragAppLayout from './widgetLayout'
+import WidgetLayout from './widgetLayout'
 
 import { RootDispatch, RootState } from 'os/store'
 import { addWidget, removeWidget, updateDashboard } from 'os/store/page.reducer'
@@ -41,10 +41,8 @@ const WidgetsInDashboard = () => {
         <Switch onChange={(checked) => setDisabled(!checked)} size="small" />
       </Col>
       <Col span={24}>
-        {!widgetIds.length ? (
-          <Typography.Text type="secondary">No widget</Typography.Text>
-        ) : null}
-        <DragAppLayout
+        <WidgetLayout
+          placeholder="No added widget"
           disabled={disabled}
           appIds={widgetIds}
           onChange={onChange}
