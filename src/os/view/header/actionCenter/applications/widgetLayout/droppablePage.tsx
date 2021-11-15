@@ -28,17 +28,17 @@ const DroppablePage = ({
     : {
         transition: 'all 0.25s ease-in-out',
         background: '#00000010',
-        padding: 16,
-        borderRadius: 16,
+        padding: 8,
+        borderRadius: 24,
         minHeight: 100,
       }
 
   return (
     <SortableContext items={items}>
-      <Row id={`droppable-${index}`} gutter={[16, 16]} ref={setNodeRef}>
+      <Row id={`droppable-${index}`} gutter={[24, 24]} ref={setNodeRef}>
         <Col span={24}>
           <div style={style}>
-            <Row gutter={[16, 16]}>{children}</Row>
+            <Row gutter={[12, 12]}>{children}</Row>
           </div>
         </Col>
       </Row>
