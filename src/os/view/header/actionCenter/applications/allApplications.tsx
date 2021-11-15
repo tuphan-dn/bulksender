@@ -45,33 +45,28 @@ const AllApplications = () => {
         <Switch onChange={(checked) => setDisabled(!checked)} size="small" />
       </Col>
       <Col span={24}>
-        {!appIds.length ? (
-          <Row gutter={[16, 16]}>
-            <Col span={24}>
-              <Typography.Text type="secondary">No application</Typography.Text>
-            </Col>
-            <Col span={24}>
-              <Button
-                block
-                type="primary"
-                className="contained"
-                icon={<IonIcon name="bag-handle-outline" />}
-                onClick={onGotoStore}
-              >
-                Go to store
-              </Button>
-            </Col>
-          </Row>
-        ) : (
-          <WidgetLayout
-            disabled={disabled}
-            appIds={appIds.filter((id) => id !== appId)}
-            onChange={onChange}
-            onRemove={onConfirm}
-            removeLabel="Drag to uninstall"
-          />
-        )}
+        <WidgetLayout
+          placeholder="No installed application"
+          disabled={disabled}
+          appIds={appIds.filter((id) => id !== appId)}
+          onChange={onChange}
+          onRemove={onConfirm}
+          removeLabel="Drag to uninstall"
+        />
       </Col>
+      {!appIds.length ? (
+        <Col span={24}>
+          <Button
+            block
+            type="primary"
+            className="contained"
+            icon={<IonIcon name="bag-handle-outline" />}
+            onClick={onGotoStore}
+          >
+            Go to store
+          </Button>
+        </Col>
+      ) : null}
       <Modal closable={false} visible={visible} footer={null} centered>
         <Row gutter={[24, 24]} justify="end">
           <Col span={24}>

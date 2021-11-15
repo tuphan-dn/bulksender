@@ -16,7 +16,7 @@ import {
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
@@ -35,6 +35,7 @@ const mixedStrategy = (
 }
 
 type Props = {
+  placeholder?: string
   disabled?: boolean
   appIds: AppIds
   onChange: (appIds: AppIds) => void
@@ -46,6 +47,7 @@ type Props = {
 
 const WidgetLayout = (props: Props) => {
   const {
+    placeholder,
     disabled = true,
     appIds,
     onChange,
@@ -121,15 +123,23 @@ const WidgetLayout = (props: Props) => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <DroppablePage index={0} items={internalAppIds} disabled={disabled}>
-            {internalAppIds.map((appId) => (
-              <DraggableIcon
-                key={appId}
-                appId={appId}
-                disabled={disabled}
-                size={64}
-                onClick={() => open(appId)}
-              />
-            ))}
+            {!internalAppIds.length ? (
+              <Col span={24}>
+                <Typography.Text type="secondary">
+                  {placeholder}
+                </Typography.Text>
+              </Col>
+            ) : (
+              internalAppIds.map((appId) => (
+                <DraggableIcon
+                  key={appId}
+                  appId={appId}
+                  disabled={disabled}
+                  size={64}
+                  onClick={() => open(appId)}
+                />
+              ))
+            )}
           </DroppablePage>
         </Col>
         {!disabled && (
