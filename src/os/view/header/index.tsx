@@ -42,8 +42,8 @@ const Header = () => {
   const { width, theme } = useSelector((state: RootState) => state.ui)
 
   useEffect(() => {
-    if (account.isAddress(address)) dispatch(loadPage())
-  }, [dispatch, address])
+    dispatch(loadPage())
+  }, [dispatch])
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
@@ -59,11 +59,13 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          <NavButton
-            iconName="grid-outline"
-            route="/dashboard"
-            title="Dashboard"
-          />
+          {account.isAddress(address) && (
+            <NavButton
+              iconName="grid-outline"
+              route="/dashboard"
+              title="Dashboard"
+            />
+          )}
           <NavButton
             iconName="bag-handle-outline"
             route="/store"
