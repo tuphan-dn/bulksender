@@ -2,8 +2,7 @@ require('dotenv-cra').config() // https://github.com/gsoft-inc/craco/issues/180
 
 const {
   CracoAppLessPlugin,
-  CracoDarkOsLessPlugin,
-  CracoLightOsLessPlugin,
+  CracoOsLessPlugin,
 } = require('./plugins/craco-less')
 const CracoModuleFederation = require('./plugins/craco-module-federation')
 const CracoCompatibility = require('./plugins/craco-compatibility')
@@ -16,26 +15,13 @@ module.exports = {
     },
     // Os style loaders
     {
-      plugin: CracoLightOsLessPlugin,
+      plugin: CracoOsLessPlugin,
       options: {
         lessLoaderOptions: {
           lessOptions: {
             javascriptEnabled: true,
             modifyVars: {
-              '@ant-prefix': 'light-sentre',
-            },
-          },
-        },
-      },
-    },
-    {
-      plugin: CracoDarkOsLessPlugin,
-      options: {
-        lessLoaderOptions: {
-          lessOptions: {
-            javascriptEnabled: true,
-            modifyVars: {
-              '@ant-prefix': 'dark-sentre',
+              '@ant-prefix': 'sentre',
             },
           },
         },

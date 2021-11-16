@@ -3,10 +3,7 @@
  */
 
 @import '~antd/dist/antd.dark.less';
-@import './common/vars.os.less';
-@import './common/polyfill.os.less';
-@import './common/typography.os.less';
-@import './common/scrollbar.os.less';
+@import (multiple) './common/vars.os.less';
 
 // Colors
 @primary-color: @PRIMARY;
@@ -68,14 +65,6 @@
 @checkbox-border-radius: @border-radius-base - 4;
 
 // Patch
-.dark-sentre {
-  background: url('../images/dark-bg.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-origin: border-box;
-  background-attachment: fixed;
-}
 .@{ant-prefix}-layout {
   background: unset;
 }

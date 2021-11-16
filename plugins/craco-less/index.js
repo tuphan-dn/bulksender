@@ -1,9 +1,7 @@
 const CracoAppLessPlugin = require('./index.app')
-const CracoLightOsLessPlugin = require('./light.os')
-const CracoDarkOsLessPlugin = require('./dark.os')
+const CracoOsLessPlugin = require('./index.os')
 
 module.exports = {
   CracoAppLessPlugin,
-  CracoLightOsLessPlugin,
-  CracoDarkOsLessPlugin,
+  CracoOsLessPlugin,
 }

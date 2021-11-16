@@ -1,0 +1,25 @@
+@import '~antd/lib/style/core/index.less';
+@import '~antd/lib/style/default.less';
+@import './common/polyfill.os.less';
+@import './common/typography.os.less';
+@import './common/scrollbar.os.less';
+
+#light {
+  @import './light.os.less';
+  background: url('../images/light-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-attachment: fixed;
+}
+
+#dark {
+  @import './dark.os.less';
+  background: url('../images/dark-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-attachment: fixed;
+}
