@@ -52,10 +52,11 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     const {
       wallet: { address },
     } = getState()
-    
+
+    let data = { ...initialState }
     // Fetch register
     const register = await fetchRegister()
-    let data = { register: { ...register, ...extra } }
+    data = { ...data, register: { ...register, ...extra } }
     // Fetch user's apps
     if (account.isAddress(address)) {
       const db = new PDB(address).createInstance('sentre')
