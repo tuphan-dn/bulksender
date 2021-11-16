@@ -52,8 +52,9 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     const {
       wallet: { address },
     } = getState()
+    const register = await fetchRegister()
     if (!account.isAddress(address))
-      throw new Error('Wallet is not connected yet')
+      return { register: { ...register, ...extra } }
     // Fetch user's apps
     const db = new PDB(address).createInstance('sentre')
     const appIds = troubleshoot(
@@ -62,18 +63,9 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     const widgetIds = troubleshoot(
       (await db.getItem('widgetIds')) || initialState.widgetIds,
     )
-    return { appIds, widgetIds }
+    return { appIds, widgetIds, register: { ...register, ...extra } }
   },
 )
-
-export const loadRegister = createAsyncThunk<
-  Partial<State>,
-  void,
-  { state: any }
->(`${NAME}/loadRegister`, async (_) => {
-  const register = await fetchRegister()
-  return { register: { ...register, ...extra } }
-})
 
 export const updatePage = createAsyncThunk<
   Partial<State>,
@@ -203,10 +195,6 @@ const slice = createSlice({
     void builder
       .addCase(
         loadPage.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        loadRegister.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(
