@@ -46,6 +46,15 @@ const initialState: State = {
  * Actions
  */
 
+export const loadRegister = createAsyncThunk(
+  `${NAME}/loadRegister`,
+  async () => {
+    // Fetch register
+    const register = await fetchRegister()
+    return { register: { ...register, ...extra } }
+  },
+)
+
 export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
   `${NAME}/loadPage`,
   async (_, { getState }) => {
@@ -53,22 +62,16 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
       wallet: { address },
     } = getState()
 
-    let data = { ...initialState }
-    // Fetch register
-    const register = await fetchRegister()
-    data = { ...data, register: { ...register, ...extra } }
+    if (!account.isAddress(address)) throw new Error('Cannot connect wallet')
     // Fetch user's apps
-    if (account.isAddress(address)) {
-      const db = new PDB(address).createInstance('sentre')
-      const appIds = troubleshoot(
-        (await db.getItem('appIds')) || initialState.appIds,
-      )
-      const widgetIds = troubleshoot(
-        (await db.getItem('widgetIds')) || initialState.widgetIds,
-      )
-      data = { ...data, appIds, widgetIds }
-    }
-    return data
+    const db = new PDB(address).createInstance('sentre')
+    const appIds = troubleshoot(
+      (await db.getItem('appIds')) || initialState.appIds,
+    )
+    const widgetIds = troubleshoot(
+      (await db.getItem('widgetIds')) || initialState.widgetIds,
+    )
+    return { appIds, widgetIds }
   },
 )
 
@@ -198,6 +201,10 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     void builder
+      .addCase(
+        loadRegister.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
       .addCase(
         loadPage.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
