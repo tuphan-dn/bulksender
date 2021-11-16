@@ -62,11 +62,18 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     const widgetIds = troubleshoot(
       (await db.getItem('widgetIds')) || initialState.widgetIds,
     )
-    // Fetch register
-    const register = await fetchRegister()
-    return { appIds, widgetIds, register: { ...register, ...extra } }
+    return { appIds, widgetIds }
   },
 )
+
+export const loadRegister = createAsyncThunk<
+  Partial<State>,
+  void,
+  { state: any }
+>(`${NAME}/loadRegister`, async (_) => {
+  const register = await fetchRegister()
+  return { register: { ...register, ...extra } }
+})
 
 export const updatePage = createAsyncThunk<
   Partial<State>,
@@ -196,6 +203,10 @@ const slice = createSlice({
     void builder
       .addCase(
         loadPage.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        loadRegister.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(

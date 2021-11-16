@@ -11,7 +11,7 @@ import ActionCenter from './actionCenter'
 import ContextMenu from './contextMenu'
 
 import { RootDispatch, RootState } from 'os/store'
-import { loadPage } from 'os/store/page.reducer'
+import { loadPage, loadRegister } from 'os/store/page.reducer'
 
 const NavButton = ({
   iconName,
@@ -42,6 +42,7 @@ const Header = () => {
   const { width, theme } = useSelector((state: RootState) => state.ui)
 
   useEffect(() => {
+    dispatch(loadRegister())
     if (account.isAddress(address)) dispatch(loadPage())
   }, [dispatch, address])
 
@@ -59,11 +60,13 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          <NavButton
-            iconName="grid-outline"
-            route="/dashboard"
-            title="Dashboard"
-          />
+          {address && (
+            <NavButton
+              iconName="grid-outline"
+              route="/dashboard"
+              title="Dashboard"
+            />
+          )}
           <NavButton
             iconName="bag-handle-outline"
             route="/store"
