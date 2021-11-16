@@ -8,9 +8,11 @@ import { parseColor } from './parseColor'
 const PriceIndicator = ({
   ticket,
   colorized = false,
+  className,
 }: {
   ticket: string
   colorized?: boolean
+  className?: string
 }) => {
   const [cgkData, setCGKData] = useState<CgkData>()
 
@@ -28,7 +30,10 @@ const PriceIndicator = ({
   if (cgkData?.priceChange > 0) name = 'arrow-up-outline'
   const color = parseColor(cgkData?.priceChange)
   return (
-    <span style={{ color: colorized ? color : 'inherit' }}>
+    <span
+      style={{ color: colorized ? color : 'inherit' }}
+      className={className}
+    >
       <IonIcon name={name} />
     </span>
   )
