@@ -12,8 +12,6 @@ import Balance from './balance'
 import { RootState } from 'os/store'
 import './index.less'
 
-const CARD_TEXT_STYLE = { color: '#BEC4EC', fontSize: 12 }
-
 const WalletIntro = () => {
   const { lamports } = useSelector((state: RootState) => state.wallet)
   const [hidden, setHidden] = useState(false)
@@ -25,16 +23,16 @@ const WalletIntro = () => {
           <Row gutter={[4, 4]}>
             <Col span={12}>
               <Space size={6}>
-                <span style={{ color: '#03E1FF' }}>◎</span>
-                <Typography.Text style={CARD_TEXT_STYLE}>SOL</Typography.Text>
+                <span className="icon-sol">◎</span>
+                <Typography.Text className="label">SOL</Typography.Text>
                 <IconButton
                   name={hidden ? 'eye-off-outline' : 'eye-outline'}
                   onClick={() => setHidden(!hidden)}
                 />
               </Space>
             </Col>
-            <Col span={12} style={{ textAlign: 'end' }}>
-              <Typography.Text style={CARD_TEXT_STYLE}>
+            <Col span={12} className="text-right">
+              <Typography.Text className="label">
                 Wallet address
               </Typography.Text>
             </Col>
@@ -43,16 +41,16 @@ const WalletIntro = () => {
                 <Tooltip
                   title={hidden ? '' : `${utils.undecimalize(lamports, 9)} SOL`}
                 >
-                  <Typography.Title level={3} style={{ color: '#E9E9EB' }}>
+                  <Typography.Title level={3} className="balance">
                     <Balance hidden={hidden} />
                   </Typography.Title>
                 </Tooltip>
-                <Typography.Text style={{ ...CARD_TEXT_STYLE, fontSize: 14 }}>
+                <Typography.Text style={{ fontSize: 14 }} className="label">
                   <Balance hidden={hidden} inUSD />
                 </Typography.Text>
               </Space>
             </Col>
-            <Col span={12} style={{ textAlign: 'end' }}>
+            <Col span={12} className="text-right">
               <Address />
             </Col>
           </Row>
@@ -60,14 +58,12 @@ const WalletIntro = () => {
         <Col span={24}>
           <Row gutter={[16, 4]} align="bottom">
             <Col span={24}>
-              <Typography.Text style={CARD_TEXT_STYLE}>
-                Solana 24h price
-              </Typography.Text>
+              <Typography.Text className="label">24h SOL price</Typography.Text>
             </Col>
             <Col span={12} style={{ paddingLeft: 6 }}>
               <PriceInfo />
             </Col>
-            <Col span={12} style={{ textAlign: 'end' }}>
+            <Col span={12} className="text-right">
               <Wallet />
             </Col>
           </Row>
