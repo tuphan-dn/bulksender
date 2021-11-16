@@ -13,6 +13,7 @@ type Props = {
   onClick?: () => void
   name?: boolean
   direction?: 'vertical' | 'horizontal'
+  children?: ReactNode
 }
 
 class ErrorBoundary extends Component<Props, { failed: boolean }> {
@@ -21,6 +22,11 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
     this.state = {
       failed: false,
     }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
   }
 
   componentDidCatch(error: Error) {
