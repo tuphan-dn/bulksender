@@ -52,19 +52,23 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
     const {
       wallet: { address },
     } = getState()
-    if (!account.isAddress(address))
-      throw new Error('Wallet is not connected yet')
-    // Fetch user's apps
-    const db = new PDB(address).createInstance('sentre')
-    const appIds = troubleshoot(
-      (await db.getItem('appIds')) || initialState.appIds,
-    )
-    const widgetIds = troubleshoot(
-      (await db.getItem('widgetIds')) || initialState.widgetIds,
-    )
+
+    let data = { ...initialState }
     // Fetch register
     const register = await fetchRegister()
-    return { appIds, widgetIds, register: { ...register, ...extra } }
+    data = { ...data, register: { ...register, ...extra } }
+    // Fetch user's apps
+    if (account.isAddress(address)) {
+      const db = new PDB(address).createInstance('sentre')
+      const appIds = troubleshoot(
+        (await db.getItem('appIds')) || initialState.appIds,
+      )
+      const widgetIds = troubleshoot(
+        (await db.getItem('widgetIds')) || initialState.widgetIds,
+      )
+      data = { ...data, appIds, widgetIds }
+    }
+    return data
   },
 )
 
