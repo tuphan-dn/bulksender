@@ -11,7 +11,7 @@ import ActionCenter from './actionCenter'
 import ContextMenu from './contextMenu'
 
 import { RootDispatch, RootState } from 'os/store'
-import { loadPage, loadRegister } from 'os/store/page.reducer'
+import { loadPage } from 'os/store/page.reducer'
 
 const NavButton = ({
   iconName,
@@ -42,9 +42,8 @@ const Header = () => {
   const { width, theme } = useSelector((state: RootState) => state.ui)
 
   useEffect(() => {
-    dispatch(loadRegister())
-    if (account.isAddress(address)) dispatch(loadPage())
-  }, [dispatch, address])
+    dispatch(loadPage())
+  }, [dispatch])
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
@@ -60,7 +59,7 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          {address && (
+          {account.isAddress(address) && (
             <NavButton
               iconName="grid-outline"
               route="/dashboard"
