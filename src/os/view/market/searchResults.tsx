@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useLocation } from 'react-router'
+import { useHistory } from 'react-router'
 
 import { Row, Col, Button, Typography } from 'antd'
 import SearchEngine from './searchEngine'
@@ -12,9 +12,8 @@ import AppCard from './appCard'
 
 let searching: NodeJS.Timeout
 
-const SearchResult = () => {
+const SearchResult = ({ value }: { value: string }) => {
   const history = useHistory()
-  const { search } = useLocation()
   const dispatch = useDispatch<RootDispatch>()
   const ref = useRef(null)
   const { register } = useSelector((state: RootState) => state.page)
@@ -26,8 +25,7 @@ const SearchResult = () => {
   }, [ref])
 
   const onSearch = useCallback(async () => {
-    const searchValue = new URLSearchParams(search).get('search')
-    if (!searchValue) {
+    if (!value) {
       await dispatch(setLoading(false))
       return history.push('/store')
     }
@@ -36,12 +34,12 @@ const SearchResult = () => {
 
     if (searching) clearTimeout(searching)
     searching = setTimeout(async () => {
-      const appIds = engine.search(searchValue)
+      const appIds = engine.search(value)
       setAppIds(appIds)
       await dispatch(setLoading(false))
       return window.scrollTo(0, 0)
     }, 500)
-  }, [dispatch, history, register, search])
+  }, [dispatch, history, register, value])
 
   useEffect(() => {
     onSearch()

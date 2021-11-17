@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from 'react-router'
+import { useHistory } from 'react-router'
 
 import { Button, Col, Row, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
@@ -6,13 +6,9 @@ import AppCard from '../appCard'
 
 import { useAppCategory } from './hooks'
 
-const CategorySeeAll = () => {
-  const { search } = useLocation()
+const CategorySeeAll = ({ category }: { category: string }) => {
   const history = useHistory()
-
-  const { title, appIds } = useAppCategory({
-    category: new URLSearchParams(search).get('category'),
-  })
+  const { title, appIds } = useAppCategory({ category })
 
   return (
     <Row gutter={[24, 24]}>

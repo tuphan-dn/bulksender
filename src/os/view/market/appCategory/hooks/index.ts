@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from 'os/store'
 
-export const useAppCategory = ({ category }: { category?: string | null }) => {
+export const useAppCategory = ({
+  category = '',
+}: {
+  category?: string | null
+}) => {
   const { register } = useSelector((state: RootState) => state.page)
   const [title, setTitle] = useState('')
   const [appIds, setAppIds] = useState<AppIds>([])

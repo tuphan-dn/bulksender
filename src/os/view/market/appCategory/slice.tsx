@@ -9,13 +9,13 @@ import { SwiperOs } from 'os/components/swiperOS'
 
 const AppCategorySlice = ({ category }: { category: string }) => {
   const history = useHistory()
-  const appCategory = useAppCategory({ category })
+  const { title, appIds } = useAppCategory({ category })
 
   return (
     <Row gutter={[20, 20]} align="bottom">
       {/* title */}
       <Col flex="auto">
-        <Typography.Title level={4}>{appCategory.title}</Typography.Title>
+        <Typography.Title level={4}>{title}</Typography.Title>
       </Col>
       {/* see all button*/}
       <Col>
@@ -25,7 +25,12 @@ const AppCategorySlice = ({ category }: { category: string }) => {
               danger
               style={{ padding: 0, height: 'auto', fontWeight: 300 }}
               type="text"
-              onClick={() => history.push('/store?category=' + category)}
+              onClick={() =>
+                history.push({
+                  pathname: '/store',
+                  search: `?category=${category}`,
+                })
+              }
             >
               See all
             </Button>
@@ -36,7 +41,7 @@ const AppCategorySlice = ({ category }: { category: string }) => {
       {/* list app category */}
       <Col span={24}>
         <SwiperOs>
-          {appCategory.appIds.map((appId) => (
+          {appIds.map((appId) => (
             <SwiperSlide
               key={appId}
               style={{
