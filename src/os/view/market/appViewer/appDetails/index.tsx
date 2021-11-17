@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Space, Grid } from 'antd'
+import Paragraph from 'antd/lib/typography/Paragraph'
 import AppIcon from 'os/components/appIcon'
 import AppInstall from './appInstall'
 import AppTags from './appTags'
 import AppAuthor from './appAuthor'
-import AppDescription from './appDescription'
 import AppReadMe from './appReadMe'
 
 import { RootState } from 'os/store'
@@ -19,10 +19,10 @@ const AppDetails = ({ appId }: { appId: string }) => {
   const { appIds } = useSelector((state: RootState) => state.page)
   const { description, author, name } = register[appId] || {}
   const { md, sm, xs } = Grid.useBreakpoint()
-  const mobileView = xs || (sm && !md)
+  const isMobile = xs || (sm && !md)
 
   const floatSocialButton = () => {
-    if (mobileView) return 'start'
+    if (isMobile) return 'start'
     return 'end'
   }
 
@@ -34,7 +34,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
     <Row gutter={[16, 16]}>
       <Col span={24}>
         <Row gutter={[16, 16]}>
-          <Col span={mobileView ? 24 : 12}>
+          <Col span={isMobile ? 24 : 12}>
             <Row gutter={[32, 24]} wrap={false}>
               <Col>
                 <AppIcon appId={appId} size={96} name={false} />
@@ -47,7 +47,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
               </Col>
             </Row>
           </Col>
-          <Col span={mobileView ? 24 : 12}>
+          <Col span={isMobile ? 24 : 12}>
             <Row gutter={[16, 16]} justify={floatSocialButton()}>
               <Col span={24}>
                 <AppInstall appId={appId} installed={installed} />
@@ -66,7 +66,9 @@ const AppDetails = ({ appId }: { appId: string }) => {
         <AppAuthor author={author} />
       </Col>
       <Col span={24}>
-        <AppDescription description={description} />
+        <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'More' }}>
+          {description}
+        </Paragraph>
       </Col>
     </Row>
   )

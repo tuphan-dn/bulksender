@@ -25,40 +25,40 @@ const AppInstall = ({
     return 'end'
   }
 
-  const mobileView = xs || (sm && !md)
+  const isMobile = xs || (sm && !md)
 
   return (
     <Row gutter={[12, 12]} justify={setFloatElement()}>
       {installed ? (
         <Fragment>
-          <Col span={mobileView ? 12 : undefined}>
+          <Col span={isMobile ? 12 : undefined}>
             <Button
               icon={<IonIcon name="trash-outline" />}
               onClick={() => dispatch(uninstallApp(appId))}
-              block={mobileView}
+              block={isMobile}
             >
               Uninstall
             </Button>
           </Col>
 
-          <Col span={xs || (sm && !md) ? 12 : undefined}>
+          <Col span={isMobile ? 12 : undefined}>
             <Button
               type="primary"
               icon={<IonIcon name="open-outline" />}
               onClick={to}
-              block={mobileView}
+              block={isMobile}
             >
               Open
             </Button>
           </Col>
         </Fragment>
       ) : (
-        <Col span={mobileView ? 24 : undefined}>
+        <Col span={isMobile ? 24 : undefined}>
           <Button
             type="primary"
             icon={<IonIcon name="cloud-download-outline" />}
             onClick={() => dispatch(installApp(appId))}
-            block={mobileView}
+            block={isMobile}
           >
             Install
           </Button>

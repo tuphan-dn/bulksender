@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Space, Modal, Button, Card } from 'antd'
+import { Space, Modal, Button } from 'antd'
 
 import IonIcon from 'shared/ionicon'
 import AppReadme from 'os/components/appReadme'
