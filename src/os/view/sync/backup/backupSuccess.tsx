@@ -17,11 +17,11 @@ import SuccessImg from 'os/static/images/success.png'
 
 const BackupSuccess = ({
   link,
-  isOpen,
+  visible,
   onClose = () => {},
 }: {
   link: string
-  isOpen: boolean
+  visible: boolean
   onClose?: () => void
 }) => {
   const [copied, setCopied] = useState(false)
@@ -37,7 +37,7 @@ const BackupSuccess = ({
     <Modal
       closable={false}
       centered
-      visible={isOpen}
+      visible={visible}
       maskClosable={false}
       onCancel={onClose}
       footer={null}
