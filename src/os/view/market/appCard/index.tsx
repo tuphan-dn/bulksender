@@ -10,7 +10,7 @@ import { RootState } from 'os/store'
 
 const AppCard = ({
   appId,
-  style,
+  style = {},
 }: {
   appId: string
   style?: CSSProperties
