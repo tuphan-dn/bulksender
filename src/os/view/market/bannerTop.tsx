@@ -31,6 +31,7 @@ const BannerTop = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundImage: `url(${banner})`,
+                boxShadow: 'none',
               }}
               bordered={false}
             />

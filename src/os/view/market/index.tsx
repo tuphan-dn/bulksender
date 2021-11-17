@@ -28,6 +28,8 @@ const Market = () => {
   })
 
   const onSearch = useCallback(async () => {
+    if (!searching && !value) return
+
     const engine = new SearchEngine(register)
     await dispatch(setLoading(true))
     if (searching) clearTimeout(searching)
