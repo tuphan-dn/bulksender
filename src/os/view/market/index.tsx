@@ -18,11 +18,11 @@ const Market = () => {
   const { value } = useSelector((state: RootState) => state.search)
   const { register } = useSelector((state: RootState) => state.page)
   const [seeAll, setSeeAll] = useState<{
-    isOpen: boolean
+    visible: boolean
     appIds: AppIds
     title: string
   }>({
-    isOpen: false,
+    visible: false,
     appIds: [],
     title: '',
   })
@@ -36,7 +36,7 @@ const Market = () => {
     searching = setTimeout(async () => {
       const appIds = engine.search(value)
       await setSeeAll({
-        isOpen: !!value,
+        visible: !!value,
         appIds: appIds,
         title: 'Search Results',
       })
@@ -50,11 +50,11 @@ const Market = () => {
   }, [onSearch])
 
   const onSeeAll = (appIds: AppIds, title: string) =>
-    setSeeAll({ isOpen: true, appIds, title })
+    setSeeAll({ visible: true, appIds, title })
 
-  const onBack = () => setSeeAll({ isOpen: false, appIds: [], title: '' })
+  const onBack = () => setSeeAll({ visible: false, appIds: [], title: '' })
 
-  if (seeAll.isOpen) return <SeeAll {...seeAll} onBack={onBack} />
+  if (seeAll.visible) return <SeeAll {...seeAll} onBack={onBack} />
   return (
     <Row gutter={[16, 48]}>
       <Col span={24}>

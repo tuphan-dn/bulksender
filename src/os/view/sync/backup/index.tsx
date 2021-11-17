@@ -16,13 +16,13 @@ const Backup = () => {
   )
   const [link, setLink] = useState('')
   const [acceptable, setAcceptable] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   const onBackup = useCallback(async () => {
     const pdb = new PDB(walletAddress)
     const cid = await pdb.backup()
     await setLink(`${window.location.origin}/sync?cid=${cid}`)
-    return setIsOpen(true)
+    return setVisible(true)
   }, [walletAddress])
 
   return (
@@ -59,9 +59,9 @@ const Backup = () => {
         </Card>
       </Col>
       <BackupSuccess
-        isOpen={isOpen}
+        visible={visible}
         link={link}
-        onClose={() => setIsOpen(false)}
+        onClose={() => setVisible(false)}
       />
     </Row>
   )
