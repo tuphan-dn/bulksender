@@ -14,12 +14,13 @@ import { RootState } from 'os/store'
 import AppShare from './appShare'
 
 const AppDetails = ({ appId }: { appId: string }) => {
+  const { infix } = useSelector((state: RootState) => state.ui)
   const { register } = useSelector((state: RootState) => state.page)
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appIds } = useSelector((state: RootState) => state.page)
   const { description, author, name } = register[appId] || {}
-  const { md, sm, xs } = Grid.useBreakpoint()
-  const isMobile = xs || (sm && !md)
+
+  const isMobile = infix === 'xs' || infix === 'sm'
 
   const floatSocialButton = () => {
     if (isMobile) return 'start'

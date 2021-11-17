@@ -1,13 +1,12 @@
 import { Fragment } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-import { Button, Col, Grid, Row } from 'antd'
+import { Button, Col, Row } from 'antd'
 import IonIcon from 'shared/ionicon'
 
-import { RootDispatch } from 'os/store'
+import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
-
 
 const AppInstall = ({
   installed,
@@ -17,16 +16,16 @@ const AppInstall = ({
   appId: string
 }) => {
   const dispatch = useDispatch<RootDispatch>()
+  const { infix } = useSelector((state: RootState) => state.ui)
   const history = useHistory()
-  const { xs, sm, md } = Grid.useBreakpoint()
 
   const to = () => history.push(`/app/${appId}`)
+
+  const isMobile = infix === 'xs' || infix === 'sm'
   const setFloatElement = () => {
-    if (xs || (sm && !md)) return 'start'
+    if (isMobile) return 'start'
     return 'end'
   }
-
-  const isMobile = xs || (sm && !md)
 
   return (
     <Row gutter={[12, 12]} justify={setFloatElement()}>
