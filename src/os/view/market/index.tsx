@@ -1,39 +1,45 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Row, Col, Typography } from 'antd'
-import AppIcon from 'os/components/appIcon'
-
+import { Row, Col } from 'antd'
+import AppCategory from './appCategory'
+import SeeAll from './seeAll'
 import SearchEngine from './searchEngine'
-import { RootDispatch, RootState } from 'os/store'
-import { setLoading } from 'os/store/search.reducer'
+import BannerTop from './bannerTop'
+import BannerBottom from './bannerBottom'
 
-let searching: ReturnType<typeof setTimeout> | undefined
+import { setLoading } from 'os/store/search.reducer'
+import { RootDispatch, RootState } from 'os/store'
+
+let searching: NodeJS.Timeout
 
 const Market = () => {
-  const history = useHistory()
   const dispatch = useDispatch<RootDispatch>()
-  const [appIds, setAppIds] = useState<string[]>()
   const { value } = useSelector((state: RootState) => state.search)
   const { register } = useSelector((state: RootState) => state.page)
-
-  const to = (appId: string) => history.push(`/store/${appId}`)
+  const [seeAll, setSeeAll] = useState<{
+    visible: boolean
+    appIds: AppIds
+    title: string
+  }>({
+    visible: false,
+    appIds: [],
+    title: '',
+  })
 
   const onSearch = useCallback(async () => {
     const engine = new SearchEngine(register)
     await dispatch(setLoading(true))
-    if (searching) {
-      clearTimeout(searching)
-      searching = undefined
-    }
-    if (!value) {
-      await setAppIds(undefined)
-      await dispatch(setLoading(false))
-    }
+    if (searching) clearTimeout(searching)
+    if (!value) await dispatch(setLoading(false))
+
     searching = setTimeout(async () => {
       const appIds = engine.search(value)
-      await setAppIds(appIds)
+      await setSeeAll({
+        visible: !!value,
+        appIds: appIds,
+        title: 'Search Results',
+      })
       await dispatch(setLoading(false))
       return window.scrollTo(0, 0)
     }, 1000)
@@ -43,30 +49,37 @@ const Market = () => {
     onSearch()
   }, [onSearch])
 
+  const onSeeAll = (appIds: AppIds, title: string) =>
+    setSeeAll({ visible: true, appIds, title })
+
+  const onBack = () => setSeeAll({ visible: false, appIds: [], title: '' })
+
+  if (seeAll.visible) return <SeeAll {...seeAll} onBack={onBack} />
   return (
-    <Row gutter={[16, 24]}>
-      {appIds?.length ? (
-        <Col span={24}>
-          <Typography.Title level={4} type="secondary">
-            Search Results
-          </Typography.Title>
-        </Col>
-      ) : null}
-      {appIds?.map((appId) => (
-        <Col key={appId}>
-          <AppIcon appId={appId} onClick={() => to(appId)} />
-        </Col>
-      ))}
+    <Row gutter={[16, 48]}>
       <Col span={24}>
-        <Typography.Title level={4} type="secondary">
-          All applications
-        </Typography.Title>
+        <BannerTop />
       </Col>
-      {Object.keys(register).map((appId) => (
-        <Col key={appId}>
-          <AppIcon appId={appId} onClick={() => to(appId)} />
-        </Col>
-      ))}
+      <Col span={24}>
+        <AppCategory
+          onSeeAll={onSeeAll}
+          title="Suggested for you"
+          category="suggest"
+        />
+      </Col>
+      <Col span={24}>
+        <AppCategory
+          onSeeAll={onSeeAll}
+          title="Top dapps"
+          category="top-dapps"
+        />
+      </Col>
+      <Col span={24}>
+        <AppCategory onSeeAll={onSeeAll} title="Other" category="other" />
+      </Col>
+      <Col span={24}>
+        <BannerBottom />
+      </Col>
     </Row>
   )
 }

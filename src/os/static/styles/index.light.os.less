@@ -84,4 +84,8 @@
 }
 .@{ant-prefix}-card {
   box-shadow: @LIGHT_SHADOW1;
+  .glass {
+    background-color: color(~`('@{card-background}99') `);
+    backdrop-filter: blur(4px);
+  }
 }
