@@ -10,7 +10,7 @@ import Address from './address'
 import Balance from './balance'
 
 import { RootState } from 'os/store'
-import './index.less'
+import './index.os.less'
 
 const WalletIntro = () => {
   const { lamports } = useSelector((state: RootState) => state.wallet)
@@ -58,7 +58,9 @@ const WalletIntro = () => {
         <Col span={24}>
           <Row gutter={[16, 4]} align="bottom">
             <Col span={24}>
-              <Typography.Text className="label">Solana 24h price</Typography.Text>
+              <Typography.Text className="label">
+                Solana 24h price
+              </Typography.Text>
             </Col>
             <Col span={12} style={{ paddingLeft: 6 }}>
               <PriceInfo />

@@ -4,6 +4,7 @@ import { Row, Col, Card, Button } from 'antd'
 import AppDetails from './appDetails'
 import ScreenShot from './screenshot'
 import IonIcon from 'shared/ionicon'
+import AppCategory from '../appCategory'
 
 import './index.os.less'
 
@@ -31,6 +32,13 @@ const AppViewer = () => {
             </Col>
           </Row>
         </Card>
+      </Col>
+      <Col span={24}>
+        <AppCategory
+          onSeeAll={() => {}}
+          title="Top dapps"
+          category="top-dapps"
+        />
       </Col>
     </Row>
   )

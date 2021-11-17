@@ -81,7 +81,9 @@ const AppShare = ({ appId }: { appId: string }) => {
       <Modal
         closable={false}
         visible={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={() => {
+          setVisible(false)
+        }}
         closeIcon={<IonIcon name="close" />}
         footer={null}
         centered

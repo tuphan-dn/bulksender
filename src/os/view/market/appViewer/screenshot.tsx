@@ -1,7 +1,7 @@
 import { Col, Image, Row, Grid } from 'antd'
 import { SwiperSlide } from 'swiper/react'
 
-import { SwiperOs } from 'os/components/swiperOs'
+import { SwiperOs } from 'os/components/swiperOS'
 import { useSelector } from 'react-redux'
 import { RootState } from 'os/store'
 
@@ -33,7 +33,7 @@ const ScreenShot = ({ appId }: { appId: string }) => {
       <Col span={24}>
         <SwiperOs slidesPerView={calculatePerCard()}>
           {[1, 2, 3, 4].map((e, idx) => (
-            <SwiperSlide>
+            <SwiperSlide key={idx}>
               <Image
                 style={{
                   height: calculateCardHeight(),

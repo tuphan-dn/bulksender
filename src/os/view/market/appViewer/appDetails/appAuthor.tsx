@@ -15,7 +15,7 @@ const ExtraTypography = ({
   )
 }
 
-const AppAuth = ({
+const AppAuthor = ({
   author,
 }: {
   author?: { name?: string; email?: string }
@@ -24,11 +24,10 @@ const AppAuth = ({
 
   return (
     <Space direction="vertical" size={4}>
-      <ExtraTypography label="Version" title="1.0.0" />
       <ExtraTypography label="Author" title={name} />
       <ExtraTypography label="Support" title={email} />
     </Space>
   )
 }
 
-export default AppAuth
+export default AppAuthor

@@ -6,7 +6,7 @@ import { Row, Col, Typography, Space, Grid } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import AppInstall from './appInstall'
 import AppTags from './appTags'
-import AppAuth from './appAuth'
+import AppAuthor from './appAuthor'
 import AppDescription from './appDescription'
 import AppReadMe from './appReadMe'
 
@@ -18,11 +18,12 @@ const AppDetails = ({ appId }: { appId: string }) => {
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appIds } = useSelector((state: RootState) => state.page)
   const { description, author, name } = register[appId] || {}
-  const { xl, lg, md } = Grid.useBreakpoint()
+  const { md, sm, xs } = Grid.useBreakpoint()
+  const mobileView = xs || (sm && !md)
 
   const floatSocialButton = () => {
-    if (xl || (!lg && md)) return 'end'
-    return 'start'
+    if (mobileView) return 'start'
+    return 'end'
   }
 
   const installed = useMemo(() => {
@@ -32,8 +33,8 @@ const AppDetails = ({ appId }: { appId: string }) => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={24}>
-        <Row gutter={[16, 16]} wrap={!xl}>
-          <Col flex="auto">
+        <Row gutter={[16, 16]}>
+          <Col span={mobileView ? 24 : 12}>
             <Row gutter={[32, 24]} wrap={false}>
               <Col>
                 <AppIcon appId={appId} size={96} name={false} />
@@ -46,7 +47,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
               </Col>
             </Row>
           </Col>
-          <Col flex="auto">
+          <Col span={mobileView ? 24 : 12}>
             <Row gutter={[16, 16]} justify={floatSocialButton()}>
               <Col span={24}>
                 <AppInstall appId={appId} installed={installed} />
@@ -62,7 +63,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
         </Row>
       </Col>
       <Col span={24}>
-        <AppAuth author={author} />
+        <AppAuthor author={author} />
       </Col>
       <Col span={24}>
         <AppDescription description={description} />

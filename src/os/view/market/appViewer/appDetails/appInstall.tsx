@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 
-import { Button, Col, Row } from 'antd'
+import { Button, Col, Grid, Row } from 'antd'
 
 import { RootDispatch } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
@@ -17,41 +17,48 @@ const AppInstall = ({
 }) => {
   const dispatch = useDispatch<RootDispatch>()
   const history = useHistory()
+  const { xs, sm, md } = Grid.useBreakpoint()
 
   const to = () => history.push(`/app/${appId}`)
+  const setFloatElement = () => {
+    if (xs || (sm && !md)) return 'start'
+    return 'end'
+  }
+
+  const mobileView = xs || (sm && !md)
 
   return (
-    <Row gutter={[12, 12]} justify="end">
+    <Row gutter={[12, 12]} justify={setFloatElement()}>
       {installed ? (
         <Fragment>
-          <Col span={12}>
+          <Col span={mobileView ? 12 : undefined}>
             <Button
               icon={<IonIcon name="trash-outline" />}
               onClick={() => dispatch(uninstallApp(appId))}
-              block
+              block={mobileView}
             >
               Uninstall
             </Button>
           </Col>
 
-          <Col span={12}>
+          <Col span={xs || (sm && !md) ? 12 : undefined}>
             <Button
               type="primary"
               icon={<IonIcon name="open-outline" />}
               onClick={to}
-              block
+              block={mobileView}
             >
               Open
             </Button>
           </Col>
         </Fragment>
       ) : (
-        <Col flex="auto">
+        <Col span={mobileView ? 24 : undefined}>
           <Button
             type="primary"
             icon={<IonIcon name="cloud-download-outline" />}
             onClick={() => dispatch(installApp(appId))}
-            block
+            block={mobileView}
           >
             Install
           </Button>

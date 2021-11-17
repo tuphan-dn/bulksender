@@ -2,7 +2,7 @@ import { Col, Row } from 'antd'
 import Paragraph from 'antd/lib/typography/Paragraph'
 
 const AppDescription = ({
-  description = 'App descriptions',
+  description = 'No descriptions',
 }: {
   description?: string
 }) => {
