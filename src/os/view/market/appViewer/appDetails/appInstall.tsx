@@ -1,12 +1,13 @@
+import { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 
 import { Button, Col, Grid, Row } from 'antd'
+import IonIcon from 'shared/ionicon'
 
 import { RootDispatch } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
-import IonIcon from 'shared/ionicon'
-import { Fragment } from 'react'
+
 
 const AppInstall = ({
   installed,
