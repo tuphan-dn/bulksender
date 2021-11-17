@@ -58,7 +58,7 @@ const WalletIntro = () => {
         <Col span={24}>
           <Row gutter={[16, 4]} align="bottom">
             <Col span={24}>
-              <Typography.Text className="label">24h SOL price</Typography.Text>
+              <Typography.Text className="label">Solana 24h price</Typography.Text>
             </Col>
             <Col span={12} style={{ paddingLeft: 6 }}>
               <PriceInfo />
