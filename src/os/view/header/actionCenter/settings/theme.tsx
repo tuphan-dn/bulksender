@@ -4,19 +4,14 @@ import { Row, Col, Switch, Typography, Card, Space } from 'antd'
 import IonIcon from 'shared/ionicon'
 
 import { RootDispatch, RootState } from 'os/store'
-import { setDefaultTabSettings, setTheme } from 'os/store/ui.reducer'
+import { setTheme } from 'os/store/ui.reducer'
 
 const Theme = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const { theme, defaultTabSetting } = useSelector(
-    (state: RootState) => state.ui,
-  )
+  const { theme } = useSelector((state: RootState) => state.ui)
 
-  const onSwitch = (checked: boolean) => {
-    if (defaultTabSetting !== 'system-settings')
-      dispatch(setDefaultTabSettings('system-settings'))
-    return dispatch(setTheme(checked ? 'dark' : 'light'))
-  }
+  const onSwitch = (checked: boolean) =>
+    dispatch(setTheme(checked ? 'dark' : 'light'))
 
   return (
     <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>

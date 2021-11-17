@@ -7,16 +7,11 @@ import Applications from './applications'
 import Settings from './settings'
 
 import { RootDispatch, RootState } from 'os/store'
-import {
-  setActionCenterVisible,
-  setDefaultTabSettings,
-} from 'os/store/ui.reducer'
+import { setActionCenterVisible } from 'os/store/ui.reducer'
 
 const ActionCenter = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const { actionCenterVisible, defaultTabSetting } = useSelector(
-    (state: RootState) => state.ui,
-  )
+  const { actionCenterVisible } = useSelector((state: RootState) => state.ui)
 
   return (
     <Fragment>
@@ -27,10 +22,7 @@ const ActionCenter = () => {
       />
       <Drawer
         visible={actionCenterVisible}
-        onClose={() => {
-          dispatch(setActionCenterVisible(false))
-          dispatch(setDefaultTabSettings('action-center'))
-        }}
+        onClose={() => dispatch(setActionCenterVisible(false))}
         closable={false}
         contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
         destroyOnClose
@@ -46,7 +38,6 @@ const ActionCenter = () => {
                   onClick={() => dispatch(setActionCenterVisible(false))}
                 />
               }
-              defaultActiveKey={defaultTabSetting}
               destroyInactiveTabPane
             >
               <Tabs.TabPane
@@ -56,7 +47,7 @@ const ActionCenter = () => {
                     Applications
                   </span>
                 }
-                key="action-center"
+                key="applications"
               >
                 <Applications />
               </Tabs.TabPane>

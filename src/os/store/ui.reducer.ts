@@ -8,7 +8,6 @@ import { isTouchable } from 'shared/util'
 
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Theme = 'light' | 'dark'
-export type TabSetting = 'action-center' | 'system-settings'
 
 export type State = {
   theme: Theme
@@ -16,7 +15,6 @@ export type State = {
   infix: Infix
   touchable: boolean
   actionCenterVisible: boolean
-  defaultTabSetting: TabSetting
 }
 
 const getInfix = (): Infix => {
@@ -40,7 +38,6 @@ const initialState: State = {
   infix: getInfix(),
   touchable: isTouchable(),
   actionCenterVisible: false,
-  defaultTabSetting: 'action-center',
 }
 
 /**
@@ -66,12 +63,6 @@ export const setActionCenterVisible = createAsyncThunk(
     return { actionCenterVisible: visible }
   },
 )
-export const setDefaultTabSettings = createAsyncThunk(
-  `${NAME}/setDefaultTabSettings`,
-  async (defaultTab: TabSetting) => {
-    return { defaultTabSetting: defaultTab }
-  },
-)
 
 /**
  * Usual procedure
@@ -93,10 +84,6 @@ const slice = createSlice({
       )
       .addCase(
         setActionCenterVisible.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        setDefaultTabSettings.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })
