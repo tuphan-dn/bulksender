@@ -21,7 +21,7 @@ const BannerBottom = () => {
     <Row gutter={[24, 16]}>
       {listBanner.map((banner, index) => {
         return (
-          <Col xl={12} lg={12} md={12} sm={24} xs={24}>
+          <Col xl={12} lg={12} md={12} sm={24} xs={24} key={index}>
             <Card
               key={index}
               className="shadowed"

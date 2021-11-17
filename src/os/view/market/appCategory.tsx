@@ -61,6 +61,7 @@ const AppCategory = ({
         <SwiperOs>
           {appIds.map((appId) => (
             <SwiperSlide
+              key={appId}
               style={{
                 maxWidth: 334,
                 width: '75vw',
@@ -68,7 +69,7 @@ const AppCategory = ({
                 height: 'calc(75vw * 0.75)',
               }}
             >
-              <AppCard key={appId} appId={appId} />
+              <AppCard appId={appId} />
             </SwiperSlide>
           ))}
         </SwiperOs>

@@ -22,7 +22,7 @@ const BannerTop = () => {
     <Carousel autoplay>
       {listBanner.map((banner, index) => {
         return (
-          <div>
+          <div key={index}>
             <Card
               key={index}
               className="shadowed"
