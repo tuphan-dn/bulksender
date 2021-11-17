@@ -24,6 +24,8 @@ const SeeAll = ({
     <Row gutter={[24, 24]}>
       <Col span={24}>
         <Button
+          type="text"
+          size="small"
           icon={<IonIcon name="arrow-back-outline"></IonIcon>}
           onClick={onBack}
         >
@@ -31,7 +33,7 @@ const SeeAll = ({
         </Button>
       </Col>
       <Col span={24}>
-        <Typography.Title level={4}>{title}</Typography.Title>
+        <Typography.Title level={2}>{title}</Typography.Title>
       </Col>
 
       {appIds.map((appId) => (
