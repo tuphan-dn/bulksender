@@ -25,7 +25,6 @@ const BannerTop = () => {
           <div key={index}>
             <Card
               key={index}
-              className="shadowed"
               style={{
                 height: '33vw',
                 backgroundPosition: 'center',
@@ -34,7 +33,7 @@ const BannerTop = () => {
                 backgroundImage: `url(${banner})`,
               }}
               bordered={false}
-            ></Card>
+            />
           </div>
         )
       })}

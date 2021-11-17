@@ -21,10 +21,9 @@ const BannerBottom = () => {
     <Row gutter={[24, 16]}>
       {listBanner.map((banner, index) => {
         return (
-          <Col xl={12} lg={12} md={12} sm={24} xs={24} key={index}>
+          <Col md={12} xs={24} key={index}>
             <Card
               key={index}
-              className="shadowed"
               style={{
                 height: '33vw',
                 backgroundPosition: 'center',
@@ -33,7 +32,7 @@ const BannerBottom = () => {
                 backgroundImage: `url(${banner})`,
               }}
               bordered={false}
-            ></Card>
+            />
           </Col>
         )
       })}
