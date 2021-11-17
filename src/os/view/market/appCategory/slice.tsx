@@ -1,44 +1,21 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 
-import { SwiperSlide } from 'swiper/react'
 import { Button, Col, Row, Space, Typography } from 'antd'
+import { SwiperSlide } from 'swiper/react'
 import IonIcon from 'shared/ionicon'
+import AppCard from '../appCard'
+import { useAppCategory } from './hooks'
 import { SwiperOs } from 'os/components/swiperOS'
-import AppCard from './appCard'
 
-import { RootState } from 'os/store'
-
-const AppCategory = ({
-  title,
-  category,
-  onSeeAll,
-}: {
-  title: string
-  category: string
-  onSeeAll: (appIds: AppIds, title: string) => void
-}) => {
-  const { register } = useSelector((state: RootState) => state.page)
-  const [appIds, setAppIds] = useState<AppIds>([])
-
-  const fetchApps = useCallback(async () => {
-    //TODO
-    let appIds: AppIds = []
-    for (let i = 0; i < 3; i++) {
-      if (category) appIds = appIds.concat(Object.keys(register))
-    }
-    return setAppIds(appIds)
-  }, [category, register])
-
-  useEffect(() => {
-    fetchApps()
-  }, [fetchApps])
+const AppCategorySlice = ({ category }: { category: string }) => {
+  const history = useHistory()
+  const appCategory = useAppCategory({ category })
 
   return (
     <Row gutter={[20, 20]} align="bottom">
       {/* title */}
       <Col flex="auto">
-        <Typography.Title level={4}>{title}</Typography.Title>
+        <Typography.Title level={4}>{appCategory.title}</Typography.Title>
       </Col>
       {/* see all button*/}
       <Col>
@@ -48,7 +25,7 @@ const AppCategory = ({
               danger
               style={{ padding: 0, height: 'auto', fontWeight: 300 }}
               type="text"
-              onClick={() => onSeeAll(appIds, title)}
+              onClick={() => history.push('/store?category=' + category)}
             >
               See all
             </Button>
@@ -59,14 +36,12 @@ const AppCategory = ({
       {/* list app category */}
       <Col span={24}>
         <SwiperOs>
-          {appIds.map((appId) => (
+          {appCategory.appIds.map((appId) => (
             <SwiperSlide
               key={appId}
               style={{
                 maxWidth: 334,
                 width: '75vw',
-                maxHeight: 251,
-                height: 'calc(75vw * 0.75)',
               }}
             >
               <AppCard appId={appId} />
@@ -77,4 +52,4 @@ const AppCategory = ({
     </Row>
   )
 }
-export default AppCategory
+export default AppCategorySlice
