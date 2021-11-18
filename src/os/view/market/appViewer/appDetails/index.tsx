@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
-import { Row, Col, Typography, Space, Grid } from 'antd'
+import { Row, Col, Typography, Space } from 'antd'
 import Paragraph from 'antd/lib/typography/Paragraph'
 import AppIcon from 'os/components/appIcon'
 import AppInstall from './appInstall'
