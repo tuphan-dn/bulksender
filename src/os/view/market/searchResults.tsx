@@ -4,11 +4,11 @@ import { useHistory } from 'react-router'
 
 import { Row, Col, Button, Typography } from 'antd'
 import SearchEngine from './searchEngine'
+import AppCard from './appCard'
 
 import { setLoading } from 'os/store/search.reducer'
 import { RootDispatch, RootState } from 'os/store'
 import IonIcon from 'shared/ionicon'
-import AppCard from './appCard'
 
 let searching: NodeJS.Timeout
 

@@ -5,11 +5,11 @@ import { useLocation } from 'react-router'
 import { Row, Col } from 'antd'
 import BannerTop from './bannerTop'
 import BannerBottom from './bannerBottom'
+import SearchResult from './searchResults'
 import AppCategorySeeAll from './appCategory/seeAll'
 import AppCategorySlice from './appCategory/slice'
 
 import { RootState } from 'os/store'
-import SearchResult from './searchResults'
 
 const Market = () => {
   const { search } = useLocation()

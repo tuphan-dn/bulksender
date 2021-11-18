@@ -1,11 +1,12 @@
 import { useHistory } from 'react-router'
 
-import { Button, Col, Row, Space, Typography } from 'antd'
-import { SwiperSlide } from 'swiper/react'
-import IonIcon from 'shared/ionicon'
 import AppCard from '../appCard'
-import { useAppCategory } from './hooks'
 import { SwiperOs } from 'os/components/swiperOS'
+import IonIcon from 'shared/ionicon'
+import { SwiperSlide } from 'swiper/react'
+import { Button, Col, Row, Space, Typography } from 'antd'
+
+import { useAppCategory } from './hooks'
 
 const AppCategorySlice = ({ category }: { category: string }) => {
   const history = useHistory()
