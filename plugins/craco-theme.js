@@ -29,8 +29,10 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     }),
   )
   matches.forEach((match) => {
-    match.loader.options.postcssOptions.plugins.push(...osPrefixWrap)
-    match.loader.options.postcssOptions.plugins.push(...appPrefixWrap)
+    match.loader.options.postcssOptions.plugins.push(
+      ...osPrefixWrap,
+      ...appPrefixWrap,
+    )
   })
   return webpackConfig
 }
