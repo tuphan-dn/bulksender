@@ -4,6 +4,7 @@ const {
   CracoAppLessPlugin,
   CracoOsLessPlugin,
 } = require('./plugins/craco-less')
+const CracoPostCSS = require('./plugins/craco-postcss')
 const CracoModuleFederation = require('./plugins/craco-module-federation')
 const CracoCompatibility = require('./plugins/craco-compatibility')
 const CracoSilence = require('./plugins/craco-silence')
@@ -40,6 +41,9 @@ module.exports = {
           },
         },
       },
+    },
+    {
+      plugin: CracoPostCSS,
     },
     {
       plugin: CracoCompatibility,

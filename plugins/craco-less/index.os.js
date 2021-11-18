@@ -8,14 +8,12 @@
 const path = require('path')
 const { deepClone, styleRuleByName } = require('./utils')
 
+const pathSep = path.sep
 const lessRegex = /\.os\.less$/
 const lessModuleRegex = /\.module\.less$/
 
 const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   const { throwUnexpectedConfigError } = require('@craco/craco')
-
-  // This is mocked in Windows tests
-  const pathSep = module.exports.pathSep
 
   const throwError = (message, githubIssueQuery) =>
     throwUnexpectedConfigError({
@@ -179,8 +177,4 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   return webpackConfig
 }
 
-// pathSep is mocked in Windows tests
-module.exports = {
-  overrideWebpackConfig,
-  pathSep: path.sep,
-}
+module.exports = { overrideWebpackConfig }
