@@ -20,9 +20,9 @@ const initialState: State = {}
 
 export const getMint = createAsyncThunk<
   State,
-  { address: string; force: boolean },
+  { address: string; force?: boolean },
   { state: any }
->(`${NAME}/getMint`, async ({ address, force }, { getState }) => {
+>(`${NAME}/getMint`, async ({ address, force = false }, { getState }) => {
   if (!account.isAddress(address)) throw new Error('Invalid mint address')
   if (!force) {
     const {
