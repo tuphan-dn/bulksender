@@ -47,7 +47,7 @@ const ActionCenter = () => {
                     Applications
                   </span>
                 }
-                key="action-center"
+                key="applications"
               >
                 <Applications />
               </Tabs.TabPane>
