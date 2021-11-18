@@ -4,7 +4,7 @@ import AppCard from '../appCard'
 import { SwiperOs } from 'os/components/swiperOS'
 import IonIcon from 'shared/ionicon'
 import { SwiperSlide } from 'swiper/react'
-import { Button, Col, Row, Space, Typography } from 'antd'
+import { Button, Col, Row, Typography } from 'antd'
 
 import { useAppCategory } from './hooks'
 
