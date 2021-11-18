@@ -8,6 +8,15 @@
 @import './common/typography.os.less';
 @import './common/scrollbar.os.less';
 
+body {
+  background: url('../images/dark-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-attachment: fixed;
+}
+
 // Colors
 @primary-color: @PRIMARY;
 @info-color: @INFO;
@@ -69,21 +78,6 @@
 @checkbox-border-radius: @border-radius-base - 4;
 
 // Patch
-.dark-sentre {
-  background: url('../images/dark-bg.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-origin: border-box;
-  background-attachment: fixed;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    color: @NEUTRAL10;
-  }
-}
 .@{ant-prefix}-layout {
   background: unset;
 }

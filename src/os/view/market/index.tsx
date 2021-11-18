@@ -14,6 +14,17 @@ import { RootState } from 'os/store'
 const Market = () => {
   const { search } = useLocation()
   const { value } = useSelector((state: RootState) => state.search)
+  const { register } = useSelector((state: RootState) => state.page)
+
+  const tags = useMemo(() => {
+    let tags: string[] = []
+    for (const appId in register) {
+      const newTags = register[appId]?.tags || []
+      //remove duplicate element
+      tags = Array.from(new Set([...tags, ...newTags]))
+    }
+    return tags
+  }, [register])
 
   const searchLocation = useMemo(() => new URLSearchParams(search), [search])
   const category = searchLocation.get('category')
@@ -25,12 +36,11 @@ const Market = () => {
       <Col span={24}>
         <BannerTop />
       </Col>
-      <Col span={24}>
-        <AppCategorySlice category="suggest" />
-      </Col>
-      <Col span={24}>
-        <AppCategorySlice category="top-dapps" />
-      </Col>
+      {tags.map((tag) => (
+        <Col span={24} key={tag}>
+          <AppCategorySlice category={tag} />
+        </Col>
+      ))}
       <Col span={24}>
         <AppCategorySlice category="other" />
       </Col>
