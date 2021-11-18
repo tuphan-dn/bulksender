@@ -56,3 +56,16 @@ export const fetchCGK = async (ticket = '') => {
 
   return DataLoader.load('fetchCGK' + ticket, () => utils.parseCGK(ticket))
 }
+
+export const intToRGB = (str: string) => {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  var rgb = [0, 0, 0]
+  for (let i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 255
+    rgb[i] = value
+  }
+  return `rgb(${rgb[0]}, 100, ${rgb[1]})`
+}
