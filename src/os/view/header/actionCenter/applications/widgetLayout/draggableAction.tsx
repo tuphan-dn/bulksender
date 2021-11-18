@@ -17,9 +17,7 @@ const DraggableAction = ({
   id: string
   children: ReactNode
 }) => {
-  const { setNodeRef } = useSortable({
-    id: id,
-  })
+  const { setNodeRef } = useSortable({ id })
 
   const ChildrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {

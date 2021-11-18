@@ -38,9 +38,9 @@ const UIContextProvider = ({
   const provider = useMemo(() => ({ ui }), [ui])
   return (
     <Context.Provider value={provider}>
-      <body id={appId} style={{ backgroundColor: 'transparent', ...style }}>
+      <section id={appId} style={{ backgroundColor: 'transparent', ...style }}>
         <ConfigProvider prefixCls={appId}>{children}</ConfigProvider>
-      </body>
+      </section>
     </Context.Provider>
   )
 }

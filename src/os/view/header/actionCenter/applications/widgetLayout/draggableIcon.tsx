@@ -31,7 +31,7 @@ const DraggableIcon = ({
 
   return (
     <Col
-      id={appId}
+      id={`draggale-${appId}`}
       style={style}
       {...listeners}
       {...attributes}
