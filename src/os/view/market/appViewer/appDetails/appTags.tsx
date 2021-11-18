@@ -1,6 +1,6 @@
 import { Space, Tag } from 'antd'
 
-import { intToRGB } from 'shared/helper'
+import { randomColor } from 'shared/helper'
 
 const AppTags = ({ tags = [] }: { tags?: string[] }) => {
   return (
@@ -8,7 +8,7 @@ const AppTags = ({ tags = [] }: { tags?: string[] }) => {
       {tags.map((tag, index) => (
         <Tag
           style={{ margin: 0, borderRadius: 4 }}
-          color={intToRGB(tag)}
+          color={randomColor(tag)}
           key={index}
         >
           {tag}

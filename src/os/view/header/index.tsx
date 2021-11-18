@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, Space } from 'antd'
 import IonIcon from 'shared/ionicon'
 import Wallet from 'os/view/header/wallet'
 import Brand from 'os/components/brand'
@@ -59,27 +59,22 @@ const Header = () => {
         <ContextMenu />
       </Col>
       <Col>
-        <Row gutter={[8, 8]} align="middle" wrap={false}>
+        <Space align="center">
           {account.isAddress(address) && (
-            <Col>
-              <NavButton
-                iconName="grid-outline"
-                route="/dashboard"
-                title="Dashboard"
-              />
-            </Col>
-          )}
-          <Col>
             <NavButton
-              iconName="bag-handle-outline"
-              route="/store"
-              title="Store"
+              iconName="grid-outline"
+              route="/dashboard"
+              title="Dashboard"
             />
-          </Col>
-          <Col>
-            {!account.isAddress(address) ? <Wallet /> : <ActionCenter />}
-          </Col>
-        </Row>
+          )}
+          <NavButton
+            iconName="bag-handle-outline"
+            route="/store"
+            title="Store"
+          />
+
+          {!account.isAddress(address) ? <Wallet /> : <ActionCenter />}
+        </Space>
       </Col>
     </Row>
   )

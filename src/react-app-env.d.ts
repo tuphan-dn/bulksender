@@ -41,7 +41,7 @@ type ComponentManifest = {
     name: string
     email: string
   }
-  tags?: string[]
+  tags: string[]
   description: string
   verified: boolean
 }

@@ -24,8 +24,9 @@ export const useAppCategory = ({
     if (!category) return setAppIds([])
     let appIds: AppIds = []
     for (const appId in register) {
-      const tags = register[appId]?.tags || []
-      if (tags.includes(category)) appIds.push(appId)
+      const tags = register[appId]?.tags
+      if (tags?.includes(category)) appIds.push(appId)
+      if (!tags && category === 'other') appIds.push(appId)
     }
     setAppIds(appIds)
   }, [category, register])
