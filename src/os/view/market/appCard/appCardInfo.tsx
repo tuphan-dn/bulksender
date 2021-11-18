@@ -50,18 +50,12 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
               <Button
                 type="ghost"
                 size="small"
-                style={{ padding: '1px 8px' }}
                 onClick={(e) => onOpen(e, appId)}
               >
                 Open
               </Button>
             ) : (
-              <Button
-                type="primary"
-                onClick={onInstall}
-                size="small"
-                style={{ padding: '1px 8px' }}
-              >
+              <Button type="primary" onClick={onInstall} size="small">
                 Install
               </Button>
             )}
