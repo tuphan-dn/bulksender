@@ -10,7 +10,7 @@ const { deepClone, styleRuleByName } = require('./utils')
 
 const pathSep = path.sep
 const lessRegex = /\.os\.less$/
-const lessModuleRegex = /\.module\.less$/
+const lessModuleRegex = /\.os\.module\.less$/
 
 const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   const { throwUnexpectedConfigError } = require('@craco/craco')

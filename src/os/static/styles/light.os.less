@@ -2,11 +2,27 @@
  * Available vars: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
  */
 
-@root-entry-name: default;
+html {
+  color: red;
+}
+body {
+  color: green;
+}
 
-// @import '~antd/lib/style/themes/index.less';
-// @import '~antd/lib/style/core/index.less';
-@import '~antd/lib/style/components.less';
+@import '~antd/dist/antd.less';
+@import './common/vars.os.less';
+@import './common/polyfill.os.less';
+@import './common/typography.os.less';
+@import './common/scrollbar.os.less';
+
+body {
+  background: url('../images/light-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-attachment: fixed;
+}
 
 // Colors
 @primary-color: @PRIMARY;
@@ -52,9 +68,6 @@
 
 // Button
 @btn-font-weight: 700;
-@btn-padding-horizontal-base: @padding-md;
-@btn-padding-horizontal-lg: @btn-padding-horizontal-base;
-@btn-padding-horizontal-sm: @btn-padding-horizontal-base;
 @btn-default-border: @NEUTRAL20;
 
 // Input

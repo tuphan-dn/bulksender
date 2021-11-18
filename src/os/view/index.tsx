@@ -14,7 +14,8 @@ import Sync from './sync'
 
 import Watcher from 'os/view/watcher'
 import { RootState } from 'os/store'
-import 'os/static/styles/index.os.less'
+import 'os/static/styles/dark.os.less'
+import 'os/static/styles/light.os.less'
 
 const View = () => {
   const {
@@ -22,7 +23,7 @@ const View = () => {
   } = useSelector((state: RootState) => state)
 
   useEffect(() => {
-    return document.documentElement.setAttribute('id', theme)
+    return document.body.setAttribute('class', theme)
   }, [theme])
 
   return (

@@ -12,7 +12,6 @@ render(
   <Provider store={store}>
     <BrowserRouter>
       <ConfigProvider prefixCls={'sentre'}>
-        <p className="sentre-hello">Hello world</p>
         <View />
       </ConfigProvider>
     </BrowserRouter>

@@ -155,6 +155,7 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     baseRule: sassModuleRule,
     overrideRule: {
       test: lessModuleRegex,
+      exclude: [/\.os\.module\.less$/],
     },
   })
 
