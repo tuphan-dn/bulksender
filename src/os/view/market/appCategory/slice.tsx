@@ -16,7 +16,7 @@ const AppCategorySlice = ({ category }: { category: string }) => {
     <Row gutter={[20, 20]} align="bottom">
       {/* title */}
       <Col flex="auto">
-        <Typography.Title level={4}>{title}</Typography.Title>
+        <Typography.Title level={2}>{title}</Typography.Title>
       </Col>
       {/* see all button*/}
       <Col>
