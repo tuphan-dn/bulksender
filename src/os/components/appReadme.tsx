@@ -1,4 +1,4 @@
-import { useEffect, createRef, Component, Suspense } from 'react'
+import { useEffect, createRef, Component, Suspense, ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 import { Remarkable } from 'remarkable'
 
@@ -9,6 +9,7 @@ import { RootState } from 'os/store'
 
 type Props = {
   appId: string
+  children?: ReactNode
 }
 
 const Markdown = ({ src }: { src: string }) => {
@@ -37,6 +38,11 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
     this.state = {
       failed: false,
     }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
   }
 
   componentDidCatch(error: Error) {
