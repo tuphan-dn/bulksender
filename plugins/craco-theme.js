@@ -23,14 +23,16 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     }),
   )
   const appPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`.${selector} .${appId}`, {
+    PrefixWrap(`.${selector} #${appId}`, {
       ignoredSelectors: ['html'],
       whitelist: [new RegExp(`${selector}\.less$`, 'i')],
     }),
   )
   matches.forEach((match) => {
-    match.loader.options.postcssOptions.plugins.push(...osPrefixWrap)
-    match.loader.options.postcssOptions.plugins.push(...appPrefixWrap)
+    match.loader.options.postcssOptions.plugins.push(
+      ...osPrefixWrap,
+      ...appPrefixWrap,
+    )
   })
   return webpackConfig
 }

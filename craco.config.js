@@ -46,7 +46,7 @@ module.exports = {
       plugin: CracoTheme,
       options: {
         theme: ['light', 'dark'],
-        appId: process.env.REACT_APP_ID
+        appId: process.env.REACT_APP_ID,
       },
     },
     {

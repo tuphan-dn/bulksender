@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PoolData } from '@senswap/sen-js'
 
 import { usePool, useMint } from 'senhub/providers'
 
 const MintSymbol = ({ mintAddress }: { mintAddress: string }) => {
   const [symbol, setSymbol] = useState('')
-  const { pools } = usePool() as { pools: Map<string, PoolData> }
+  const { pools } = usePool()
   const { tokenProvider } = useMint()
 
   const getSymbol = useCallback(async () => {

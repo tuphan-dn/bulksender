@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PoolData } from '@senswap/sen-js'
 
 import { Avatar } from 'antd'
 import IonIcon from 'shared/ionicon'
@@ -15,7 +14,7 @@ const MintAvatar = ({
   size?: number
   onClick?: () => void
 }) => {
-  const { pools } = usePool() as { pools: Map<string, PoolData> }
+  const { pools } = usePool()
   const { tokenProvider } = useMint()
   const [logoURIs, setLogoURIs] = useState<(string | undefined)[]>([])
 

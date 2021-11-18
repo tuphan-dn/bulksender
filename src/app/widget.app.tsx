@@ -26,7 +26,7 @@ export const widgetConfig: WidgetConfig = {
 
 const Widget = () => {
   return (
-    <UIProvider>
+    <UIProvider appId={appId}>
       <WalletProvider>
         <AccountProvider>
           <MintProvider>
