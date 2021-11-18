@@ -31,7 +31,7 @@ const NavButton = ({
       icon={<IonIcon name={iconName} />}
       onClick={() => history.push(route)}
     >
-      {width >= 768 ? title : null}
+      {width >= 575 ? title : null}
     </Button>
   )
 }

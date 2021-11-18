@@ -25,7 +25,6 @@ const AppCategorySlice = ({ category }: { category: string }) => {
             <Button
               danger
               size="small"
-              // style={{ height: 'auto' }}
               type="text"
               onClick={() =>
                 history.push({
