@@ -25,6 +25,7 @@ const devApp = {
       name: 'Sentre',
       email: 'hi@sentre.io',
     },
+    tags: ['solana', 'dapps'],
     description: 'A sample project for Sentre developers',
     verified: false,
   },

@@ -1,14 +1,17 @@
 import { Suspense, forwardRef, cloneElement } from 'react'
+import { useSelector } from 'react-redux'
 import { useRemoteModule } from 'react-dynamic-remote-component'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 
 import { Skeleton, Spin } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
+import { RootState } from 'os/store'
 
 /**
  * Remote Static
  */
-type StaticType = 'logo' | 'panel' | 'readme'
+type StaticType = 'logo' | 'readme'
+type MultiStaticType = 'panel'
 
 export const RemoteStatic = forwardRef<
   HTMLElement,
@@ -28,11 +31,19 @@ export const RemoteStatic = forwardRef<
 export const StaticLoader = forwardRef<
   HTMLElement,
   {
+    appId: string
     type: StaticType
     render: (url: string) => JSX.Element
-  } & ComponentManifest
->(({ type, url, appId, render }, ref) => {
-  const manifest = { url, scope: appId, module: './static' }
+  }
+>(({ type, appId, render }, ref) => {
+  const { register } = useSelector((state: RootState) => state.page)
+  const url = register[appId]?.url || ''
+  const manifest: RemoteModule = {
+    url,
+    scope: appId,
+    module: './static',
+  }
+  if (!url) return null
   return (
     <ErrorBoundary remoteUrl={url || 'Unknown'}>
       <Suspense fallback={<Spin size="small" />}>
@@ -72,3 +83,54 @@ export const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
     )
   },
 )
+
+/**
+ * Remote Multi Static
+ */
+export const RemoteMultiStatic = forwardRef<
+  HTMLElement,
+  {
+    type?: MultiStaticType
+    manifest: RemoteModule
+    render: (src: string[]) => JSX.Element
+  }
+>(({ type = 'default', manifest, render }, ref) => {
+  let { [type]: data } = useRemoteModule(manifest)
+
+  if (!data) data = []
+  if (!Array.isArray(data)) data = [data]
+  return cloneElement(render(data), ref ? { ref } : {})
+})
+
+/**
+ * Remote Multi Loader
+ */
+export const MultiStaticLoader = forwardRef<
+  HTMLElement,
+  {
+    appId: string
+    type: MultiStaticType
+    render: (url: string[]) => JSX.Element
+  }
+>(({ type, appId, render }, ref) => {
+  const { register } = useSelector((state: RootState) => state.page)
+  const url = register[appId]?.url || ''
+  const manifest: RemoteModule = {
+    url,
+    scope: appId,
+    module: './static',
+  }
+  if (!url) return null
+  return (
+    <ErrorBoundary remoteUrl={url || 'Unknown'}>
+      <Suspense fallback={<Spin size="small" />}>
+        <RemoteMultiStatic
+          type={type}
+          manifest={manifest}
+          render={render}
+          ref={ref}
+        />
+      </Suspense>
+    </ErrorBoundary>
+  )
+})

@@ -22,7 +22,10 @@ const ActionCenter = () => {
       />
       <Drawer
         visible={actionCenterVisible}
-        onClose={() => dispatch(setActionCenterVisible(false))}
+        onClose={() => {
+          dispatch(setActionCenterVisible(false))
+          document.body.style.removeProperty('overflow-y')
+        }}
         closable={false}
         contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
         destroyOnClose
@@ -47,7 +50,7 @@ const ActionCenter = () => {
                     Applications
                   </span>
                 }
-                key="action-center"
+                key="applications"
               >
                 <Applications />
               </Tabs.TabPane>

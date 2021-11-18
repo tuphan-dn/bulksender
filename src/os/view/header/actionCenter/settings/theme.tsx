@@ -10,9 +10,8 @@ const Theme = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { theme } = useSelector((state: RootState) => state.ui)
 
-  const onSwitch = (checked: boolean) => {
-    return dispatch(setTheme(checked ? 'dark' : 'light'))
-  }
+  const onSwitch = (checked: boolean) =>
+    dispatch(setTheme(checked ? 'dark' : 'light'))
 
   return (
     <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>

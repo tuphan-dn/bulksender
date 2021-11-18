@@ -1,4 +1,4 @@
-import { useEffect, createRef, Component, Suspense } from 'react'
+import { useEffect, createRef, Component, Suspense, ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 import { Remarkable } from 'remarkable'
 
@@ -9,6 +9,7 @@ import { RootState } from 'os/store'
 
 type Props = {
   appId: string
+  children?: ReactNode
 }
 
 const Markdown = ({ src }: { src: string }) => {
@@ -39,6 +40,11 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
     }
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
+  }
+
   componentDidCatch(error: Error) {
     return this.setState({ failed: Boolean(error) })
   }
@@ -59,6 +65,7 @@ const AppReadme = (props: Props) => {
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
+  if (!url) return null
   return (
     <ErrorBoundary {...props}>
       <Suspense fallback={<Spin />}>

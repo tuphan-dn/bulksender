@@ -13,6 +13,7 @@ type Props = {
   onClick?: () => void
   name?: boolean
   direction?: 'vertical' | 'horizontal'
+  children?: ReactNode
 }
 
 class ErrorBoundary extends Component<Props, { failed: boolean }> {
@@ -21,6 +22,11 @@ class ErrorBoundary extends Component<Props, { failed: boolean }> {
     this.state = {
       failed: false,
     }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
   }
 
   componentDidCatch(error: Error) {
@@ -101,9 +107,10 @@ const AppIcon = (props: Props) => {
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
+  if (!url) return <RawAppIcon {...props} src={null} />
   return (
     <ErrorBoundary {...props}>
-      <Suspense fallback={<Spin />}>
+      <Suspense fallback={<RawAppIcon {...props} src={<Spin />} />}>
         <RemoteStatic
           type="logo"
           manifest={manifest}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
-import { Row, Col, Space, Button } from 'antd'
+import { Row, Col, Button, Space } from 'antd'
 import IonIcon from 'shared/ionicon'
 import Wallet from 'os/view/header/wallet'
 import Brand from 'os/components/brand'
@@ -11,7 +11,7 @@ import ActionCenter from './actionCenter'
 import ContextMenu from './contextMenu'
 
 import { RootDispatch, RootState } from 'os/store'
-import { loadPage } from 'os/store/page.reducer'
+import { loadRegister, loadPage } from 'os/store/page.reducer'
 
 const NavButton = ({
   iconName,
@@ -31,7 +31,7 @@ const NavButton = ({
       icon={<IonIcon name={iconName} />}
       onClick={() => history.push(route)}
     >
-      {width >= 768 ? title : null}
+      {width >= 576 ? title : null}
     </Button>
   )
 }
@@ -42,6 +42,7 @@ const Header = () => {
   const { width, theme } = useSelector((state: RootState) => state.ui)
 
   useEffect(() => {
+    dispatch(loadRegister())
     if (account.isAddress(address)) dispatch(loadPage())
   }, [dispatch, address])
 
@@ -59,16 +60,19 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          <NavButton
-            iconName="grid-outline"
-            route="/dashboard"
-            title="Dashboard"
-          />
+          {account.isAddress(address) && (
+            <NavButton
+              iconName="grid-outline"
+              route="/dashboard"
+              title="Dashboard"
+            />
+          )}
           <NavButton
             iconName="bag-handle-outline"
             route="/store"
             title="Store"
           />
+
           {!account.isAddress(address) ? <Wallet /> : <ActionCenter />}
         </Space>
       </Col>

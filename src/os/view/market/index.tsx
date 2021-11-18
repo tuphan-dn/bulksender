@@ -1,72 +1,54 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router'
 
-import { Row, Col, Typography } from 'antd'
-import AppIcon from 'os/components/appIcon'
+import { Row, Col } from 'antd'
+import BannerTop from './bannerTop'
+import BannerBottom from './bannerBottom'
+import SearchResult from './searchResults'
+import AppCategorySeeAll from './appCategory/seeAll'
+import AppCategorySlice from './appCategory/slice'
 
-import SearchEngine from './searchEngine'
-import { RootDispatch, RootState } from 'os/store'
-import { setLoading } from 'os/store/search.reducer'
+import { RootState } from 'os/store'
 
-let searching: ReturnType<typeof setTimeout> | undefined
+const CATEGORIES = ['dapps', 'solana']
 
 const Market = () => {
-  const history = useHistory()
-  const dispatch = useDispatch<RootDispatch>()
-  const [appIds, setAppIds] = useState<string[]>()
+  const { search } = useLocation()
   const { value } = useSelector((state: RootState) => state.search)
   const { register } = useSelector((state: RootState) => state.page)
 
-  const to = (appId: string) => history.push(`/store/${appId}`)
-
-  const onSearch = useCallback(async () => {
-    const engine = new SearchEngine(register)
-    await dispatch(setLoading(true))
-    if (searching) {
-      clearTimeout(searching)
-      searching = undefined
+  const tags = useMemo(() => {
+    let tags: string[] = []
+    for (const appId in register) {
+      const newTags = register[appId]?.tags || []
+      //remove duplicate element
+      tags = Array.from(new Set([...tags, ...newTags]))
     }
-    if (!value) {
-      await setAppIds(undefined)
-      await dispatch(setLoading(false))
-    }
-    searching = setTimeout(async () => {
-      const appIds = engine.search(value)
-      await setAppIds(appIds)
-      await dispatch(setLoading(false))
-      return window.scrollTo(0, 0)
-    }, 1000)
-  }, [value, dispatch, register])
+    return CATEGORIES.filter((category) => tags.includes(category))
+  }, [register])
 
-  useEffect(() => {
-    onSearch()
-  }, [onSearch])
+  const searchLocation = useMemo(() => new URLSearchParams(search), [search])
+  const category = searchLocation.get('category')
 
+  if (value) return <SearchResult value={value} />
+  if (category) return <AppCategorySeeAll category={category} />
   return (
-    <Row gutter={[16, 24]}>
-      {appIds?.length ? (
-        <Col span={24}>
-          <Typography.Title level={4} type="secondary">
-            Search Results
-          </Typography.Title>
-        </Col>
-      ) : null}
-      {appIds?.map((appId) => (
-        <Col key={appId}>
-          <AppIcon appId={appId} onClick={() => to(appId)} />
+    <Row gutter={[16, 48]}>
+      <Col span={24}>
+        <BannerTop />
+      </Col>
+      {tags.map((tag) => (
+        <Col span={24} key={tag}>
+          <AppCategorySlice category={tag} />
         </Col>
       ))}
       <Col span={24}>
-        <Typography.Title level={4} type="secondary">
-          All applications
-        </Typography.Title>
+        <AppCategorySlice category="others" />
       </Col>
-      {Object.keys(register).map((appId) => (
-        <Col key={appId}>
-          <AppIcon appId={appId} onClick={() => to(appId)} />
-        </Col>
-      ))}
+      <Col span={24}>
+        <BannerBottom />
+      </Col>
     </Row>
   )
 }

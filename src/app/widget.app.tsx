@@ -12,7 +12,8 @@ import WidgetView from 'app/widget'
 
 import configs from 'app/configs'
 import model from 'app/model'
-import 'app/static/styles/index.less'
+import 'app/static/styles/light.less'
+import 'app/static/styles/dark.less'
 
 const {
   manifest: { appId },

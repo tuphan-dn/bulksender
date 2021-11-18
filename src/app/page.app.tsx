@@ -7,12 +7,12 @@ import {
   PoolProvider,
 } from 'senhub/providers'
 
-import { ConfigProvider } from 'antd'
 import PageView from 'app/page'
 
 import model from 'app/model'
 import configs from 'app/configs'
-import 'app/static/styles/index.less'
+import 'app/static/styles/light.less'
+import 'app/static/styles/dark.less'
 
 const {
   manifest: { appId },
@@ -20,15 +20,13 @@ const {
 
 const Page = () => {
   return (
-    <UIProvider>
+    <UIProvider appId={appId}>
       <WalletProvider>
         <AccountProvider>
           <MintProvider>
             <PoolProvider>
               <Provider store={model}>
-                <ConfigProvider prefixCls={appId}>
-                  <PageView />
-                </ConfigProvider>
+                <PageView />
               </Provider>
             </PoolProvider>
           </MintProvider>
