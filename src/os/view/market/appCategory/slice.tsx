@@ -1,38 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 
+import AppCard from '../appCard'
+import { SwiperOs } from 'os/components/swiperOS'
+import IonIcon from 'shared/ionicon'
 import { SwiperSlide } from 'swiper/react'
 import { Button, Col, Row, Space, Typography } from 'antd'
-import IonIcon from 'shared/ionicon'
-import { SwiperOs } from 'os/components/swiperOS'
-import AppCard from './appCard'
 
-import { RootState } from 'os/store'
+import { useAppCategory } from './hooks'
 
-const AppCategory = ({
-  title,
-  category,
-  onSeeAll,
-}: {
-  title: string
-  category: string
-  onSeeAll: (appIds: AppIds, title: string) => void
-}) => {
-  const { register } = useSelector((state: RootState) => state.page)
-  const [appIds, setAppIds] = useState<AppIds>([])
-
-  const fetchApps = useCallback(async () => {
-    //TODO
-    let appIds: AppIds = []
-    for (let i = 0; i < 3; i++) {
-      if (category) appIds = appIds.concat(Object.keys(register))
-    }
-    return setAppIds(appIds)
-  }, [category, register])
-
-  useEffect(() => {
-    fetchApps()
-  }, [fetchApps])
+const AppCategorySlice = ({ category }: { category: string }) => {
+  const history = useHistory()
+  const { title, appIds } = useAppCategory({ category })
 
   return (
     <Row gutter={[20, 20]} align="bottom">
@@ -48,7 +26,12 @@ const AppCategory = ({
               danger
               style={{ padding: 0, height: 'auto', fontWeight: 300 }}
               type="text"
-              onClick={() => onSeeAll(appIds, title)}
+              onClick={() =>
+                history.push({
+                  pathname: '/store',
+                  search: `?category=${category}`,
+                })
+              }
             >
               See all
             </Button>
@@ -65,8 +48,6 @@ const AppCategory = ({
               style={{
                 maxWidth: 334,
                 width: '75vw',
-                maxHeight: 251,
-                height: 'calc(75vw * 0.75)',
               }}
             >
               <AppCard appId={appId} />
@@ -77,4 +58,4 @@ const AppCategory = ({
     </Row>
   )
 }
-export default AppCategory
+export default AppCategorySlice
