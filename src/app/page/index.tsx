@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { usePDB } from 'senhub/providers'
+import { createPDB } from 'shared/pdb'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
 import IonIcon from 'shared/ionicon'
@@ -8,18 +8,23 @@ import IonIcon from 'shared/ionicon'
 import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'
 import { useWallet } from 'senhub/providers'
+import configs from 'app/configs'
+
+const {
+  manifest: { appId },
+} = configs
 
 const Page = () => {
   const {
     wallet: { address },
   } = useWallet()
-  const pdb = usePDB()
   const dispatch = useDispatch<AppDispatch>()
   const { counter } = useSelector((state: AppState) => state.main)
 
+  const pdb = useMemo(() => createPDB(address, appId), [address])
   const increase = useCallback(() => dispatch(increaseCounter()), [dispatch])
   useEffect(() => {
-    if (pdb.isInitialized) pdb.setItem('counter', counter)
+    if (pdb) pdb.setItem('counter', counter)
   }, [pdb, counter])
 
   return (

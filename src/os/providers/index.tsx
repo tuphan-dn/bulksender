@@ -11,4 +11,3 @@ export {
   useAccount,
 } from './account.provider'
 export { default as MintProvider, withMint, useMint } from './mint.provider'
-export { default as PDBProvider, withPDB, usePDB } from './pdb.provider'

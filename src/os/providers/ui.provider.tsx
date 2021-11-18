@@ -7,8 +7,11 @@ import {
   forwardRef,
   ReactNode,
   useMemo,
+  CSSProperties,
 } from 'react'
 import { useSelector } from 'react-redux'
+
+import { ConfigProvider } from 'antd'
 
 import { RootState } from 'os/store'
 import { State as UIState } from 'os/store/ui.reducer'
@@ -22,10 +25,24 @@ export type UIProvider = {
 /**
  * UI Context Provider
  */
-const UIContextProvider = ({ children }: { children: ReactNode }) => {
+const UIContextProvider = ({
+  children,
+  appId,
+  style = {},
+}: {
+  children: ReactNode
+  appId: string
+  style?: CSSProperties
+}) => {
   const ui = useSelector((state: RootState) => state.ui)
   const provider = useMemo(() => ({ ui }), [ui])
-  return <Context.Provider value={provider}>{children}</Context.Provider>
+  return (
+    <Context.Provider value={provider}>
+      <body id={appId} style={{ backgroundColor: 'transparent', ...style }}>
+        <ConfigProvider prefixCls={appId}>{children}</ConfigProvider>
+      </body>
+    </Context.Provider>
+  )
 }
 export default UIContextProvider
 

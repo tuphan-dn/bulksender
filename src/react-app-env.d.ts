@@ -49,27 +49,30 @@ type ComponentManifest = {
 type SenHubRegister = Record<string, ComponentManifest | undefined>
 // Widget size
 type WidgetSize = 'small' | 'middle' | 'large'
-type WidgetType = 'default' | 'solid' 
+type WidgetType = 'default' | 'solid'
 type WidgetConfig = {
   size?: WidgetSize
   type?: WidgetType
 }
 type CgkData = {
-  icon: any;
-  symbol: any;
-  name: any;
-  address: any;
-  rank: any;
-  price: any;
-  priceChange: any;
-  totalVolume: any;
+  icon: any
+  symbol: any
+  name: any
+  address: any
+  rank: any
+  price: any
+  priceChange: any
+  totalVolume: any
 }
+
 /**
  * Declare module
  */
 declare module '*.md'
-declare module 'senhub/*'
 declare module 'flexsearch'
+declare module 'senhub/providers' {
+  export * from 'os/providers'
+}
 
 /**
  * Declare namespace

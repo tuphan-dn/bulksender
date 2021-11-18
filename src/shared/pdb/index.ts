@@ -21,7 +21,7 @@ class PDB {
    * Local
    */
 
-  createInstance = (appId: string): any => {
+  createInstance = (appId: string): LocalForage => {
     return localForage.createInstance({
       driver: this.driver,
       name: this.dbName,
@@ -41,7 +41,8 @@ class PDB {
   all = async (): Promise<any> => {
     let data: any = {}
     const appIds = (
-      (await this.createInstance('sentre').getItem('appIds')) || []
+      ((await this.createInstance('sentre').getItem('appIds')) as string[]) ||
+      []
     )
       .flat()
       .concat(['sentre'])
@@ -84,3 +85,12 @@ class PDB {
 }
 
 export default PDB
+
+/**
+ * High abtraction pdb for app
+ */
+export const createPDB = (walletArress: string, appId: string) => {
+  return account.isAddress(walletArress)
+    ? new PDB(walletArress).createInstance(appId)
+    : undefined
+}
