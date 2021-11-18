@@ -10,7 +10,8 @@ import { RootState } from 'os/store'
 /**
  * Remote Static
  */
-type StaticType = 'logo' | 'panel' | 'readme'
+type StaticType = 'logo' | 'readme'
+type MultiStaticType = 'panel'
 
 export const RemoteStatic = forwardRef<
   HTMLElement,
@@ -82,3 +83,54 @@ export const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
     )
   },
 )
+
+/**
+ * Remote Multi Static
+ */
+export const RemoteMultiStatic = forwardRef<
+  HTMLElement,
+  {
+    type?: MultiStaticType
+    manifest: RemoteModule
+    render: (src: string[]) => JSX.Element
+  }
+>(({ type = 'default', manifest, render }, ref) => {
+  let { [type]: data } = useRemoteModule(manifest)
+
+  if (!data) data = []
+  if (!Array.isArray(data)) data = [data]
+  return cloneElement(render(data), ref ? { ref } : {})
+})
+
+/**
+ * Remote Multi Loader
+ */
+export const StaticMultiLoader = forwardRef<
+  HTMLElement,
+  {
+    appId: string
+    type: MultiStaticType
+    render: (url: string[]) => JSX.Element
+  }
+>(({ type, appId, render }, ref) => {
+  const { register } = useSelector((state: RootState) => state.page)
+  const url = register[appId]?.url || ''
+  const manifest: RemoteModule = {
+    url,
+    scope: appId,
+    module: './static',
+  }
+  if (!url) return null
+  return (
+    <ErrorBoundary remoteUrl={url || 'Unknown'}>
+      <Suspense fallback={<Spin size="small" />}>
+        <RemoteMultiStatic
+          type={type}
+          manifest={manifest}
+          render={render}
+          ref={ref}
+        />
+      </Suspense>
+    </ErrorBoundary>
+  )
+})

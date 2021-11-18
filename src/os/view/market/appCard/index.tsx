@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 import { Card, Col, Row, Skeleton } from 'antd'
 import AppCardInfo from './appCardInfo'
 
-import { StaticLoader } from 'os/components/appLoader'
+import { StaticMultiLoader } from 'os/components/appLoader'
 
 const AppCard = ({
   appId,
@@ -27,13 +27,13 @@ const AppCard = ({
     <Row ref={ref}>
       <Col span={24}>
         <Suspense fallback={<Skeleton active />}>
-          <StaticLoader
+          <StaticMultiLoader
             appId={appId}
             type="panel"
-            render={(src) => (
+            render={(data) => (
               <Card
                 style={{
-                  backgroundImage: `url(${src})`,
+                  backgroundImage: `url(${data[0]})`,
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
