@@ -65,6 +65,7 @@ const AppReadme = (props: Props) => {
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
+  if (!url) return null
   return (
     <ErrorBoundary {...props}>
       <Suspense fallback={<Spin />}>

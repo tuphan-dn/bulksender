@@ -107,9 +107,10 @@ const AppIcon = (props: Props) => {
   const { url } = register[appId] || { url: '' }
   const manifest = { url, scope: appId, module: './static' }
 
+  if (!url) return <RawAppIcon {...props} src={null} />
   return (
     <ErrorBoundary {...props}>
-      <Suspense fallback={<Spin />}>
+      <Suspense fallback={<RawAppIcon {...props} src={<Spin />} />}>
         <RemoteStatic
           type="logo"
           manifest={manifest}

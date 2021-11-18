@@ -1,10 +1,10 @@
-import { CSSProperties, Suspense, useEffect, useRef, useState } from 'react'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 
-import { Card, Col, Row, Skeleton } from 'antd'
+import { Card, Col, Row } from 'antd'
 import AppCardInfo from './appCardInfo'
 
-import { StaticLoader } from 'os/components/appLoader'
+import { MultiStaticLoader } from 'os/components/appLoader'
 
 const AppCard = ({
   appId,
@@ -26,33 +26,31 @@ const AppCard = ({
   return (
     <Row ref={ref}>
       <Col span={24}>
-        <Suspense fallback={<Skeleton active />}>
-          <StaticLoader
-            appId={appId}
-            type="panel"
-            render={(src) => (
-              <Card
-                style={{
-                  backgroundImage: `url(${src})`,
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  cursor: 'pointer',
-                  overflow: 'hidden',
-                  boxShadow: 'none',
-                  ...style,
-                }}
-                bodyStyle={{ padding: 0 }}
-                key={appId}
-                onClick={() => to(appId)}
-              >
-                <Row align="bottom" style={{ height: cardHeight }}>
-                  <AppCardInfo appId={appId} />
-                </Row>
-              </Card>
-            )}
-          />
-        </Suspense>
+        <MultiStaticLoader
+          appId={appId}
+          type="panel"
+          render={(data) => (
+            <Card
+              style={{
+                backgroundImage: `url(${data[0]})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                cursor: 'pointer',
+                overflow: 'hidden',
+                boxShadow: 'none',
+                ...style,
+              }}
+              bodyStyle={{ padding: 0 }}
+              key={appId}
+              onClick={() => to(appId)}
+            >
+              <Row align="bottom" style={{ height: cardHeight }}>
+                <AppCardInfo appId={appId} />
+              </Row>
+            </Card>
+          )}
+        />
       </Col>
     </Row>
   )
