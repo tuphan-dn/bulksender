@@ -1,21 +1,20 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
 import { Row, Col, Button, Typography } from 'antd'
+import IonIcon from 'shared/ionicon'
 import SearchEngine from './searchEngine'
 import AppCard from './appCard'
 
 import { setLoading } from 'os/store/search.reducer'
 import { RootDispatch, RootState } from 'os/store'
-import IonIcon from 'shared/ionicon'
 
 let searching: NodeJS.Timeout
 
 const SearchResult = ({ value }: { value: string }) => {
   const history = useHistory()
   const dispatch = useDispatch<RootDispatch>()
-  const ref = useRef(null)
   const { register } = useSelector((state: RootState) => state.page)
   const [appIds, setAppIds] = useState<AppIds>([])
 
@@ -53,7 +52,7 @@ const SearchResult = ({ value }: { value: string }) => {
       </Col>
 
       {appIds.map((appId) => (
-        <Col lg={6} md={8} sm={12} xs={24} ref={ref} key={appId}>
+        <Col lg={6} md={8} sm={12} xs={24} key={appId}>
           <AppCard appId={appId} />
         </Col>
       ))}
