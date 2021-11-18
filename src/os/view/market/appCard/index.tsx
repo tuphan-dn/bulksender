@@ -1,7 +1,7 @@
-import { CSSProperties, Suspense, useEffect, useRef, useState } from 'react'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 
-import { Card, Col, Row, Skeleton } from 'antd'
+import { Card, Col, Row } from 'antd'
 import AppCardInfo from './appCardInfo'
 
 import { StaticMultiLoader } from 'os/components/appLoader'
@@ -26,33 +26,31 @@ const AppCard = ({
   return (
     <Row ref={ref}>
       <Col span={24}>
-        <Suspense fallback={<Skeleton active />}>
-          <StaticMultiLoader
-            appId={appId}
-            type="panel"
-            render={(data) => (
-              <Card
-                style={{
-                  backgroundImage: `url(${data[0]})`,
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  cursor: 'pointer',
-                  overflow: 'hidden',
-                  boxShadow: 'none',
-                  ...style,
-                }}
-                bodyStyle={{ padding: 0 }}
-                key={appId}
-                onClick={() => to(appId)}
-              >
-                <Row align="bottom" style={{ height: cardHeight }}>
-                  <AppCardInfo appId={appId} />
-                </Row>
-              </Card>
-            )}
-          />
-        </Suspense>
+        <StaticMultiLoader
+          appId={appId}
+          type="panel"
+          render={(data) => (
+            <Card
+              style={{
+                backgroundImage: `url(${data[0]})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                cursor: 'pointer',
+                overflow: 'hidden',
+                boxShadow: 'none',
+                ...style,
+              }}
+              bodyStyle={{ padding: 0 }}
+              key={appId}
+              onClick={() => to(appId)}
+            >
+              <Row align="bottom" style={{ height: cardHeight }}>
+                <AppCardInfo appId={appId} />
+              </Row>
+            </Card>
+          )}
+        />
       </Col>
     </Row>
   )
