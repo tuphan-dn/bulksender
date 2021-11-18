@@ -77,7 +77,7 @@ const ShareModal = ({
     >
       <Row gutter={[20, 20]} justify="center" style={{ textAlign: 'center' }}>
         <Col>
-          <Image src={shareLogo} preview={false} />
+          <Image src={shareLogo} preview={false} style={{ width: 56 }} />
         </Col>
         <Col span={24}>
           <Typography.Title level={3}>Share this application</Typography.Title>

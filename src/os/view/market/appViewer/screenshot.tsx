@@ -14,12 +14,12 @@ const ScreenShot = ({ appId }: { appId: string }) => {
   const smHeight = (width - 72) * (3 / 4)
 
   const calculatePerCard = () => {
-    if (infix === 'xl' || infix === 'md') return 2
+    if (infix === 'xl' || infix === 'md' || infix === 'xxl') return 2
     return 1
   }
 
   const calculateCardHeight = () => {
-    if (infix === 'xl') return xlHeight
+    if (infix === 'xl' || infix === 'xxl') return xlHeight
     if (infix === 'lg') return lgHeight
     if (infix === 'md') return mdHeight
     return smHeight
