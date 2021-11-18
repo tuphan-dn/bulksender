@@ -18,11 +18,6 @@ const SearchResult = ({ value }: { value: string }) => {
   const ref = useRef(null)
   const { register } = useSelector((state: RootState) => state.page)
   const [appIds, setAppIds] = useState<AppIds>([])
-  const [cardHeight, setCardHeight] = useState(0)
-
-  useEffect(() => {
-    setCardHeight(((ref?.current as any)?.offsetWidth - 24) * 0.75)
-  }, [ref])
 
   const onSearch = useCallback(async () => {
     const engine = new SearchEngine(register)
@@ -59,12 +54,7 @@ const SearchResult = ({ value }: { value: string }) => {
 
       {appIds.map((appId) => (
         <Col lg={6} md={8} sm={12} xs={24} ref={ref} key={appId}>
-          <AppCard
-            appId={appId}
-            style={{
-              height: cardHeight,
-            }}
-          />
+          <AppCard appId={appId} />
         </Col>
       ))}
     </Row>
