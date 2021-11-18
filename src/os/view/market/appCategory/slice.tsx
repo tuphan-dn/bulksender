@@ -24,7 +24,8 @@ const AppCategorySlice = ({ category }: { category: string }) => {
           <Space size={2}>
             <Button
               danger
-              style={{ padding: 0, height: 'auto', fontWeight: 300 }}
+              size="small"
+              // style={{ height: 'auto' }}
               type="text"
               onClick={() =>
                 history.push({
@@ -34,8 +35,8 @@ const AppCategorySlice = ({ category }: { category: string }) => {
               }
             >
               See all
+              <IonIcon name="chevron-forward-outline" />
             </Button>
-            <IonIcon name="chevron-forward-outline" />
           </Space>
         </Typography.Text>
       </Col>
