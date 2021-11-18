@@ -21,10 +21,12 @@ export const useAppCategory = ({
   }, [category])
 
   const fetchApps = useCallback(async () => {
-    //TODO: fetch category appIds
+    if (!category) return setAppIds([])
     let appIds: AppIds = []
-    for (let i = 0; i < 3; i++) {
-      if (category) appIds = appIds.concat(Object.keys(register))
+    for (const appId in register) {
+      const tags = register[appId]?.tags
+      if (tags?.includes(category)) appIds.push(appId)
+      if (!tags && category === 'other') appIds.push(appId)
     }
     setAppIds(appIds)
   }, [category, register])
