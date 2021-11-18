@@ -34,7 +34,7 @@ const AppViewer = () => {
         </Card>
       </Col>
       <Col span={24}>
-        <AppCategory category="other" />
+        <AppCategory category="others" />
       </Col>
     </Row>
   )

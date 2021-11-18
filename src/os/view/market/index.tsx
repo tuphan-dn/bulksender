@@ -44,7 +44,7 @@ const Market = () => {
         </Col>
       ))}
       <Col span={24}>
-        <AppCategorySlice category="other" />
+        <AppCategorySlice category="others" />
       </Col>
       <Col span={24}>
         <BannerBottom />

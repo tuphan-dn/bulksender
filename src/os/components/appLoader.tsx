@@ -98,14 +98,14 @@ export const RemoteMultiStatic = forwardRef<
   let { [type]: data } = useRemoteModule(manifest)
 
   if (!data) data = []
-  if (!Array.isArray(data)) data = [data]
+  if (!Array.isArray(data)) throw new Error("Invalid type data")
   return cloneElement(render(data), ref ? { ref } : {})
 })
 
 /**
  * Remote Multi Loader
  */
-export const StaticMultiLoader = forwardRef<
+export const MultiStaticLoader = forwardRef<
   HTMLElement,
   {
     appId: string

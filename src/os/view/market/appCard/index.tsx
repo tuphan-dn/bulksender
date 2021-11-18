@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 import { Card, Col, Row } from 'antd'
 import AppCardInfo from './appCardInfo'
 
-import { StaticMultiLoader } from 'os/components/appLoader'
+import { MultiStaticLoader } from 'os/components/appLoader'
 
 const AppCard = ({
   appId,
@@ -26,7 +26,7 @@ const AppCard = ({
   return (
     <Row ref={ref}>
       <Col span={24}>
-        <StaticMultiLoader
+        <MultiStaticLoader
           appId={appId}
           type="panel"
           render={(data) => (

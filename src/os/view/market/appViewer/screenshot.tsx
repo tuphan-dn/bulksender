@@ -5,7 +5,7 @@ import { SwiperSlide } from 'swiper/react'
 import { SwiperOs } from 'os/components/swiperOS'
 
 import { RootState } from 'os/store'
-import { StaticMultiLoader } from 'os/components/appLoader'
+import { MultiStaticLoader } from 'os/components/appLoader'
 
 import ERROR_IMG from 'os/static/images/error-image.svg'
 
@@ -20,7 +20,7 @@ const ScreenShot = ({ appId }: { appId: string }) => {
   return (
     <Row gutter={[24, 24]} justify="center" className="app-detail-carousel">
       <Col span={24}>
-        <StaticMultiLoader
+        <MultiStaticLoader
           appId={appId}
           type="panel"
           render={(data) =>
