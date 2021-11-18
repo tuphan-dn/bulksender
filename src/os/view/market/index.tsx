@@ -11,6 +11,8 @@ import AppCategorySlice from './appCategory/slice'
 
 import { RootState } from 'os/store'
 
+const CATEGORIES = ['dapps', 'solana']
+
 const Market = () => {
   const { search } = useLocation()
   const { value } = useSelector((state: RootState) => state.search)
@@ -23,7 +25,7 @@ const Market = () => {
       //remove duplicate element
       tags = Array.from(new Set([...tags, ...newTags]))
     }
-    return tags
+    return CATEGORIES.filter((category) => tags.includes(category))
   }, [register])
 
   const searchLocation = useMemo(() => new URLSearchParams(search), [search])
