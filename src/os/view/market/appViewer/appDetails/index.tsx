@@ -18,7 +18,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
   const { register } = useSelector((state: RootState) => state.page)
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appIds } = useSelector((state: RootState) => state.page)
-  const { description, author, name } = register[appId] || {}
+  const { description, author, name, tags } = register[appId] || {}
 
   const isMobile = infix === 'xs' || infix === 'sm'
 
@@ -43,7 +43,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
               <Col flex="auto">
                 <Space direction="vertical" size={16}>
                   <Typography.Title level={2}>{name}</Typography.Title>
-                  <AppTags />
+                  <AppTags tags={tags}/>
                 </Space>
               </Col>
             </Row>
