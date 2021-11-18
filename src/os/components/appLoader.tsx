@@ -98,7 +98,7 @@ export const RemoteMultiStatic = forwardRef<
   let { [type]: data } = useRemoteModule(manifest)
 
   if (!data) data = []
-  if (!Array.isArray(data)) throw new Error("Invalid type data")
+  if (!Array.isArray(data)) data = [data]
   return cloneElement(render(data), ref ? { ref } : {})
 })
 
