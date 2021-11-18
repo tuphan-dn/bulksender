@@ -25,10 +25,6 @@ const SearchResult = ({ value }: { value: string }) => {
   }, [ref])
 
   const onSearch = useCallback(async () => {
-    if (!value) {
-      await dispatch(setLoading(false))
-      return history.push('/store')
-    }
     const engine = new SearchEngine(register)
     await dispatch(setLoading(true))
 
@@ -39,7 +35,7 @@ const SearchResult = ({ value }: { value: string }) => {
       await dispatch(setLoading(false))
       return window.scrollTo(0, 0)
     }, 500)
-  }, [dispatch, history, register, value])
+  }, [dispatch, register, value])
 
   useEffect(() => {
     onSearch()
