@@ -7,7 +7,7 @@ import IonIcon from 'shared/ionicon'
 import SearchEngine from './searchEngine'
 import AppCard from './appCard'
 
-import { setLoading } from 'os/store/search.reducer'
+import { setLoading, setValue } from 'os/store/search.reducer'
 import { RootDispatch, RootState } from 'os/store'
 
 let searching: NodeJS.Timeout
@@ -42,7 +42,10 @@ const SearchResult = ({ value }: { value: string }) => {
           type="text"
           size="small"
           icon={<IonIcon name="arrow-back-outline"></IonIcon>}
-          onClick={() => history.push('/store')}
+          onClick={() => {
+            history.push('/store')
+            dispatch(setValue(''))
+          }}
         >
           Back
         </Button>

@@ -38,11 +38,15 @@ const UIContextProvider = ({
   const provider = useMemo(() => ({ ui }), [ui])
   return (
     <Context.Provider value={provider}>
-      <section
-        className="body"
-        style={{ backgroundColor: 'transparent', ...style }}
-      >
-        <ConfigProvider prefixCls={appId}>{children}</ConfigProvider>
+      <section id={appId} style={{ backgroundColor: 'transparent', ...style }}>
+        <ConfigProvider
+          prefixCls={appId}
+          getPopupContainer={() =>
+            document.getElementById(appId) as HTMLElement
+          }
+        >
+          {children}
+        </ConfigProvider>
       </section>
     </Context.Provider>
   )
