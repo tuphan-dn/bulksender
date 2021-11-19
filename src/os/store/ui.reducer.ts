@@ -26,6 +26,11 @@ const getInfix = (): Infix => {
   if (width < 1400) return 'xl'
   return 'xxl'
 }
+const getTheme = (): Theme => {
+  const hour = new Date().getHours()
+  if (hour >= 6 && hour < 18) return 'light'
+  return 'dark'
+}
 
 /**
  * Store constructor
@@ -33,7 +38,7 @@ const getInfix = (): Infix => {
 
 const NAME = 'ui'
 const initialState: State = {
-  theme: 'light',
+  theme: getTheme(),
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
