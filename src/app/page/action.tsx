@@ -65,11 +65,12 @@ const Action = () => {
       splataAddress,
       node,
     )
-    const {
-      sentre: { wallet },
-    } = window
     for (const transferData of bulk) {
       try {
+        const {
+          sentre: { wallet },
+        } = window
+        if (!wallet) throw new Error('Cannot connect wallet')
         const { txId } = await bulksender.checkedBulkTransfer(
           transferData.map(([_, amount]) => toBigInt(amount)),
           transferData.map(([address, _]) => address),
@@ -81,8 +82,8 @@ const Action = () => {
           description: 'Successfully transfer tokens. Click to view details.',
           onClick: () => window.open(explorer(txId), '_blank'),
         })
-      } catch (er) {
-        window.notify({ type: 'error', description: (er as any).message })
+      } catch (er: any) {
+        window.notify({ type: 'error', description: er.message })
       }
     }
     await setLoading(false)
@@ -128,6 +129,11 @@ const Action = () => {
   // Compute bulk
   const computeBulk = useCallback(async () => {
     if (error) return setBulk([])
+    const {
+      sentre: { wallet },
+    } = window
+    if (!wallet) return setError('Cannot connect wallet')
+
     await setLoading(true)
     const bulksender = new Bulksender(
       bulksenderAddress,
@@ -135,9 +141,6 @@ const Action = () => {
       splataAddress,
       node,
     )
-    const {
-      sentre: { wallet },
-    } = window
     let currentData = [...data]
     const newBulk: Array<TransferData> = [[]]
     while (currentData.length) {
