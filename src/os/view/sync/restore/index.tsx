@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
-import { Row, Col, Button, Input, Typography, Card } from 'antd'
+import { Row, Col, Button, Input, Card } from 'antd'
 import IonIcon from 'shared/ionicon'
 import JsonViewer from 'os/components/jsonViewer'
 import ConfirmRestore from './confirm'
@@ -14,34 +15,31 @@ const Restore = () => {
   const [link, setLink] = useState('')
   const [cid, setCID] = useState('')
   const [data, setData] = useState({})
+  const { search } = useLocation()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const { address } = useSelector((state: RootState) => state.wallet)
 
+  // Parse link
+  useEffect(() => {
+    const params = new URLSearchParams(search)
+    const cid = params.get('cid')
+    if (IPFS.isCID(cid)) setLink(window.location.href)
+  }, [search])
   // Parse CID
   useEffect(() => {
     try {
-      const { search } = new URL(link)
-      const params = new URLSearchParams(search)
+      const params = new URLSearchParams(new URL(link).search)
       return setCID(params.get('cid') as string)
     } catch (er) {
       return setCID('')
     }
   }, [link])
-  // Parse CID from props
-  useEffect(() => {
-    const link = window.location.href
-    const { search } = new URL(link)
-    const params = new URLSearchParams(search)
-    const cid = params.get('cid')
-    if (!cid || !IPFS.isCID(cid)) return
-    setLink(link)
-  }, [])
   // Parse data
   useEffect(() => {
     ;(async () => {
-      await setLoading(true)
       if (!IPFS.isCID(cid)) return setData({})
+      await setLoading(true)
       const pdb = new PDB(address)
       const data = await pdb.fetch(cid)
       await setData(data)
@@ -51,8 +49,8 @@ const Restore = () => {
 
   return (
     <Row style={{ maxWidth: 520 }}>
-      <Col>
-        <Card title={<Typography.Title level={5}>Restore</Typography.Title>}>
+      <Col span={24}>
+        <Card bordered={false}>
           <Row gutter={[16, 16]}>
             <Col span={24}>
               <Input
@@ -74,7 +72,6 @@ const Restore = () => {
             <Col span={24}>
               <JsonViewer value={data} />
             </Col>
-
             <Col span={24}>
               <Button
                 type="primary"

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Lamports, SPLT, Swap } from '@senswap/sen-js'
+import { Lamports, SPLT, Swap, WalletInterface } from '@senswap/sen-js'
 
 import configs from 'os/configs'
 
@@ -13,21 +13,22 @@ export type State = {
   lamports: bigint
 }
 
-const initializeWindowSenOs = async (wallet: any) => {
+const initializeWindow = async (wallet: WalletInterface | undefined) => {
   const {
     sol: { node, spltAddress, splataAddress, swapAddress },
   } = configs
   window.sentre = {
-    wallet: wallet,
+    ...window.sentre,
+    wallet,
     lamports: new Lamports(node),
     splt: new SPLT(spltAddress, splataAddress, node),
     swap: new Swap(swapAddress, spltAddress, splataAddress, node),
   }
 }
 
-const destroyWindowSenOs = async () => {
+const destroyWindow = async () => {
   if (window.sentre?.wallet) window.sentre.wallet.disconnect()
-  await initializeWindowSenOs(null)
+  await initializeWindow(undefined)
 }
 
 /**
@@ -57,7 +58,7 @@ export const connectWallet = createAsyncThunk(
   `${NAME}/connectWallet`,
   async (wallet: any) => {
     if (!wallet) throw new Error('Invalid wallet instance')
-    await initializeWindowSenOs(wallet)
+    await initializeWindow(wallet)
     const address = await wallet.getAddress()
     const lamports = await window.sentre.lamports.getLamports(address)
     return { address, lamports: BigInt(lamports), visible: false }
@@ -74,7 +75,7 @@ export const updateWallet = createAsyncThunk(
 export const disconnectWallet = createAsyncThunk(
   `${NAME}/disconnectWallet`,
   async () => {
-    await destroyWindowSenOs()
+    await destroyWindow()
     window.location.reload() // Reset all redux store
   },
 )

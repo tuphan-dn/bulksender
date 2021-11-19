@@ -8,7 +8,7 @@ import WidgetLayout from './widgetLayout'
 
 import { RootDispatch, RootState } from 'os/store'
 import { uninstallApp, updatePage } from 'os/store/page.reducer'
-import { setActionCenterVisible } from 'os/store/ui.reducer'
+import { setVisibleActionCenter } from 'os/store/ui.reducer'
 
 const AllApplications = () => {
   const history = useHistory()
@@ -32,7 +32,7 @@ const AllApplications = () => {
     return onClose()
   }
   const onGotoStore = async () => {
-    await dispatch(setActionCenterVisible(false))
+    await dispatch(setVisibleActionCenter(false))
     return history.push('/store')
   }
 
