@@ -1,3 +1,7 @@
+/**
+ * Credit https://ionic.io/ionicons
+ */
+
 import { forwardRef } from 'react'
 
 import IconTele from 'os/static/images/icon-telegram.svg'
@@ -8,7 +12,7 @@ const CUSTOM_ICONS: Record<string, string> = {
 
 const IonIcon = forwardRef<
   HTMLElement,
-  { name: string; className?: string; src?: string } & any
+  { name: string; className?: string } & any
 >(({ name, className, ...props }, ref) => {
   const cln = className ? 'anticon ' + className : 'anticon'
 

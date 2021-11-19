@@ -14,7 +14,7 @@ export type State = {
   width: number
   infix: Infix
   touchable: boolean
-  actionCenterVisible: boolean
+  visibleActionCenter: boolean
 }
 
 const getInfix = (): Infix => {
@@ -37,7 +37,7 @@ const initialState: State = {
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
-  actionCenterVisible: false,
+  visibleActionCenter: false,
 }
 
 /**
@@ -57,10 +57,10 @@ export const resize = createAsyncThunk(`${NAME}/resize`, async () => {
   return { width, infix }
 })
 
-export const setActionCenterVisible = createAsyncThunk(
-  `${NAME}/setActionCenterVisible`,
+export const setVisibleActionCenter = createAsyncThunk(
+  `${NAME}/setVisibleActionCenter`,
   async (visible: boolean) => {
-    return { actionCenterVisible: visible }
+    return { visibleActionCenter: visible }
   },
 )
 
@@ -83,7 +83,7 @@ const slice = createSlice({
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(
-        setActionCenterVisible.fulfilled,
+        setVisibleActionCenter.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })

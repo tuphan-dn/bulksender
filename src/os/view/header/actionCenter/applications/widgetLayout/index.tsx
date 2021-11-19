@@ -22,7 +22,7 @@ import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
 
 import { RootDispatch } from 'os/store'
-import { setActionCenterVisible } from 'os/store/ui.reducer'
+import { setVisibleActionCenter } from 'os/store/ui.reducer'
 import DraggableAction from './draggableAction'
 import IonIcon from 'shared/ionicon'
 
@@ -69,7 +69,7 @@ const WidgetLayout = (props: Props) => {
   }, [appIds])
 
   const open = async (appId: string) => {
-    await dispatch(setActionCenterVisible(false))
+    await dispatch(setVisibleActionCenter(false))
     return history.push(`/app/${appId}`)
   }
 
