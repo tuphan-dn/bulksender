@@ -10,22 +10,23 @@ const PrefixWrap = require('postcss-prefixwrap')
 const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   // Cannot use prebuilt options in craco, so we have to add it manually
   // https://stackoverflow.com/questions/68738215/craco-plugin-not-loading
-  const { theme, appId } = pluginOptions
+  const { theme } = pluginOptions
   const { hasFoundAny, matches } = getLoaders(
     webpackConfig,
     loaderByName('postcss-loader'),
   )
   if (!hasFoundAny) return webpackConfig
   const osPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`.${selector}`, {
+    PrefixWrap(`#${selector}`, {
       ignoredSelectors: ['html'],
       whitelist: [new RegExp(`${selector}\.os\.less$`, 'i')],
     }),
   )
   const appPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`.${selector} #${appId}`, {
+    PrefixWrap(`#${selector}`, {
       ignoredSelectors: ['html'],
       whitelist: [new RegExp(`${selector}\.less$`, 'i')],
+      prefixRootTags: true,
     }),
   )
   matches.forEach((match) => {
