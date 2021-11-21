@@ -2,10 +2,6 @@ import { account } from '@senswap/sen-js'
 import numbro from 'numbro'
 import { net } from 'shared/runtime'
 
-export const isTouchable = () => {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0
-}
-
 export const asyncWait = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }

@@ -1,5 +1,6 @@
 /**
- * Credit https://iconsax-react.pages.dev/
+ * Iconsax
+ * Credit https://github.com/rendinjast/iconsax-react
  */
 
 import { forwardRef } from 'react'
@@ -13,6 +14,12 @@ export type IconsaxVariant =
   | 'Broken'
   | 'TwoTone'
 
+/**
+ * Iconsax
+ * @param name The icon name, you can find it here https://iconsax-react.pages.dev/
+ * @param className To modify the span class
+ * @param variant The icon variant including Linear (default), Outline, Bold, Bulk, Broken, and TwoTones
+ */
 const IconSax = forwardRef<
   HTMLElement,
   { name: string; className?: string; variant?: IconsaxVariant } & any
