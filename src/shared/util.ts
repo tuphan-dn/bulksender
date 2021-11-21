@@ -10,10 +10,6 @@ export const asyncWait = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const openNewTab = (href: string) => {
-  return window.open(href, '_blank')
-}
-
 export const shortenAddress = (address: string, num = 4, delimiter = '...') => {
   return (
     address.substring(0, num) +

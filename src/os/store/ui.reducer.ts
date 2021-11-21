@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { isTouchable } from 'shared/util'
-
 /**
  * Interface & Utility
  */
@@ -25,6 +23,9 @@ const getInfix = (): Infix => {
   if (width < 1200) return 'lg'
   if (width < 1400) return 'xl'
   return 'xxl'
+}
+const isTouchable = () => {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0
 }
 const getTheme = (): Theme => {
   const hour = new Date().getHours()
