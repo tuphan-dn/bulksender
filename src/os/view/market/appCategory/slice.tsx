@@ -34,7 +34,6 @@ const AppCategorySlice = ({
         <Col>
           <Typography.Text type="danger">
             <Button
-              danger
               size="small"
               type="text"
               onClick={() => {
@@ -44,6 +43,7 @@ const AppCategorySlice = ({
                   search: `?category=${options.category}`,
                 })
               }}
+              className="btn-see-all"
             >
               See all
               <IonIcon name="chevron-forward-outline" />

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Modal, Row, Space, Typography } from 'antd'
+import { Modal, Row, Col, Space, Typography, Button } from 'antd'
 import IonIcon from 'shared/ionicon'
 
 import { RootState } from 'os/store'
@@ -32,28 +32,32 @@ const ConfirmRestore = ({
   }, [address, cid])
 
   return (
-    <Modal
-      visible={visible}
-      okText="Restore"
-      onOk={onRestore}
-      onCancel={onClose}
-      centered
-    >
-      <Row gutter={[4, 4]}>
-        <Space align="baseline">
-          <Typography.Text type="warning">
-            <IonIcon name="alert-circle-outline" />
-          </Typography.Text>
-          <Space direction="vertical" size={0}>
-            <Typography.Title level={5}>
-              Do you want to Restore?
-            </Typography.Title>
-            <Typography.Text>
-              The current data on your device will be overridden and no longer
-              could be retrieved.
+    <Modal visible={visible} footer={null} centered>
+      <Row gutter={[24, 24]} justify="end">
+        <Col span={24}>
+          <Space align="baseline">
+            <Typography.Text type="warning">
+              <IonIcon name="alert-circle-outline" />
             </Typography.Text>
+            <Space direction="vertical" size={0}>
+              <Typography.Title level={5}>
+                Do you want to Restore?
+              </Typography.Title>
+              <Typography.Text>
+                The current data on your device will be overridden and no longer
+                could be retrieved.
+              </Typography.Text>
+            </Space>
           </Space>
-        </Space>
+        </Col>
+        <Col>
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+            <Button type="primary" onClick={onRestore}>
+              Restore
+            </Button>
+          </Space>
+        </Col>
       </Row>
     </Modal>
   )

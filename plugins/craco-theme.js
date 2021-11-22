@@ -17,13 +17,13 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   )
   if (!hasFoundAny) return webpackConfig
   const osPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`.${selector}`, {
+    PrefixWrap(`#${selector}`, {
       ignoredSelectors: ['html'],
       whitelist: [new RegExp(`${selector}\.os\.less$`, 'i')],
     }),
   )
   const appPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`.${selector} #${appId}`, {
+    PrefixWrap(`#${selector} #${appId}`, {
       ignoredSelectors: ['html'],
       whitelist: [new RegExp(`${selector}\.less$`, 'i')],
     }),

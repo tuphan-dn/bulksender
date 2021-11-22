@@ -7,25 +7,22 @@ import Applications from './applications'
 import Settings from './settings'
 
 import { RootDispatch, RootState } from 'os/store'
-import { setActionCenterVisible } from 'os/store/ui.reducer'
+import { setVisibleActionCenter } from 'os/store/ui.reducer'
 
 const ActionCenter = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const { actionCenterVisible } = useSelector((state: RootState) => state.ui)
+  const { visibleActionCenter } = useSelector((state: RootState) => state.ui)
 
   return (
     <Fragment>
       <Button
         type="text"
         icon={<IonIcon name="menu" style={{ fontSize: 20 }} />}
-        onClick={() => dispatch(setActionCenterVisible(!actionCenterVisible))}
+        onClick={() => dispatch(setVisibleActionCenter(!visibleActionCenter))}
       />
       <Drawer
-        visible={actionCenterVisible}
-        onClose={() => {
-          dispatch(setActionCenterVisible(false))
-          document.body.style.removeProperty('overflow-y')
-        }}
+        visible={visibleActionCenter}
+        onClose={() => dispatch(setVisibleActionCenter(false))}
         closable={false}
         contentWrapperStyle={{ width: '95%', maxWidth: 400 }}
         destroyOnClose
@@ -38,7 +35,7 @@ const ActionCenter = () => {
                 <Button
                   type="text"
                   icon={<IonIcon name="close-outline" />}
-                  onClick={() => dispatch(setActionCenterVisible(false))}
+                  onClick={() => dispatch(setVisibleActionCenter(false))}
                 />
               }
               destroyInactiveTabPane

@@ -12,8 +12,9 @@ class IPFS {
     }
   }
 
-  static isCID = (cid: string): boolean => {
+  static isCID = (cid: string | undefined | null): boolean => {
     try {
+      if (!cid) return false
       return isIPFS.multihash(cid)
     } catch (er) {
       return false

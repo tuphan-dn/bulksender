@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Row, Col, Button, Card, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 
-import { setActionCenterVisible } from 'os/store/ui.reducer'
+import { setVisibleActionCenter } from 'os/store/ui.reducer'
 
 const Sync = () => {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const Sync = () => {
                 type="primary"
                 icon={<IonIcon name="cloud-done-outline" />}
                 onClick={() => {
-                  dispatch(setActionCenterVisible(false))
+                  dispatch(setVisibleActionCenter(false))
                   history.push('/sync')
                 }}
                 block
@@ -35,7 +35,7 @@ const Sync = () => {
               <Button
                 icon={<IonIcon name="archive-outline" />}
                 onClick={() => {
-                  dispatch(setActionCenterVisible(false))
+                  dispatch(setVisibleActionCenter(false))
                   history.push('/sync?cid=')
                 }}
                 block

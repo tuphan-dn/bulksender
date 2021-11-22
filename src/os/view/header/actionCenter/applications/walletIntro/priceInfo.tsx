@@ -1,17 +1,24 @@
 import { Space, Typography } from 'antd'
-import Price, { PriceIndicator, PriceChange } from 'os/components/price'
+import Price, {
+  PriceIndicator,
+  PriceChange,
+  PriceSolidus,
+} from 'os/components/price'
 
 const PriceInfo = () => {
   return (
-    <Space size={4}>
+    <Space size={6}>
       <Typography.Text>
         <PriceIndicator className="price-arrow" ticket="solana" colorized />
       </Typography.Text>
       <Typography.Text>
-        <Price ticket="solana" colorized />
+        <PriceChange ticket="solana" colorized />
       </Typography.Text>
       <Typography.Text>
-        <PriceChange ticket="solana" colorized />
+        <PriceSolidus ticket="solana" colorized />
+      </Typography.Text>
+      <Typography.Text className="balance">
+        <Price ticket="solana" colorized />
       </Typography.Text>
     </Space>
   )

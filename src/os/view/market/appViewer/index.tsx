@@ -18,7 +18,11 @@ const AppViewer = () => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        <Button icon={<IonIcon name="arrow-back-outline" />} onClick={onBack}>
+        <Button
+          type="text"
+          icon={<IonIcon name="arrow-back-outline" />}
+          onClick={onBack}
+        >
           Back
         </Button>
       </Col>

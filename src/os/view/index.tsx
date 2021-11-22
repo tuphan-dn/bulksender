@@ -23,7 +23,7 @@ const View = () => {
   } = useSelector((state: RootState) => state)
 
   useEffect(() => {
-    return document.body.setAttribute('class', theme)
+    return document.body.setAttribute('id', theme)
   }, [theme])
 
   return (

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Button, Card, Checkbox, Col, Row, Typography } from 'antd'
+import { Button, Card, Checkbox, Col, Row } from 'antd'
 import IonIcon from 'shared/ionicon'
 import BackupSuccess from './backupSuccess'
 import ReviewManual from './reviewManual'
@@ -27,8 +27,8 @@ const Backup = () => {
 
   return (
     <Row style={{ maxWidth: 520 }}>
-      <Col>
-        <Card title={<Typography.Title level={5}>Backup</Typography.Title>}>
+      <Col span={24}>
+        <Card bordered={false}>
           <Row gutter={[16, 16]}>
             <Col span={24}>
               <ReviewManual />
