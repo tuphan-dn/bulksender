@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { fetchCGK } from 'shared/helper'
-import { numeric } from 'shared/util'
 import { parseColor } from './parseColor'
 
-const Price = ({
+const PriceSolidus = ({
   ticket,
   colorized = false,
+  symbol = '/',
 }: {
   ticket: string
   colorized?: boolean
+  symbol?: string
 }) => {
   const [cgkData, setCGKData] = useState<CgkData>()
 
@@ -23,14 +24,7 @@ const Price = ({
   }, [getCGKData])
 
   const color = parseColor(cgkData?.priceChange)
-  return (
-    <span style={{ color: colorized ? color : 'inherit' }}>
-      ${numeric(cgkData?.price).format('0,0.[00]')}
-    </span>
-  )
+  return <span style={{ color: colorized ? color : 'inherit' }}>{symbol}</span>
 }
 
-export default Price
-export { default as PriceChange } from './priceChange'
-export { default as PriceIndicator } from './priceIndicator'
-export { default as PriceSolidus } from './priceSolidus'
+export default PriceSolidus

@@ -29,24 +29,30 @@ const UIContextProvider = ({
   children,
   appId,
   style = {},
+  antd = false,
 }: {
   children: ReactNode
   appId: string
   style?: CSSProperties
+  antd?: boolean
 }) => {
   const ui = useSelector((state: RootState) => state.ui)
   const provider = useMemo(() => ({ ui }), [ui])
   return (
     <Context.Provider value={provider}>
       <section id={appId} style={{ backgroundColor: 'transparent', ...style }}>
-        <ConfigProvider
-          prefixCls={appId}
-          getPopupContainer={() =>
-            document.getElementById(appId) as HTMLElement
-          }
-        >
-          {children}
-        </ConfigProvider>
+        {antd ? (
+          <ConfigProvider
+            prefixCls={appId}
+            getPopupContainer={() =>
+              document.getElementById(appId) as HTMLElement
+            }
+          >
+            {children}
+          </ConfigProvider>
+        ) : (
+          children
+        )}
       </section>
     </Context.Provider>
   )

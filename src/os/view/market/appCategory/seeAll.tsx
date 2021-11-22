@@ -4,11 +4,11 @@ import { Button, Col, Row, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import AppCard from '../appCard'
 
-import { useAppCategory } from './hooks'
+import { CategoryOptions, useAppCategory } from './hooks'
 
-const CategorySeeAll = ({ category }: { category: string }) => {
+const CategorySeeAll = (options: CategoryOptions) => {
   const history = useHistory()
-  const { title, appIds } = useAppCategory({ category })
+  const { title, appIds } = useAppCategory(options)
 
   return (
     <Row gutter={[24, 24]}>
@@ -23,7 +23,9 @@ const CategorySeeAll = ({ category }: { category: string }) => {
         </Button>
       </Col>
       <Col span={24}>
-        <Typography.Title level={2}>{title}</Typography.Title>
+        <Typography.Title level={2} style={{ textTransform: 'capitalize' }}>
+          {title}
+        </Typography.Title>
       </Col>
       {appIds.map((appId) => (
         <Col lg={6} md={8} sm={12} xs={24} key={appId}>

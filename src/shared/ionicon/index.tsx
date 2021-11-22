@@ -1,15 +1,16 @@
 /**
+ * IonIcon 5
  * Credit https://ionic.io/ionicons
  */
 
 import { forwardRef } from 'react'
+import { CUSTOM_ICONS } from './customs'
 
-import IconTele from 'os/static/images/icon-telegram.svg'
-
-const CUSTOM_ICONS: Record<string, string> = {
-  'logo-telegram': IconTele,
-}
-
+/**
+ * IonIcon
+ * @param name The icon name. You can find it here https://ionic.io/ionicons
+ * @param className To modify the span class
+ */
 const IonIcon = forwardRef<
   HTMLElement,
   { name: string; className?: string } & any

@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router'
+import { useDispatch } from 'react-redux'
 
 import AppCard from '../appCard'
 import { SwiperOs } from 'os/components/swiperOS'
@@ -6,38 +7,51 @@ import IonIcon from 'shared/ionicon'
 import { SwiperSlide } from 'swiper/react'
 import { Button, Col, Row, Typography } from 'antd'
 
-import { useAppCategory } from './hooks'
+import { CategoryOptions, useAppCategory } from './hooks'
+import { setValue } from 'os/store/search.reducer'
 
-const AppCategorySlice = ({ category }: { category: string }) => {
+const AppCategorySlice = ({
+  seeAll = true,
+  ...options
+}: { seeAll?: boolean } & CategoryOptions) => {
+  const dispatch = useDispatch()
   const history = useHistory()
-  const { title, appIds } = useAppCategory({ category })
+  const { title, appIds } = useAppCategory(options)
+
+  //not displayed category if no application exists
+  if (!appIds.length) return null
 
   return (
     <Row gutter={[20, 20]} align="bottom">
       {/* title */}
       <Col flex="auto">
-        <Typography.Title level={2}>{title}</Typography.Title>
+        <Typography.Title level={2} style={{ textTransform: 'capitalize' }}>
+          {title}
+        </Typography.Title>
       </Col>
       {/* see all button*/}
-      <Col>
-        <Typography.Text type="danger">
-          <Button
-            danger
-            size="small"
-            type="text"
-            onClick={() =>
-              history.push({
-                pathname: '/store',
-                search: `?category=${category}`,
-              })
-            }
-          >
-            See all
-            <IonIcon name="chevron-forward-outline" />
-          </Button>
-        </Typography.Text>
-      </Col>
-      {/* list app category */}
+      {seeAll && (
+        <Col>
+          <Typography.Text type="danger">
+            <Button
+              size="small"
+              type="text"
+              onClick={() => {
+                dispatch(setValue(''))
+                history.push({
+                  pathname: '/store',
+                  search: `?category=${options.category}`,
+                })
+              }}
+              className="btn-see-all"
+            >
+              See all
+              <IonIcon name="chevron-forward-outline" />
+            </Button>
+          </Typography.Text>
+        </Col>
+      )}
+      {/* list app in the category */}
       <Col span={24}>
         <SwiperOs>
           {appIds.map((appId) => (
