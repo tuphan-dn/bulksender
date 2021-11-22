@@ -4,8 +4,9 @@ import { Row, Col, Card, Button } from 'antd'
 import AppDetails from './appDetails'
 import ScreenShot from './screenshot'
 import IonIcon from 'shared/ionicon'
-import AppCategory from '../appCategory/slice'
+import AppCategorySlice from '../appCategory/slice'
 
+import { CustomCategory } from '../appCategory/hooks'
 import './index.os.less'
 
 const AppViewer = () => {
@@ -34,7 +35,11 @@ const AppViewer = () => {
         </Card>
       </Col>
       <Col span={24}>
-        <AppCategory category="others" />
+        <AppCategorySlice
+          category={CustomCategory.suggest}
+          related={{ appIds: [appId] }}
+          seeAll={false}
+        />
       </Col>
     </Row>
   )
