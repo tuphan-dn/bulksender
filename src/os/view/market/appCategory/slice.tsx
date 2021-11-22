@@ -20,22 +20,20 @@ const AppCategorySlice = ({ category }: { category: string }) => {
       </Col>
       {/* see all button*/}
       <Col>
-        <Typography.Text type="danger">
-          <Button
-            danger
-            size="small"
-            type="text"
-            onClick={() =>
-              history.push({
-                pathname: '/store',
-                search: `?category=${category}`,
-              })
-            }
-          >
-            See all
-            <IonIcon name="chevron-forward-outline" />
-          </Button>
-        </Typography.Text>
+        <Button
+          size="small"
+          type="text"
+          onClick={() =>
+            history.push({
+              pathname: '/store',
+              search: `?category=${category}`,
+            })
+          }
+          className="btn-see-all"
+        >
+          See all
+          <IonIcon name="chevron-forward-outline" />
+        </Button>
       </Col>
       {/* list app category */}
       <Col span={24}>

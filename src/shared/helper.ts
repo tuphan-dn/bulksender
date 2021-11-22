@@ -57,7 +57,7 @@ export const fetchCGK = async (ticket = '') => {
   return DataLoader.load('fetchCGK' + ticket, () => utils.parseCGK(ticket))
 }
 
-export const randomColor = (seed?: string) => {
+export const randomColor = (seed?: string, opacity?: string | number) => {
   let hash = Math.floor(Math.random() * 16777215)
   if (seed) {
     hash = 0
@@ -70,5 +70,5 @@ export const randomColor = (seed?: string) => {
     var value = (hash >> (i * 8)) & 255
     rgb[i] = value
   }
-  return `rgb(${rgb[0]}, 100, ${rgb[1]})`
+  return `rgba(${rgb[0]}, 100, ${rgb[1]},${opacity || 1})`
 }
