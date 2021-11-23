@@ -1,9 +1,11 @@
-import { Component } from 'react'
+import { Component, ReactNode } from 'react'
 
 import { Row, Col, Typography, Button } from 'antd'
 
 interface Props {
   remoteUrl: string
+  children?: ReactNode
+  rawError?: ReactNode
 }
 
 interface State {
@@ -36,9 +38,10 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     const { failed } = this.state
-    const { remoteUrl, children } = this.props
+    const { remoteUrl, children, rawError } = this.props
 
-    if (failed || !children)
+    if (failed || !children) {
+      if (rawError) return rawError
       return (
         <Row
           gutter={[8, 8]}
@@ -63,6 +66,7 @@ class ErrorBoundary extends Component<Props, State> {
           </Col>
         </Row>
       )
+    }
     return children
   }
 }
