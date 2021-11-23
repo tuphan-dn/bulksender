@@ -21,11 +21,8 @@ const Phantom = () => {
     const wallet = new PhantomWallet()
     try {
       await dispatch(connectWallet(wallet)).unwrap()
-    } catch (er) {
-      return window.notify({
-        type: 'error',
-        description: (er as Error).message,
-      })
+    } catch (er: any) {
+      return window.notify({ type: 'error', description: er.message })
     }
   }
 

@@ -44,11 +44,8 @@ const KeyStore = () => {
     try {
       const wallet = new KeystoreWallet(keystore as any, password)
       await dispatch(connectWallet(wallet)).unwrap()
-    } catch (er) {
-      return window.notify({
-        type: 'error',
-        description: (er as Error).message,
-      })
+    } catch (er: any) {
+      return window.notify({ type: 'error', description: er.message })
     }
   }
 
