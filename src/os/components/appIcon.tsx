@@ -1,9 +1,9 @@
-import { Component, ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Space, Avatar, Typography, Spin } from 'antd'
+import { Space, Avatar, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
-import { RemoteStatic } from 'os/components/appLoader'
+import { StaticLoader } from 'os/components/appLoader'
 
 import { RootState } from 'os/store'
 
@@ -14,32 +14,6 @@ type Props = {
   name?: boolean
   direction?: 'vertical' | 'horizontal'
   children?: ReactNode
-}
-
-class ErrorBoundary extends Component<Props, { failed: boolean }> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      failed: false,
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.children !== this.props.children)
-      return this.setState({ failed: false })
-  }
-
-  componentDidCatch(error: Error) {
-    return this.setState({ failed: Boolean(error) })
-  }
-
-  render() {
-    const { failed } = this.state
-    const { children } = this.props
-
-    if (failed || !children) return <RawAppIcon {...this.props} src={null} />
-    return children
-  }
 }
 
 const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
@@ -103,21 +77,14 @@ const RawAppIcon = (props: Props & { src: ReactNode }) => {
 
 const AppIcon = (props: Props) => {
   const { appId } = props
-  const { register } = useSelector((state: RootState) => state.page)
-  const { url } = register[appId] || { url: '' }
-  const manifest = { url, scope: appId, module: './static' }
-
-  if (!url) return <RawAppIcon {...props} src={null} />
+  
   return (
-    <ErrorBoundary {...props}>
-      <Suspense fallback={<RawAppIcon {...props} src={<Spin />} />}>
-        <RemoteStatic
-          type="logo"
-          manifest={manifest}
-          render={(src) => <RawAppIcon {...props} src={src} />}
-        />
-      </Suspense>
-    </ErrorBoundary>
+    <StaticLoader
+      defaultData=""
+      type="logo"
+      appId={appId}
+      render={(src) => <RawAppIcon {...props} src={src} />}
+    />
   )
 }
 export default AppIcon

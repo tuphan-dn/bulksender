@@ -1,9 +1,11 @@
-import { Component } from 'react'
+import { Component, ReactNode } from 'react'
 
 import { Row, Col, Typography, Button } from 'antd'
 
 interface Props {
   remoteUrl: string
+  children?: ReactNode
+  rawError?: ReactNode
 }
 
 interface State {
@@ -22,8 +24,15 @@ class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentDidCatch(error: Error) {
-    return this.setState({ failed: Boolean(error) })
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
+  }
+
+  //refer: https://reactjs.org/docs/error-boundaries.html
+  static getDerivedStateFromError() {
+    // Update state so the next render will show the fallback UI.
+    return { failed: true }
   }
 
   support = () => {
@@ -36,9 +45,10 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     const { failed } = this.state
-    const { remoteUrl, children } = this.props
+    const { remoteUrl, children, rawError } = this.props
 
-    if (failed || !children)
+    if (failed || !children) {
+      if (rawError) return rawError
       return (
         <Row
           gutter={[8, 8]}
@@ -63,6 +73,7 @@ class ErrorBoundary extends Component<Props, State> {
           </Col>
         </Row>
       )
+    }
     return children
   }
 }
