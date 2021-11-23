@@ -24,8 +24,15 @@ class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentDidCatch(error: Error) {
-    return this.setState({ failed: Boolean(error) })
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
+  }
+
+  //refer: https://reactjs.org/docs/error-boundaries.html
+  static getDerivedStateFromError() {
+    // Update state so the next render will show the fallback UI.
+    return { failed: true }
   }
 
   support = () => {
