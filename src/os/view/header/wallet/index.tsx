@@ -42,11 +42,8 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
     const wallet = reconnect()
     try {
       if (wallet) dispatch(connectWallet(wallet)).unwrap()
-    } catch (er) {
-      return window.notify({
-        type: 'error',
-        description: (er as Error).message,
-      })
+    } catch (er: any) {
+      return window.notify({ type: 'error', description: er.message })
     }
   }, [dispatch])
 

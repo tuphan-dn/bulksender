@@ -21,11 +21,8 @@ const Slope = () => {
     const wallet = new SlopeWallet()
     try {
       await dispatch(connectWallet(wallet)).unwrap()
-    } catch (er) {
-      return window.notify({
-        type: 'error',
-        description: (er as Error).message,
-      })
+    } catch (er: any) {
+      return window.notify({ type: 'error', description: er.message })
     }
   }
 
