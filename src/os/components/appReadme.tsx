@@ -3,7 +3,7 @@ import { Remarkable } from 'remarkable'
 
 import { Row, Col } from 'antd'
 
-import { StaticLoader } from 'os/components/appLoader'
+import { StaticLoader } from 'os/components/staticLoader'
 
 type Props = {
   appId: string
@@ -39,8 +39,7 @@ const AppReadme = (props: Props) => {
   const { appId } = props
   return (
     <StaticLoader
-      defaultData=""
-      type={'readme'}
+      type="readme"
       appId={appId}
       render={(src) => <Markdown src={src} />}
     />

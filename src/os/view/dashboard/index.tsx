@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import { Row } from 'antd'
-import { WidgetLoader } from 'os/components/widgetLoader'
+import WidgetLoader from 'os/components/widgetLoader'
 
 import { RootState } from 'os/store'
 

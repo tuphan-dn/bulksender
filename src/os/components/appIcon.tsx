@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { Space, Avatar, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
-import { StaticLoader } from 'os/components/appLoader'
+import { StaticLoader } from 'os/components/staticLoader'
 
 import { RootState } from 'os/store'
 
@@ -70,17 +70,16 @@ const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
 }
 
 const RawAppIcon = (props: Props & { src: ReactNode }) => {
-  const { direction = 'vertical' } = props
-  if (direction === 'vertical') return <RawVerticalAppIcon {...props} />
-  return <RawHorizontalAppIcon {...props} />
+  const { direction = 'vertical', ...rest } = props
+  if (direction === 'vertical') return <RawVerticalAppIcon {...rest} />
+  return <RawHorizontalAppIcon {...rest} />
 }
 
 const AppIcon = (props: Props) => {
   const { appId } = props
-  
+
   return (
     <StaticLoader
-      defaultData=""
       type="logo"
       appId={appId}
       render={(src) => <RawAppIcon {...props} src={src} />}

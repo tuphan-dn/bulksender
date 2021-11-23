@@ -5,7 +5,7 @@ import { SwiperSlide } from 'swiper/react'
 import { SwiperOs } from 'os/components/swiperOS'
 
 import { RootState } from 'os/store'
-import { MultiStaticLoader } from 'os/components/appLoader'
+import { MultiStaticLoader } from 'os/components/staticLoader'
 
 import imgError from 'os/static/images/error-image.svg'
 
