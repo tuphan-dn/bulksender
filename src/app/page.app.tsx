@@ -20,7 +20,7 @@ const {
 
 const Page = () => {
   return (
-    <UIProvider appId={appId}>
+    <UIProvider appId={appId} antd>
       <WalletProvider>
         <AccountProvider>
           <MintProvider>
