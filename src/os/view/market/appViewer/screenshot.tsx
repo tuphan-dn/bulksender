@@ -5,9 +5,9 @@ import { SwiperSlide } from 'swiper/react'
 import { SwiperOs } from 'os/components/swiperOS'
 
 import { RootState } from 'os/store'
-import { MultiStaticLoader } from 'os/components/appLoader'
+import { MultiStaticLoader } from 'os/components/staticLoader'
 
-import ERROR_IMG from 'os/static/images/error-image.svg'
+import imgError from 'os/static/images/error-image.svg'
 
 const ScreenShot = ({ appId }: { appId: string }) => {
   const { width } = useSelector((state: RootState) => state.ui)
@@ -23,19 +23,16 @@ const ScreenShot = ({ appId }: { appId: string }) => {
         <MultiStaticLoader
           appId={appId}
           type="panel"
-          render={(data) =>
-            !data?.length ? (
-              <Image style={{ height: 252 }} src={ERROR_IMG} />
-            ) : (
-              <SwiperOs slidesPerView={calculatePerCard(data)}>
-                {data.map((src, idx) => (
-                  <SwiperSlide key={idx}>
-                    <Image style={{ height: 252 }} src={src} />
-                  </SwiperSlide>
-                ))}
-              </SwiperOs>
-            )
-          }
+          defaultData={[imgError]}
+          render={(data) => (
+            <SwiperOs slidesPerView={calculatePerCard(data)}>
+              {data.map((src, idx) => (
+                <SwiperSlide key={idx}>
+                  <Image style={{ height: 252 }} src={src} />
+                </SwiperSlide>
+              ))}
+            </SwiperOs>
+          )}
         />
       </Col>
     </Row>

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
-import { PageLoader } from 'os/components/appLoader'
+import PageLoader from 'os/components/pageLoader'
 import NotFound from './notFound'
 
 import { RootState } from 'os/store'

@@ -1,9 +1,8 @@
-import { Component } from 'react'
-
-import { Row, Col, Typography, Button } from 'antd'
+import { Component, ReactNode } from 'react'
 
 interface Props {
-  remoteUrl: string
+  children?: ReactNode
+  defaultChildren: ReactNode
 }
 
 interface State {
@@ -22,47 +21,22 @@ class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentDidCatch(error: Error) {
-    return this.setState({ failed: Boolean(error) })
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.children !== this.props.children)
+      return this.setState({ failed: false })
   }
 
-  support = () => {
-    const { remoteUrl } = this.props
-    return window.open(
-      `mailto:hi@sentre.io?subject=${remoteUrl} has failed`,
-      '_blank',
-    )
+  // Reference: https://reactjs.org/docs/error-boundaries.html
+  static getDerivedStateFromError() {
+    // Update state so the next render will show the fallback UI.
+    return { failed: true }
   }
 
   render() {
     const { failed } = this.state
-    const { remoteUrl, children } = this.props
+    const { children, defaultChildren } = this.props
 
-    if (failed || !children)
-      return (
-        <Row
-          gutter={[8, 8]}
-          style={{ height: '100%' }}
-          align="middle"
-          justify="center"
-        >
-          <Col span={24}>
-            <Typography.Title level={4} style={{ textAlign: 'center' }}>
-              {remoteUrl}
-            </Typography.Title>
-          </Col>
-          <Col span={24}>
-            <p style={{ textAlign: 'center' }}>
-              Oops! The application can't load properly
-            </p>
-          </Col>
-          <Col span={24}>
-            <Button type="primary" onClick={this.support} block>
-              Support
-            </Button>
-          </Col>
-        </Row>
-      )
+    if (failed || !children) return defaultChildren
     return children
   }
 }

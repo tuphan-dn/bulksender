@@ -4,7 +4,8 @@ import { useHistory } from 'react-router'
 import { Card, Col, Row } from 'antd'
 import AppCardInfo from './appCardInfo'
 
-import { MultiStaticLoader } from 'os/components/appLoader'
+import { MultiStaticLoader } from 'os/components/staticLoader'
+import imgError from 'os/static/images/error-image.svg'
 
 const AppCard = ({
   appId,
@@ -27,6 +28,7 @@ const AppCard = ({
     <Row ref={ref}>
       <Col span={24}>
         <MultiStaticLoader
+          defaultData={[imgError]}
           appId={appId}
           type="panel"
           render={(data) => (

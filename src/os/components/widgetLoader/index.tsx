@@ -1,18 +1,10 @@
-import { forwardRef, Suspense } from 'react'
+import { forwardRef, Suspense, useCallback } from 'react'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 import { useRemoteModule } from 'react-dynamic-remote-component'
 
-import { Row, Spin } from 'antd'
+import { Row, Col, Typography, Button, Spin } from 'antd'
 import WidgetContainer from './widgetContainer'
-import ErrorBoundary from './errorBoundary'
-
-const WidgetLoading = () => (
-  <WidgetContainer>
-    <Row style={{ height: '100%' }} align="middle" justify="center">
-      <Spin />
-    </Row>
-  </WidgetContainer>
-)
+import ErrorBoundary from '../errorBoundary'
 
 /**
  * Remote component
@@ -28,12 +20,63 @@ const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
   },
 )
 
-export const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
+/**
+ * Fallback component
+ */
+const WidgetLoading = () => (
+  <WidgetContainer>
+    <Row style={{ height: '100%' }} align="middle" justify="center">
+      <Spin />
+    </Row>
+  </WidgetContainer>
+)
+
+/**
+ * Error component
+ */
+const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
+  const support = useCallback(() => {
+    return window.open(
+      `mailto:hi@sentre.io?subject=${url} has failed`,
+      '_blank',
+    )
+  }, [url])
+
+  return (
+    <WidgetContainer>
+      <Row
+        gutter={[8, 8]}
+        style={{ height: '100%' }}
+        align="middle"
+        justify="center"
+      >
+        <Col span={24}>
+          <Typography.Title level={4} style={{ textAlign: 'center' }}>
+            {url}
+          </Typography.Title>
+        </Col>
+        <Col span={24}>
+          <p style={{ textAlign: 'center' }}>
+            Oops! The application can't load properly
+          </p>
+        </Col>
+        <Col span={24}>
+          <Button type="primary" onClick={support} block>
+            Support
+          </Button>
+        </Col>
+      </Row>
+    </WidgetContainer>
+  )
+}
+
+const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
   (props, ref) => {
     const { url, appId } = props
     const manifest = { url, scope: appId, module: './widget' }
+
     return (
-      <ErrorBoundary {...props}>
+      <ErrorBoundary defaultChildren={<WidgetError url={url} />}>
         <Suspense fallback={<WidgetLoading />}>
           <RemoteComponent manifest={manifest} {...props} ref={ref} />
         </Suspense>
@@ -41,3 +84,5 @@ export const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
     )
   },
 )
+
+export default WidgetLoader

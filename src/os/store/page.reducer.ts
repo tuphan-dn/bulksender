@@ -25,7 +25,8 @@ const troubleshoot = (appIds?: AppIds): AppIds => {
 const fetchRegister = async () => {
   try {
     const re = await fetch(senreg)
-    return re.json()
+    const data = await re.json()
+    return data
   } catch (er) {
     return {}
   }
