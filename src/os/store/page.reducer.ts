@@ -26,7 +26,6 @@ const fetchRegister = async () => {
   try {
     const re = await fetch(senreg)
     const data = await re.json()
-    data.bulksender.url = 'error'
     return data
   } catch (er) {
     return {}
