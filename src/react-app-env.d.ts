@@ -15,11 +15,12 @@ interface Window {
     lamports: import('@senswap/sen-js').Lamports
     splt: import('@senswap/sen-js').SPLT
     swap: import('@senswap/sen-js').Swap
-    ipfs?: ReturnType<import('ipfs-core').create>
   }
+  // IPFS
+  ipfs?: ReturnType<import('ipfs-core').create>
   // Utility
   notify: ({ type, description, onClick }: SentreNotification) => void
-  // Partner wallet
+  // Partner wallets
   coin98: any
   solana: any
   Slope: any

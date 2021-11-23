@@ -4,8 +4,8 @@ import { asyncWait } from 'shared/util'
 class IPFS {
   private _ipfs: any = async () => {
     try {
-      if (!window.sentre?.ipfs) window.sentre.ipfs = await create()
-      return window.sentre.ipfs
+      if (!window.ipfs) window.ipfs = await create()
+      return window.ipfs
     } catch (er) {
       await asyncWait(500)
       return await this._ipfs()

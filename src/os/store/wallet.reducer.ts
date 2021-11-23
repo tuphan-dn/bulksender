@@ -18,7 +18,6 @@ const initializeWindow = async (wallet: WalletInterface | undefined) => {
     sol: { node, spltAddress, splataAddress, swapAddress },
   } = configs
   window.sentre = {
-    ...window.sentre,
     wallet,
     lamports: new Lamports(node),
     splt: new SPLT(spltAddress, splataAddress, node),
