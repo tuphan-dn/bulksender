@@ -22,7 +22,7 @@ const ScreenShot = ({ appId }: { appId: string }) => {
       <Col span={24}>
         <MultiStaticLoader
           appId={appId}
-          type="panel"
+          type="panels"
           defaultData={[imgError]}
           render={(data) => (
             <SwiperOs slidesPerView={calculatePerCard(data)}>

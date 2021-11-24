@@ -11,7 +11,7 @@ import { RootState } from 'os/store'
  * Remote Static
  */
 type StaticType = 'logo' | 'readme'
-type MultiStaticType = 'panel'
+type MultiStaticType = 'panels'
 
 const RemoteStatic = forwardRef<
   HTMLElement,

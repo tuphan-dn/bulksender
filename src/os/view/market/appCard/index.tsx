@@ -30,7 +30,7 @@ const AppCard = ({
         <MultiStaticLoader
           defaultData={[imgError]}
           appId={appId}
-          type="panel"
+          type="panels"
           render={(data) => (
             <Card
               style={{
