@@ -13,14 +13,14 @@ const {
  */
 
 export type State = {
-  register: SenHubRegister
+  register: SenReg
   appIds: AppIds
   widgetIds: AppIds
 }
 
-const troubleshoot = (appIds?: AppIds): AppIds => {
+const troubleshoot = (register: SenReg, appIds?: AppIds): AppIds => {
   if (!appIds || !Array.isArray(appIds)) return []
-  return appIds.filter((appId) => appId)
+  return appIds.filter((appId) => register[appId])
 }
 const fetchRegister = async () => {
   try {
@@ -61,15 +61,18 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
   async (_, { getState }) => {
     const {
       wallet: { address },
+      page: { register },
     } = getState()
 
     if (!account.isAddress(address)) throw new Error('Cannot connect wallet')
     // Fetch user's apps
     const db = new PDB(address).createInstance('sentre')
     const appIds = troubleshoot(
+      register,
       (await db.getItem('appIds')) || initialState.appIds,
     )
     const widgetIds = troubleshoot(
+      register,
       (await db.getItem('widgetIds')) || initialState.widgetIds,
     )
     return { appIds, widgetIds }
@@ -83,10 +86,11 @@ export const updatePage = createAsyncThunk<
 >(`${NAME}/updatePage`, async (appIds, { getState }) => {
   const {
     wallet: { address },
+    page: { register },
   } = getState()
   if (!account.isAddress(address))
     throw new Error('Wallet is not connected yet')
-  appIds = troubleshoot(appIds)
+  appIds = troubleshoot(register, appIds)
   const pdb = new PDB(address)
   await pdb.createInstance('sentre').setItem('appIds', appIds)
   return { appIds }

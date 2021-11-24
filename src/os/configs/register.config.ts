@@ -15,7 +15,7 @@ if (
  */
 
 type Conf = {
-  extra: SenHubRegister
+  extra: SenReg
   senreg: string
 }
 

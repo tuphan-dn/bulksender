@@ -47,7 +47,7 @@ type ComponentManifest = {
   verified: boolean
 }
 // List of application manifests
-type SenHubRegister = Record<string, ComponentManifest | undefined>
+type SenReg = Record<string, ComponentManifest | undefined>
 // Widget size
 type WidgetSize = 'small' | 'middle' | 'large'
 type WidgetType = 'default' | 'solid'

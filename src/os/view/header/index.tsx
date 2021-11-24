@@ -42,8 +42,10 @@ const Header = () => {
   const { width, theme } = useSelector((state: RootState) => state.ui)
 
   useEffect(() => {
-    dispatch(loadRegister())
-    if (account.isAddress(address)) dispatch(loadPage())
+    ;(async () => {
+      await dispatch(loadRegister())
+      if (account.isAddress(address)) await dispatch(loadPage())
+    })()
   }, [dispatch, address])
 
   return (
