@@ -21,7 +21,7 @@ const AppCard = ({
   const to = (appId: string) => history.push(`/store/${appId}`)
 
   useEffect(() => {
-    setCardHeight(((ref?.current as any)?.offsetWidth - 24) * 0.75)
+    setCardHeight((ref?.current as any)?.offsetWidth * 0.75)
   }, [ref])
 
   return (
@@ -30,7 +30,7 @@ const AppCard = ({
         <MultiStaticLoader
           defaultData={[imgError]}
           appId={appId}
-          type="panel"
+          type="panels"
           render={(data) => (
             <Card
               style={{

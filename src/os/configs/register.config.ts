@@ -2,10 +2,13 @@ import { Env } from 'shared/runtime'
 
 if (
   typeof process.env.REACT_APP_ID !== 'string' ||
+  typeof process.env.REACT_APP_NAME !== 'string' ||
   typeof process.env.REACT_APP_URL !== 'string' ||
   typeof process.env.REACT_APP_SENHUB !== 'string'
 )
-  throw new Error('Please add REACT_APP_ID, REACT_APP_URL in .env!')
+  throw new Error(
+    'Please add REACT_APP_ID, REACT_APP_NAME, REACT_APP_URL in .env.local!',
+  )
 
 /**
  * Contructor
@@ -20,13 +23,13 @@ const devApp = {
   [process.env.REACT_APP_ID]: {
     url: `${process.env.REACT_APP_URL}/index.js`,
     appId: process.env.REACT_APP_ID,
-    name: 'My App',
+    name: process.env.REACT_APP_NAME,
     author: {
-      name: 'Sentre',
-      email: 'hi@sentre.io',
+      name: process.env.REACT_APP_AUTHOR_NAME || '',
+      email: process.env.REACT_APP_AUTHOR_EMAIL || '',
     },
-    tags: ['solana', 'dapps'],
-    description: 'A sample project for Sentre developers',
+    tags: (process.env.REACT_APP_TAGS || '').split(','),
+    description: process.env.REACT_APP_DESCRIPTION || '',
     verified: false,
   },
 }
