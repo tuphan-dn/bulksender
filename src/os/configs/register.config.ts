@@ -21,7 +21,7 @@ type Conf = {
 
 const devApp = {
   [process.env.REACT_APP_ID]: {
-    url: `${process.env.REACT_APP_URL}/index.js`,
+    url: process.env.REACT_APP_URL,
     appId: process.env.REACT_APP_ID,
     name: process.env.REACT_APP_NAME,
     author: {
