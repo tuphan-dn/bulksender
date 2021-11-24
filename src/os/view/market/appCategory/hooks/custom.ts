@@ -7,22 +7,19 @@ export type CategoryFilter = {
 }
 
 export const findAppWithTag = (
-  register: SenHubRegister,
+  register: SenReg,
   appIds: AppIds,
   tag: string,
 ): AppIds => {
   return appIds.filter((appId) => register[appId]?.tags?.includes(tag))
 }
 
-export const findAppOthers = (
-  register: SenHubRegister,
-  appIds: AppIds,
-): AppIds => {
+export const findAppOthers = (register: SenReg, appIds: AppIds): AppIds => {
   return appIds.filter((appId) => !register[appId]?.tags)
 }
 
 export const findAppSuggest = (
-  register: SenHubRegister,
+  register: SenReg,
   appIds: AppIds,
   related: CategoryRelated,
 ) => {
@@ -42,7 +39,7 @@ export const findAppSuggest = (
 }
 
 export const filterApp = (
-  register: SenHubRegister,
+  register: SenReg,
   appIds: AppIds,
   { authorEmail }: CategoryFilter,
 ): AppIds => {

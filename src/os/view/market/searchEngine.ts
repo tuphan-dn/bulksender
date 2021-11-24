@@ -11,10 +11,10 @@ type SearchResult = {
 }
 
 class SearchEngine {
-  register: SenHubRegister
+  register: SenReg
   index: typeof Document
 
-  constructor(register: SenHubRegister) {
+  constructor(register: SenReg) {
     this.register = register
     this.index = new Document({
       document: {
