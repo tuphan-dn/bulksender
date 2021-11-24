@@ -24,7 +24,7 @@ const myApp = {
   verified: false,
 }
 
-const fileName = `register-${REACT_APP_ID}.json`
+const fileName = `${REACT_APP_ID}.json`
 fs.writeFileSync(fileName, JSON.stringify(myApp, null, 2))
 
 console.log(
