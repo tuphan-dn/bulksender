@@ -24,7 +24,6 @@ const BannerTop = () => {
         return (
           <div key={index}>
             <Card
-              key={index}
               style={{
                 height: '33vw',
                 backgroundPosition: 'center',
