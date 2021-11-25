@@ -31,13 +31,9 @@ function logError(error) {
 
 // Validate author
 if (!REACT_APP_AUTHOR_NAME)
-  return logError(`Invalid author name. Author name cannot be blank!`)
-
+  return logError(`Invalid author name. The author's name cannot be blank!`)
 if (!REACT_APP_AUTHOR_EMAIL)
-  return logError(`Invalid author email. Author email cannot be blank!`)
-
-// Validate tags
-if (!REACT_APP_TAGS) return logError(`Invalid tags. Tags cannot be blank!`)
+  return logError(`Invalid author email. The author's email cannot be blank!`)
 
 // Validate description
 if (!REACT_APP_DESCRIPTION)
@@ -48,40 +44,36 @@ if (!REACT_APP_NAME)
   return logError(`Invalid App name. App name cannot be blank!`)
 
 // Validate app ID
-const expectedAppID = REACT_APP_NAME.toLowerCase().replace(/ /gm, '_')
+const expectedAppID = REACT_APP_NAME.toLowerCase().replace(/ /g, '_')
 
 if (!REACT_APP_ID) return logError(`Invalid AppID. AppID cannot be blank!`)
-
 if (expectedAppID !== REACT_APP_ID)
   return logError(
-    `Invalid AppID. AppID expected is '${expectedAppID}' with App Name '${REACT_APP_NAME}'.`,
+    `Invalid AppID. The expected AppID is '${expectedAppID}' with App Name '${REACT_APP_NAME}'.`,
   )
-
-if (/\W/gm.test(REACT_APP_ID))
+if (/\W/g.test(REACT_APP_ID))
   return logError(`Invalid AppID. AppID can't contain any special characters.`)
 
-if (/[A-Z]/gm.test(REACT_APP_ID))
-  return logError(
-    `Invalid AppID. AppID can't contain any uppercase characters.`,
-  )
 // Validate URL
 if (!REACT_APP_URL) return logError(`Invalid Github. Github cannot be blank!`)
-if (!REACT_APP_URL.endsWith(`.github.io/${REACT_APP_ID}`)) {
+if (!REACT_APP_URL.endsWith(`.github.io/${REACT_APP_ID}`))
   return logError(
-    `Invalid Github. Github should be end with '.github.io/${REACT_APP_ID}'`,
+    `Invalid Github. Github should be ends with '.github.io/${REACT_APP_ID}'`,
   )
-}
 
 const myApp = {
   url: `${REACT_APP_URL}/index.js`,
   appId: REACT_APP_ID,
   name: REACT_APP_NAME,
   author: {
-    name: REACT_APP_AUTHOR_NAME || '',
-    email: REACT_APP_AUTHOR_EMAIL || '',
+    name: REACT_APP_AUTHOR_NAME,
+    email: REACT_APP_AUTHOR_EMAIL,
   },
-  tags: (REACT_APP_TAGS || '').split(','),
-  description: REACT_APP_DESCRIPTION || '',
+  tags: (REACT_APP_TAGS || '')
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter((tag) => tag),
+  description: REACT_APP_DESCRIPTION,
   verified: false,
 }
 
@@ -90,8 +82,8 @@ fs.writeFileSync(fileName, JSON.stringify(myApp, null, 2))
 
 console.log(
   GREEN_TEXT,
-  '\n👏👏 Finished build register configs. Check it out ==>',
-  '\x1b[36m',
-  fileName,
-  '\x1b[0m\n',
+  '\n👏👏 Completely built a manifest. Check it out ==>',
+  BLUE_TEXT,
+  `./${fileName}`,
+  DEFAULT_TEXT,
 )
