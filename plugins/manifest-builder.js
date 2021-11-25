@@ -56,10 +56,6 @@ if (/\W/g.test(REACT_APP_ID))
 
 // Validate URL
 if (!REACT_APP_URL) return logError(`Invalid Github. Github cannot be blank!`)
-if (!REACT_APP_URL.endsWith(`.github.io/${REACT_APP_ID}`))
-  return logError(
-    `Invalid Github. Github should be ends with '.github.io/${REACT_APP_ID}'`,
-  )
 
 const myApp = {
   url: `${REACT_APP_URL}/index.js`,
