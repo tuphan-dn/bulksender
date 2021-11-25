@@ -47,14 +47,35 @@ const initialState: State = {
  * Actions
  */
 
+// Must fetch register at very first of the process
 export const loadRegister = createAsyncThunk(
   `${NAME}/loadRegister`,
   async () => {
-    // Fetch register
     const register = await fetchRegister()
     return { register: { ...register, ...extra } }
   },
 )
+
+// For sandbox only
+export const installManifest = createAsyncThunk<
+  Partial<State>,
+  ComponentManifest,
+  { state: any }
+>(`${NAME}/installManifest`, async (manifest, { getState }) => {
+  const {
+    wallet: { address },
+    page: { appIds, widgetIds, register },
+  } = getState()
+  if (!account.isAddress(address))
+    throw new Error('Wallet is not connected yet')
+  const newAppIds: AppIds = [...appIds]
+  if (!newAppIds.includes(manifest.appId)) newAppIds.push(manifest.appId)
+  const newWidgetIds: AppIds = [...widgetIds]
+  if (!newWidgetIds.includes(manifest.appId)) newWidgetIds.push(manifest.appId)
+  const newRegister: SenReg = { ...register }
+  newRegister[manifest.appId] = manifest
+  return { appIds: newAppIds, widgetIds: newWidgetIds, register: newRegister }
+})
 
 export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
   `${NAME}/loadPage`,
@@ -208,6 +229,10 @@ const slice = createSlice({
     void builder
       .addCase(
         loadRegister.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        installManifest.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(
