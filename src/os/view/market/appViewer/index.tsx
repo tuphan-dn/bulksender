@@ -20,14 +20,16 @@ const AppViewer = () => {
       <Col span={24}>
         <Button
           type="text"
+          size="small"
           icon={<IonIcon name="arrow-back-outline" />}
+          style={{ marginLeft: -8 }}
           onClick={onBack}
         >
           Back
         </Button>
       </Col>
       <Col span={24}>
-        <Card>
+        <Card bordered={false}>
           <Row gutter={[24, 24]}>
             <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24}>
               <AppDetails appId={appId} />
