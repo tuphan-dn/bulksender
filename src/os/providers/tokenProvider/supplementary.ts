@@ -1,16 +1,3 @@
-export const sen = [
-  {
-    symbol: 'SEN',
-    name: 'Sen',
-    address: 'SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M',
-    decimals: 9,
-    chainId: 103,
-    extensions: {},
-    logoURI:
-      'https://raw.githubusercontent.com/DescartesNetwork/sen-static/master/logo.png',
-  },
-]
-
 const supplementary = [
   {
     symbol: 'wBTC',
@@ -41,7 +28,7 @@ const supplementary = [
     decimals: 9,
     chainId: 103,
     extensions: {
-      coingeckoId: 'dai',
+      coingeckoId: 'sen',
     },
     logoURI:
       'https://raw.githubusercontent.com/DescartesNetwork/sen-static/master/logo.png',

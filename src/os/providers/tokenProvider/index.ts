@@ -3,7 +3,7 @@ import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry'
 
 import { net } from 'shared/runtime'
 import configs from 'os/configs'
-import supplementary, { sen } from './supplementary'
+import supplementary from './supplementary'
 
 const {
   sol: { chainId },
@@ -46,7 +46,6 @@ class TokenProvider {
       .getList()
     if (this.cluster === 'devnet')
       this.tokenList = tokenList.concat(supplementary)
-    else this.tokenList = tokenList.concat(sen)
     return this.tokenList
   }
 
