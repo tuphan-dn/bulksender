@@ -57,7 +57,7 @@ if (/\W/g.test(REACT_APP_ID))
 if (!REACT_APP_URL) return logError(`Invalid Github. Github cannot be blank!`)
 
 const manifest = {
-  url: `${REACT_APP_URL}/index.js`,
+  url: REACT_APP_URL,
   appId: REACT_APP_ID,
   name: REACT_APP_NAME,
   author: {
