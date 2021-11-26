@@ -20,7 +20,7 @@ const Sandbox = () => {
           description: 'The DApp has been added to your workspace.',
         })
       } catch (er: any) {
-        return window.notify({ type: 'error', description: er.message })
+        return window.notify({ type: 'warning', description: er.message })
       }
     }
     reader.readAsText(file)

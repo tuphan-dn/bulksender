@@ -24,9 +24,8 @@ const troubleshoot = (register: SenReg, appIds?: AppIds): AppIds => {
 }
 const fetchRegister = async () => {
   try {
-    const re = await fetch(senreg)
-    const data = await re.json()
-    return data
+    const res = await fetch(senreg)
+    return await res.json()
   } catch (er) {
     return {}
   }
@@ -67,14 +66,13 @@ export const installManifest = createAsyncThunk<
     page: { appIds, widgetIds, register },
   } = getState()
   if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
+    throw new Error('Wallet is not connected yet.')
+  if (appIds.includes(manifest.appId))
+    throw new Error('Cannot run sandbox for an installed application.')
   const newAppIds: AppIds = [...appIds]
-  if (!newAppIds.includes(manifest.appId)) newAppIds.push(manifest.appId)
+  newAppIds.push(manifest.appId)
   const newWidgetIds: AppIds = [...widgetIds]
-  if (
-    !newWidgetIds.includes(manifest.appId) &&
-    manifest.supportedViews.includes('widget')
-  )
+  if (manifest.supportedViews.includes('widget'))
     newWidgetIds.push(manifest.appId)
   const newRegister: SenReg = { ...register }
   newRegister[manifest.appId] = manifest
@@ -92,7 +90,8 @@ export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
       page: { register },
     } = getState()
 
-    if (!account.isAddress(address)) throw new Error('Cannot connect wallet')
+    if (!account.isAddress(address))
+      throw new Error('Wallet is not connected yet.')
     // Fetch user's apps
     const db = new PDB(address).createInstance('sentre')
     const appIds = troubleshoot(
@@ -117,7 +116,7 @@ export const updatePage = createAsyncThunk<
     page: { register },
   } = getState()
   if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
+    throw new Error('Wallet is not connected yet.')
   appIds = troubleshoot(register, appIds)
   const pdb = new PDB(address)
   await pdb.createInstance('sentre').setItem('appIds', appIds)
@@ -134,7 +133,7 @@ export const installApp = createAsyncThunk<
     page: { register, appIds, widgetIds },
   } = getState()
   if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
+    throw new Error('Wallet is not connected yet.')
   if (appIds.includes(appId)) return {}
   const newAppIds: AppIds = [...appIds]
   newAppIds.push(appId)
@@ -157,7 +156,7 @@ export const uninstallApp = createAsyncThunk<
     page: { appIds, widgetIds },
   } = getState()
   if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
+    throw new Error('Wallet is not connected yet.')
   if (!appIds.includes(appId)) return {}
   const newAppIds = appIds.filter((_appId: string) => _appId !== appId)
   const newWidgetIds = widgetIds.filter((_appId: string) => _appId !== appId)
@@ -180,7 +179,7 @@ export const updateDashboard = createAsyncThunk<
     wallet: { address },
   } = getState()
   if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
+    throw new Error('Wallet is not connected yet.')
   const pdb = new PDB(address)
   await pdb.createInstance('sentre').setItem('widgetIds', widgetIds)
   return { widgetIds }
@@ -213,7 +212,7 @@ export const removeWidget = createAsyncThunk<
     page: { widgetIds },
   } = getState()
   if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
+    throw new Error('Wallet is not connected yet.')
   if (!widgetIds.includes(appId)) return {}
   const newWidgetIds = widgetIds.filter((_appId: string) => _appId !== appId)
   const pdb = new PDB(address)
