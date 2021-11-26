@@ -7,7 +7,7 @@
     "@project-serum/sol-wallet-adapter": "^0.2.6",
     "@reduxjs/toolkit": "^1.6.2",
     "@senswap/sen-js": "^1.1.0",
-    "@solana/spl-token-registry": "^0.2.280",
+    "@solana/spl-token-registry": "^0.2.459",
     "antd": "^4.17.0-alpha.7",
     "bs58": "^4.0.1",
     "flexsearch": "^0.7.21",
