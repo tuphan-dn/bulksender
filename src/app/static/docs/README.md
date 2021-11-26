@@ -1,11 +1,7 @@
 # Bulk Sender
 
-Single sign, Multiple transactions.
+Single sign for Multiple transactions.
 
-# Start
+## Guideline
 
-`npm install`
-</br>
-`yarn install`
-</br>
-`npm start`
+You can add a file of `csv` or csv-like `txt` to import the list of token receivers. There're several processes that will optimize the cost and make sure you will spend the least fee for token tranfers.
