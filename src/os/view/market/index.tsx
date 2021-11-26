@@ -34,7 +34,7 @@ const Market = () => {
   if (value) return <SearchResult value={value} />
   if (category) return <AppCategorySeeAll category={category} />
   return (
-    <Row gutter={[16, 48]}>
+    <Row gutter={[16, 48]} style={{ maxWidth: 1440, margin: 'auto' }}>
       <Col span={24}>
         <BannerTop />
       </Col>
