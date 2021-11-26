@@ -22,7 +22,7 @@ const Market = () => {
     let tags: string[] = []
     for (const appId in register) {
       const newTags = register[appId]?.tags || []
-      //remove duplicate element
+      // Remove duplicate elements
       tags = Array.from(new Set([...tags, ...newTags]))
     }
     return CATEGORIES.filter((category) => tags.includes(category))
@@ -34,20 +34,24 @@ const Market = () => {
   if (value) return <SearchResult value={value} />
   if (category) return <AppCategorySeeAll category={category} />
   return (
-    <Row gutter={[16, 48]} style={{ maxWidth: 1440, margin: 'auto' }}>
-      <Col span={24}>
-        <BannerTop />
-      </Col>
-      {tags.map((tag) => (
-        <Col span={24} key={tag}>
-          <AppCategorySlice category={tag} />
-        </Col>
-      ))}
-      <Col span={24}>
-        <AppCategorySlice category="others" />
-      </Col>
-      <Col span={24}>
-        <BannerBottom />
+    <Row gutter={[16, 48]} justify="center">
+      <Col span={24} style={{ maxWidth: 1920, width: '100%' }}>
+        <Row gutter={[16, 48]}>
+          <Col span={24}>
+            <BannerTop />
+          </Col>
+          {tags.map((tag) => (
+            <Col span={24} key={tag}>
+              <AppCategorySlice category={tag} />
+            </Col>
+          ))}
+          <Col span={24}>
+            <AppCategorySlice category="others" />
+          </Col>
+          <Col span={24}>
+            <BannerBottom />
+          </Col>
+        </Row>
       </Col>
     </Row>
   )

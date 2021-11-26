@@ -24,11 +24,6 @@ const BannerTop = () => {
     fetchListBanner()
   }, [])
 
-  const calculateBannerHeight = () => {
-    if (width > 1440) return 1440 / 3
-    return (width - PAGE_PADDING * 2) / 3
-  }
-
   return (
     <Carousel>
       {listBanner.map((banner, index) => {
@@ -36,7 +31,7 @@ const BannerTop = () => {
           <div key={index}>
             <Card
               style={{
-                height: calculateBannerHeight(),
+                height: Math.min(1440 / 3, (width - PAGE_PADDING * 2) / 3),
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
