@@ -60,6 +60,10 @@ const manifest = {
   url: REACT_APP_URL,
   appId: REACT_APP_ID,
   name: REACT_APP_NAME,
+  supportedViews: (REACT_APP_SUPPORTED_VIEWS || '')
+    .split(',')
+    .map((view) => view.trim())
+    .filter((view) => ['page', 'widget'].includes(view)),
   author: {
     name: REACT_APP_AUTHOR_NAME,
     email: REACT_APP_AUTHOR_EMAIL,

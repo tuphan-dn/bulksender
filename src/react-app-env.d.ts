@@ -43,6 +43,7 @@ type ComponentManifest = {
     email: string
   }
   tags: string[]
+  supportedViews: Array<'page' | 'widget'>
   description: string
   verified: boolean
 }

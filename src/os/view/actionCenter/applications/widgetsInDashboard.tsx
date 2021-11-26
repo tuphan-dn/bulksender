@@ -14,7 +14,9 @@ const WidgetsInDashboard = () => {
   const [disabled, setDisabled] = useState(true)
   const [visible, setVisible] = useState(false)
   const [selectedWidgets, setSelectedWidgets] = useState<AppIds>([])
-  const { appIds, widgetIds } = useSelector((state: RootState) => state.page)
+  const { register, appIds, widgetIds } = useSelector(
+    (state: RootState) => state.page,
+  )
 
   const onChange = (appIds: AppIds) => dispatch(updateDashboard(appIds))
   const onRemove = (appId: string) => dispatch(removeWidget(appId))
@@ -88,7 +90,11 @@ const WidgetsInDashboard = () => {
       >
         <Row gutter={[12, 12]}>
           {appIds
-            .filter((appId) => !widgetIds.includes(appId))
+            .filter(
+              (appId) =>
+                !widgetIds.includes(appId) &&
+                register[appId]?.supportedViews?.includes('widget'),
+            )
             .map((appId) => (
               <Col span={24} key={appId}>
                 <Row gutter={[12, 12]} justify="space-between" align="middle">

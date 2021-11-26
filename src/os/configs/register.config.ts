@@ -28,7 +28,15 @@ const devApp = {
       name: process.env.REACT_APP_AUTHOR_NAME || '',
       email: process.env.REACT_APP_AUTHOR_EMAIL || '',
     },
-    tags: (process.env.REACT_APP_TAGS || '').split(','),
+    supportedViews: (process.env.REACT_APP_SUPPORTED_VIEWS || '')
+      .split(',')
+      .map((view) => view.trim())
+      .filter((view) => ['page', 'widget'].includes(view)) as Array<
+      'widget' | 'page'
+    >,
+    tags: (process.env.REACT_APP_TAGS || '')
+      .split(',')
+      .map((tag) => tag.trim()),
     description: process.env.REACT_APP_DESCRIPTION || '',
     verified: false,
   },
