@@ -7,7 +7,11 @@ import AppIcon from 'os/components/appIcon'
 import WidgetLayout from './widgetLayout'
 
 import { RootDispatch, RootState } from 'os/store'
-import { addWidget, removeWidget, updateDashboard } from 'os/store/page.reducer'
+import {
+  addWidgets,
+  removeWidget,
+  updateDashboard,
+} from 'os/store/page.reducer'
 
 const WidgetsInDashboard = () => {
   const dispatch = useDispatch<RootDispatch>()
@@ -30,7 +34,7 @@ const WidgetsInDashboard = () => {
     return setVisible(false)
   }
   const onAdd = () => {
-    dispatch(addWidget(selectedWidgets))
+    dispatch(addWidgets(selectedWidgets))
     return onClose()
   }
 

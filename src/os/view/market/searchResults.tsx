@@ -41,7 +41,8 @@ const SearchResult = ({ value }: { value: string }) => {
         <Button
           type="text"
           size="small"
-          icon={<IonIcon name="arrow-back-outline"></IonIcon>}
+          icon={<IonIcon name="arrow-back-outline" />}
+          style={{ marginLeft: -8 }}
           onClick={() => {
             history.push('/store')
             dispatch(setValue(''))

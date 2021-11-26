@@ -11,7 +11,7 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { register, appIds } = useSelector((state: RootState) => state.page)
-  const appData = register[appId]
+  const manifest = register[appId]
 
   const onInstall = (e: any) => {
     e.stopPropagation()
@@ -40,9 +40,9 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
             <AppIcon size={32} appId={appId} name={false} />
           </Col>
           <Col flex="auto">
-            <Typography.Title level={5}>{appData?.name}</Typography.Title>
+            <Typography.Title level={5}>{manifest?.name}</Typography.Title>
             <Typography.Text type="secondary">
-              {appData?.author.name}
+              {manifest?.author.name}
             </Typography.Text>
           </Col>
           <Col>
