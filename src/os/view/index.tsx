@@ -27,7 +27,7 @@ const View = () => {
   }, [theme])
 
   return (
-    <Layout style={{ minHeight: '100vh', maxWidth: 1440, margin: 'auto' }}>
+    <Layout style={{ minHeight: '100vh' }}>
       {/* Header */}
       <Affix>
         <Card

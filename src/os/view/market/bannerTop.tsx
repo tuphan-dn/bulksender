@@ -1,9 +1,15 @@
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import { Card, Carousel } from 'antd'
 
+import { RootState } from 'os/store'
+
+const PAGE_PADDING = 20
+
 const BannerTop = () => {
   const [listBanner, setListBanner] = useState<string[]>([])
+  const { width } = useSelector((state: RootState) => state.ui)
 
   const fetchListBanner = async () => {
     //TODO fetch:
@@ -18,14 +24,19 @@ const BannerTop = () => {
     fetchListBanner()
   }, [])
 
+  const calculateBannerHeight = () => {
+    if (width > 1440) return 1440 / 3
+    return (width - PAGE_PADDING * 2) / 3
+  }
+
   return (
-    <Carousel autoplay>
+    <Carousel>
       {listBanner.map((banner, index) => {
         return (
           <div key={index}>
             <Card
               style={{
-                height: '33vw',
+                height: calculateBannerHeight(),
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
