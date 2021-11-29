@@ -5,6 +5,7 @@ import { account } from '@senswap/sen-js'
 import { Row, Col, Typography, Space } from 'antd'
 import Paragraph from 'antd/lib/typography/Paragraph'
 import AppIcon from 'os/components/appIcon'
+import BlueTick from 'os/components/blueTick'
 import AppInstall from './appInstall'
 import AppTags from './appTags'
 import AppAuthor from './appAuthor'
@@ -18,7 +19,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
   const { register } = useSelector((state: RootState) => state.page)
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appIds } = useSelector((state: RootState) => state.page)
-  const { description, author, name, tags } = register[appId] || {}
+  const { description, author, name, tags, verified } = register[appId] || {}
 
   const isMobile = infix === 'xs' || infix === 'sm'
 
@@ -42,8 +43,15 @@ const AppDetails = ({ appId }: { appId: string }) => {
               </Col>
               <Col flex="auto">
                 <Space direction="vertical" size={16}>
-                  <Typography.Title level={2}>{name}</Typography.Title>
-                  <AppTags tags={tags}/>
+                  <Row align="middle" gutter={[16, 16]}>
+                    <Col>
+                      <Typography.Title level={2}>{name}</Typography.Title>
+                    </Col>
+                    <Col>
+                      <BlueTick verified={verified} />
+                    </Col>
+                  </Row>
+                  <AppTags tags={tags} />
                 </Space>
               </Col>
             </Row>

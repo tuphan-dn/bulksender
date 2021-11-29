@@ -6,6 +6,7 @@ import AppIcon from 'os/components/appIcon'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
+import BlueTick from 'os/components/blueTick'
 
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
@@ -40,7 +41,14 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
             <AppIcon size={32} appId={appId} name={false} />
           </Col>
           <Col flex="auto">
-            <Typography.Title level={5}>{manifest?.name}</Typography.Title>
+            <Row align="middle" gutter={[8, 8]}>
+              <Col>
+                <Typography.Title level={5}>{manifest?.name}</Typography.Title>
+              </Col>
+              <Col>
+                <BlueTick verified={manifest?.verified} />
+              </Col>
+            </Row>
             <Typography.Text type="secondary">
               {manifest?.author.name}
             </Typography.Text>
