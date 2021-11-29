@@ -22,6 +22,7 @@ const AppViewer = () => {
           type="text"
           icon={<IonIcon name="arrow-back-outline" />}
           onClick={onBack}
+          style={{ marginLeft: -7 }}
         >
           Back
         </Button>
