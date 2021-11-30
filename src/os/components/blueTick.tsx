@@ -2,20 +2,23 @@ import React from 'react'
 
 import IonIcon from 'shared/ionicon'
 
-const BlueTick = ({ verified }: { verified: any }) => {
+const BlueTick = ({
+  verified,
+  size = 20,
+  color = 'inherit',
+}: {
+  verified?: boolean
+  size?: number
+  color?: string
+}) => {
   return verified ? (
-    <span
+    <IonIcon
+      name="checkmark-circle"
       style={{
-        background: '#18A0FB ',
-        width: 15,
-        height: 15,
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
+        color: color,
+        fontSize: size,
       }}
-    >
-      <IonIcon name="checkmark-outline" style={{ color: 'white' }} />
-    </span>
+    />
   ) : null
 }
 

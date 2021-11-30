@@ -42,9 +42,9 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
           </Col>
           <Col flex="auto">
             <Space direction="vertical" size={0}>
-              <Space>
+              <Space align="center">
                 <Typography.Title level={5}>{manifest?.name}</Typography.Title>
-                <BlueTick verified={manifest?.verified} />
+                <BlueTick verified={manifest?.verified} color="#18A0FB" />
               </Space>
               <Typography.Text type="secondary">
                 {manifest?.author.name}
