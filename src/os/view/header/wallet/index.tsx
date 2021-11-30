@@ -24,6 +24,7 @@ import {
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const dispatch = useDispatch<RootDispatch>()
   const { address } = useSelector((state: RootState) => state.wallet)
+  const { width } = useSelector((state: RootState) => state.ui)
 
   const reconnect = () => {
     const walletType = session.get('WalletType')
@@ -47,7 +48,24 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
     }
   }, [dispatch])
 
-  if (!account.isAddress(address))
+  if (account.isAddress(address))
+    return (
+      <Button
+        type="text"
+        icon={<IonIcon name="power-outline" />}
+        onClick={() => dispatch(disconnectWallet())}
+        style={{
+          color: '#E9E9EB',
+          padding: 0,
+          background: 'transparent',
+          height: 'auto',
+          ...style,
+        }}
+      >
+        Disconnect
+      </Button>
+    )
+  if (width < 992)
     return (
       <Fragment>
         <Button
@@ -61,23 +79,7 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
         <Login />
       </Fragment>
     )
-
-  return (
-    <Button
-      type="text"
-      icon={<IonIcon name="power-outline" />}
-      onClick={() => dispatch(disconnectWallet())}
-      style={{
-        color: '#E9E9EB',
-        padding: 0,
-        background: 'transparent',
-        height: 'auto',
-        ...style,
-      }}
-    >
-      Disconnect
-    </Button>
-  )
+  return null
 }
 
 export default Wallet
