@@ -5,12 +5,11 @@ import { account } from '@senswap/sen-js'
 
 import { Row, Col, Card } from 'antd'
 import WelcomeSlide from './welcomeSlide'
-
-import { RootState } from 'os/store'
-
-import './index.less'
 import SocialButton from './socialButton'
 import WalletConnection from '../header/wallet/login/walletConnection'
+
+import { RootState } from 'os/store'
+import './index.less'
 
 const Welcome = () => {
   const history = useHistory()
@@ -30,7 +29,7 @@ const Welcome = () => {
         <WelcomeSlide />
         <SocialButton />
       </Col>
-      {width > 991.9 && (
+      {width >= 992 && (
         <Col xs={24} lg={12} className="welcome-wallet-connection">
           <Card
             className="card-wallet-connection"

@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
@@ -21,10 +20,6 @@ const Sollet = () => {
     }
   }
 
-  const avatarSize = useMemo(() => {
-    return infix === 'lg' ? 32 : 64
-  }, [infix])
-
   return (
     <Card
       onClick={connect}
@@ -34,7 +29,7 @@ const Sollet = () => {
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
-          <Avatar size={avatarSize} shape="square" src={SOLLET} />
+          <Avatar size={infix === 'lg' ? 32 : 64} shape="square" src={SOLLET} />
         </Col>
         <Col span={24}>
           <p style={{ margin: 0, textAlign: 'center' }}>Sollet</p>
