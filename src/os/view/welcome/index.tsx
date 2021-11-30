@@ -20,7 +20,12 @@ const Welcome = () => {
 
   // Redirect callback
   useEffect(() => {
-    if (account.isAddress(walletAddress)) return history.push('/dashboard')
+    const {
+      location: { search },
+    } = history
+    const params = new URLSearchParams(search)
+    const redirect = decodeURI(params.get('redirect') || '/dashboard')
+    if (account.isAddress(walletAddress)) history.push(redirect)
   }, [walletAddress, history])
 
   return (
