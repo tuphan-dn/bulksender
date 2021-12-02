@@ -34,6 +34,7 @@ const Page = () => {
           </Col>
         </Row>
       </Col>
+      <Col span={24} />
     </Row>
   )
 }
