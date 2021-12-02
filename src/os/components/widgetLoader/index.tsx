@@ -11,7 +11,7 @@ import ErrorBoundary from '../errorBoundary'
  */
 const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
   ({ manifest, ...props }, ref) => {
-    const { default: Component, widgetConfig } = useRemoteModule(manifest)
+    const { Widget: Component, widgetConfig } = useRemoteModule(manifest)
     return (
       <WidgetContainer {...widgetConfig}>
         <Component {...props} ref={ref} />
@@ -73,7 +73,7 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
 const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
   (props, ref) => {
     const { url, appId } = props
-    const manifest = { url, scope: appId, module: './widget' }
+    const manifest = { url, scope: appId, module: './bootstrap' }
 
     return (
       <ErrorBoundary defaultChildren={<WidgetError url={url} />}>
