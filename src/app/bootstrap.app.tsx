@@ -7,7 +7,6 @@ import {
   PoolProvider,
 } from 'senhub/providers'
 
-import { ConfigProvider } from 'antd'
 import PageView from 'app/page'
 import WidgetView from 'app/widget'
 
@@ -28,9 +27,7 @@ export const Page = () => {
           <MintProvider>
             <PoolProvider>
               <Provider store={model}>
-                <ConfigProvider prefixCls={appId}>
-                  <PageView />
-                </ConfigProvider>
+                <PageView />
               </Provider>
             </PoolProvider>
           </MintProvider>
@@ -53,9 +50,7 @@ export const Widget = () => {
           <MintProvider>
             <PoolProvider>
               <Provider store={model}>
-                <ConfigProvider prefixCls={appId}>
-                  <WidgetView />
-                </ConfigProvider>
+                <WidgetView />
               </Provider>
             </PoolProvider>
           </MintProvider>
