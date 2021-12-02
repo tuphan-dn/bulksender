@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkbulk_sender=self.webpackChunkbulk_sender||[]).push([[366],{63366:function(e,n,u){function r(e,n){if(null==e)return{};var u,r,t={},f=Object.keys(e);for(r=0;r<f.length;r++)u=f[r],n.indexOf(u)>=0||(t[u]=e[u]);return t}u.d(n,{Z:function(){return r}})}}]);
+//# sourceMappingURL=366.bf336e3b.chunk.js.map
