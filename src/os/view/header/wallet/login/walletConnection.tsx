@@ -17,16 +17,16 @@ const WalletConnection = () => {
       <Col span={24}>
         <Typography.Title level={5}>Wallet Connection</Typography.Title>
       </Col>
-      <Col span={8}>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Coin98 />
       </Col>
-      <Col span={8}>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Phantom />
       </Col>
-      <Col span={8}>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Sollet />
       </Col>
-      <Col span={8}>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Slope />
       </Col>
       <Col span={24}>
