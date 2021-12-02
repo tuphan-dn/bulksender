@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-import { Button, Card, Col, Row, Typography } from 'antd'
+import { Button, Card, Col, Row, Space, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
+import BlueTick from 'os/components/blueTick'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
@@ -40,10 +41,15 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
             <AppIcon size={32} appId={appId} name={false} />
           </Col>
           <Col flex="auto">
-            <Typography.Title level={5}>{manifest?.name}</Typography.Title>
-            <Typography.Text type="secondary">
-              {manifest?.author.name}
-            </Typography.Text>
+            <Space direction="vertical" size={0}>
+              <Space align="center">
+                <Typography.Title level={5}>{manifest?.name}</Typography.Title>
+                <BlueTick verified={manifest?.verified} color="#18A0FB" />
+              </Space>
+              <Typography.Text type="secondary">
+                {manifest?.author.name}
+              </Typography.Text>
+            </Space>
           </Col>
           <Col>
             {appIds.includes(appId) ? (

@@ -47,36 +47,35 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
     }
   }, [dispatch])
 
-  if (!account.isAddress(address))
+  if (account.isAddress(address))
     return (
-      <Fragment>
-        <Button
-          style={style}
-          type="primary"
-          icon={<IonIcon name="wallet-outline" />}
-          onClick={() => dispatch(openWallet())}
-        >
-          Connect Wallet
-        </Button>
-        <Login />
-      </Fragment>
+      <Button
+        type="text"
+        icon={<IonIcon name="power-outline" />}
+        onClick={() => dispatch(disconnectWallet())}
+        style={{
+          color: '#E9E9EB',
+          padding: 0,
+          background: 'transparent',
+          height: 'auto',
+          ...style,
+        }}
+      >
+        Disconnect
+      </Button>
     )
-
   return (
-    <Button
-      type="text"
-      icon={<IonIcon name="power-outline" />}
-      onClick={() => dispatch(disconnectWallet())}
-      style={{
-        color: '#E9E9EB',
-        padding: 0,
-        background: 'transparent',
-        height: 'auto',
-        ...style,
-      }}
-    >
-      Disconnect
-    </Button>
+    <Fragment>
+      <Button
+        style={style}
+        type="primary"
+        icon={<IonIcon name="wallet-outline" />}
+        onClick={() => dispatch(openWallet())}
+      >
+        Connect Wallet
+      </Button>
+      <Login />
+    </Fragment>
   )
 }
 

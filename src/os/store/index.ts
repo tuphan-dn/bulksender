@@ -10,6 +10,9 @@ import mints from './mints.reducer'
 import pools from './pools.reducer'
 import search from './search.reducer'
 
+/**
+ * Root store
+ */
 const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(bigintSerializationMiddleware),

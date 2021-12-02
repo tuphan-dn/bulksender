@@ -5,6 +5,7 @@ import { account } from '@senswap/sen-js'
 import { Row, Col, Typography, Space } from 'antd'
 import Paragraph from 'antd/lib/typography/Paragraph'
 import AppIcon from 'os/components/appIcon'
+import BlueTick from 'os/components/blueTick'
 import AppInstall from './appInstall'
 import AppTags from './appTags'
 import AppAuthor from './appAuthor'
@@ -18,7 +19,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
   const { register } = useSelector((state: RootState) => state.page)
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appIds } = useSelector((state: RootState) => state.page)
-  const { description, author, name, tags } = register[appId] || {}
+  const { description, author, name, tags, verified } = register[appId] || {}
 
   const isMobile = infix === 'xs' || infix === 'sm'
 
@@ -35,20 +36,23 @@ const AppDetails = ({ appId }: { appId: string }) => {
     <Row gutter={[16, 16]}>
       <Col span={24}>
         <Row gutter={[16, 16]}>
-          <Col span={isMobile ? 24 : 12}>
+          <Col span={isMobile ? 24 : 14}>
             <Row gutter={[32, 24]} wrap={false}>
               <Col>
                 <AppIcon appId={appId} size={96} name={false} />
               </Col>
               <Col flex="auto">
                 <Space direction="vertical" size={16}>
-                  <Typography.Title level={2}>{name}</Typography.Title>
-                  <AppTags tags={tags}/>
+                  <Space align="center">
+                    <Typography.Title level={2}>{name}</Typography.Title>
+                    <BlueTick verified={verified} color="#18A0FB" />
+                  </Space>
+                  <AppTags tags={tags} />
                 </Space>
               </Col>
             </Row>
           </Col>
-          <Col span={isMobile ? 24 : 12}>
+          <Col span={isMobile ? 24 : 10}>
             <Row gutter={[16, 16]} justify={floatSocialButton()}>
               <Col span={24}>
                 <AppInstall appId={appId} installed={installed} />
