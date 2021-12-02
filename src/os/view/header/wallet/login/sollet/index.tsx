@@ -1,15 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
 import SOLLET from 'os/static/images/sollet.png'
-import { RootDispatch, RootState } from 'os/store'
+import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SolletWallet } from '../../lib'
 
 const Sollet = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const { infix } = useSelector((state: RootState) => state.ui)
 
   const connect = async () => {
     const wallet = new SolletWallet()
@@ -29,7 +28,7 @@ const Sollet = () => {
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
-          <Avatar size={infix === 'lg' ? 32 : 64} shape="square" src={SOLLET} />
+          <Avatar size={64} shape="square" src={SOLLET} />
         </Col>
         <Col span={24}>
           <p style={{ margin: 0, textAlign: 'center' }}>Sollet</p>

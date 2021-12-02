@@ -1,15 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
 import COIN98 from 'os/static/images/coin98.png'
-import { RootDispatch, RootState } from 'os/store'
+import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { Coin98Wallet } from '../../lib'
 
 const Coin98 = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const { infix } = useSelector((state: RootState) => state.ui)
 
   const connect = async () => {
     const { coin98 } = window
@@ -36,7 +35,7 @@ const Coin98 = () => {
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
-          <Avatar size={infix === 'lg' ? 32 : 64} shape="square" src={COIN98} />
+          <Avatar size={64} shape="square" src={COIN98} />
         </Col>
         <Col span={24}>
           <p style={{ margin: 0, textAlign: 'center' }}>Coin98</p>
