@@ -1,4 +1,5 @@
 const fs = require('fs')
+const prettier = require('prettier')
 const {
   parsed: {
     REACT_APP_ID,
@@ -78,12 +79,27 @@ const manifest = {
 }
 
 const fileName = `${REACT_APP_ID}.manifest.json`
-fs.writeFileSync(fileName, JSON.stringify(manifest, null, 2))
-
-console.log(
-  GREEN_TEXT,
-  '\n👏👏 Completely built a manifest. Check it out ==>',
-  BLUE_TEXT,
-  `./${fileName}`,
-  DEFAULT_TEXT,
-)
+prettier
+  .resolveConfigFile()
+  .then((configFile) => {
+    return prettier.resolveConfig(configFile)
+  })
+  .then((options) => {
+    return prettier.format(JSON.stringify(manifest, null, 2), {
+      ...options,
+      parser: 'json',
+    })
+  })
+  .then((text) => {
+    fs.writeFileSync(fileName, text)
+    return console.log(
+      GREEN_TEXT,
+      '\n👏👏 Completely built a manifest. Check it out ==>',
+      BLUE_TEXT,
+      `./${fileName}`,
+      DEFAULT_TEXT,
+    )
+  })
+  .catch((er) => {
+    throw new Error(er)
+  })
