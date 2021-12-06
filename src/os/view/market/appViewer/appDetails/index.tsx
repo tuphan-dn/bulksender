@@ -5,7 +5,7 @@ import { account } from '@senswap/sen-js'
 import { Row, Col, Typography, Space } from 'antd'
 import Paragraph from 'antd/lib/typography/Paragraph'
 import AppIcon from 'os/components/appIcon'
-import BlueTick from 'os/components/blueTick'
+import Verification from 'os/components/verification'
 import AppInstall from './appInstall'
 import AppTags from './appTags'
 import AppAuthor from './appAuthor'
@@ -45,7 +45,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
                 <Space direction="vertical" size={16}>
                   <Space align="center">
                     <Typography.Title level={2}>{name}</Typography.Title>
-                    <BlueTick verified={verified} color="#18A0FB" />
+                    <Verification verified={verified} />
                   </Space>
                   <AppTags tags={tags} />
                 </Space>
