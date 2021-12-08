@@ -13,9 +13,10 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     }),
   )
   // Add util polyfill
-  // (For IPFS compatibility)
+  // (For IPFS/Web3 compatibility)
   webpackConfig.resolve.fallback = {
     util: require.resolve('util/'),
+    assert: require.resolve('assert/'),
   }
   // Fix unrecognized change / caching problem
   webpackConfig.cache.buildDependencies.config.push(

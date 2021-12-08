@@ -74,6 +74,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.1",
     "@types/remarkable": "^2.0.3",
+    "assert": "^2.0.0",
     "craco-module-federation": "^1.1.0",
     "dotenv-cra": "^3.0.2",
     "env-cmd": "^10.1.0",
