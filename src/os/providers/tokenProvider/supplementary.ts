@@ -1,4 +1,37 @@
+export const sen = (chainId: number) => ({
+  symbol: 'SEN',
+  name: 'Sen',
+  address:
+    chainId === 101
+      ? 'SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M'
+      : chainId === 102
+      ? ''
+      : '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
+  decimals: 9,
+  chainId,
+  extensions: {
+    coingeckoId: 'sen',
+  },
+  logoURI:
+    'https://raw.githubusercontent.com/DescartesNetwork/sen-static/master/logo.png',
+})
+
+export const sol = (chainId: number) => ({
+  symbol: 'SOL',
+  name: 'Solana',
+  address: '11111111111111111111111111111111',
+  decimals: 9,
+  chainId,
+  extensions: {
+    coingeckoId: 'solana',
+  },
+  logoURI:
+    'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
+})
+
 const supplementary = [
+  sol(103),
+  sen(103),
   {
     symbol: 'wBTC',
     name: 'Wrapped Bitcoin',
@@ -8,7 +41,8 @@ const supplementary = [
     extensions: {
       coingeckoId: 'bitcoin',
     },
-    logoURI: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
+    logoURI:
+      'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/qfnqNqs3nCAHjnyCgLRDbBtq4p2MtHZxw8YjSyYhPoL/logo.png',
   },
   {
     symbol: 'wETH',
@@ -19,19 +53,8 @@ const supplementary = [
     extensions: {
       coingeckoId: 'ethereum',
     },
-    logoURI: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
-  },
-  {
-    symbol: 'SEN',
-    name: 'Sen',
-    address: '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
-    decimals: 9,
-    chainId: 103,
-    extensions: {
-      coingeckoId: 'sen',
-    },
     logoURI:
-      'https://raw.githubusercontent.com/DescartesNetwork/sen-static/master/logo.png',
+      'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/FeGn77dhg1KXRRFeSwwMiykZnZPw5JXW6naf2aQgZDQf/logo.png',
   },
   {
     symbol: 'UNI',
@@ -43,19 +66,19 @@ const supplementary = [
       coingeckoId: 'uniswap',
     },
     logoURI:
-      'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni.png',
+      'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/3MVa4e32PaKmPxYUQ6n8vFkWtCma68Ld7e7fTktWDueQ/logo.png',
   },
   {
-    symbol: 'CAKE',
-    name: 'PancakeSwap',
+    symbol: 'USDC',
+    name: 'USD Coin',
     address: '2z6Ci38Cx6PyL3tFrT95vbEeB3izqpoLdxxBkJk2euyj',
     decimals: 9,
     chainId: 103,
     extensions: {
-      coingeckoId: 'pancakeswap-token',
+      coingeckoId: 'usd-coin',
     },
     logoURI:
-      'https://assets.coingecko.com/coins/images/12632/large/IMG_0440.PNG',
+      'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png',
   },
 ]
 
