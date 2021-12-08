@@ -3,7 +3,7 @@ import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry'
 
 import { net } from 'shared/runtime'
 import configs from 'os/configs'
-import supplementary from './supplementary'
+import supplementary, { sen, sol } from './supplementary'
 
 const {
   sol: { chainId },
@@ -26,12 +26,14 @@ const DOCUMENT = {
 
 class TokenProvider {
   private tokenList: TokenInfo[]
+  private mapTokenList: Map<string, TokenInfo>
   private engine: typeof Document | undefined
   readonly chainId: typeof chainId
   readonly cluster: typeof net
 
   constructor() {
     this.tokenList = []
+    this.mapTokenList = new Map<string, TokenInfo>()
     this.engine = undefined
     this.chainId = chainId
     this.cluster = net
@@ -41,11 +43,17 @@ class TokenProvider {
 
   private _init = async (): Promise<TokenInfo[]> => {
     if (this.tokenList.length) return this.tokenList
-    const tokenList = await (await new TokenListProvider().resolve())
+    let tokenList = await (await new TokenListProvider().resolve())
       .filterByChainId(this.chainId)
       .getList()
-    if (this.cluster === 'devnet')
-      this.tokenList = tokenList.concat(supplementary)
+    if (this.cluster === 'devnet') tokenList = tokenList.concat(supplementary)
+    if (this.cluster === 'testnet')
+      tokenList = tokenList.concat([sen(102), sol(102)])
+    else tokenList = tokenList.concat([sen(101), sol(101)])
+
+    for (const token of tokenList)
+      this.mapTokenList.set(token.address, token)
+    this.tokenList = tokenList
     return this.tokenList
   }
 
@@ -62,8 +70,8 @@ class TokenProvider {
   }
 
   findByAddress = async (addr: string): Promise<TokenInfo | undefined> => {
-    const tl = await this._init()
-    return tl.find(({ address }) => address === addr)
+    await this._init()
+    return this.mapTokenList.get(addr)
   }
 
   find = async (keyword: string, limit?: 10): Promise<TokenInfo[]> => {
