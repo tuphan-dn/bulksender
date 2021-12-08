@@ -3,7 +3,7 @@ import { useHistory } from 'react-router'
 
 import { Button, Card, Col, Row, Space, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
-import BlueTick from 'os/components/blueTick'
+import Verification from 'os/components/verification'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
@@ -42,9 +42,9 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
           </Col>
           <Col flex="auto">
             <Space direction="vertical" size={0}>
-              <Space align="center">
+              <Space align="center" style={{ lineHeight: 1 }}>
                 <Typography.Title level={5}>{manifest?.name}</Typography.Title>
-                <BlueTick verified={manifest?.verified} color="#18A0FB" />
+                <Verification verified={manifest?.verified} />
               </Space>
               <Typography.Text type="secondary">
                 {manifest?.author.name}
