@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react'
 
 import { Card, Col, Row } from 'antd'
+import { useSelector } from 'react-redux'
+import { RootState } from 'os/store'
+
+const PAGE_PADDING = 20
+const ELEMENT_PADDING = 24
 
 const BannerBottom = () => {
   const [listBanner, setListBanner] = useState<string[]>([])
+  const { width } = useSelector((state: RootState) => state.ui)
 
   const fetchListBanner = async () => {
     //TODO fetch:
@@ -17,6 +23,12 @@ const BannerBottom = () => {
     fetchListBanner()
   }, [])
 
+  const bannerHeightRatio = width < 768 ? 3 : 6
+  const bannerWidth =
+    width < 768
+      ? width - PAGE_PADDING * 2
+      : width - PAGE_PADDING * 2 - ELEMENT_PADDING
+
   return (
     <Row gutter={[24, 16]}>
       {listBanner.map((banner, index) => {
@@ -25,7 +37,10 @@ const BannerBottom = () => {
             <Card
               key={index}
               style={{
-                height: '33vw',
+                height: Math.min(
+                  (1920 - ELEMENT_PADDING) / 6,
+                  bannerWidth / bannerHeightRatio,
+                ),
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
