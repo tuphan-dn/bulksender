@@ -12,10 +12,11 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
       Buffer: ['buffer', 'Buffer'],
     }),
   )
-  // Add util polyfill
-  // (For IPFS/Web3 compatibility)
+  // Add polyfill libraries
+  // (For IPFS/WASM/Web3 compatibility)
   webpackConfig.resolve.fallback = {
     util: require.resolve('util/'),
+    stream: require.resolve('stream-browserify'),
     assert: require.resolve('assert/'),
   }
   // Fix unrecognized change / caching problem
