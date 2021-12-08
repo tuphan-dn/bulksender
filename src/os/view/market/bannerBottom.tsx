@@ -6,6 +6,7 @@ import { RootState } from 'os/store'
 
 const PAGE_PADDING = 20
 const ELEMENT_PADDING = 24
+const HEIGHT_RATIO = 1.94
 
 const BannerBottom = () => {
   const [listBanner, setListBanner] = useState<string[]>([])
@@ -23,7 +24,7 @@ const BannerBottom = () => {
     fetchListBanner()
   }, [])
 
-  const bannerHeightRatio = width < 768 ? 3 : 6
+  const bannerHeightRatio = width < 768 ? HEIGHT_RATIO : HEIGHT_RATIO * 2
   const bannerWidth =
     width < 768
       ? width - PAGE_PADDING * 2
@@ -38,7 +39,7 @@ const BannerBottom = () => {
               key={index}
               style={{
                 height: Math.min(
-                  (1920 - ELEMENT_PADDING) / 6,
+                  (1920 - PAGE_PADDING - ELEMENT_PADDING) / HEIGHT_RATIO / 2,
                   bannerWidth / bannerHeightRatio,
                 ),
                 backgroundPosition: 'center',
