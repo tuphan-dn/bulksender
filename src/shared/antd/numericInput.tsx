@@ -11,7 +11,7 @@ let timeoutId: ReturnType<typeof setTimeout> | undefined
  * - Only accept numeric characters
  * @remarks The props of input follows the same as https://ant.design/components/input/#API. Extra & Overrided props
  * @param max - Maximum
- * @param onValue - A triggerred function when enter a value number
+ * @param onValue - A triggerred function if a valid number
  */
 const NumericInput = forwardRef(
   (
