@@ -25,7 +25,7 @@ export const sen = (chainId: 102 | 103) => ({
     coingeckoId: 'sen',
   },
   logoURI:
-    'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/FeGn77dhg1KXRRFeSwwMiykZnZPw5JXW6naf2aQgZDQf/logo.png',
+    'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M/logo.png',
 })
 
 // Pseudo token infos for devnet
