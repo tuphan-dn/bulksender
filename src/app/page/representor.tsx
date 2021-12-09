@@ -14,7 +14,7 @@ import {
   Input,
 } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import NumericInput from 'shared/numericInput'
+import NumericInput from 'shared/antd/numericInput'
 
 import { setData } from 'app/model/main.controller'
 import { AppState } from 'app/model'
@@ -113,7 +113,7 @@ const Add = ({
         <Input placeholder="Address" value={address} onChange={onAddress} />
       </Col>
       <Col flex="auto">
-        <NumericInput placeholder="Amount" value={amount} onChange={onAmount} />
+        <NumericInput placeholder="Amount" value={amount} onValue={onAmount} />
       </Col>
       <Col>
         <Button
