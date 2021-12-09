@@ -40,7 +40,7 @@ class TokenProvider {
   }
 
   private _init = async (): Promise<Map<string, TokenInfo>> => {
-    if (Object.keys(this.tokenMap).length) return this.tokenMap
+    if (this.tokenMap.size) return this.tokenMap
     // Build token list
     let tokenList = await (await new TokenListProvider().resolve())
       .filterByChainId(this.chainId)
@@ -58,15 +58,13 @@ class TokenProvider {
     if (this.engine) return this.engine
     const tm = await this._init()
     this.engine = new Document(DOCUMENT)
-    Object.values(tm).forEach(({ address, ...doc }) =>
-      this.engine.add(address, doc),
-    )
+    tm.forEach(({ address, ...doc }) => this.engine.add(address, doc))
     return this.engine
   }
 
   all = async (): Promise<TokenInfo[]> => {
     const tm = await this._init()
-    return Object.values(tm)
+    return Array.from(tm.values())
   }
 
   findByAddress = async (addr: string): Promise<TokenInfo | undefined> => {
