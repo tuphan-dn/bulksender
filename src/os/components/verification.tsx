@@ -1,4 +1,4 @@
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 const Verification = ({
   verified,

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 
 import { Row, Col, Card, Typography, Upload } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { installManifest } from 'os/store/page.reducer'
 import { RootDispatch } from 'os/store'

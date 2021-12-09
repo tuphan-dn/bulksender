@@ -13,7 +13,7 @@ import {
   Space,
   Input,
 } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import NumericInput from 'shared/numericInput'
 
 import { setData } from 'app/model/main.controller'

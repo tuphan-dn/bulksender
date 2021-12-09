@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Space, Avatar, Typography } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import { StaticLoader } from 'os/components/staticLoader'
 
 import { RootState } from 'os/store'

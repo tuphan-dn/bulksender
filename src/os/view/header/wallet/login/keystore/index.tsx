@@ -2,7 +2,7 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { Row, Col, Space, Button, Typography, Input } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import NewKeyStore from './newKeystore'
 
 import { RootDispatch } from 'os/store'

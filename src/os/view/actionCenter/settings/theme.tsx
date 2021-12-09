@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Col, Switch, Typography, Card, Space } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { RootDispatch, RootState } from 'os/store'
 import { setTheme } from 'os/store/ui.reducer'

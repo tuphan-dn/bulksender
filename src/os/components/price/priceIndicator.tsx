@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { fetchCGK } from 'shared/helper'
 import { parseColor } from './parseColor'

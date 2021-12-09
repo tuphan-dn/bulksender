@@ -15,7 +15,7 @@ import {
 import Telegram from 'os/static/images/telegram.png'
 import Twitter from 'os/static/images/twitter.png'
 
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import { RootState } from 'os/store'
 import { useSelector } from 'react-redux'
 import { asyncWait } from 'shared/util'

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Modal } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { RootState, RootDispatch } from 'os/store'
 import { closeWallet } from 'os/store/wallet.reducer'

@@ -1,17 +1,25 @@
-import React, { useState, forwardRef, useCallback, useRef } from 'react'
+import { ChangeEvent, useState, forwardRef, useCallback, useRef } from 'react'
 
-import { Input, Tooltip, Space } from 'antd'
+import { Input, Tooltip, Space, InputProps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 let timeoutId: ReturnType<typeof setTimeout> | undefined
 
+/**
+ * Numeric Input
+ * - Check balance based on max
+ * - Only accept numeric characters
+ * @remarks The props of input follows the same as https://ant.design/components/input/#API. Extra & Overrided props
+ * @param max - Maximum
+ * @param onChange - A triggerred function when enter a value number
+ */
 const NumericInput = forwardRef(
   (
     {
       max,
-      onChange,
+      onChange = () => {},
       ...props
-    }: { max?: string; onChange: (val: string) => void } & any,
+    }: InputProps & { onChange?: (val: string) => void; max: string },
     ref: any,
   ) => {
     const [error, setError] = useState('')
@@ -51,7 +59,11 @@ const NumericInput = forwardRef(
       >
         <Input
           {...props}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onBlur={(e) => {
+            const value = Number(e.target.value)
+            if (e.target.value) onAmount(value ? value.toString() : '')
+          }}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
             setCursor(e.target.selectionStart)
             onAmount(e.target.value || '')
           }}

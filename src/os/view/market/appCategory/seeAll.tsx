@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router'
 
 import { Button, Col, Row, Typography } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import AppCard from '../appCard'
 
 import { CategoryOptions, useAppCategory } from './hooks'

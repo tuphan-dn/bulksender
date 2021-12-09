@@ -1,5 +1,5 @@
 import { Button, Space } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 const SOCIAL_MEDIA = [
   {

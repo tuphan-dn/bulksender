@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Input, Button, Space } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
