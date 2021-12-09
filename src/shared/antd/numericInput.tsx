@@ -23,7 +23,7 @@ const NumericInput = forwardRef(
       ...props
     }: InputProps & {
       onValue?: (val: string) => void
-      max?: string
+      max?: string | number
     },
     ref: any,
   ) => {
@@ -44,7 +44,7 @@ const NumericInput = forwardRef(
         }
         const reg = /^\d*(\.\d*)?$/
         if (!reg.test(val)) return onError('Invalid character')
-        if (max && parseFloat(val) > parseFloat(max))
+        if (max && parseFloat(val) > parseFloat(max.toString()))
           return onError('Not enough balance')
         return onValue(val)
       },
