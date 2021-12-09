@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Col, Drawer, Row, Typography, Switch, Divider } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import AppIcon from 'os/components/appIcon'
 import WidgetLayout from './widgetLayout'
 

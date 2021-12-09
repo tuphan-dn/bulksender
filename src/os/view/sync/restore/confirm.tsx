@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Modal, Row, Col, Space, Typography, Button } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { RootState } from 'os/store'
 import PDB from 'shared/pdb'

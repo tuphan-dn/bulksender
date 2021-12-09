@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createPDB } from 'shared/pdb'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'

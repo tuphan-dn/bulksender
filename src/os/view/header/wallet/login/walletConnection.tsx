@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Row, Col, Tooltip, Switch, Divider, Typography } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import Coin98 from './coin98'
 import Phantom from './phantom'
 import Sollet from './sollet'

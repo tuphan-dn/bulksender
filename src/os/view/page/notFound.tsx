@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router'
 
 import { Row, Col, Typography, Button } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 const NotFound = ({ appId }: { appId: string }) => {
   const history = useHistory()

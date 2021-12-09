@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Col, Drawer, Button, Tabs } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import Applications from './applications'
 import Settings from './settings'
 
