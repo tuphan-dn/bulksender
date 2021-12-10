@@ -14,9 +14,18 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   )
   // Add polyfill libraries
   webpackConfig.resolve.fallback = {
-    util: require.resolve('util/'), // For IPFS
-    stream: require.resolve('stream-browserify'), // For WASM
-    assert: require.resolve('assert/'), // For Ethereum Web3
+    // For IPFS
+    util: require.resolve('util/'),
+    // For WASM
+    stream: require.resolve('stream-browserify'),
+    // For Ethereum Web3
+    assert: require.resolve('assert/'),
+    os: require.resolve('os-browserify/browser'),
+    http: require.resolve('stream-http'),
+    crypto: require.resolve('crypto-browserify'),
+    https: require.resolve('https-browserify'),
+    path: require.resolve('path-browserify'),
+    fs: false,
   }
   // Fix unrecognized change / caching problem
   webpackConfig.cache.buildDependencies.config.push(
