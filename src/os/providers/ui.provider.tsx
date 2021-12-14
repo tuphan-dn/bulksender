@@ -36,14 +36,14 @@ const UIContextProvider = ({
   children: ReactNode
   appId: string
   style?: CSSProperties
-  antd?: boolean | ((appId: string) => FC<ConfigProviderProps>)
+  antd?: boolean | FC<ConfigProviderProps>
 }) => {
   const ui = useSelector((state: RootState) => state.ui)
   const provider = useMemo(() => ({ ui }), [ui])
   const configProvider = antd
     ? {
         getPopupContainer: () => document.getElementById(appId) as HTMLElement,
-        ...(typeof antd === 'function' ? antd(appId) : {}),
+        ...(typeof antd === 'object' ? antd : {}),
       }
     : undefined
 
