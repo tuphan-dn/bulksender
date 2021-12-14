@@ -8,6 +8,7 @@ import {
   ReactNode,
   useMemo,
   CSSProperties,
+  FC,
 } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -15,6 +16,7 @@ import { ConfigProvider } from 'antd'
 
 import { RootState } from 'os/store'
 import { State as UIState } from 'os/store/ui.reducer'
+import { ConfigProviderProps } from 'antd/lib/config-provider'
 
 const Context = createContext<UIProvider>({} as UIProvider)
 
@@ -34,25 +36,25 @@ const UIContextProvider = ({
   children: ReactNode
   appId: string
   style?: CSSProperties
-  antd?: boolean
+  antd?: boolean | ((appId: string) => FC<ConfigProviderProps>)
 }) => {
   const ui = useSelector((state: RootState) => state.ui)
   const provider = useMemo(() => ({ ui }), [ui])
+  const configProvider = antd
+    ? {
+        getPopupContainer: () => document.getElementById(appId) as HTMLElement,
+        ...(typeof antd === 'boolean' ? {} : antd(appId)),
+      }
+    : undefined
+
   return (
     <Context.Provider value={provider}>
       <section
         id={appId}
         style={{ height: '100%', backgroundColor: 'transparent', ...style }}
       >
-        {antd ? (
-          <ConfigProvider
-            prefixCls={appId}
-            getPopupContainer={() =>
-              document.getElementById(appId) as HTMLElement
-            }
-          >
-            {children}
-          </ConfigProvider>
+        {configProvider ? (
+          <ConfigProvider {...configProvider}>{children}</ConfigProvider>
         ) : (
           children
         )}
