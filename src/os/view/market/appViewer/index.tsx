@@ -36,7 +36,7 @@ const AppViewer = () => {
                 <Col xs={24} lg={12}>
                   <AppDetails appId={appId} />
                 </Col>
-                <Col xs={24} lg={12} >
+                <Col xs={24} lg={12}>
                   <ScreenShot appId={appId} />
                 </Col>
               </Row>

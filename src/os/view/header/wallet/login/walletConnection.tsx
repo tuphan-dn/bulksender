@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Row, Col, Tooltip, Switch, Divider, Typography } from 'antd'
@@ -12,16 +12,11 @@ import Slope from './slope'
 
 import { RootState } from 'os/store'
 
-
 const WalletConnection = () => {
   const [advance, setAdvance] = useState(false)
   const { width } = useSelector((state: RootState) => state.ui)
 
-  const spacing = useMemo(() => {
-    if (width && width <= 992) return 16
-    return 24
-  }, [width])
-
+  const spacing = width <= 992 ? 16 : 24
   return (
     <Row gutter={[spacing, spacing]}>
       <Col span={24}>
