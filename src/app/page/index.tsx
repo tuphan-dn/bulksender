@@ -42,7 +42,7 @@ const Page = () => {
         <Typography.Text>Counter: {counter}</Typography.Text>
       </Col>
       <Col>
-        <Button onClick={increase}>Increase</Button>
+        <Button ghost onClick={increase}>Increase</Button>
       </Col>
     </Row>
   )
