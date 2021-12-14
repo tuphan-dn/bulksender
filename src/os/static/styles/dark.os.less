@@ -65,6 +65,8 @@ body {
 @btn-primary-shadow: 'unset';
 @btn-text-shadow: 'unset';
 @btn-default-border: @NEUTRAL80;
+@btn-default-ghost-color: @NEUTRAL10;
+@btn-default-ghost-border: @NEUTRAL10;
 
 // Input
 @input-placeholder-color: @NEUTRAL40;
@@ -85,5 +87,11 @@ body {
   .glass {
     background-color: color(~`('@{card-background}99') `);
     backdrop-filter: blur(4px);
+  }
+}
+.app-active {
+  .@{ant-prefix}-badge-dot {
+    background: @NEUTRAL05;
+    box-shadow: 0 0 0 2px @NEUTRAL100;
   }
 }

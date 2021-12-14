@@ -29,22 +29,26 @@ const Welcome = () => {
   }, [walletAddress, history])
 
   return (
-    <Row gutter={[24, 24]} justify="center" className="welcome">
-      <Col xs={24} lg={12} className="welcome-slide">
-        <WelcomeSlide />
-        <SocialButton />
+    <Row justify="center">
+      <Col span={24} style={{ maxWidth: 1920 }}>
+        <Row gutter={[24, 24]} justify="center" className="welcome">
+          <Col xs={24} lg={12} className="welcome-slide">
+            <WelcomeSlide />
+            <SocialButton />
+          </Col>
+          {width >= 992 && (
+            <Col xs={24} lg={12} className="welcome-wallet-connection">
+              <Card
+                className="card-wallet-connection"
+                bordered={false}
+                hoverable={false}
+              >
+                <WalletConnection />
+              </Card>
+            </Col>
+          )}
+        </Row>
       </Col>
-      {width >= 992 && (
-        <Col xs={24} lg={12} className="welcome-wallet-connection">
-          <Card
-            className="card-wallet-connection"
-            bordered={false}
-            hoverable={false}
-          >
-            <WalletConnection />
-          </Card>
-        </Col>
-      )}
     </Row>
   )
 }
