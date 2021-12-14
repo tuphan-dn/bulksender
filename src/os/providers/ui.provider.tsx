@@ -43,7 +43,7 @@ const UIContextProvider = ({
   const configProvider = antd
     ? {
         getPopupContainer: () => document.getElementById(appId) as HTMLElement,
-        ...(typeof antd === 'boolean' ? {} : antd(appId)),
+        ...(typeof antd === 'function' ? antd(appId) : {}),
       }
     : undefined
 
