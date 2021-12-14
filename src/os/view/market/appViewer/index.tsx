@@ -16,36 +16,40 @@ const AppViewer = () => {
   const onBack = () => history.goBack()
 
   return (
-    <Row gutter={[24, 24]}>
-      <Col span={24}>
-        <Button
-          type="text"
-          size="small"
-          icon={<IonIcon name="arrow-back-outline" />}
-          onClick={onBack}
-          style={{ marginLeft: -7 }}
-        >
-          Back
-        </Button>
-      </Col>
-      <Col span={24}>
-        <Card bordered={false}>
-          <Row gutter={[24, 24]}>
-            <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24}>
-              <AppDetails appId={appId} />
-            </Col>
-            <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24}>
-              <ScreenShot appId={appId} />
-            </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col span={24}>
-        <AppCategorySlice
-          category={CustomCategory.suggest}
-          related={{ appIds: [appId] }}
-          seeAll={false}
-        />
+    <Row gutter={[24, 24]} justify="center">
+      <Col span={24} style={{ maxWidth: 1920, width: '100%' }}>
+        <Row gutter={[24, 24]}>
+          <Col span={24}>
+            <Button
+              type="text"
+              size="small"
+              icon={<IonIcon name="arrow-back-outline" />}
+              onClick={onBack}
+              style={{ marginLeft: -7 }}
+            >
+              Back
+            </Button>
+          </Col>
+          <Col span={24}>
+            <Card bordered={false}>
+              <Row gutter={[24, 24]}>
+                <Col xs={24} lg={12}>
+                  <AppDetails appId={appId} />
+                </Col>
+                <Col xs={24} lg={12}>
+                  <ScreenShot appId={appId} />
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+          <Col span={24}>
+            <AppCategorySlice
+              category={CustomCategory.suggest}
+              related={{ appIds: [appId] }}
+              seeAll={false}
+            />
+          </Col>
+        </Row>
       </Col>
     </Row>
   )

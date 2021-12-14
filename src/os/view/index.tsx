@@ -53,9 +53,9 @@ const View = () => {
                 component={Dashboard}
               />
               <PrivateRoute exact path="/app/:appId" component={Page} />
-              <PrivateRoute exact path="/sync" component={Sync} />
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
+              <PrivateRoute exact path="/sync" component={Sync} />
               <Redirect from="*" to="/welcome" />
             </Switch>
           </Col>

@@ -21,7 +21,7 @@ const {
 
 export const Page = () => {
   return (
-    <UIProvider appId={appId} antd>
+    <UIProvider appId={appId} antd={{ prefixCls: appId }}>
       <WalletProvider>
         <AccountProvider>
           <MintProvider>
@@ -44,7 +44,7 @@ export const widgetConfig: WidgetConfig = {
 
 export const Widget = () => {
   return (
-    <UIProvider appId={appId} antd>
+    <UIProvider appId={appId} antd={{ prefixCls: appId }}>
       <WalletProvider>
         <AccountProvider>
           <MintProvider>
