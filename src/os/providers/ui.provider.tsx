@@ -46,6 +46,7 @@ const UIContextProvider = ({
       >
         {antd ? (
           <ConfigProvider
+            prefixCls={appId}
             getPopupContainer={() =>
               document.getElementById(appId) as HTMLElement
             }

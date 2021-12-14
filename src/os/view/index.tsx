@@ -52,13 +52,13 @@ const View = () => {
                 path="/dashboard/:pageId?"
                 component={Dashboard}
               />
-              <PrivateRoute exact path="/app/:appId" component={Page} />
               <PrivateRoute exact path="/sync" component={Sync} />
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
+              <PrivateRoute exact path="/app/:appId" component={Page} />
               <Redirect from="*" to="/welcome" />
             </Switch>
-          </Col>
+          </Col >
         </Row>
       </Layout>
       {/* In-Background Run Jobs */}
