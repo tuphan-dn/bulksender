@@ -8,7 +8,6 @@ import {
   ReactNode,
   useMemo,
   CSSProperties,
-  FC,
 } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -36,7 +35,7 @@ const UIContextProvider = ({
   children: ReactNode
   appId: string
   style?: CSSProperties
-  antd?: boolean | FC<ConfigProviderProps>
+  antd?: boolean | ConfigProviderProps
 }) => {
   const ui = useSelector((state: RootState) => state.ui)
   const provider = useMemo(() => ({ ui }), [ui])
