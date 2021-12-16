@@ -4,7 +4,6 @@ import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry'
 import { net } from 'shared/runtime'
 import configs from 'os/configs'
 import supplementary, { sen, sol } from './supplementary'
-import { asyncWait } from 'shared/util'
 
 const {
   sol: { chainId },
@@ -31,6 +30,7 @@ class TokenProvider {
   readonly chainId: typeof chainId
   readonly cluster: typeof net
   private loading: boolean
+  private queue: Array<any>
 
   constructor() {
     this.tokenMap = new Map<string, TokenInfo>()
@@ -38,37 +38,40 @@ class TokenProvider {
     this.chainId = chainId
     this.cluster = net
     this.loading = false
+    this.queue = []
     // Init
     this._init()
   }
 
   private _init = async (): Promise<[Map<string, TokenInfo>, any]> => {
     if (this.tokenMap.size) return [this.tokenMap, this.engine]
-    if (this.loading) {
-      await asyncWait(500)
-      return await this._init()
-    }
-    // Start
-    this.loading = true
-    // Build token list
-    let tokenList = await (await new TokenListProvider().resolve())
-      .filterByChainId(this.chainId)
-      .getList()
-    if (this.cluster === 'devnet') tokenList = tokenList.concat(supplementary)
-    if (this.cluster === 'testnet')
-      tokenList = tokenList.concat([sen(102), sol(102)])
-    else tokenList = tokenList.concat([sol(101)])
-    // Build token map
-    tokenList.forEach((token) => this.tokenMap.set(token.address, token))
-    // Build search engine
-    this.engine = new Document(DOCUMENT)
-    this.tokenMap.forEach(({ address, ...doc }) =>
-      this.engine.add(address, doc),
-    )
-    // Finish
-    this.loading = false
-    // Return
-    return [this.tokenMap, this.engine]
+    return new Promise(async (resolve) => {
+      // Queue of getters to avoid race condition of multiple _init calling
+      if (this.loading) return this.queue.push(resolve)
+      // Start
+      this.loading = true
+      // Build token list
+      let tokenList = await (await new TokenListProvider().resolve())
+        .filterByChainId(this.chainId)
+        .getList()
+      if (this.cluster === 'devnet') tokenList = tokenList.concat(supplementary)
+      if (this.cluster === 'testnet')
+        tokenList = tokenList.concat([sen(102), sol(102)])
+      else tokenList = tokenList.concat([sol(101)])
+      // Build token map
+      tokenList.forEach((token) => this.tokenMap.set(token.address, token))
+      // Build search engine
+      this.engine = new Document(DOCUMENT)
+      this.tokenMap.forEach(({ address, ...doc }) =>
+        this.engine.add(address, doc),
+      )
+      // Resolve the main getter
+      resolve([this.tokenMap, this.engine])
+      // Resolve the rest of getters
+      while (this.queue.length) this.queue.shift()([this.tokenMap, this.engine])
+      // Finish
+      this.loading = false
+    })
   }
 
   all = async (): Promise<TokenInfo[]> => {
