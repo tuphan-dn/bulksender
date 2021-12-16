@@ -17,7 +17,7 @@ const AppViewer = () => {
 
   return (
     <Row gutter={[24, 24]} justify="center">
-      <Col span={24} style={{ maxWidth: 1920, width: '100%' }}>
+      <Col span={24} className="sentre-col-container">
         <Row gutter={[24, 24]}>
           <Col span={24}>
             <Button

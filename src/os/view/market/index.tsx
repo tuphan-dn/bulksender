@@ -35,7 +35,7 @@ const Market = () => {
   if (category) return <AppCategorySeeAll category={category} />
   return (
     <Row gutter={[16, 48]} justify="center">
-      <Col span={24} style={{ maxWidth: 1920, width: '100%' }}>
+      <Col span={24} className="sentre-col-container">
         <Row gutter={[16, 48]}>
           <Col span={24}>
             <BannerTop />
