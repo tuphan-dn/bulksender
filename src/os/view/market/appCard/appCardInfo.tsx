@@ -10,7 +10,9 @@ import { installApp } from 'os/store/page.reducer'
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
+
   const { register, appIds } = useSelector((state: RootState) => state.page)
+  const { address } = useSelector((state: RootState) => state.wallet)
   const manifest = register[appId]
 
   const onInstall = (e: any) => {
@@ -21,6 +23,18 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const onOpen = (e: any, appId: string) => {
     e.stopPropagation()
     return history.push(`/app/${appId}`)
+  }
+
+  const ActionButton = () => {
+    return appIds.includes(appId) ? (
+      <Button type="ghost" size="small" onClick={(e) => onOpen(e, appId)}>
+        Open
+      </Button>
+    ) : (
+      <Button type="primary" onClick={onInstall} size="small">
+        Install
+      </Button>
+    )
   }
 
   return (
@@ -45,21 +59,7 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
               {manifest?.author.name}
             </Typography.Text>
           </Col>
-          <Col>
-            {appIds.includes(appId) ? (
-              <Button
-                type="ghost"
-                size="small"
-                onClick={(e) => onOpen(e, appId)}
-              >
-                Open
-              </Button>
-            ) : (
-              <Button type="primary" onClick={onInstall} size="small">
-                Install
-              </Button>
-            )}
-          </Col>
+          <Col>{address ? <ActionButton /> : null}</Col>
         </Row>
       </Card>
     </Col>
