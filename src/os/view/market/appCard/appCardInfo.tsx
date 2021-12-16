@@ -6,6 +6,29 @@ import AppIcon from 'os/components/appIcon'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
+import { account } from '@senswap/sen-js'
+
+const ActionButton = ({
+  appIds,
+  appId,
+  onOpen = () => {},
+  onInstall,
+}: {
+  appIds: AppIds
+  appId: string
+  onOpen: (e: any) => void
+  onInstall: (e: any) => void
+}) => {
+  return appIds.includes(appId) ? (
+    <Button type="ghost" size="small" onClick={onOpen}>
+      Open
+    </Button>
+  ) : (
+    <Button type="primary" onClick={onInstall} size="small">
+      Install
+    </Button>
+  )
+}
 
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
@@ -16,25 +39,15 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const manifest = register[appId]
 
   const onInstall = (e: any) => {
+    if (!appId) return
     e.stopPropagation()
     return dispatch(installApp(appId))
   }
 
-  const onOpen = (e: any, appId: string) => {
+  const onOpen = (e: any) => {
+    if (!appId) return
     e.stopPropagation()
     return history.push(`/app/${appId}`)
-  }
-
-  const ActionButton = () => {
-    return appIds.includes(appId) ? (
-      <Button type="ghost" size="small" onClick={(e) => onOpen(e, appId)}>
-        Open
-      </Button>
-    ) : (
-      <Button type="primary" onClick={onInstall} size="small">
-        Install
-      </Button>
-    )
   }
 
   return (
@@ -59,7 +72,16 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
               {manifest?.author.name}
             </Typography.Text>
           </Col>
-          <Col>{address ? <ActionButton /> : null}</Col>
+          {account.isAddress(address) && (
+            <Col>
+              <ActionButton
+                appIds={appIds}
+                appId={appId}
+                onOpen={(e) => onOpen(e)}
+                onInstall={(e) => onInstall(e)}
+              />
+            </Col>
+          )}
         </Row>
       </Card>
     </Col>
