@@ -1,12 +1,9 @@
 import { PoolData, utils } from '@senswap/sen-js'
-import configs from 'os/configs'
-import TokenProvider from 'os/providers/tokenProvider'
-import store from 'os/store'
 
+import configs from 'os/configs'
 import { DataLoader } from './dataloader'
 
 const SEN_TICKET = 'sen'
-const TOKEN_PROVIDER = new TokenProvider()
 
 /**
  * Extract reserve from pool data
@@ -23,7 +20,7 @@ const calcSenPrice = async () => {
     sol: { senPoolAddress, senAddress },
   } = configs
   const senInfo = {
-    icon: '',
+    icon: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M/logo.png',
     symbol: 'SEN',
     name: 'Sen',
     address: senAddress,
@@ -32,29 +29,26 @@ const calcSenPrice = async () => {
     priceChange: 0,
     totalVolume: 0,
   }
-  const poolData = store.getState().pools[senPoolAddress]
-  if (!poolData) return senInfo
-
-  const { mint_a, mint_b } = poolData
-  const usdcAddress = senAddress === mint_a ? mint_b : mint_a
-  const [usdcTokenInfo, senTokenInfo] = await Promise.all(
-    [usdcAddress, senAddress].map((addr) => TOKEN_PROVIDER.findByAddress(addr)),
-  )
-  if (!usdcTokenInfo || !senTokenInfo) return senInfo
-
-  const usdcReserve = extractReserve(usdcAddress, poolData)
-  const senReserve = extractReserve(senAddress, poolData)
-  senInfo.price =
-    Number(utils.undecimalize(usdcReserve, usdcTokenInfo.decimals)) /
-    Number(utils.undecimalize(senReserve, senTokenInfo.decimals))
-
-  return senInfo
+  try {
+    const poolData = await window.sentre?.swap?.getPoolData(senPoolAddress)
+    const { mint_a, mint_b } = poolData
+    const usdcAddress = senAddress === mint_a ? mint_b : mint_a
+    const usdcReserve = extractReserve(usdcAddress, poolData)
+    const senReserve = extractReserve(senAddress, poolData)
+    senInfo.price =
+      Number(utils.undecimalize(usdcReserve, 9)) /
+      Number(utils.undecimalize(senReserve, 9))
+    return senInfo
+  } catch (er) {
+    return senInfo
+  }
 }
 
 export const fetchCGK = async (ticket = '') => {
-  if (ticket === SEN_TICKET) return calcSenPrice()
-
-  return DataLoader.load('fetchCGK' + ticket, () => utils.parseCGK(ticket))
+  return DataLoader.load(
+    'fetchCGK' + ticket,
+    ticket === SEN_TICKET ? calcSenPrice : () => utils.parseCGK(ticket),
+  )
 }
 
 export const randomColor = (seed?: string, opacity?: string | number) => {

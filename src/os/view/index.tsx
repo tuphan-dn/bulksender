@@ -42,7 +42,7 @@ const View = () => {
         </Card>
       </Affix>
       {/* Body */}
-      <Layout style={{ padding: '24px 12px 12px 12px' }}>
+      <Layout style={{ padding: '24px 12px 0px 12px' }}>
         <Row gutter={[24, 24]}>
           <Col span={24}>
             <Switch>
