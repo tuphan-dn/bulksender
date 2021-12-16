@@ -21,7 +21,7 @@ const MintName = ({ mintAddress }: { mintAddress: string }) => {
         (await tokenProvider.findByAddress(mint_a)) || {}
       const { symbol: symbol_b } =
         (await tokenProvider.findByAddress(mint_b)) || {}
-      return setName(`${symbol_a} • ${symbol_b} LPT`)
+      return setName(`${symbol_a} • ${symbol_b} LP`)
     }
     // Unknown mint
     const shortenName = mintAddress.substring(0, 6)
