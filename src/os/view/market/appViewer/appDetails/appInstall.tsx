@@ -7,6 +7,8 @@ import IonIcon from 'shared/ionicon'
 
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
+import { account } from '@senswap/sen-js'
+import { openWallet } from 'os/store/wallet.reducer'
 
 const AppInstall = ({
   installed,
@@ -17,6 +19,7 @@ const AppInstall = ({
 }) => {
   const dispatch = useDispatch<RootDispatch>()
   const { infix } = useSelector((state: RootState) => state.ui)
+  const { address } = useSelector((state: RootState) => state.wallet)
   const history = useHistory()
 
   const to = () => history.push(`/app/${appId}`)
@@ -25,6 +28,12 @@ const AppInstall = ({
   const setFloatElement = () => {
     if (isMobile) return 'start'
     return 'end'
+  }
+
+  const handleClickButtonInstall = () => {
+    !account.isAddress(address)
+      ? dispatch(openWallet())
+      : dispatch(installApp(appId))
   }
 
   return (
@@ -57,7 +66,7 @@ const AppInstall = ({
           <Button
             type="primary"
             icon={<IonIcon name="cloud-download-outline" />}
-            onClick={() => dispatch(installApp(appId))}
+            onClick={handleClickButtonInstall}
             block={isMobile}
           >
             Install

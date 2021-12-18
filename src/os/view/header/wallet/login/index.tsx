@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { account } from '@senswap/sen-js'
 
 import { Row, Col, Modal, Tooltip, Switch, Divider, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
@@ -16,8 +17,8 @@ import { closeWallet } from 'os/store/wallet.reducer'
 const Login = () => {
   const [advance, setAdvance] = useState(false)
   const { visible } = useSelector((state: RootState) => state.wallet)
+  const { address } = useSelector((state: RootState) => state.wallet)
   const dispatch = useDispatch<RootDispatch>()
-
   return (
     <Modal
       visible={visible}
@@ -29,6 +30,14 @@ const Login = () => {
         <Col span={24}>
           <Typography.Title level={5}>Wallet Connection</Typography.Title>
         </Col>
+        {!account.isAddress(address) && (
+          <Col span={24}>
+            <Typography.Text type="danger">
+              You have to connect wallet to install the app.
+            </Typography.Text>
+          </Col>
+        )}
+
         <Col xs={{ span: 12 }} md={{ span: 8 }}>
           <Coin98 />
         </Col>
