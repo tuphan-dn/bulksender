@@ -7,6 +7,8 @@ import More from './more'
 
 import { RootState } from 'os/store'
 
+import './index.os.less'
+
 const Navigation = () => {
   const history = useHistory()
   const { params } = useRouteMatch<{ appId: string }>('/app/:appId') || {}
@@ -15,7 +17,11 @@ const Navigation = () => {
     <Row gutter={[12, 12]} wrap={false} align="middle">
       {appIds.map((appId) => (
         <Col key={appId}>
-          <Badge dot={params?.appId === appId} color="#5D6CCF" offset={[-4, 4]}>
+          <Badge
+            dot={params?.appId === appId}
+            className="sentre-active-app"
+            offset={[-4, 4]}
+          >
             <AppIcon
               appId={appId}
               size={32}

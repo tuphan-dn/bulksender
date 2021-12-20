@@ -31,7 +31,7 @@ const BannerTop = () => {
           <div key={index}>
             <Card
               style={{
-                height: Math.min(1440 / 3, (width - PAGE_PADDING * 2) / 3),
+                height: Math.min(1920 / 3, (width - PAGE_PADDING * 2) / 3),
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',

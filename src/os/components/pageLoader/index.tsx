@@ -10,7 +10,7 @@ import ErrorBoundary from 'os/components/errorBoundary'
  */
 const RemoteComponent = forwardRef<HTMLElement, { manifest: RemoteModule }>(
   ({ manifest, ...props }, ref) => {
-    const { default: Component } = useRemoteModule(manifest)
+    const { Page: Component } = useRemoteModule(manifest)
     return <Component {...props} ref={ref} />
   },
 )
@@ -57,7 +57,7 @@ const PageError = ({ url = 'Unknown' }: { url?: string }) => {
  */
 const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
   ({ url, appId, ...props }, ref) => {
-    const manifest = { url, scope: appId, module: './page' }
+    const manifest = { url, scope: appId, module: './bootstrap' }
     return (
       <ErrorBoundary defaultChildren={<PageError url="url" />}>
         <Suspense fallback={<Skeleton active />}>

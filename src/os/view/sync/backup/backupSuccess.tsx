@@ -11,7 +11,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 import SuccessImg from 'os/static/images/success.png'
 

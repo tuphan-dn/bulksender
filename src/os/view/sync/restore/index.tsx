@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import { Row, Col, Button, Input, Card } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import JsonViewer from 'os/components/jsonViewer'
 import ConfirmRestore from './confirm'
 

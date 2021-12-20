@@ -24,7 +24,7 @@ import DraggableIcon from './draggableIcon'
 import { RootDispatch } from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 import DraggableAction from './draggableAction'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 // Mixed Strategy
 const mixedStrategy = (

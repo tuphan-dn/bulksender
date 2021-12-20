@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Space, Modal, Button } from 'antd'
 
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import AppReadme from 'os/components/appReadme'
 
 const ReadMe = ({ appId }: { appId: string }) => {

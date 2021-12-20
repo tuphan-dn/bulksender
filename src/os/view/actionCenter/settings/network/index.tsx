@@ -5,7 +5,7 @@ import { Row, Col, Typography, Space, Badge, Card } from 'antd'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 
 const {
   sol: { node },

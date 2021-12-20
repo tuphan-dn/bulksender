@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Button, Space } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import Wallet from 'os/view/header/wallet'
 import Brand from 'os/components/brand'
 import ActionCenter from '../actionCenter'

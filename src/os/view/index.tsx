@@ -32,8 +32,8 @@ const View = () => {
       <Affix>
         <Card
           style={{
-            marginBottom: 12,
             borderRadius: '0px 0px 16px 16px',
+            zIndex: 999,
           }}
           bodyStyle={{ padding: 16 }}
           bordered={false}
@@ -42,7 +42,7 @@ const View = () => {
         </Card>
       </Affix>
       {/* Body */}
-      <Layout style={{ padding: 12 }}>
+      <Layout style={{ padding: '24px 12px 0px 12px' }}>
         <Row gutter={[24, 24]}>
           <Col span={24}>
             <Switch>
@@ -53,9 +53,9 @@ const View = () => {
                 component={Dashboard}
               />
               <PrivateRoute exact path="/app/:appId" component={Page} />
-              <PrivateRoute exact path="/sync" component={Sync} />
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
+              <PrivateRoute exact path="/sync" component={Sync} />
               <Redirect from="*" to="/welcome" />
             </Switch>
           </Col>

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Button, Card, Checkbox, Col, Row } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import BackupSuccess from './backupSuccess'
 import ReviewManual from './reviewManual'
 import ReviewData from './reviewData'

@@ -7,6 +7,7 @@
 @import './common/polyfill.os.less';
 @import './common/typography.os.less';
 @import './common/scrollbar.os.less';
+@import './shared.os.less';
 
 body {
   background: url('../images/dark-bg.png');
@@ -61,10 +62,12 @@ body {
 
 // Button
 @btn-font-weight: 700;
-@btn-shadow: 'unset';
-@btn-primary-shadow: 'unset';
-@btn-text-shadow: 'unset';
+@btn-shadow: unset;
+@btn-primary-shadow: unset;
+@btn-text-shadow: unset;
 @btn-default-border: @NEUTRAL80;
+@btn-default-ghost-color: @NEUTRAL10;
+@btn-default-ghost-border: @NEUTRAL10;
 
 // Input
 @input-placeholder-color: @NEUTRAL40;

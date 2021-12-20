@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { Button, Col, Modal, Row, Space, Typography, Switch } from 'antd'
-import IonIcon from 'shared/ionicon'
+import IonIcon from 'shared/antd/ionicon'
 import WidgetLayout from './widgetLayout'
 
 import { RootDispatch, RootState } from 'os/store'
