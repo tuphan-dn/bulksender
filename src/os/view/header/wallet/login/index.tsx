@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { account } from '@senswap/sen-js'
 
 import { Modal } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
