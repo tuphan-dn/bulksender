@@ -33,7 +33,6 @@ const ActionButton = ({
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-
   const { register, appIds } = useSelector((state: RootState) => state.page)
   const { address } = useSelector((state: RootState) => state.wallet)
   const manifest = register[appId]

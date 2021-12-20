@@ -18,18 +18,9 @@ const ScreenShot = ({ appId }: { appId: string }) => {
     return 2
   }
   const calculateHeightImage = () => {
-    let height = 0
-    if (width > 991) {
-      height = (3 * (((width - 39 - 24) / 2 - 24) / 2 - 12)) / 4
-    }
-    if (width <= 991) {
-      height = (3 * ((width - 39 - 24) / 2 - 24)) / 4
-    }
-    if (width <= 767) {
-      height = (3 * (width - 39 - 24 - 24)) / 4
-      return height
-    }
-    return height
+    if (width > 991) return (3 * (((width - 39 - 24) / 2 - 24) / 2 - 12)) / 4
+    if (width <= 767) return (3 * (width - 39 - 24 - 24)) / 4
+    return (3 * ((width - 39 - 24) / 2 - 24)) / 4
   }
 
   return (
