@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
+import { account } from '@senswap/sen-js'
 
 import { Button, Card, Col, Row, Space, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
@@ -7,7 +8,6 @@ import Verification from 'os/components/verification'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
-import { account } from '@senswap/sen-js'
 
 const ActionButton = ({
   appIds,

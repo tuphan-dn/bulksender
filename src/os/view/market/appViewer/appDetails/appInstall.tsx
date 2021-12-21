@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
+import { account } from '@senswap/sen-js'
 
 import { Button, Col, Modal, Row } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -8,7 +9,6 @@ import WalletConnection from 'os/view/header/wallet/login/walletConnection'
 
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
-import { account } from '@senswap/sen-js'
 
 const AppInstall = ({
   installed,
