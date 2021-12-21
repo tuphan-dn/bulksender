@@ -10,7 +10,8 @@ import { MultiStaticLoader } from 'os/components/staticLoader'
 import imgError from 'os/static/images/error-image.svg'
 import { defaultImage } from 'app/static.app'
 
-const PADDING = 24
+const PADDING_CARD = 24
+const PADDING_PAGE = 39 //padding 24 +  width scroll bar 15
 
 const ScreenShot = ({ appId }: { appId: string }) => {
   const { width } = useSelector((state: RootState) => state.ui)
@@ -21,9 +22,15 @@ const ScreenShot = ({ appId }: { appId: string }) => {
   }
   const calculateHeightImage = () => {
     if (width > 991)
-      return (3 * (((width - 39 - PADDING) / 2 - PADDING) / 2 - 12)) / 4
-    if (width <= 767) return (3 * (width - 39 - PADDING - PADDING)) / 4
-    return (3 * ((width - 39 - PADDING) / 2 - PADDING)) / 4
+      return (
+        (3 *
+          (((width - PADDING_PAGE - PADDING_CARD) / 2 - PADDING_CARD) / 2 -
+            12)) /
+        4
+      )
+    if (width <= 767)
+      return (3 * (width - PADDING_PAGE - PADDING_CARD - PADDING_CARD)) / 4
+    return (3 * ((width - PADDING_PAGE - PADDING_CARD) / 2 - PADDING_CARD)) / 4
   }
 
   return (
