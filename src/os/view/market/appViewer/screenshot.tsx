@@ -9,12 +9,27 @@ import { MultiStaticLoader } from 'os/components/staticLoader'
 
 import imgError from 'os/static/images/error-image.svg'
 
+const PADDING_CARD = 24
+const PADDING_PAGE = 39 //padding 24 +  width scroll bar 15
+
 const ScreenShot = ({ appId }: { appId: string }) => {
   const { width } = useSelector((state: RootState) => state.ui)
 
-  const calculatePerCard = (data: string[]) => {
-    if (data.length < 2 || width < 768) return 1
+  const calculatePerCard = () => {
+    if (width < 768) return 1
     return 2
+  }
+  const calculateHeightImage = () => {
+    if (width > 991)
+      return (
+        (3 *
+          (((width - PADDING_PAGE - PADDING_CARD) / 2 - PADDING_CARD) / 2 -
+            12)) /
+        4
+      )
+    if (width <= 767)
+      return (3 * (width - PADDING_PAGE - PADDING_CARD - PADDING_CARD)) / 4
+    return (3 * ((width - PADDING_PAGE - PADDING_CARD) / 2 - PADDING_CARD)) / 4
   }
 
   return (
@@ -24,15 +39,20 @@ const ScreenShot = ({ appId }: { appId: string }) => {
           appId={appId}
           type="panels"
           defaultData={[imgError]}
-          render={(data) => (
-            <SwiperOs slidesPerView={calculatePerCard(data)}>
-              {data.map((src, idx) => (
-                <SwiperSlide key={idx}>
-                  <Image style={{ height: 252 }} src={src} />
-                </SwiperSlide>
-              ))}
-            </SwiperOs>
-          )}
+          render={(data) => {
+            return (
+              <SwiperOs slidesPerView={calculatePerCard()}>
+                {data.map((src, idx) => (
+                  <SwiperSlide key={idx}>
+                    <Image
+                      style={{ height: calculateHeightImage() }}
+                      src={src}
+                    />
+                  </SwiperSlide>
+                ))}
+              </SwiperOs>
+            )
+          }}
         />
       </Col>
     </Row>
