@@ -31,7 +31,7 @@ const AppInstall = ({
     return 'end'
   }
 
-  const handleClickButtonInstall = () => {
+  const onInstall = () => {
     !account.isAddress(address) ? setVisible(true) : dispatch(installApp(appId))
   }
 
@@ -65,7 +65,7 @@ const AppInstall = ({
           <Button
             type="primary"
             icon={<IonIcon name="cloud-download-outline" />}
-            onClick={handleClickButtonInstall}
+            onClick={onInstall}
             block={isMobile}
           >
             Install

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
+import { MouseEvent } from 'react'
 
 import { Button, Card, Col, Row, Space, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
@@ -17,8 +18,8 @@ const ActionButton = ({
 }: {
   appIds: AppIds
   appId: string
-  onOpen: (e: any) => void
-  onInstall: (e: any) => void
+  onOpen: (e: MouseEvent<HTMLButtonElement>) => void
+  onInstall: (e: MouseEvent<HTMLButtonElement>) => void
 }) => {
   return appIds.includes(appId) ? (
     <Button type="ghost" size="small" onClick={onOpen}>
@@ -38,13 +39,13 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const { address } = useSelector((state: RootState) => state.wallet)
   const manifest = register[appId]
 
-  const onInstall = (e: any) => {
+  const onInstall = (e: MouseEvent<HTMLButtonElement>) => {
     if (!appId) return
     e.stopPropagation()
     return dispatch(installApp(appId))
   }
 
-  const onOpen = (e: any) => {
+  const onOpen = (e: MouseEvent<HTMLButtonElement>) => {
     if (!appId) return
     e.stopPropagation()
     return history.push(`/app/${appId}`)
@@ -82,8 +83,8 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
               <ActionButton
                 appIds={appIds}
                 appId={appId}
-                onOpen={(e) => onOpen(e)}
-                onInstall={(e) => onInstall(e)}
+                onOpen={onOpen}
+                onInstall={onInstall}
               />
             </Col>
           )}
