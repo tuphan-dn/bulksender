@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { account } from '@senswap/sen-js'
 
 import { Row, Col, Tooltip, Switch, Divider, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -13,24 +12,21 @@ import Slope from './slope'
 
 import { RootState } from 'os/store'
 
-const WalletConnection = () => {
+const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
   const [advance, setAdvance] = useState(false)
   const { width } = useSelector((state: RootState) => state.ui)
-  const { address } = useSelector((state: RootState) => state.wallet)
-
+  console.log(textAlert)
   const spacing = width <= 992 ? 16 : 24
   return (
     <Row gutter={[spacing, spacing]}>
       <Col span={24}>
         <Typography.Title level={5}>Wallet Connection</Typography.Title>
       </Col>
-      {!account.isAddress(address) && (
-          <Col span={24}>
-            <Typography.Text type="danger">
-              You have to connect wallet to install the app.
-            </Typography.Text>
-          </Col>
-        )}
+      {textAlert && (
+        <Col span={24}>
+          <Typography.Text type="danger">{textAlert}</Typography.Text>
+        </Col>
+      )}
       <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Coin98 />
       </Col>

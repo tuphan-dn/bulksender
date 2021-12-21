@@ -1,14 +1,14 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-import { Button, Col, Row } from 'antd'
+import { Button, Col, Modal, Row } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
+import WalletConnection from 'os/view/header/wallet/login/walletConnection'
 
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
 import { account } from '@senswap/sen-js'
-import { openWallet } from 'os/store/wallet.reducer'
 
 const AppInstall = ({
   installed,
@@ -20,6 +20,7 @@ const AppInstall = ({
   const dispatch = useDispatch<RootDispatch>()
   const { infix } = useSelector((state: RootState) => state.ui)
   const { address } = useSelector((state: RootState) => state.wallet)
+  const [visible, setVisible] = useState(false)
   const history = useHistory()
 
   const to = () => history.push(`/app/${appId}`)
@@ -31,9 +32,7 @@ const AppInstall = ({
   }
 
   const handleClickButtonInstall = () => {
-    !account.isAddress(address)
-      ? dispatch(openWallet())
-      : dispatch(installApp(appId))
+    !account.isAddress(address) ? setVisible(true) : dispatch(installApp(appId))
   }
 
   return (
@@ -73,6 +72,14 @@ const AppInstall = ({
           </Button>
         </Col>
       )}
+      <Modal
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        closeIcon={<IonIcon name="close" />}
+        footer={null}
+      >
+        <WalletConnection textAlert="You have to connect wallet to install the app." />
+      </Modal>
     </Row>
   )
 }
