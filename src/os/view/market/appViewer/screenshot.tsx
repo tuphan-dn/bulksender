@@ -8,7 +8,6 @@ import { RootState } from 'os/store'
 import { MultiStaticLoader } from 'os/components/staticLoader'
 
 import imgError from 'os/static/images/error-image.svg'
-import { defaultImage } from 'app/static.app'
 
 const PADDING_CARD = 24
 const PADDING_PAGE = 39 //padding 24 +  width scroll bar 15
@@ -41,19 +40,16 @@ const ScreenShot = ({ appId }: { appId: string }) => {
           type="panels"
           defaultData={[imgError]}
           render={(data) => {
-            if (data.length === 1) data.push(defaultImage)
             return (
               <SwiperOs slidesPerView={calculatePerCard()}>
-                {data.map((src, idx) => {
-                  return (
-                    <SwiperSlide key={idx}>
-                      <Image
-                        style={{ height: calculateHeightImage() }}
-                        src={src}
-                      />
-                    </SwiperSlide>
-                  )
-                })}
+                {data.map((src, idx) => (
+                  <SwiperSlide key={idx}>
+                    <Image
+                      style={{ height: calculateHeightImage() }}
+                      src={src}
+                    />
+                  </SwiperSlide>
+                ))}
               </SwiperOs>
             )
           }}
