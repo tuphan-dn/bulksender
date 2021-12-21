@@ -15,7 +15,7 @@ import { RootState } from 'os/store'
 const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
   const [advance, setAdvance] = useState(false)
   const { width } = useSelector((state: RootState) => state.ui)
-  console.log(textAlert)
+
   const spacing = width <= 992 ? 16 : 24
   return (
     <Row gutter={[spacing, spacing]}>
