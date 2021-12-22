@@ -34,7 +34,7 @@ const AppCard = ({
           render={(data) => (
             <Card
               style={{
-                backgroundImage: `url(${data[0]})`,
+                backgroundImage: `url(${data[0] || imgError})`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
