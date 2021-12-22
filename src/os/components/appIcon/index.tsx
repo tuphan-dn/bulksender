@@ -1,11 +1,17 @@
 import { ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Space, Avatar, Typography } from 'antd'
+import { Space, Avatar, Typography, Badge, AvatarProps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import { StaticLoader } from 'os/components/staticLoader'
 
 import { RootState } from 'os/store'
+import configs from 'os/configs'
+import './index.os.less'
+
+const {
+  register: { defaultAppId },
+} = configs
 
 type Props = {
   appId: string
@@ -14,6 +20,26 @@ type Props = {
   name?: boolean
   direction?: 'vertical' | 'horizontal'
   children?: ReactNode
+}
+
+const AppAvatar = ({
+  appId,
+  avatarProps,
+}: {
+  appId: string
+  avatarProps: AvatarProps
+}) => {
+  return appId === defaultAppId ? (
+    <Badge.Ribbon className="sentre-ribbon-dev" text="dev" placement="start">
+      <Avatar {...avatarProps}>
+        <IonIcon name="image-outline" />
+      </Avatar>
+    </Badge.Ribbon>
+  ) : (
+    <Avatar {...avatarProps}>
+      <IonIcon name="image-outline" />
+    </Avatar>
+  )
 }
 
 const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
@@ -27,14 +53,15 @@ const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
       style={{ width: size, textAlign: 'center', lineHeight: 1 }}
       onClick={onClick}
     >
-      <Avatar
-        src={src}
-        shape="square"
-        size={size}
-        style={{ cursor: 'pointer' }}
-      >
-        <IonIcon name="image-outline" />
-      </Avatar>
+      <AppAvatar
+        appId={appId}
+        avatarProps={{
+          src,
+          shape: 'square',
+          size,
+          style: { cursor: 'pointer' },
+        }}
+      />
       {name ? (
         <Typography.Text
           style={{
@@ -61,9 +88,15 @@ const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
       }}
       onClick={onClick}
     >
-      <Avatar src={src} shape="square" size={size}>
-        <IonIcon name="image-outline" />
-      </Avatar>
+      <AppAvatar
+        appId={appId}
+        avatarProps={{
+          src,
+          shape: 'square',
+          size,
+          style: { cursor: 'pointer' },
+        }}
+      />
       {name ? <Typography.Text>{appName}</Typography.Text> : null}
     </Space>
   )
