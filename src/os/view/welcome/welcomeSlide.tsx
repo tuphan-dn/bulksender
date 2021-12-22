@@ -6,8 +6,8 @@ const WelcomeSlide = () => {
   return (
     <Card className="slide-container" hoverable={false} bordered={false}>
       <Carousel autoplay>
-        {[1, 2, 3].map((item, idx) => (
-          <div key={idx}>
+        {[0, 1, 2].map((index) => (
+          <div key={index}>
             <Row gutter={[24, 24]} justify="center">
               <Col>
                 <Space direction="vertical" size={24} align="center">
@@ -21,7 +21,7 @@ const WelcomeSlide = () => {
                 regular users. In SenSwap, the pool is no longer organized into
                 two tokens. Now a trilogy pool, the protocol will automatically
                 balance the deposit in the case of single-sided deposits
-                (Simulated Single Exposure-SSE), and the native token, SEN, ...
+                (Simulated Single Exposure-SSE), and the native token, SNTR, ...
               </Col>
             </Row>
           </div>
