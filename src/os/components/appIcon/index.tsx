@@ -13,7 +13,7 @@ const {
   register: { defaultAppId },
 } = configs
 
-type Props = {
+type AppIconProps = {
   appId: string
   size?: number
   onClick?: () => void
@@ -42,7 +42,7 @@ const AppAvatar = ({
   )
 }
 
-const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
+const RawVerticalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 64, name = true } = props
   const { register } = useSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
@@ -75,7 +75,7 @@ const RawVerticalAppIcon = (props: Props & { src: ReactNode }) => {
   )
 }
 
-const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
+const RawHorizontalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 32, name = true } = props
   const { register } = useSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
@@ -102,19 +102,17 @@ const RawHorizontalAppIcon = (props: Props & { src: ReactNode }) => {
   )
 }
 
-const RawAppIcon = (props: Props & { src: ReactNode }) => {
+const RawAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   const { direction = 'vertical', ...rest } = props
   if (direction === 'vertical') return <RawVerticalAppIcon {...rest} />
   return <RawHorizontalAppIcon {...rest} />
 }
 
-const AppIcon = (props: Props) => {
-  const { appId } = props
-
+const AppIcon = (props: AppIconProps) => {
   return (
     <StaticLoader
       type="logo"
-      appId={appId}
+      appId={props.appId}
       render={(src) => <RawAppIcon {...props} src={src} />}
     />
   )
