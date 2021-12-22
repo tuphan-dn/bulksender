@@ -13,16 +13,16 @@ export const sol = (chainId: 101 | 102 | 103) => ({
     'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
 })
 
-// Pseudo sen info
+// Pseudo SNTR info
 // Only for testnet and mainnet
-export const sen = (chainId: 102 | 103) => ({
-  symbol: 'SEN',
-  name: 'Sen',
+export const sntr = (chainId: 102 | 103) => ({
+  symbol: 'SNTR',
+  name: 'Sentre',
   address: '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
   decimals: 9,
   chainId,
   extensions: {
-    coingeckoId: 'sen',
+    coingeckoId: 'sentre',
   },
   logoURI:
     'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M/logo.png',
@@ -31,7 +31,7 @@ export const sen = (chainId: 102 | 103) => ({
 // Pseudo token infos for devnet
 const supplementary = [
   sol(103),
-  sen(103),
+  sntr(103),
   {
     symbol: 'wBTC',
     name: 'Wrapped Bitcoin',
