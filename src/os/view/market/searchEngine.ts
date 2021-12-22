@@ -23,6 +23,7 @@ class SearchEngine {
           { field: 'appId', ...PRESET },
           { field: 'name', ...PRESET },
           { field: 'description', ...PRESET },
+          { field: 'tags', ...PRESET },
           { field: 'author:name', ...PRESET },
           { field: 'author:email', ...PRESET },
         ],
