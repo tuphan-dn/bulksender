@@ -12,7 +12,7 @@ import Slope from './slope'
 
 import { RootState } from 'os/store'
 
-const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
+const WalletConnection = () => {
   const [advance, setAdvance] = useState(false)
   const { width } = useSelector((state: RootState) => state.ui)
 
@@ -22,11 +22,6 @@ const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
       <Col span={24}>
         <Typography.Title level={5}>Wallet Connection</Typography.Title>
       </Col>
-      {textAlert && (
-        <Col span={24}>
-          <Typography.Text type="danger">{textAlert}</Typography.Text>
-        </Col>
-      )}
       <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Coin98 />
       </Col>
