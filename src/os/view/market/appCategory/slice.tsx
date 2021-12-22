@@ -13,7 +13,9 @@ import { setValue } from 'os/store/search.reducer'
 const AppCategorySlice = ({
   seeAll = true,
   ...options
-}: { seeAll?: boolean } & CategoryOptions) => {
+}: {
+  seeAll?: boolean
+} & CategoryOptions) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { title, appIds } = useAppCategory(options)

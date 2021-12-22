@@ -12,6 +12,7 @@ import ContextMenu from './contextMenu'
 
 import { RootDispatch, RootState } from 'os/store'
 import { loadRegister, loadPage } from 'os/store/page.reducer'
+import { setWalkthroughState } from 'os/store/walkthrough.reducer'
 
 const NavButton = ({
   iconName,
@@ -24,12 +25,41 @@ const NavButton = ({
 }) => {
   const history = useHistory()
   const { width } = useSelector((state: RootState) => state.ui)
+  const { run, stepIndex } = useSelector(
+    (state: RootState) => state.walkthrough,
+  )
+  const dispatch = useDispatch()
+
+  const handleOnClick = () => {
+    history.push(route)
+    if (run === true && stepIndex === 0) {
+      dispatch(
+        setWalkthroughState({
+          stepIndex: 1,
+        }),
+      )
+    }
+    if (run === true && stepIndex === 3) {
+      dispatch(
+        setWalkthroughState({
+          stepIndex: stepIndex + 1,
+        }),
+      )
+    }
+  }
 
   return (
     <Button
       type="text"
       icon={<IonIcon name={iconName} />}
-      onClick={() => history.push(route)}
+      onClick={handleOnClick}
+      id={
+        title === 'Store'
+          ? 'store'
+          : title === 'Dashboard'
+          ? 'dashboard'
+          : undefined
+      }
     >
       {width >= 576 ? title : null}
     </Button>

@@ -7,20 +7,38 @@ import Verification from 'os/components/verification'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
+import { setWalkthroughState } from 'os/store/walkthrough.reducer'
 
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { register, appIds } = useSelector((state: RootState) => state.page)
+
+  const { run } = useSelector((state: RootState) => state.walkthrough)
+
   const manifest = register[appId]
 
   const onInstall = (e: any) => {
+    if (run === true) {
+      dispatch(
+        setWalkthroughState({
+          stepIndex: 2,
+        }),
+      )
+    }
     e.stopPropagation()
     return dispatch(installApp(appId))
   }
 
   const onOpen = (e: any, appId: string) => {
     e.stopPropagation()
+    if (run === true) {
+      dispatch(
+        setWalkthroughState({
+          stepIndex: 3,
+        }),
+      )
+    }
     return history.push(`/app/${appId}`)
   }
 
@@ -57,11 +75,12 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
                 type="ghost"
                 size="small"
                 onClick={(e) => onOpen(e, appId)}
+                id="open"
               >
                 Open
               </Button>
             ) : (
-              <Button type="primary" onClick={onInstall} size="small">
+              <Button type="primary" onClick={onInstall} size="small" id="app">
                 Install
               </Button>
             )}
