@@ -9,6 +9,7 @@ import Verification from 'os/components/verification'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
+import { openWallet } from 'os/store/wallet.reducer'
 
 const ActionButton = ({
   appIds,
@@ -36,19 +37,21 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { register, appIds } = useSelector((state: RootState) => state.page)
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const { address: walletAddress } = useSelector(
+    (state: RootState) => state.wallet,
+  )
   const manifest = register[appId]
+  const connected = account.isAddress(walletAddress)
 
   const onInstall = (e: MouseEvent<HTMLButtonElement>) => {
-    if (!appId) return
     e.stopPropagation()
-    return dispatch(installApp(appId))
+    if (!connected) return dispatch(openWallet())
+    if (appId) return dispatch(installApp(appId))
   }
 
   const onOpen = (e: MouseEvent<HTMLButtonElement>) => {
-    if (!appId) return
     e.stopPropagation()
-    return history.push(`/app/${appId}`)
+    if (appId) return history.push(`/app/${appId}`)
   }
 
   return (
@@ -78,16 +81,14 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
               </Typography.Text>
             </Space>
           </Col>
-          {account.isAddress(address) && (
-            <Col>
-              <ActionButton
-                appIds={appIds}
-                appId={appId}
-                onOpen={onOpen}
-                onInstall={onInstall}
-              />
-            </Col>
-          )}
+          <Col>
+            <ActionButton
+              appIds={appIds}
+              appId={appId}
+              onOpen={onOpen}
+              onInstall={onInstall}
+            />
+          </Col>
         </Row>
       </Card>
     </Col>
