@@ -14,7 +14,7 @@ const {
 
 export type State = {
   register: SenReg
-  appIds: AppIds
+  appIds: AppIds | undefined
   widgetIds: AppIds
 }
 
@@ -38,7 +38,7 @@ const fetchRegister = async () => {
 const NAME = 'page'
 const initialState: State = {
   register: {},
-  appIds: [],
+  appIds: undefined,
   widgetIds: [],
 }
 

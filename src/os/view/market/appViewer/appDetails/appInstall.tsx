@@ -12,7 +12,7 @@ const AppInstall = ({
   installed,
   appId,
 }: {
-  installed: boolean
+  installed?: boolean
   appId: string
 }) => {
   const dispatch = useDispatch<RootDispatch>()

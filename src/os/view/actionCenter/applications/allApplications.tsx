@@ -48,13 +48,13 @@ const AllApplications = () => {
         <WidgetLayout
           placeholder="No installed application"
           disabled={disabled}
-          appIds={appIds.filter((id) => id !== appId)}
+          appIds={appIds ? appIds.filter((id) => id !== appId) : []}
           onChange={onChange}
           onRemove={onConfirm}
           removeLabel="Drag to uninstall"
         />
       </Col>
-      {!appIds.length ? (
+      {!appIds?.length ? (
         <Col span={24}>
           <Button
             block

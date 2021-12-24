@@ -88,6 +88,7 @@ const View = () => {
     ui: { theme },
     wallet: { address },
     walkthrough,
+    page,
   } = useSelector((state: RootState) => state)
   const dispatch = useDispatch()
 
@@ -101,9 +102,12 @@ const View = () => {
 
   useEffect(() => {
     ;(async () => {
-      const pdb = new PDB(address).createInstance('sentre')
-      const installedApp = await pdb.getItem('appIds')
-      if (!account.isAddress(address) || installedApp !== null) return
+      if (
+        !account.isAddress(address) ||
+        !page.appIds ||
+        page.appIds?.length !== 0
+      )
+        return
       dispatch(
         setWalkthroughState({
           run: true,
@@ -200,7 +204,7 @@ const View = () => {
         },
       ])
     })()
-  }, [address, dispatch])
+  }, [address, dispatch, page])
 
   useEffect(() => {
     a11yChecker()

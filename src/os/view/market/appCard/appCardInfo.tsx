@@ -70,7 +70,7 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
             </Space>
           </Col>
           <Col>
-            {appIds.includes(appId) ? (
+            {appIds?.includes(appId) ? (
               <Button
                 type="ghost"
                 size="small"
