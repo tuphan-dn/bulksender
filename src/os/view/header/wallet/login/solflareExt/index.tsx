@@ -39,7 +39,7 @@ const SolflareExtension = () => {
           <Avatar size={64} shape="square" src={SOLFLARE} />
         </Col>
         <Col span={24}>
-          <p style={{ margin: 0, textAlign: 'center' }}>Solflare Extension</p>
+          <p style={{ margin: 0, textAlign: 'center' }}>Solflare Ext</p>
         </Col>
       </Row>
     </Card>

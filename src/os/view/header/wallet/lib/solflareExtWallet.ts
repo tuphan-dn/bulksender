@@ -1,34 +1,30 @@
 import { Transaction } from '@solana/web3.js'
 import * as nacl from 'tweetnacl'
-import { account, Provider, Signature, SignedMessage } from '@senswap/sen-js'
-import WalletAdapter from '@project-serum/sol-wallet-adapter'
+import { account, Signature, SignedMessage } from '@senswap/sen-js'
 
 import BaseWallet from './baseWallet'
-import configs from 'os/configs'
 
-const PROVIDER_URL = 'https://www.sollet.io'
-
-class SolletWallet extends BaseWallet {
-  private provider: WalletAdapter & Provider
-
+class SolflareExtWallet extends BaseWallet {
   constructor() {
-    super('Sollet')
-
-    const {
-      sol: { node },
-    } = configs
-    this.provider = new WalletAdapter(PROVIDER_URL, node)
+    super('SolflareExtension')
   }
 
   getProvider = async () => {
-    if (!this.provider.connected) await this.provider.connect()
-    return this.provider
+    const { solflare } = window
+    if (!solflare.isSolflare) throw new Error('Wallet is not connected')
+    if (solflare.isConnected) return solflare
+    solflare.connect()
+    return await new Promise((resolve) =>
+      solflare.on('connect', () => resolve(solflare)),
+    )
   }
 
   getAddress = async () => {
     const provider = await this.getProvider()
-    if (!provider.publicKey) throw new Error('Cannot connect to Sollet')
-    return provider.publicKey.toBase58()
+    const address = provider.publicKey.toString()
+    if (!account.isAddress(address))
+      throw new Error('There is no Solana account')
+    return address
   }
 
   rawSignTransaction = async (transaction: Transaction) => {
@@ -45,7 +41,7 @@ class SolletWallet extends BaseWallet {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const encodedMsg = new TextEncoder().encode(message)
-    const { signature: sig } = await provider.sign(encodedMsg, 'utf8')
+    const { signature: sig } = await provider.signMessage(encodedMsg, 'utf8')
     const signature = Buffer.from(sig).toString('hex')
     const data = { address, signature, message }
     return data as SignedMessage
@@ -69,4 +65,4 @@ class SolletWallet extends BaseWallet {
   }
 }
 
-export default SolletWallet
+export default SolflareExtWallet
