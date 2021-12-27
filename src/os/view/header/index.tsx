@@ -32,15 +32,16 @@ const NavButton = ({
 
   const handleOnClick = () => {
     history.push(route)
+    console.log(run, stepIndex)
     if (run === true && stepIndex === 0) {
-      dispatch(
+      return dispatch(
         setWalkthroughState({
           stepIndex: 1,
         }),
       )
     }
     if (run === true && stepIndex === 3) {
-      dispatch(
+      return dispatch(
         setWalkthroughState({
           stepIndex: stepIndex + 1,
         }),
