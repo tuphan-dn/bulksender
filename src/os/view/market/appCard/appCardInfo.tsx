@@ -9,6 +9,7 @@ import Verification from 'os/components/verification'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
+import { setWalkthroughState } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
 import { updateVisited } from 'os/store/flags.reducer'
 
@@ -24,11 +25,11 @@ const ActionButton = ({
   onInstall: (e: MouseEvent<HTMLButtonElement>) => void
 }) => {
   return appIds.includes(appId) ? (
-    <Button type="ghost" size="small" onClick={onOpen}>
+    <Button type="ghost" size="small" onClick={onOpen} id="open">
       Open
     </Button>
   ) : (
-    <Button type="primary" onClick={onInstall} size="small">
+    <Button type="primary" onClick={onInstall} size="small" id="app">
       Install
     </Button>
   )
@@ -38,6 +39,9 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { register, appIds } = useSelector((state: RootState) => state.page)
+
+  const { run } = useSelector((state: RootState) => state.walkthrough)
+
   const { address: walletAddress } = useSelector(
     (state: RootState) => state.wallet,
   )
@@ -47,15 +51,27 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const onInstall = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     if (!connected) return dispatch(openWallet())
-    if (appId) {
+    if (appId && run === true) {
       await dispatch(updateVisited(true))
-      return dispatch(installApp(appId))
+      dispatch(
+        setWalkthroughState({
+          stepIndex: 2,
+        }),
+      )
+      dispatch(installApp(appId))
     }
   }
 
   const onOpen = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-    if (appId) return history.push(`/app/${appId}`)
+    if (run === true) {
+      dispatch(
+        setWalkthroughState({
+          stepIndex: 3,
+        }),
+      )
+    }
+    return history.push(`/app/${appId}`)
   }
 
   return (
