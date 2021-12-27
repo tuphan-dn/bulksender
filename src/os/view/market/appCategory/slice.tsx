@@ -72,4 +72,5 @@ const AppCategorySlice = ({
     </Row>
   )
 }
+
 export default AppCategorySlice

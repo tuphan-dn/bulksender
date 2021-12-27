@@ -12,55 +12,24 @@ import ContextMenu from './contextMenu'
 
 import { RootDispatch, RootState } from 'os/store'
 import { loadRegister, loadPage } from 'os/store/page.reducer'
-import { setWalkthroughState } from 'os/store/walkthrough.reducer'
+import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import { loadVisited } from 'os/store/flags.reducer'
 
-const NavButton = ({
-  iconName,
-  title,
-  route,
-}: {
+type NavButtonProps = {
+  id: string
   iconName: string
   title: string
-  route: string
-}) => {
-  const history = useHistory()
+  onClick: () => void
+}
+
+const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
   const { width } = useSelector((state: RootState) => state.ui)
-  const { run, stepIndex } = useSelector(
-    (state: RootState) => state.walkthrough,
-  )
-  const dispatch = useDispatch()
-
-  const handleOnClick = () => {
-    history.push(route)
-    if (run === true && stepIndex === 0) {
-      return dispatch(
-        setWalkthroughState({
-          stepIndex: 1,
-        }),
-      )
-    }
-    if (run === true && stepIndex === 3) {
-      return dispatch(
-        setWalkthroughState({
-          stepIndex: stepIndex + 1,
-        }),
-      )
-    }
-  }
-
   return (
     <Button
       type="text"
       icon={<IonIcon name={iconName} />}
-      onClick={handleOnClick}
-      id={
-        title === 'Store'
-          ? 'store'
-          : title === 'Dashboard'
-          ? 'dashboard'
-          : undefined
-      }
+      onClick={onClick}
+      id={id}
     >
       {width >= 576 ? title : null}
     </Button>
@@ -71,6 +40,20 @@ const Header = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { address } = useSelector((state: RootState) => state.wallet)
   const { width, theme } = useSelector((state: RootState) => state.ui)
+  const history = useHistory()
+  const {
+    walkthrough: { run, step },
+  } = useSelector((state: RootState) => state)
+
+  const onDashboard = async () => {
+    if (run && step === 3) await dispatch(setWalkthrough({ step: 4 }))
+    return history.push('/dashboard')
+  }
+
+  const onStore = async () => {
+    if (run && step === 0) await dispatch(setWalkthrough({ step: 1 }))
+    return history.push('/store')
+  }
 
   /**
    * Init the system
@@ -80,17 +63,14 @@ const Header = () => {
    */
   useEffect(() => {
     ;(async () => {
-      // Load DApp register
-      await dispatch(loadRegister())
+      await dispatch(loadRegister()) // Load DApp register
     })()
   }, [dispatch])
   useEffect(() => {
     ;(async () => {
       if (!account.isAddress(address)) return
-      // Load page
-      await dispatch(loadPage())
-      // Load flags
-      await dispatch(loadVisited())
+      await dispatch(loadPage()) // Load page
+      await dispatch(loadVisited()) // Load flags
     })()
   }, [dispatch, address])
 
@@ -110,17 +90,18 @@ const Header = () => {
         <Space align="center">
           {account.isAddress(address) && (
             <NavButton
+              id="dashboard-nav-button"
               iconName="grid-outline"
-              route="/dashboard"
+              onClick={onDashboard}
               title="Dashboard"
             />
           )}
           <NavButton
+            id="store-nav-button"
             iconName="bag-handle-outline"
-            route="/store"
+            onClick={onStore}
             title="Store"
           />
-
           {!account.isAddress(address) ? <Wallet /> : <ActionCenter />}
         </Space>
       </Col>

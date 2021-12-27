@@ -6,7 +6,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 type State = {
   run: boolean
-  stepIndex: number
+  step: number
 }
 
 /**
@@ -16,19 +16,19 @@ type State = {
 const NAME = 'walkthrough'
 const initialState: State = {
   run: false,
-  stepIndex: 0,
+  step: 0,
 }
 
 /**
  * Actions
  */
 
-export const setWalkthroughState = createAsyncThunk<
+export const setWalkthrough = createAsyncThunk<
   Partial<State>,
   Partial<State>,
   { state: any }
->(`${NAME}/setWalkthroughState`, async ({ ...rest }, { getState }) => {
-  return { ...rest }
+>(`${NAME}/setWalkthrough`, async (state) => {
+  return { ...state }
 })
 
 /**
@@ -41,7 +41,7 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     void builder.addCase(
-      setWalkthroughState.fulfilled,
+      setWalkthrough.fulfilled,
       (state, { payload }) => void Object.assign(state, payload),
     ),
 })
