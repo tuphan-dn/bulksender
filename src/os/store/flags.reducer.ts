@@ -37,7 +37,6 @@ export const loadVisited = createAsyncThunk<
     throw new Error('Wallet is not connected yet')
   const db = new PDB(address).createInstance('sentre')
   const visited = (await db.getItem('visited')) || false
-  console.log({ ...prevFlags, visited })
   return { ...prevFlags, visited }
 })
 
