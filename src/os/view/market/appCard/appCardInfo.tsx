@@ -11,6 +11,7 @@ import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
 import { setWalkthroughState } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
+import { updateVisited } from 'os/store/flags.reducer'
 
 const ActionButton = ({
   appIds,
@@ -47,10 +48,11 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const manifest = register[appId]
   const connected = account.isAddress(walletAddress)
 
-  const onInstall = (e: MouseEvent<HTMLButtonElement>) => {
+  const onInstall = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     if (!connected) return dispatch(openWallet())
     if (appId && run === true) {
+      await dispatch(updateVisited(true))
       dispatch(
         setWalkthroughState({
           stepIndex: 2,

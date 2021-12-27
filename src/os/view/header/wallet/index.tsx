@@ -19,6 +19,8 @@ import {
   SecretKeyWallet,
   SolletWallet,
   SlopeWallet,
+  SolflareWallet,
+  SolflareExtensionWallet,
 } from './lib'
 
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
@@ -33,19 +35,22 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
       return new SecretKeyWallet(session.get('SecretKey'))
     if (walletType === 'Coin98') return new Coin98Wallet()
     if (walletType === 'Phantom') return new PhantomWallet()
-    if (walletType === 'Sollet') return new SolletWallet()
+    if (walletType === 'SolletWeb') return new SolletWallet()
     if (walletType === 'Slope') return new SlopeWallet()
+    if (walletType === 'SolflareWeb') return new SolflareWallet()
+    if (walletType === 'SolflareExtension') return new SolflareExtensionWallet()
     return null
   }
 
   useEffect(() => {
+    if (account.isAddress(address)) return
     const wallet = reconnect()
     try {
       if (wallet) dispatch(connectWallet(wallet)).unwrap()
     } catch (er: any) {
       return window.notify({ type: 'error', description: er.message })
     }
-  }, [dispatch])
+  }, [dispatch, address])
 
   if (account.isAddress(address))
     return (

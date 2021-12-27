@@ -13,6 +13,7 @@ import ContextMenu from './contextMenu'
 import { RootDispatch, RootState } from 'os/store'
 import { loadRegister, loadPage } from 'os/store/page.reducer'
 import { setWalkthroughState } from 'os/store/walkthrough.reducer'
+import { loadVisited } from 'os/store/flags.reducer'
 
 const NavButton = ({
   iconName,
@@ -32,7 +33,6 @@ const NavButton = ({
 
   const handleOnClick = () => {
     history.push(route)
-    console.log(run, stepIndex)
     if (run === true && stepIndex === 0) {
       return dispatch(
         setWalkthroughState({
@@ -72,10 +72,25 @@ const Header = () => {
   const { address } = useSelector((state: RootState) => state.wallet)
   const { width, theme } = useSelector((state: RootState) => state.ui)
 
+  /**
+   * Init the system
+   * - Load DApp register
+   * - Load page
+   * - Set flags
+   */
   useEffect(() => {
     ;(async () => {
+      // Load DApp register
       await dispatch(loadRegister())
-      if (account.isAddress(address)) await dispatch(loadPage())
+    })()
+  }, [dispatch])
+  useEffect(() => {
+    ;(async () => {
+      if (!account.isAddress(address)) return
+      // Load page
+      await dispatch(loadPage())
+      // Load flags
+      await dispatch(loadVisited())
     })()
   }, [dispatch, address])
 

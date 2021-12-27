@@ -2,23 +2,23 @@ import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
-import SLOPE from 'os/static/images/slope.svg'
+import SOLFLARE from 'os/static/images/solflare.png'
 import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
-import { SlopeWallet } from '../../lib'
+import { SolflareExtensionWallet } from '../../lib'
 
-const Slope = () => {
+const SolflareExtension = () => {
   const dispatch = useDispatch<RootDispatch>()
 
   const connect = async () => {
-    const { Slope } = window
-    if (!Slope)
+    const { solflare } = window
+    if (!solflare)
       return window.notify({
         type: 'warning',
         description:
-          'Slope Wallet is not installed. If this is the first time you install Slope wallet, please restart your browser to complete the setup.',
+          'Solflare Wallet is not installed. If this is the first time you install Solflare wallet, please restart your browser to complete the setup.',
       })
-    const wallet = new SlopeWallet()
+    const wallet = new SolflareExtensionWallet()
     try {
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er: any) {
@@ -36,14 +36,14 @@ const Slope = () => {
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
-          <Avatar size={64} shape="square" src={SLOPE} />
+          <Avatar size={64} shape="square" src={SOLFLARE} />
         </Col>
         <Col span={24}>
-          <p style={{ margin: 0, textAlign: 'center' }}>Slope</p>
+          <p style={{ margin: 0, textAlign: 'center' }}>Solflare Ext</p>
         </Col>
       </Row>
     </Card>
   )
 }
 
-export default Slope
+export default SolflareExtension
