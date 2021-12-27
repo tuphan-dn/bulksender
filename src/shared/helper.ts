@@ -3,7 +3,7 @@ import { PoolData, utils } from '@senswap/sen-js'
 import configs from 'os/configs'
 import { DataLoader } from './dataloader'
 
-const SEN_TICKET = 'sen'
+const SEN_TICKET = 'sentre'
 
 /**
  * Extract reserve from pool data
@@ -17,24 +17,24 @@ const extractReserve = (mintAddress: string, poolData: PoolData): bigint => {
 
 const calcSenPrice = async () => {
   const {
-    sol: { senPoolAddress, senAddress },
+    sol: { sntrPoolAddress, sntrAddress },
   } = configs
   const senInfo = {
     icon: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M/logo.png',
-    symbol: 'SEN',
-    name: 'Sen',
-    address: senAddress,
+    symbol: 'SNTR',
+    name: 'Sentre',
+    address: sntrAddress,
     rank: 0,
     price: 0,
     priceChange: 0,
     totalVolume: 0,
   }
   try {
-    const poolData = await window.sentre?.swap?.getPoolData(senPoolAddress)
+    const poolData = await window.sentre?.swap?.getPoolData(sntrPoolAddress)
     const { mint_a, mint_b } = poolData
-    const usdcAddress = senAddress === mint_a ? mint_b : mint_a
+    const usdcAddress = sntrAddress === mint_a ? mint_b : mint_a
     const usdcReserve = extractReserve(usdcAddress, poolData)
-    const senReserve = extractReserve(senAddress, poolData)
+    const senReserve = extractReserve(sntrAddress, poolData)
     senInfo.price =
       Number(utils.undecimalize(usdcReserve, 9)) /
       Number(utils.undecimalize(senReserve, 9))

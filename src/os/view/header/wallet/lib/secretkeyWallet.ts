@@ -36,7 +36,7 @@ class SecretKeyWallet extends BaseWallet {
   }
 
   rawSignTransaction = async (transaction: Transaction) => {
-    const confirmed = window.confirm('Please confirm to sign the traction!')
+    const confirmed = window.confirm('Please confirm to sign the transaction!')
     if (!confirmed) throw new Error('User rejects to sign the transaction')
     const { keypair } = await this.getProvider()
     const signData = transaction.serializeMessage()

@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
+import { account } from '@senswap/sen-js'
+import { MouseEvent } from 'react'
 
 import { Button, Card, Col, Row, Space, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
@@ -8,6 +10,29 @@ import Verification from 'os/components/verification'
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
 import { setWalkthroughState } from 'os/store/walkthrough.reducer'
+import { openWallet } from 'os/store/wallet.reducer'
+
+const ActionButton = ({
+  appIds,
+  appId,
+  onOpen = () => {},
+  onInstall,
+}: {
+  appIds: AppIds
+  appId: string
+  onOpen: (e: MouseEvent<HTMLButtonElement>) => void
+  onInstall: (e: MouseEvent<HTMLButtonElement>) => void
+}) => {
+  return appIds.includes(appId) ? (
+    <Button type="ghost" size="small" onClick={onOpen} id="open">
+      Open
+    </Button>
+  ) : (
+    <Button type="primary" onClick={onInstall} size="small" id="app">
+      Install
+    </Button>
+  )
+}
 
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
@@ -16,21 +41,26 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
 
   const { run } = useSelector((state: RootState) => state.walkthrough)
 
+  const { address: walletAddress } = useSelector(
+    (state: RootState) => state.wallet,
+  )
   const manifest = register[appId]
+  const connected = account.isAddress(walletAddress)
 
-  const onInstall = (e: any) => {
-    if (run === true) {
+  const onInstall = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    if (!connected) return dispatch(openWallet())
+    if (appId && run === true) {
       dispatch(
         setWalkthroughState({
           stepIndex: 2,
         }),
       )
+      dispatch(installApp(appId))
     }
-    e.stopPropagation()
-    return dispatch(installApp(appId))
   }
 
-  const onOpen = (e: any, appId: string) => {
+  const onOpen = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     if (run === true) {
       dispatch(
@@ -70,20 +100,12 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
             </Space>
           </Col>
           <Col>
-            {appIds.includes(appId) ? (
-              <Button
-                type="ghost"
-                size="small"
-                onClick={(e) => onOpen(e, appId)}
-                id="open"
-              >
-                Open
-              </Button>
-            ) : (
-              <Button type="primary" onClick={onInstall} size="small" id="app">
-                Install
-              </Button>
-            )}
+            <ActionButton
+              appIds={appIds}
+              appId={appId}
+              onOpen={onOpen}
+              onInstall={onInstall}
+            />
           </Col>
         </Row>
       </Card>

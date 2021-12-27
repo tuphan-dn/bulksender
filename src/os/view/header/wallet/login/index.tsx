@@ -10,7 +10,6 @@ import WalletConnection from './walletConnection'
 const Login = () => {
   const { visible } = useSelector((state: RootState) => state.wallet)
   const dispatch = useDispatch<RootDispatch>()
-
   return (
     <Modal
       visible={visible}
