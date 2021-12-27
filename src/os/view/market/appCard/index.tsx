@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 
 import { Card, Col, Row } from 'antd'
@@ -6,13 +6,6 @@ import AppCardInfo from './appCardInfo'
 
 import { MultiStaticLoader } from 'os/components/staticLoader'
 import imgError from 'os/static/images/error-image.svg'
-
-declare module 'react' {
-  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    // extends React's HTMLAttributes
-    data_tut?: string
-  }
-}
 
 const AppCard = ({
   appId,
