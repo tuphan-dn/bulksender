@@ -11,16 +11,9 @@ const Solflare = () => {
   const dispatch = useDispatch<RootDispatch>()
 
   const connect = async () => {
-    const { solflare } = window
-    if (!solflare)
-      return window.notify({
-        type: 'warning',
-        description:
-          'Solflare Wallet is not installed. If this is the first time you install Solflare wallet, please restart your browser to complete the setup.',
-      })
-    const wallet = new SolflareWallet()
+    const solFlareWallet = new SolflareWallet()
     try {
-      await dispatch(connectWallet(wallet)).unwrap()
+      await dispatch(connectWallet(solFlareWallet)).unwrap()
     } catch (er: any) {
       return window.notify({ type: 'error', description: er.message })
     }
