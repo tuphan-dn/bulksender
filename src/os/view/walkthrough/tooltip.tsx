@@ -1,4 +1,7 @@
+import { RootDispatch } from 'os/store'
+import { updateVisited } from 'os/store/flags.reducer'
 import { TooltipRenderProps } from 'react-joyride'
+import { useDispatch } from 'react-redux'
 
 const Tooltip = ({
   index,
@@ -6,9 +9,20 @@ const Tooltip = ({
   tooltipProps,
   skipProps,
 }: TooltipRenderProps) => {
+  const dispatch = useDispatch<RootDispatch>()
+
+  // Patch skipProps
+  const { onClick, ...rest } = skipProps
+  skipProps = {
+    onClick: async (e) => {
+      await dispatch(updateVisited(true))
+      return onClick(e)
+    },
+    ...rest,
+  }
+
   return (
     <div
-      key={index}
       {...tooltipProps}
       style={{
         background: '#F4F4F5',
@@ -37,8 +51,9 @@ const Tooltip = ({
         <div style={{ display: 'flex', flex: 1, alignItems: 'center' }}>
           {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
             <div
+              key={item}
               style={{
-                width: `${item === index + 1 ? 20 : 12}`,
+                width: item === index + 1 ? 20 : 12,
                 height: 4,
                 background: `${item === index + 1 ? '#F9575E' : '#FEDDDF'}`,
                 margin: '0px 4px',
