@@ -32,6 +32,7 @@ const Slope = () => {
       style={{ cursor: 'pointer' }}
       bordered={false}
       hoverable
+      bodyStyle={{ padding: 12 }}
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>

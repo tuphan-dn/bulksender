@@ -24,6 +24,7 @@ interface Window {
   coin98: any
   solana: any
   Slope: any
+  solflare: any
 }
 
 // For bigint serialization

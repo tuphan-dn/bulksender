@@ -9,6 +9,8 @@ import Sollet from './sollet'
 import Keystore from './keystore'
 import SecretKey from './secretKey'
 import Slope from './slope'
+import Solflare from './solflareWeb'
+import SolflareExtension from './solflareEx'
 
 import { RootState } from 'os/store'
 
@@ -34,6 +36,13 @@ const WalletConnection = () => {
       <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Slope />
       </Col>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
+        <Solflare />
+      </Col>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
+        <SolflareExtension />
+      </Col>
+
       <Col span={24}>
         <Row gutter={[16, 16]} align="middle">
           <Col flex="auto">
