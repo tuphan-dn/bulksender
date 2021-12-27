@@ -13,7 +13,7 @@ type State = {
  * Store constructor
  */
 
-const NAME = 'walkthrogh'
+const NAME = 'walkthrough'
 const initialState: State = {
   run: false,
   stepIndex: 0,

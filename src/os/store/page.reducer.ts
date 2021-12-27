@@ -18,7 +18,7 @@ export type State = {
   widgetIds: AppIds
 }
 
-const troubleshoot = (register: SenReg, appIds: AppIds): AppIds => {
+const troubleshoot = (register: SenReg, appIds?: AppIds): AppIds => {
   if (!appIds || !Array.isArray(appIds)) return []
   return appIds.filter((appId) => register[appId])
 }

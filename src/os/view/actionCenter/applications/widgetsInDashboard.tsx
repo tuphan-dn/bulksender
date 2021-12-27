@@ -94,7 +94,7 @@ const WidgetsInDashboard = () => {
       >
         <Row gutter={[12, 12]}>
           {appIds
-            ?.filter(
+            .filter(
               (appId) =>
                 !widgetIds.includes(appId) &&
                 register[appId]?.supportedViews?.includes('widget'),
