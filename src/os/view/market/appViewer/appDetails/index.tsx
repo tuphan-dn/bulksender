@@ -29,7 +29,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
   }
 
   const installed = useMemo(() => {
-    return account.isAddress(address) && appIds?.includes(appId)
+    return account.isAddress(address) && appIds.includes(appId)
   }, [address, appIds, appId])
 
   return (
