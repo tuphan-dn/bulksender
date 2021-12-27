@@ -15,7 +15,7 @@ const Dashboard = () => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        {appIds?.includes(appId) ? (
+        {appIds.includes(appId) ? (
           <PageLoader {...(register[appId] as ComponentManifest)} />
         ) : (
           <NotFound appId={appId} />

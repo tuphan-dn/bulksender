@@ -103,9 +103,14 @@ const View = () => {
       if (
         !account.isAddress(address) ||
         !page.appIds ||
-        page.appIds?.length !== 0
-      )
-        return
+        page.appIds.length !== 0
+      ) {
+        return dispatch(
+          setWalkthroughState({
+            run: false,
+          }),
+        )
+      }
       dispatch(
         setWalkthroughState({
           run: true,

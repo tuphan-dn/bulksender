@@ -15,7 +15,7 @@ const Navigation = () => {
   const { appIds } = useSelector((state: RootState) => state.page)
   return (
     <Row gutter={[12, 12]} wrap={false} align="middle">
-      {appIds?.map((appId) => (
+      {appIds.map((appId) => (
         <Col key={appId}>
           <Badge
             dot={params?.appId === appId}

@@ -14,11 +14,11 @@ const {
 
 export type State = {
   register: SenReg
-  appIds: AppIds | undefined
+  appIds: AppIds
   widgetIds: AppIds
 }
 
-const troubleshoot = (register: SenReg, appIds?: AppIds): AppIds => {
+const troubleshoot = (register: SenReg, appIds: AppIds): AppIds => {
   if (!appIds || !Array.isArray(appIds)) return []
   return appIds.filter((appId) => register[appId])
 }
@@ -38,7 +38,7 @@ const fetchRegister = async () => {
 const NAME = 'page'
 const initialState: State = {
   register: {},
-  appIds: undefined,
+  appIds: [],
   widgetIds: [],
 }
 
