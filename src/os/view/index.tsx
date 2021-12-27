@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
-// @ts-ignore
-import a11yChecker from 'a11y-checker'
 import Joyride, {
   CallBackProps,
   EVENTS,
@@ -15,7 +13,6 @@ import Joyride, {
 import { Layout, Row, Col, Card, Affix } from 'antd'
 import PrivateRoute from 'os/components/privateRoute'
 import Header from 'os/view/header'
-import PDB from 'shared/pdb'
 import Welcome from 'os/view/welcome'
 import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
@@ -37,6 +34,7 @@ const Tooltip = ({
 }: TooltipRenderProps) => {
   return (
     <div
+      key={index}
       {...tooltipProps}
       style={{
         background: '#F4F4F5',
@@ -205,10 +203,6 @@ const View = () => {
       ])
     })()
   }, [address, dispatch, page])
-
-  useEffect(() => {
-    a11yChecker()
-  }, [run, steps, stepIndex])
 
   const handleJoyrideCallback = (props: CallBackProps) => {
     const { type, status } = props
