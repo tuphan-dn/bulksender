@@ -2,23 +2,23 @@ import { useDispatch } from 'react-redux'
 
 import { Row, Card, Col, Avatar } from 'antd'
 
-import COIN98 from 'os/static/images/coin98.png'
+import SOLFLARE from 'os/static/images/solflare.png'
 import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
-import { Coin98Wallet } from '../../lib'
+import { SolflareExtensionWallet } from '../../lib'
 
-const Coin98 = () => {
+const SolflareExtension = () => {
   const dispatch = useDispatch<RootDispatch>()
 
   const connect = async () => {
-    const { coin98 } = window
-    if (!coin98)
+    const { solflare } = window
+    if (!solflare)
       return window.notify({
         type: 'warning',
         description:
-          'Coin98 Wallet is not installed. If this is the first time you install Coin98 wallet, please restart your browser to complete the setup.',
+          'Solflare Wallet is not installed. If this is the first time you install Solflare wallet, please restart your browser to complete the setup.',
       })
-    const wallet = new Coin98Wallet()
+    const wallet = new SolflareExtensionWallet()
     try {
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er: any) {
@@ -36,14 +36,14 @@ const Coin98 = () => {
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
-          <Avatar size={64} shape="square" src={COIN98} />
+          <Avatar size={64} shape="square" src={SOLFLARE} />
         </Col>
         <Col span={24}>
-          <p style={{ margin: 0, textAlign: 'center' }}>Coin98</p>
+          <p style={{ margin: 0, textAlign: 'center' }}>Solflare Extension</p>
         </Col>
       </Row>
     </Card>
   )
 }
 
-export default Coin98
+export default SolflareExtension

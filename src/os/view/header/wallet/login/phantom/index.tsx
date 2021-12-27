@@ -32,6 +32,7 @@ const Phantom = () => {
       style={{ cursor: 'pointer' }}
       bordered={false}
       hoverable
+      bodyStyle={{ padding: 16 }}
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
