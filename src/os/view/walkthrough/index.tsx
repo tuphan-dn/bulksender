@@ -31,7 +31,7 @@ const STEPS: Step[] = [
           textAlign: 'left',
           color: '#212433',
           fontWeight: 700,
-          fontSize: '20px',
+          fontSize: 20,
         }}
       >
         Search an app
@@ -111,7 +111,6 @@ const Walkthrough = () => {
 
   const onCallback = ({ type, status }: CallBackProps) => {
     const options: string[] = [STATUS.FINISHED, STATUS.SKIPPED]
-
     if (options.includes(status))
       return dispatch(setWalkthrough({ run: false }))
     if (([EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)) {
@@ -126,6 +125,7 @@ const Walkthrough = () => {
       run={run}
       steps={STEPS}
       stepIndex={step}
+      scrollOffset={128}
       scrollToFirstStep={true}
       showProgress={true}
       showSkipButton={true}
