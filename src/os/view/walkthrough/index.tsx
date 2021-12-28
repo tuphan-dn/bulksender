@@ -125,7 +125,7 @@ const Walkthrough = () => {
       run={run}
       steps={STEPS}
       stepIndex={step}
-      // scrollOffset={128}
+      scrollOffset={128}
       scrollToFirstStep={true}
       showProgress={true}
       showSkipButton={true}
