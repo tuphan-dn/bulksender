@@ -5,8 +5,7 @@ import { utils } from '@senswap/sen-js'
 import { Skeleton } from 'antd'
 
 import { RootState } from 'os/store'
-import { fetchCGK } from 'shared/helper'
-import { numeric } from 'shared/util'
+import { numeric, fetchCGK } from 'shared/util'
 
 const Balance = ({
   hidden = false,

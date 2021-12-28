@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { fetchCGK } from 'shared/helper'
+import { fetchCGK } from 'shared/util'
 import { parseColor } from './parseColor'
 
 const PriceSolidus = ({

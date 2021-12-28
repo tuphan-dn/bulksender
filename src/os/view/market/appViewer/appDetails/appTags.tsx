@@ -1,6 +1,6 @@
 import { Space, Tag } from 'antd'
 
-import { randomColor } from 'shared/helper'
+import { randomColor } from 'shared/util'
 
 const AppTags = ({ tags = [] }: { tags?: string[] }) => {
   return (
