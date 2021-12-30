@@ -6,7 +6,7 @@ import configs from 'os/configs'
 import supplementary, { sntr, sol } from './supplementary'
 
 const {
-  sol: { chainId, sntrAddress },
+  sol: { chainId },
 } = configs
 const DELIMITER = /[\W_]+/g
 const PRESET = {
@@ -54,19 +54,6 @@ class TokenProvider {
       let tokenList = await (await new TokenListProvider().resolve())
         .filterByChainId(this.chainId)
         .getList()
-
-      // Patch for SNTR
-      tokenList.forEach((token, index) => {
-        if (token.address === sntrAddress) {
-          const { extensions, name, symbol, ...rest } = token
-          tokenList[index] = {
-            ...rest,
-            name: 'Sentre',
-            symbol: 'SNTR',
-            extensions: { ...extensions, coingeckoId: 'sentre' },
-          }
-        }
-      })
       if (this.cluster === 'devnet') tokenList = tokenList.concat(supplementary)
       if (this.cluster === 'testnet')
         tokenList = tokenList.concat([sntr(102), sol(102)])
