@@ -54,7 +54,7 @@ const MintContextProvider = ({ children }: { children: ReactNode }) => {
       if (mintData[mintAddress]?.decimals) return mintData[mintAddress].decimals
       throw new Error('Cannot find mint decimals')
     },
-    [getMint],
+    [getMint, pools],
   )
   const provider = useMemo(
     () => ({ mints, getMint, getDecimals, tokenProvider }),
