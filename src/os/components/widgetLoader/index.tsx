@@ -85,11 +85,7 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
 
 const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
   ({ url, appId, ...props }, ref) => {
-    const manifest = {
-      url: url + `?t=${Date.now()}`, // Cache busting
-      scope: appId,
-      module: './bootstrap',
-    }
+    const manifest = { url, scope: appId, module: './bootstrap' }
     return (
       <ErrorBoundary defaultChildren={<WidgetError url={url} />}>
         <Suspense fallback={<WidgetLoading />}>

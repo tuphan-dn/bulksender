@@ -70,11 +70,7 @@ const PageError = ({ url = 'Unknown' }: { url?: string }) => {
  */
 const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
   ({ url, appId, ...props }, ref) => {
-    const manifest = {
-      url: url + `?t=${Date.now()}`, // Cache busting
-      scope: appId,
-      module: './bootstrap',
-    }
+    const manifest = { url, scope: appId, module: './bootstrap' }
     return (
       <ErrorBoundary defaultChildren={<PageError url={url} />}>
         <Suspense fallback={<Skeleton active />}>
