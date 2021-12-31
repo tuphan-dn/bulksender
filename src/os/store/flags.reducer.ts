@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { account } from '@senswap/sen-js'
 
+import PDB from 'shared/pdb'
+
 /**
  * Interface & Utility
  */
@@ -22,17 +24,35 @@ const initialState: State = {
  * Actions
  */
 
-export const setVisited = createAsyncThunk<
+export const loadVisited = createAsyncThunk<
   Partial<State>,
-  boolean,
+  void,
   { state: any }
->(`${NAME}/setVisited`, async (visited, { getState }) => {
+>(`${NAME}/loadVisited`, async (_, { getState }) => {
   const {
     wallet: { address },
     flags: prevFlags,
   } = getState()
   if (!account.isAddress(address))
     throw new Error('Wallet is not connected yet')
+  const db = new PDB(address).createInstance('sentre')
+  const visited = (await db.getItem('visited')) || false
+  return { ...prevFlags, visited }
+})
+
+export const updateVisited = createAsyncThunk<
+  Partial<State>,
+  boolean,
+  { state: any }
+>(`${NAME}/updateVisited`, async (visited, { getState }) => {
+  const {
+    wallet: { address },
+    flags: prevFlags,
+  } = getState()
+  if (!account.isAddress(address))
+    throw new Error('Wallet is not connected yet')
+  const db = new PDB(address).createInstance('sentre')
+  await db.setItem('visited', visited)
   return { ...prevFlags, visited }
 })
 
@@ -45,10 +65,15 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) =>
-    void builder.addCase(
-      setVisited.fulfilled,
-      (state, { payload }) => void Object.assign(state, payload),
-    ),
+    void builder
+      .addCase(
+        loadVisited.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        updateVisited.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      ),
 })
 
 export default slice.reducer

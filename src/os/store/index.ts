@@ -9,6 +9,7 @@ import accounts from './accounts.reducer'
 import mints from './mints.reducer'
 import pools from './pools.reducer'
 import search from './search.reducer'
+import walkthrough from './walkthrough.reducer'
 
 /**
  * Root store
@@ -26,6 +27,7 @@ const store = configureStore({
     mints,
     pools,
     search,
+    walkthrough,
   },
 })
 

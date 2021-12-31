@@ -12,7 +12,7 @@ class SolletWallet extends BaseWallet {
   private provider: WalletAdapter & Provider
 
   constructor() {
-    super('Sollet')
+    super('SolletWeb')
 
     const {
       sol: { node },
@@ -27,7 +27,7 @@ class SolletWallet extends BaseWallet {
 
   getAddress = async () => {
     const provider = await this.getProvider()
-    if (!provider.publicKey) throw new Error('Cannot connect to Sollet')
+    if (!provider.publicKey) throw new Error('Cannot connect to Sollet Web')
     return provider.publicKey.toBase58()
   }
 

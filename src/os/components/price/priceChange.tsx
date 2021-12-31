@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { numeric } from 'shared/util'
 
-import { fetchCGK } from 'shared/helper'
+import { fetchCGK } from 'shared/util'
 import { parseColor } from './parseColor'
 
 const PriceChange = ({

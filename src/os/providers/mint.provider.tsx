@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, RootDispatch } from 'os/store'
 import { getMint as _getMint, State as MintState } from 'os/store/mints.reducer'
 import TokenProvider from './tokenProvider'
+import { account } from '@senswap/sen-js'
 
 const tokenProvider = new TokenProvider()
 const Context = createContext<MintProvider>({} as MintProvider)
@@ -21,6 +22,7 @@ const Context = createContext<MintProvider>({} as MintProvider)
 export type MintProvider = {
   mints: MintState
   getMint: (...agrs: Parameters<typeof _getMint>) => Promise<MintState>
+  getDecimals: (mintAddress: string) => Promise<number>
   tokenProvider: TokenProvider
 }
 
@@ -29,15 +31,34 @@ export type MintProvider = {
  */
 const MintContextProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useDispatch<RootDispatch>()
-  const mints = useSelector((state: RootState) => state.mints)
+  const { mints, pools } = useSelector((state: RootState) => state)
   const getMint = useCallback(
     async (...agrs: Parameters<typeof _getMint>) =>
       await dispatch(_getMint(...agrs)).unwrap(),
     [dispatch],
   )
+  const getDecimals = useCallback(
+    async (mintAddress: string) => {
+      if (!account.isAddress(mintAddress))
+        throw new Error('Invalid mint address')
+      // If the token is in token provider, return its decimals
+      const tokenInfo = await tokenProvider.findByAddress(mintAddress)
+      if (tokenInfo?.decimals) return tokenInfo.decimals
+      // If the token is lp, return 9 as default
+      const index = Object.values(pools).findIndex(
+        ({ mint_lpt }) => mint_lpt === mintAddress,
+      )
+      if (index >= 0) return 9
+      // Fetch from the clustters
+      const mintData = await getMint({ address: mintAddress })
+      if (mintData[mintAddress]?.decimals) return mintData[mintAddress].decimals
+      throw new Error('Cannot find mint decimals')
+    },
+    [getMint, pools],
+  )
   const provider = useMemo(
-    () => ({ mints, getMint, tokenProvider }),
-    [mints, getMint],
+    () => ({ mints, getMint, getDecimals, tokenProvider }),
+    [mints, getMint, getDecimals],
   )
   // Context provider
   return <Context.Provider value={provider}>{children}</Context.Provider>

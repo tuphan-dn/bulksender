@@ -9,6 +9,7 @@ import IonIcon from 'shared/antd/ionicon'
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
+import { updateVisited } from 'os/store/flags.reducer'
 
 const AppInstall = ({
   installed,
@@ -30,10 +31,10 @@ const AppInstall = ({
     return 'end'
   }
 
-  const onInstall = () => {
-    !account.isAddress(address)
-      ? dispatch(openWallet())
-      : dispatch(installApp(appId))
+  const onInstall = async () => {
+    if (!account.isAddress(address)) return dispatch(openWallet())
+    await dispatch(updateVisited(true))
+    return dispatch(installApp(appId))
   }
 
   return (

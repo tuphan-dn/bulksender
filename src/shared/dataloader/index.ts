@@ -27,7 +27,7 @@ export class DataLoader {
 
     let singleFlight = DataLoader.getSingleFlight(configs)
     DataLoader.mapInstance.set(requestKey, singleFlight)
-    const newRequest = new RequestQueue(requestKey);
+    const newRequest = new RequestQueue(requestKey)
     return singleFlight.load<T>(newRequest, callback)
   }
 }
@@ -95,7 +95,10 @@ class SingleFlight {
     }
   }
 
-  private addRequestQueue(request: IRequestQueue, callback: () => Promise<any>) {
+  private addRequestQueue(
+    request: IRequestQueue,
+    callback: () => Promise<any>,
+  ) {
     this.requestQueue.push(request)
     this.intervalRequest = setInterval(() => {
       this.fetchRequestQueue(callback)
@@ -103,16 +106,7 @@ class SingleFlight {
   }
 
   private validateLimit(): boolean {
-    if (!this.config.limit) return false
-
-    const timeFarthest = this.timeLogs[0] || 0
-    const timeNow = new Date().getTime()
-    if (this.timeLogs.length < this.config.limit.calls) {
-      return true
-    }
-    const timeRange = timeNow - timeFarthest
-    const minTimeRange = this.config.limit.time
-    return timeRange > minTimeRange
+    return true
   }
 
   private createTimeLogs() {

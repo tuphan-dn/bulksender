@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import IonIcon from 'shared/antd/ionicon'
 
-import { fetchCGK } from 'shared/helper'
+import { fetchCGK } from 'shared/util'
 import { parseColor } from './parseColor'
 
 const PriceIndicator = ({

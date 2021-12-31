@@ -9,25 +9,34 @@ import Verification from 'os/components/verification'
 
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
+import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
+import { updateVisited } from 'os/store/flags.reducer'
+
+type ActionButtonProps = {
+  appIds: AppIds
+  appId: string
+  onOpen: (e: MouseEvent<HTMLButtonElement>) => void
+  onInstall: (e: MouseEvent<HTMLButtonElement>) => void
+}
 
 const ActionButton = ({
   appIds,
   appId,
   onOpen = () => {},
   onInstall,
-}: {
-  appIds: AppIds
-  appId: string
-  onOpen: (e: MouseEvent<HTMLButtonElement>) => void
-  onInstall: (e: MouseEvent<HTMLButtonElement>) => void
-}) => {
+}: ActionButtonProps) => {
   return appIds.includes(appId) ? (
-    <Button type="ghost" size="small" onClick={onOpen}>
+    <Button type="ghost" size="small" onClick={onOpen} id="open-action-button">
       Open
     </Button>
   ) : (
-    <Button type="primary" onClick={onInstall} size="small">
+    <Button
+      type="primary"
+      onClick={onInstall}
+      size="small"
+      id="install-action-button"
+    >
       Install
     </Button>
   )
@@ -36,22 +45,28 @@ const ActionButton = ({
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { register, appIds } = useSelector((state: RootState) => state.page)
-  const { address: walletAddress } = useSelector(
-    (state: RootState) => state.wallet,
-  )
-  const manifest = register[appId]
-  const connected = account.isAddress(walletAddress)
+  const {
+    page: { register, appIds },
+    walkthrough: { run },
+    wallet: { address: walletAddress },
+  } = useSelector((state: RootState) => state)
 
-  const onInstall = (e: MouseEvent<HTMLButtonElement>) => {
+  const manifest = register[appId]
+
+  const onInstall = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-    if (!connected) return dispatch(openWallet())
-    if (appId) return dispatch(installApp(appId))
+    if (!account.isAddress(walletAddress)) return dispatch(openWallet())
+    if (run) await dispatch(setWalkthrough({ step: 2 }))
+    if (appId) {
+      await dispatch(updateVisited(true))
+      return dispatch(installApp(appId))
+    }
   }
 
-  const onOpen = (e: MouseEvent<HTMLButtonElement>) => {
+  const onOpen = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-    if (appId) return history.push(`/app/${appId}`)
+    if (run) await dispatch(setWalkthrough({ step: 3 }))
+    return history.push(`/app/${appId}`)
   }
 
   return (

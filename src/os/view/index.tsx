@@ -13,6 +13,8 @@ import AppViewer from './market/appViewer'
 import Sync from './sync'
 
 import Watcher from 'os/view/watcher'
+import Walkthrough from './walkthrough'
+
 import { RootState } from 'os/store'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
@@ -62,6 +64,7 @@ const View = () => {
         </Row>
       </Layout>
       {/* In-Background Run Jobs */}
+      <Walkthrough />
       <Watcher />
     </Layout>
   )
