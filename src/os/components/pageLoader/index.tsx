@@ -50,7 +50,7 @@ const PageError = ({ url = 'Unknown' }: { url?: string }) => {
           Support
         </Button>
       </Col>
-      <Col span={24}>
+      <Col span={12}>
         <Button
           type="primary"
           onClick={retry}
