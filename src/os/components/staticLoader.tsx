@@ -40,7 +40,7 @@ export const StaticLoader = forwardRef<
   const { register } = useSelector((state: RootState) => state.page)
   const url = register[appId]?.url || ''
   const manifest: RemoteModule = {
-    url,
+    url: url + `?t=${Date.now()}`, // Cache busting
     scope: appId,
     module: './static',
   }
@@ -89,7 +89,7 @@ export const MultiStaticLoader = forwardRef<
   const { register } = useSelector((state: RootState) => state.page)
   const url = register[appId]?.url || ''
   const manifest: RemoteModule = {
-    url,
+    url: url + `?t=${Date.now()}`, // Cache busting
     scope: appId,
     module: './static',
   }

@@ -86,7 +86,7 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
 const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
   ({ url, appId, ...props }, ref) => {
     const manifest = {
-      url,
+      url: url + `?t=${Date.now()}`, // Cache busting
       scope: appId,
       module: './bootstrap',
     }
