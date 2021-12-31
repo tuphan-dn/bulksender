@@ -71,7 +71,7 @@ const PageError = ({ url = 'Unknown' }: { url?: string }) => {
 const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
   ({ url, appId, ...props }, ref) => {
     const manifest = {
-      url: url + `?${Date.now()}`, // Cache busting
+      url,
       scope: appId,
       module: './bootstrap',
     }
