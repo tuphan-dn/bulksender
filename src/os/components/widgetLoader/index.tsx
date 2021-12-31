@@ -1,10 +1,10 @@
-import { forwardRef, Suspense, useCallback } from 'react'
+import { Suspense, forwardRef, useCallback } from 'react'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 import { useRemoteModule } from 'react-dynamic-remote-component'
 
 import { Row, Col, Typography, Button, Spin } from 'antd'
 import WidgetContainer from './widgetContainer'
-import ErrorBoundary from '../errorBoundary'
+import ErrorBoundary from 'os/components/errorBoundary'
 import IonIcon from 'shared/antd/ionicon'
 
 /**
