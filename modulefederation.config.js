@@ -3,7 +3,7 @@ const senhub = process.env.REACT_APP_SENHUB
 
 module.exports = {
   name,
-  filename: '[name].[contenthash].js',
+  filename: 'index.js',
   shared: {
     react: { singleton: true, requiredVersion: '^17.0.2' },
     'react-dom': { singleton: true, requiredVersion: '^17.0.2' },
