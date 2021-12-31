@@ -5,6 +5,7 @@ import { useRemoteModule } from 'react-dynamic-remote-component'
 import { Row, Col, Typography, Button, Spin } from 'antd'
 import WidgetContainer from './widgetContainer'
 import ErrorBoundary from '../errorBoundary'
+import IonIcon from 'shared/antd/ionicon'
 
 /**
  * Remote component
@@ -35,6 +36,7 @@ const WidgetLoading = () => (
  * Error component
  */
 const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
+  const retry = () => window.location.reload()
   const support = useCallback(() => {
     return window.open(
       `mailto:hi@sentre.io?subject=${url} has failed`,
@@ -60,9 +62,19 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
             Oops! The application can't load properly
           </p>
         </Col>
-        <Col span={24}>
-          <Button type="primary" onClick={support} block>
+        <Col span={12}>
+          <Button type="text" onClick={support} block>
             Support
+          </Button>
+        </Col>
+        <Col span={24}>
+          <Button
+            type="primary"
+            onClick={retry}
+            icon={<IonIcon name="reload-outline" />}
+            block
+          >
+            Retry
           </Button>
         </Col>
       </Row>
