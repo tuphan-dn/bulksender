@@ -59,8 +59,7 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
         </Col>
         <Col span={24}>
           <p style={{ textAlign: 'center' }}>
-            Oops! The application can't load properly. Your browser may cache
-            the old version of the application. Click retry to load the new one.
+            Oops! The application can't load properly.
           </p>
         </Col>
         <Col span={12}>
