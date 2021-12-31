@@ -42,7 +42,8 @@ const PageError = ({ url = 'Unknown' }: { url?: string }) => {
       </Col>
       <Col span={24}>
         <p style={{ textAlign: 'center' }}>
-          Oops! The application can't load properly
+          Oops! The application can't load properly. Your browser may cache the
+          old version of the application. Click retry to load the new one.
         </p>
       </Col>
       <Col span={12}>
@@ -69,9 +70,13 @@ const PageError = ({ url = 'Unknown' }: { url?: string }) => {
  */
 const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
   ({ url, appId, ...props }, ref) => {
-    const manifest = { url, scope: appId, module: './bootstrap' }
+    const manifest = {
+      url: url + `?${Date.now()}`, // Cache busting
+      scope: appId,
+      module: './bootstrap',
+    }
     return (
-      <ErrorBoundary defaultChildren={<PageError url="url" />}>
+      <ErrorBoundary defaultChildren={<PageError url={url} />}>
         <Suspense fallback={<Skeleton active />}>
           <RemoteComponent manifest={manifest} {...props} ref={ref} />
         </Suspense>

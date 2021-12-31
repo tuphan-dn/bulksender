@@ -59,7 +59,8 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
         </Col>
         <Col span={24}>
           <p style={{ textAlign: 'center' }}>
-            Oops! The application can't load properly
+            Oops! The application can't load properly. Your browser may cache
+            the old version of the application. Click retry to load the new one.
           </p>
         </Col>
         <Col span={12}>
@@ -67,7 +68,7 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
             Support
           </Button>
         </Col>
-        <Col span={24}>
+        <Col span={12}>
           <Button
             type="primary"
             onClick={retry}
@@ -83,10 +84,12 @@ const WidgetError = ({ url = 'Unknown' }: { url?: string }) => {
 }
 
 const WidgetLoader = forwardRef<HTMLElement, ComponentManifest>(
-  (props, ref) => {
-    const { url, appId } = props
-    const manifest = { url, scope: appId, module: './bootstrap' }
-
+  ({ url, appId, ...props }, ref) => {
+    const manifest = {
+      url: url + `?${Date.now()}`, // Cache busting
+      scope: appId,
+      module: './bootstrap',
+    }
     return (
       <ErrorBoundary defaultChildren={<WidgetError url={url} />}>
         <Suspense fallback={<WidgetLoading />}>
