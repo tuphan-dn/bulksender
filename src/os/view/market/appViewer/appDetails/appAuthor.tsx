@@ -15,11 +15,11 @@ const ExtraTypography = ({
   )
 }
 
-const AppAuthor = ({
-  author,
-}: {
+export type AppAuthorProps = {
   author?: { name?: string; email?: string }
-}) => {
+}
+
+const AppAuthor = ({ author }: AppAuthorProps) => {
   const { name, email } = author || {}
 
   return (

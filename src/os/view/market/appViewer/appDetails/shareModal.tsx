@@ -12,13 +12,13 @@ import {
   Typography,
   Modal,
 } from 'antd'
-import Telegram from 'os/static/images/telegram.png'
-import Twitter from 'os/static/images/twitter.png'
-
 import IonIcon from 'shared/antd/ionicon'
+
 import { RootState } from 'os/store'
 import { useSelector } from 'react-redux'
 import { asyncWait } from 'shared/util'
+import Telegram from 'os/static/images/telegram.png'
+import Twitter from 'os/static/images/twitter.png'
 
 const ShareModal = ({
   appId,
@@ -32,7 +32,9 @@ const ShareModal = ({
   onClose: () => void
 }) => {
   const [copied, setCopied] = useState(false)
-  const { register } = useSelector((state: RootState) => state.page)
+  const {
+    page: { register },
+  } = useSelector((state: RootState) => state)
   const { name } = register[appId] || {}
 
   const onClick = (type?: string) => {
