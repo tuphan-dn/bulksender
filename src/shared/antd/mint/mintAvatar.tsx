@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
 
 import { Avatar } from 'antd'
@@ -56,6 +56,10 @@ const MintAvatar = ({
     const avatar = await deriveAvatar(mintAddress)
     return setAvatars([avatar])
   }, [mintAddress, reversed, deriveAvatar, pools])
+
+  useEffect(() => {
+    deriveAvatars()
+  }, [deriveAvatars])
 
   return (
     <Avatar.Group style={{ display: 'block', whiteSpace: 'nowrap' }}>
