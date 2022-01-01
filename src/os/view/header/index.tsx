@@ -43,6 +43,7 @@ const Header = () => {
     wallet: { address: walletAddress },
     ui: { width, theme },
     walkthrough: { run, step },
+    page: { register },
   } = useSelector((state: RootState) => state)
 
   const onDashboard = async () => {
@@ -68,11 +69,11 @@ const Header = () => {
   }, [dispatch])
   useEffect(() => {
     ;(async () => {
-      if (!account.isAddress(walletAddress)) return
+      if (!account.isAddress(walletAddress) || !register.length) return
       await dispatch(loadPage()) // Load page
       await dispatch(loadVisited()) // Load flags
     })()
-  }, [dispatch, walletAddress])
+  }, [dispatch, walletAddress, register])
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
