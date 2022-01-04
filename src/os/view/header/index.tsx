@@ -38,11 +38,12 @@ const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
 
 const Header = () => {
   const dispatch = useDispatch<RootDispatch>()
-  const { address } = useSelector((state: RootState) => state.wallet)
-  const { width, theme } = useSelector((state: RootState) => state.ui)
   const history = useHistory()
   const {
+    wallet: { address: walletAddress },
+    ui: { width, theme },
     walkthrough: { run, step },
+    page: { register },
   } = useSelector((state: RootState) => state)
 
   const onDashboard = async () => {
@@ -68,11 +69,12 @@ const Header = () => {
   }, [dispatch])
   useEffect(() => {
     ;(async () => {
-      if (!account.isAddress(address)) return
+      if (!account.isAddress(walletAddress) || !Object.keys(register).length)
+        return
       await dispatch(loadPage()) // Load page
       await dispatch(loadVisited()) // Load flags
     })()
-  }, [dispatch, address])
+  }, [dispatch, walletAddress, register])
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
@@ -88,7 +90,7 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          {account.isAddress(address) && (
+          {account.isAddress(walletAddress) && (
             <NavButton
               id="dashboard-nav-button"
               iconName="grid-outline"
@@ -102,7 +104,7 @@ const Header = () => {
             onClick={onStore}
             title="Store"
           />
-          {!account.isAddress(address) ? <Wallet /> : <ActionCenter />}
+          {!account.isAddress(walletAddress) ? <Wallet /> : <ActionCenter />}
         </Space>
       </Col>
     </Row>

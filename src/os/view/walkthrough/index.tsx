@@ -1,99 +1,78 @@
-import { useEffect } from 'react'
+import { useEffect, ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 import Joyride, { CallBackProps, EVENTS, STATUS, Step } from 'react-joyride'
 
+import { Typography } from 'antd'
 import Tooltip from './tooltip'
 
 import { RootState } from 'os/store'
 import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import './index.os.less'
 
+const step = ({
+  content,
+  target,
+  title,
+}: {
+  content: ReactNode
+  target: string
+  title: string
+}) => {
+  return {
+    content,
+    disableBeacon: true,
+    disableOverlayClose: true,
+    spotlightClicks: true,
+    styles: {
+      options: {
+        zIndex: 10000,
+      },
+    },
+    target,
+    title: <Typography.Title level={5}>{title}</Typography.Title>,
+  }
+}
+
 const STEPS: Step[] = [
-  {
+  step({
     content: (
-      <div>
-        Click the <b>Store</b> button to search DeFi apps
-      </div>
+      <Typography.Text>
+        Click the <b>Store</b> button to explore the numerous DeFi applications.
+      </Typography.Text>
     ),
-    disableBeacon: true,
-    disableOverlayClose: true,
-    spotlightClicks: true,
-    styles: {
-      options: {
-        zIndex: 10000,
-      },
-    },
     target: '#store-nav-button',
-    title: (
-      <div
-        style={{
-          textAlign: 'left',
-          color: '#212433',
-          fontWeight: 700,
-          fontSize: 20,
-        }}
-      >
-        Search an app
-      </div>
-    ),
-  },
-  {
+    title: 'Search an app',
+  }),
+  step({
     content: (
-      <div>
-        Find an app in the list and click the <b>Install</b> button to set up
-        the app.
-      </div>
+      <Typography.Text>
+        Find an application in the list and click the <b>Install</b> button to
+        set up the application.
+      </Typography.Text>
     ),
-    spotlightPadding: 0,
-    spotlightClicks: true,
-    disableBeacon: true,
-    disableOverlayClose: true,
-    styles: {
-      options: {
-        zIndex: 10000,
-      },
-    },
     target: '#install-action-button',
-    title: 'List apps',
-  },
-  {
+    title: 'Install an app',
+  }),
+  step({
     content: (
-      <div>
+      <Typography.Text>
         Click the <b>Open</b> button to explore more interesting features.
-      </div>
+      </Typography.Text>
     ),
-    disableBeacon: true,
-    disableOverlayClose: true,
-    spotlightClicks: true,
-    styles: {
-      options: {
-        zIndex: 10000,
-      },
-    },
     target: '#open-action-button',
     title: 'Open the app',
-  },
-  {
+  }),
+  step({
     content: (
-      <div>
-        Helps you keep an overview and quickly work with many applications at
+      <Typography.Text>
+        Helps you keep an overview and quick actions with many applications at
         the same time.
-      </div>
+      </Typography.Text>
     ),
-    disableBeacon: true,
-    disableOverlayClose: true,
-    hideCloseButton: true,
-    hideFooter: true,
-    spotlightClicks: true,
-    styles: {
-      options: {
-        zIndex: 10000,
-      },
-    },
     target: '#dashboard-nav-button',
-    title: 'Dashboard',
-  },
+    title: 'Your Dashboard',
+  }),
 ]
 
 const Walkthrough = () => {
@@ -109,13 +88,25 @@ const Walkthrough = () => {
       dispatch(setWalkthrough({ run: true }))
   }, [address, dispatch, visited])
 
-  const onCallback = ({ type, status }: CallBackProps) => {
+  const onCallback = async ({
+    type,
+    status,
+    step: { target },
+  }: CallBackProps) => {
     const options: string[] = [STATUS.FINISHED, STATUS.SKIPPED]
     if (options.includes(status))
       return dispatch(setWalkthrough({ run: false }))
-    if (([EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)) {
-      dispatch(setWalkthrough({ run: false }))
-      return setTimeout(() => dispatch(setWalkthrough({ run: true })), 400)
+    if ((EVENTS.TARGET_NOT_FOUND as string) === type) {
+      await dispatch(setWalkthrough({ run: false }))
+      const intervalId = setInterval(() => {
+        const element = document.querySelector(target as string)
+        const { x } = element?.getBoundingClientRect() || { x: -1 }
+        // Make sure that there exits a target in the view port horizontally
+        if (x > 0 && x < window.innerWidth) {
+          clearInterval(intervalId)
+          return dispatch(setWalkthrough({ run: true }))
+        }
+      }, 500)
     }
   }
 

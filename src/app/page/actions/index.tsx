@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { account, AccountData } from '@senswap/sen-js'
 import { useAccount, useWallet } from 'senhub/providers'
 
@@ -8,16 +8,17 @@ import IonIcon from 'shared/antd/ionicon'
 
 import configs from 'app/configs'
 import { AppState } from 'app/model'
-import { explorer, toBigInt } from 'shared/util'
-import { TransferData, setData } from 'app/model/main.controller'
+import { explorer } from 'shared/util'
+import { TransferData } from 'app/model/main.controller'
 import Bulksender from 'app/lib'
+import Merge from './merge'
+import { toBigInt } from 'app/lib/utils'
 
 const {
   sol: { spltAddress, splataAddress, bulksenderAddress, node },
 } = configs
 
-const Action = () => {
-  const dispatch = useDispatch()
+const Actions = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<boolean | string>(false)
   const [bulk, setBulk] = useState<Array<TransferData>>([])
@@ -41,21 +42,7 @@ const Action = () => {
     if (duplicatedElements.length > 0) return true
     return false
   }, [data])
-  // Merge duplicated addresses (must call when no error)
-  const merge = useCallback(async () => {
-    const nextData = [] as TransferData
-    for (const [address, amount] of data) {
-      const index = nextData.findIndex(([addr]) => addr === address)
-      if (index >= 0) {
-        nextData[index][1] = (
-          toBigInt(nextData[index][1]) + toBigInt(amount)
-        ).toString()
-      } else {
-        nextData.push([address, amount])
-      }
-    }
-    await dispatch(setData(nextData))
-  }, [data, dispatch])
+
   // Send a bulk
   const send = useCallback(async () => {
     await setLoading(true)
@@ -192,15 +179,7 @@ const Action = () => {
         )}
       </Col>
       <Col span={12}>
-        <Button
-          type="text"
-          icon={<IonIcon name="git-merge-outline" />}
-          onClick={merge}
-          disabled={loading || !!error || !duplicated}
-          block
-        >
-          Merge
-        </Button>
+        <Merge disabled={!duplicated || !!error || loading} />
       </Col>
       <Col span={12}>
         <Button
@@ -218,4 +197,4 @@ const Action = () => {
   )
 }
 
-export default Action
+export default Actions

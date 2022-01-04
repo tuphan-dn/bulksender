@@ -82,11 +82,3 @@ export const randomColor = (seed?: string, opacity?: string | number) => {
 export const fetchCGK = async (ticket = '') => {
   return DataLoader.load('fetchCGK' + ticket, () => utils.parseCGK(ticket))
 }
-
-export const toBigInt = (number: string): bigint => {
-  try {
-    return BigInt(number)
-  } catch (er) {
-    return BigInt(0)
-  }
-}

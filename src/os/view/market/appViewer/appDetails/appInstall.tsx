@@ -19,8 +19,10 @@ const AppInstall = ({
   appId: string
 }) => {
   const dispatch = useDispatch<RootDispatch>()
-  const { infix } = useSelector((state: RootState) => state.ui)
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const {
+    ui: { infix },
+    wallet: { address: walletAddress },
+  } = useSelector((state: RootState) => state)
   const history = useHistory()
 
   const to = () => history.push(`/app/${appId}`)
@@ -32,7 +34,7 @@ const AppInstall = ({
   }
 
   const onInstall = async () => {
-    if (!account.isAddress(address)) return dispatch(openWallet())
+    if (!account.isAddress(walletAddress)) return dispatch(openWallet())
     await dispatch(updateVisited(true))
     return dispatch(installApp(appId))
   }

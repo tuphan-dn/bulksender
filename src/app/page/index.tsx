@@ -1,5 +1,5 @@
 import { Row, Col, Typography } from 'antd'
-import Action from './action'
+import Actions from './actions'
 import Collector from './collector'
 import MintSelection from './mintSelection'
 import Representor from './representor'
@@ -28,7 +28,7 @@ const Page = () => {
                 <Representor />
               </Col>
               <Col span={24}>
-                <Action />
+                <Actions />
               </Col>
             </Row>
           </Col>

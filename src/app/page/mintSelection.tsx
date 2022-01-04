@@ -1,19 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account, AccountData, utils } from '@senswap/sen-js'
-import { useAccount, useWallet, useMint } from 'senhub/providers'
-import numbro from 'numbro'
 
 import { Row, Col, Select, Space, Typography, Card } from 'antd'
-import { MintAvatar, MintName, MintSymbol } from 'app/components/mint'
+import { MintAvatar, MintName, MintSymbol } from 'shared/antd/mint'
 
 import { AppState } from 'app/model'
 import { setMintAddress } from 'app/model/main.controller'
+import { numeric } from 'shared/util'
+import { useAccount, useWallet, useMint } from 'senhub/providers'
 
 const MintSelection = () => {
   const dispatch = useDispatch()
   const [balance, setBalance] = useState('0')
-  const { mintAddress } = useSelector((state: AppState) => state.main)
+  const {
+    main: { mintAddress },
+  } = useSelector((state: AppState) => state)
   const { accounts } = useAccount() as {
     accounts: { [key: string]: AccountData }
   }
@@ -52,8 +54,8 @@ const MintSelection = () => {
             size="large"
             placeholder="Select token"
             style={{ width: '100%' }}
-            onChange={(mintAddress) =>
-              dispatch(setMintAddress(mintAddress as string))
+            onChange={(mintAddress: string) =>
+              dispatch(setMintAddress(mintAddress))
             }
           >
             {Object.values(accounts).map(({ mint: mintAddress }, i) => (
@@ -75,7 +77,7 @@ const MintSelection = () => {
           <Space>
             <Typography.Text type="secondary">Balance:</Typography.Text>
             <Typography.Text>
-              {numbro(balance || 0).format('0,0.[0000]')}
+              {numeric(balance).format('0,0.[0000]')}
             </Typography.Text>
             <Typography.Text>
               <MintSymbol mintAddress={mintAddress} />

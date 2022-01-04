@@ -7,6 +7,7 @@ export type TransferData = Array<[string, string]>
 export type State = {
   mintAddress: string
   data: TransferData /* address, amount */
+  decimalized: boolean
 }
 
 /**
@@ -17,6 +18,7 @@ const NAME = 'main'
 const initialState: State = {
   mintAddress: '',
   data: [],
+  decimalized: false,
 }
 
 /**
@@ -37,6 +39,13 @@ export const setMintAddress = createAsyncThunk(
   },
 )
 
+export const setDecimalized = createAsyncThunk(
+  `${NAME}/setDecimalized`,
+  async (decimalized: boolean) => {
+    return { decimalized }
+  },
+)
+
 /**
  * Usual procedure
  */
@@ -53,6 +62,10 @@ const slice = createSlice({
       )
       .addCase(
         setMintAddress.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        setDecimalized.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })

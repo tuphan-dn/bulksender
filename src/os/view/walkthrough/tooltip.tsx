@@ -1,7 +1,10 @@
+import { useDispatch } from 'react-redux'
+import { TooltipRenderProps } from 'react-joyride'
+
+import { Row, Col, Card, Button } from 'antd'
+
 import { RootDispatch } from 'os/store'
 import { updateVisited } from 'os/store/flags.reducer'
-import { TooltipRenderProps } from 'react-joyride'
-import { useDispatch } from 'react-redux'
 
 const Tooltip = ({
   index,
@@ -22,50 +25,40 @@ const Tooltip = ({
   }
 
   return (
-    <div
-      {...tooltipProps}
-      style={{
-        background: '#F4F4F5',
-        padding: 24,
-        borderRadius: 16,
-        width: 360,
-      }}
-    >
-      {step.title && (
-        <div style={{ color: '#212433', fontWeight: 700, fontSize: 20 }}>
-          {step.title}
-        </div>
-      )}
-      <div
-        style={{
-          fontWeight: 400,
-          fontSize: 14,
-          color: '#212433',
-          marginTop: 8,
-          marginBottom: 24,
-        }}
-      >
-        {step.content}
-      </div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ display: 'flex', flex: 1, alignItems: 'center' }}>
-          {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
-            <div
-              key={item}
-              style={{
-                width: item === index + 1 ? 20 : 12,
-                height: 4,
-                background: `${item === index + 1 ? '#F9575E' : '#FEDDDF'}`,
-                margin: '0px 4px',
-                borderRadius: 8,
-              }}
-            />
-          ))}
-        </div>
-        <div {...skipProps} id="skip" style={{ cursor: 'pointer' }}>
-          Skip
-        </div>
-      </div>
+    <div {...tooltipProps} style={{ maxWidth: 360 }}>
+      <Card bordered={false}>
+        <Row gutter={[24, 24]}>
+          <Col span={24}>{step.title}</Col>
+          <Col span={24}>{step.content}</Col>
+          <Col span={24}>
+            <Row gutter={[8, 8]} align="middle" wrap={false}>
+              <Col flex="auto">
+                <div style={{ display: 'flex', flex: 1, alignItems: 'center' }}>
+                  {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
+                    <div
+                      key={item}
+                      style={{
+                        width: item === index + 1 ? 20 : 12,
+                        height: 4,
+                        background: `${
+                          item === index + 1 ? '#F9575E' : '#FEDDDF'
+                        }`,
+                        margin: '0px 4px',
+                        borderRadius: 8,
+                      }}
+                    />
+                  ))}
+                </div>
+              </Col>
+              <Col>
+                <Button {...skipProps} type="text" id="skip">
+                  Skip
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Card>
     </div>
   )
 }
