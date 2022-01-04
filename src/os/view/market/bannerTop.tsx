@@ -4,12 +4,12 @@ import { Card, Carousel } from 'antd'
 
 import { RootState } from 'os/store'
 
+import storePanel1 from 'os/static/images/store-panel1.png'
+import storePanel2 from 'os/static/images/store-panel2.png'
+import storePanel3 from 'os/static/images/store-panel3.png'
+
 const PAGE_PADDING = 20
-const PANELS = [
-  'https://coin68.com/wp-content/uploads/2021/10/Sentre-Liquidity-Flow.jpg',
-  'https://source.unsplash.com/1600x902/?crypto',
-  'https://source.unsplash.com/1600x901/?crypto',
-]
+const PANELS = [storePanel1, storePanel2, storePanel3]
 
 const BannerTop = () => {
   const {
