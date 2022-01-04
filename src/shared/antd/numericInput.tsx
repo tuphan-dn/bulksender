@@ -19,7 +19,6 @@ const NumericInput = forwardRef(
       max,
       onValue = () => {},
       onChange = () => {},
-      onBlur = () => {},
       ...props
     }: InputProps & {
       onValue?: (val: string) => void
@@ -67,11 +66,6 @@ const NumericInput = forwardRef(
       >
         <Input
           {...props}
-          onBlur={(e) => {
-            onBlur(e)
-            const value = Number(e.target.value)
-            if (e.target.value) onAmount(value ? value.toString() : '')
-          }}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             onChange(e)
             setCursor(e.target.selectionStart)
