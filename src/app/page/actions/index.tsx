@@ -8,7 +8,7 @@ import IonIcon from 'shared/antd/ionicon'
 
 import configs from 'app/configs'
 import { AppState } from 'app/model'
-import { explorer } from 'shared/util'
+import { asyncWait, explorer } from 'shared/util'
 import { TransferData } from 'app/model/main.controller'
 import Bulksender from 'app/lib'
 import Merge from './merge'
@@ -134,6 +134,7 @@ const Actions = () => {
       const [address, amount] = currentData.shift() as [string, string]
       const currentBulk = newBulk[newBulk.length - 1]
       const simulatedBulk = [...currentBulk, [address, amount]] as TransferData
+      await asyncWait(500) // Avoid too many requests
       const ok = await bulksender.simulateBulkTransfer(
         simulatedBulk.map(([_, amount]) => toBigInt(amount)),
         simulatedBulk.map(([address, _]) => address),
