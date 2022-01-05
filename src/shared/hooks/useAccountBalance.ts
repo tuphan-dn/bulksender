@@ -1,12 +1,26 @@
-import { account, utils } from '@senswap/sen-js'
-import { useCallback, useEffect, useState } from 'react'
+import { account, DEFAULT_EMPTY_ADDRESS, utils } from '@senswap/sen-js'
 import { useAccount, useWallet } from 'senhub/providers'
 import useMintDecimals from './useMintDecimals'
 
-const buildResult = (amount?: bigint, decimals?: number) => {
-  if (amount === undefined || decimals === undefined)
+export type AccountBalanceReturn = {
+  amount: bigint
+  decimals: number
+  balance: number
+}
+
+const buildResult = (
+  mintAddress?: string,
+  amount?: bigint,
+  decimals?: number,
+) => {
+  if (
+    !account.isAddress(mintAddress) ||
+    amount === undefined ||
+    decimals === undefined
+  )
     return { amount: BigInt(0), decimals: 0, balance: 0 }
   return {
+    mintAddress,
     amount,
     decimals,
     balance: Number(utils.undecimalize(amount, decimals)),
@@ -14,42 +28,29 @@ const buildResult = (amount?: bigint, decimals?: number) => {
 }
 
 /**
- * Get account balance by mint. This hook needs WalletProvider, MintProvider, and AccountProvider for work.
+ * Get account balance. This hook needs WalletProvider, MintProvider, and AccountProvider for work.
  * WalletProvider Ref: https://docs.sentre.io/senhub/development/providers/wallet-provider
  * MintProvider Ref: https://docs.sentre.io/senhub/development/providers/mint-provider
  * AccountProvider Ref: https://docs.sentre.io/senhub/development/providers/account-provider
  * @param mintAddress Mint address
- * @returns Decimals
+ * @returns AccountBalanceReturn
+ * - AccountBalanceReturn.amount: The amount with decimals
+ * - AccountBalanceReturn.decimals: The corresponding decimals
+ * - AccountBalanceReturn.balance: The human-readable balance (undecimalized amount)
+ * - AccountBalanceReturn.balance: The human-readable balance (undecimalized amount)
  */
-const useAccountBalance = (mintAddress: string) => {
-  const [accountAddress, setAccountAddress] = useState('')
+export const useAccountBalance = (accountAddress: string) => {
   const {
-    wallet: { address: walletAddress },
+    wallet: { address: walletAddress, lamports },
   } = useWallet()
   const { accounts } = useAccount()
+  const { amount, mint: mintAddress } = accounts[accountAddress] || {}
   const decimals = useMintDecimals(mintAddress)
-  const { amount } = accounts[accountAddress]
 
-  if (!account.isAddress(walletAddress) || !account.isAddress(mintAddress))
+  if (!account.isAddress(walletAddress) || !account.isAddress(accountAddress))
     return buildResult()
+  if (accountAddress === walletAddress)
+    return buildResult(DEFAULT_EMPTY_ADDRESS, lamports, 9)
 
-  const getAccountAddress = useCallback(async () => {
-    const {
-      sentre: { splt },
-    } = window
-    const address = await splt.deriveAssociatedAddress(
-      walletAddress,
-      mintAddress,
-    )
-    if (!account.isAddress(address)) return setAccountAddress('')
-    return setAccountAddress(address)
-  }, [walletAddress, mintAddress])
-
-  useEffect(() => {
-    getAccountAddress()
-  }, [getAccountAddress])
-
-  return buildResult(amount, decimals)
+  return buildResult(mintAddress, amount, decimals)
 }
-
-export default useAccountBalance
