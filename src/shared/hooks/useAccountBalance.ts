@@ -40,7 +40,7 @@ const buildResult = (
  * - AccountBalanceReturn.balance: The human-readable balance (undecimalized amount)
  * - AccountBalanceReturn.mintAddress: The corresponding mint
  */
-export const useAccountBalance = (accountAddress: string) => {
+const useAccountBalance = (accountAddress: string) => {
   const {
     wallet: { address: walletAddress, lamports },
   } = useWallet()
@@ -55,3 +55,5 @@ export const useAccountBalance = (accountAddress: string) => {
 
   return buildResult(mintAddress, amount, decimals)
 }
+
+export default useAccountBalance
