@@ -28,7 +28,7 @@
     "soprox-abi": "0.0.14"
   },
   "devDependencies": {
-    "@senswap/sen-scripts": "^0.0.25",
+    "@senswap/sen-scripts": "0.0.30",
     "husky": "^7.0.0"
   }
 }
