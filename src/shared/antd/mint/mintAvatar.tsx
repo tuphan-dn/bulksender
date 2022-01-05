@@ -64,7 +64,7 @@ const MintAvatar = ({
     deriveAvatars()
   }, [deriveAvatars])
 
-  if (avatars.length == 1)
+  if (avatars.length === 1)
     return (
       <Avatar
         src={avatars[0]}
