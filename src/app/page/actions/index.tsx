@@ -135,12 +135,17 @@ const Actions = () => {
       const currentBulk = newBulk[newBulk.length - 1]
       const simulatedBulk = [...currentBulk, [address, amount]] as TransferData
       await asyncWait(500) // Avoid too many requests
-      const ok = await bulksender.simulateBulkTransfer(
-        simulatedBulk.map(([_, amount]) => toBigInt(amount)),
-        simulatedBulk.map(([address, _]) => address),
-        mintAddress,
-        wallet,
-      )
+      let ok = false
+      try {
+        ok = await bulksender.simulateBulkTransfer(
+          simulatedBulk.map(([_, amount]) => toBigInt(amount)),
+          simulatedBulk.map(([address, _]) => address),
+          mintAddress,
+          wallet,
+        )
+      } catch (er) {
+        // Nothing
+      }
       if (ok) newBulk[newBulk.length - 1] = simulatedBulk
       else if (currentBulk.length <= 1) {
         await setError(
@@ -152,10 +157,6 @@ const Actions = () => {
     await setBulk(newBulk)
     return setLoading(false)
   }, [error, data, mintAddress])
-
-  useEffect(() => {
-    computeBulk()
-  }, [computeBulk])
 
   return (
     <Row gutter={[16, 16]}>
@@ -170,7 +171,14 @@ const Actions = () => {
           </Space>
         ) : (
           <Space>
-            <IonIcon name="information-circle-outline" />
+            <Button
+              type="text"
+              size="small"
+              icon={<IonIcon name="refresh-outline" />}
+              onClick={computeBulk}
+            >
+              Refresh
+            </Button>
             <Typography.Text type={bulk.length ? undefined : 'secondary'}>
               To send tokens to <strong>{data.length}</strong> address(es), you
               will need to sign <strong>{bulk.length}</strong> time(s) with the
