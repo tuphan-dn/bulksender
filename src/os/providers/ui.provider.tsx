@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 import { ConfigProvider } from 'antd'
 
 import { RootState } from 'os/store'
-import { State as UIState } from 'os/store/ui.reducer'
+import { UIState } from 'os/store/ui.reducer'
 import { ConfigProviderProps } from 'antd/lib/config-provider'
 
 const Context = createContext<UIProvider>({} as UIProvider)

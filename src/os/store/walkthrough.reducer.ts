@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
  * Interface & Utility
  */
 
-type State = {
+type WalkThorughState = {
   run: boolean
   step: number
 }
@@ -14,7 +14,7 @@ type State = {
  */
 
 const NAME = 'walkthrough'
-const initialState: State = {
+const initialState: WalkThorughState = {
   run: false,
   step: 0,
 }
@@ -24,8 +24,8 @@ const initialState: State = {
  */
 
 export const setWalkthrough = createAsyncThunk<
-  Partial<State>,
-  Partial<State>,
+  Partial<WalkThorughState>,
+  Partial<WalkThorughState>,
   { state: any }
 >(`${NAME}/setWalkthrough`, async (state) => {
   return { ...state }

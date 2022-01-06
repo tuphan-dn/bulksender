@@ -7,7 +7,7 @@ import configs from 'os/configs'
  * Interface & Utility
  */
 
-export type State = {
+export type WalletState = {
   visible: boolean
   address: string
   lamports: bigint
@@ -35,7 +35,7 @@ const destroyWindow = async () => {
  */
 
 const NAME = 'wallet'
-const initialState: State = {
+const initialState: WalletState = {
   visible: false,
   address: '',
   lamports: BigInt(0),
@@ -66,7 +66,7 @@ export const connectWallet = createAsyncThunk(
 
 export const updateWallet = createAsyncThunk(
   `${NAME}/updateWallet`,
-  async ({ lamports }: Partial<State>) => {
+  async ({ lamports }: Partial<WalletState>) => {
     return { lamports }
   },
 )
