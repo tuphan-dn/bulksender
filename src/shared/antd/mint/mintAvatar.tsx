@@ -8,6 +8,13 @@ import { useMint, usePool } from 'senhub/providers'
 
 const DEFAULT_AVATARS: Array<string | undefined> = [undefined]
 
+export type MintAvatarProps = {
+  mintAddress: string
+  size?: number
+  icon?: ReactNode
+  reversed?: boolean
+}
+
 /**
  * Mint/Token avatar, supporting LP tokens
  * @param mintAddress -  Mint address
@@ -21,12 +28,8 @@ const MintAvatar = ({
   size = 24,
   icon = <IonIcon name="diamond-outline" />,
   reversed = false,
-}: {
-  mintAddress: string
-  size?: number
-  icon?: ReactNode
-  reversed?: boolean
-}) => {
+  ...props
+}: MintAvatarProps) => {
   const [avatars, setAvatars] = useState(DEFAULT_AVATARS)
   const { tokenProvider } = useMint()
   const { pools } = usePool()
@@ -61,8 +64,19 @@ const MintAvatar = ({
     deriveAvatars()
   }, [deriveAvatars])
 
+  if (avatars.length === 1)
+    return (
+      <Avatar
+        src={avatars[0]}
+        size={size}
+        style={{ backgroundColor: '#2D3355', border: 'none' }}
+        {...props}
+      >
+        {icon}
+      </Avatar>
+    )
   return (
-    <Avatar.Group style={{ display: 'block', whiteSpace: 'nowrap' }}>
+    <Avatar.Group style={{ display: 'block', whiteSpace: 'nowrap' }} {...props}>
       {avatars.map((avatar, i) => (
         <Avatar
           key={i}
