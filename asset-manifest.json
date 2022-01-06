@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/static/js/main.b30eb981.js",
+    "main.js": "/static/js/main.db6cfc90.js",
     "bulk_sender.js": "/index.js",
-    "static/css/304.42776bc5.chunk.css": "/static/css/304.42776bc5.chunk.css",
-    "static/js/304.e4cd812c.chunk.js": "/static/js/304.e4cd812c.chunk.js",
+    "static/css/304.4585ff9d.chunk.css": "/static/css/304.4585ff9d.chunk.css",
+    "static/js/304.82d267b9.chunk.js": "/static/js/304.82d267b9.chunk.js",
     "static/js/361.f49f9341.chunk.js": "/static/js/361.f49f9341.chunk.js",
     "static/js/402.d9c8b80a.chunk.js": "/static/js/402.d9c8b80a.chunk.js",
     "static/js/276.e9e76227.chunk.js": "/static/js/276.e9e76227.chunk.js",
@@ -28,11 +28,11 @@
     "static/media/panel.png": "/static/media/panel.6b76cca872cba442836f.png",
     "static/media/preview.png": "/static/media/preview.1dc7ab4f81b92a27dbf6.png",
     "static/media/store-panel4.png": "/static/media/store-panel4.1a4e491132a246b78a71.png",
-    "static/media/store-panel3.png": "/static/media/store-panel3.db86d98b29b7583f9997.png",
+    "static/media/store-panel1.png": "/static/media/store-panel1.db86d98b29b7583f9997.png",
     "static/media/light-bg-welcome.png": "/static/media/light-bg-welcome.59d39f87387a25224ddb.png",
     "static/media/store-panel5.png": "/static/media/store-panel5.8cc74b0387945f6c05c9.png",
     "static/media/store-panel2.png": "/static/media/store-panel2.d591a5edaa65c41fefaf.png",
-    "static/media/store-panel1.png": "/static/media/store-panel1.1e672d2595826300ae5a.png",
+    "static/media/store-panel3.png": "/static/media/store-panel3.1e672d2595826300ae5a.png",
     "static/media/dark-bg-welcome.png": "/static/media/dark-bg-welcome.37763ea22357ee37f01d.png",
     "static/media/dark-bg.png": "/static/media/dark-bg.e0ce57639fdc13a3bdb0.png",
     "static/media/phantom.png": "/static/media/phantom.1078280bdfb21865925d.png",
@@ -52,10 +52,10 @@
     "static/media/slope.svg": "/static/media/slope.de08dadb3988dd770e2d0d58acf15a09.svg",
     "static/media/icon-telegram.svg": "/static/media/icon-telegram.2450489f40d03000fe65fc1c6f238d85.svg",
     "static/media/README.md": "/static/media/README.631f2b04a38660f9ec7f.md",
-    "main.b30eb981.js.map": "/static/js/main.b30eb981.js.map",
+    "main.db6cfc90.js.map": "/static/js/main.db6cfc90.js.map",
     "index.js.map": "/index.js.map",
-    "304.42776bc5.chunk.css.map": "/static/css/304.42776bc5.chunk.css.map",
-    "304.e4cd812c.chunk.js.map": "/static/js/304.e4cd812c.chunk.js.map",
+    "304.4585ff9d.chunk.css.map": "/static/css/304.4585ff9d.chunk.css.map",
+    "304.82d267b9.chunk.js.map": "/static/js/304.82d267b9.chunk.js.map",
     "361.f49f9341.chunk.js.map": "/static/js/361.f49f9341.chunk.js.map",
     "402.d9c8b80a.chunk.js.map": "/static/js/402.d9c8b80a.chunk.js.map",
     "276.e9e76227.chunk.js.map": "/static/js/276.e9e76227.chunk.js.map",
@@ -79,6 +79,6 @@
     "656.c9f7a5ca.chunk.js.map": "/static/js/656.c9f7a5ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.b30eb981.js"
+    "static/js/main.db6cfc90.js"
   ]
 }
