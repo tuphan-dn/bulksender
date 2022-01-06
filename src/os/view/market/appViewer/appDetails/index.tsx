@@ -1,9 +1,7 @@
-import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Space } from 'antd'
-import Paragraph from 'antd/lib/typography/Paragraph'
 import AppIcon from 'os/components/appIcon'
 import Verification from 'os/components/verification'
 import AppInstall from './appInstall'
@@ -15,22 +13,16 @@ import { RootState } from 'os/store'
 import AppShare from './appShare'
 
 const AppDetails = ({ appId }: { appId: string }) => {
-  const { infix } = useSelector((state: RootState) => state.ui)
-  const { register } = useSelector((state: RootState) => state.page)
-  const { address } = useSelector((state: RootState) => state.wallet)
-  const { appIds } = useSelector((state: RootState) => state.page)
+  const {
+    ui: { infix },
+    page: { register, appIds },
+    wallet: { address: walletAddress },
+  } = useSelector((state: RootState) => state)
+
   const { description, author, name, tags, verified } = register[appId] || {}
-
   const isMobile = infix === 'xs' || infix === 'sm'
-
-  const floatSocialButton = () => {
-    if (isMobile) return 'start'
-    return 'end'
-  }
-
-  const installed = useMemo(() => {
-    return account.isAddress(address) && appIds.includes(appId)
-  }, [address, appIds, appId])
+  const floatSocialButton = isMobile ? 'start' : 'end'
+  const installed = account.isAddress(walletAddress) && appIds.includes(appId)
 
   return (
     <Row gutter={[16, 16]}>
@@ -53,7 +45,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
             </Row>
           </Col>
           <Col span={isMobile ? 24 : 10}>
-            <Row gutter={[16, 16]} justify={floatSocialButton()}>
+            <Row gutter={[16, 16]} justify={floatSocialButton}>
               <Col span={24}>
                 <AppInstall appId={appId} installed={installed} />
               </Col>
@@ -71,9 +63,11 @@ const AppDetails = ({ appId }: { appId: string }) => {
         <AppAuthor author={author} />
       </Col>
       <Col span={24}>
-        <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'More' }}>
+        <Typography.Paragraph
+          ellipsis={{ rows: 2, expandable: true, symbol: 'More' }}
+        >
           {description}
-        </Paragraph>
+        </Typography.Paragraph>
       </Col>
     </Row>
   )

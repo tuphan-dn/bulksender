@@ -39,11 +39,7 @@ export const StaticLoader = forwardRef<
 >(({ type, appId, defaultData = '', render }, ref) => {
   const { register } = useSelector((state: RootState) => state.page)
   const url = register[appId]?.url || ''
-  const manifest: RemoteModule = {
-    url,
-    scope: appId,
-    module: './static',
-  }
+  const manifest: RemoteModule = { url, scope: appId, module: './static' }
   if (!url) return null
   return (
     <ErrorBoundary defaultChildren={render(defaultData)}>
@@ -88,11 +84,7 @@ export const MultiStaticLoader = forwardRef<
 >(({ type, appId, defaultData = [''], render }, ref) => {
   const { register } = useSelector((state: RootState) => state.page)
   const url = register[appId]?.url || ''
-  const manifest: RemoteModule = {
-    url,
-    scope: appId,
-    module: './static',
-  }
+  const manifest: RemoteModule = { url, scope: appId, module: './static' }
   if (!url) return null
   return (
     <ErrorBoundary defaultChildren={render(defaultData)}>

@@ -1,14 +1,15 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
 
-import { Button, Col, Modal, Row } from 'antd'
+import { Button, Col, Row } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import WalletConnection from 'os/view/header/wallet/login/walletConnection'
 
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
+import { openWallet } from 'os/store/wallet.reducer'
+import { updateVisited } from 'os/store/flags.reducer'
 
 const AppInstall = ({
   installed,
@@ -18,9 +19,10 @@ const AppInstall = ({
   appId: string
 }) => {
   const dispatch = useDispatch<RootDispatch>()
-  const { infix } = useSelector((state: RootState) => state.ui)
-  const { address } = useSelector((state: RootState) => state.wallet)
-  const [visible, setVisible] = useState(false)
+  const {
+    ui: { infix },
+    wallet: { address: walletAddress },
+  } = useSelector((state: RootState) => state)
   const history = useHistory()
 
   const to = () => history.push(`/app/${appId}`)
@@ -31,8 +33,10 @@ const AppInstall = ({
     return 'end'
   }
 
-  const onInstall = () => {
-    !account.isAddress(address) ? setVisible(true) : dispatch(installApp(appId))
+  const onInstall = async () => {
+    if (!account.isAddress(walletAddress)) return dispatch(openWallet())
+    await dispatch(updateVisited(true))
+    return dispatch(installApp(appId))
   }
 
   return (
@@ -72,14 +76,6 @@ const AppInstall = ({
           </Button>
         </Col>
       )}
-      <Modal
-        visible={visible}
-        onCancel={() => setVisible(false)}
-        closeIcon={<IonIcon name="close" />}
-        footer={null}
-      >
-        <WalletConnection textAlert="You have to connect wallet to install the app." />
-      </Modal>
     </Row>
   )
 }

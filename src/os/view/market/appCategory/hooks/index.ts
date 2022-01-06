@@ -13,7 +13,7 @@ import {
 
 export enum CustomCategory {
   others = 'others',
-  suggest = 'suggest-for-you',
+  suggest = 'suggested-to-you',
 }
 
 export type CategoryOptions = {

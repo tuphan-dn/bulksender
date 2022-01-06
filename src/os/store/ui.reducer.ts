@@ -4,9 +4,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
  * Interface & Utility
  */
 
-const TIME_ZONE_MORNING = 6
-const TIME_ZONE_NIGHT = 18
-
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Theme = 'light' | 'dark'
 
@@ -31,8 +28,7 @@ const isTouchable = () => {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0
 }
 const getTheme = (): Theme => {
-  const hour = new Date().getHours()
-  if (hour >= TIME_ZONE_MORNING && hour < TIME_ZONE_NIGHT) return 'light'
+  if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light'
   return 'dark'
 }
 

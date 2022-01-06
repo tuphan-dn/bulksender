@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router'
 
 import { Row, Col } from 'antd'
 import BannerTop from './bannerTop'

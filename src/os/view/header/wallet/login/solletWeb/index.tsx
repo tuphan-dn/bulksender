@@ -7,7 +7,7 @@ import { RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SolletWallet } from '../../lib'
 
-const Sollet = () => {
+const SolletWeb = () => {
   const dispatch = useDispatch<RootDispatch>()
 
   const connect = async () => {
@@ -25,17 +25,18 @@ const Sollet = () => {
       style={{ cursor: 'pointer' }}
       bordered={false}
       hoverable
+      bodyStyle={{ padding: '24px 16px' }}
     >
       <Row gutter={[16, 16]} justify="center">
         <Col>
           <Avatar size={64} shape="square" src={SOLLET} />
         </Col>
         <Col span={24}>
-          <p style={{ margin: 0, textAlign: 'center' }}>Sollet</p>
+          <p style={{ margin: 0, textAlign: 'center' }}>Sollet Web</p>
         </Col>
       </Row>
     </Card>
   )
 }
 
-export default Sollet
+export default SolletWeb

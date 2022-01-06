@@ -22,10 +22,33 @@
   width: 8px;
   height: 8px;
 }
-.scrollbar:hover::-webkit-scrollbar-thumb {
-  background: #171c36aa;
-  border-radius: 8px;
-  &:hover {
-    background: #171c36;
+
+#light {
+  .scrollbar:hover::-webkit-scrollbar-thumb {
+    background: #4e4f5caa;
+    border-radius: 8px;
+    &:hover {
+      cursor: move;
+      cursor: grab;
+      background: #4e4f5c;
+    }
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+#dark {
+  .scrollbar:hover::-webkit-scrollbar-thumb {
+    background: #d3d3d6aa;
+    border-radius: 8px;
+    &:hover {
+      cursor: move;
+      cursor: grab;
+      background: #d3d3d6;
+    }
+    &:active {
+      cursor: grabbing;
+    }
   }
 }

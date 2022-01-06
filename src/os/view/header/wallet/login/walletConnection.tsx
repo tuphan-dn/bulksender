@@ -5,14 +5,16 @@ import { Row, Col, Tooltip, Switch, Divider, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import Coin98 from './coin98'
 import Phantom from './phantom'
-import Sollet from './sollet'
+import SolletWeb from './solletWeb'
 import Keystore from './keystore'
 import SecretKey from './secretKey'
 import Slope from './slope'
+import SolflareWeb from './solflareWeb'
+import SolflareExtension from './solflareExt'
 
 import { RootState } from 'os/store'
 
-const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
+const WalletConnection = () => {
   const [advance, setAdvance] = useState(false)
   const { width } = useSelector((state: RootState) => state.ui)
 
@@ -22,11 +24,6 @@ const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
       <Col span={24}>
         <Typography.Title level={5}>Wallet Connection</Typography.Title>
       </Col>
-      {textAlert && (
-        <Col span={24}>
-          <Typography.Text type="danger">{textAlert}</Typography.Text>
-        </Col>
-      )}
       <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Coin98 />
       </Col>
@@ -34,11 +31,18 @@ const WalletConnection = ({ textAlert = '' }: { textAlert?: string }) => {
         <Phantom />
       </Col>
       <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <Sollet />
+        <SolletWeb />
       </Col>
       <Col xs={{ span: 12 }} sm={{ span: 8 }}>
         <Slope />
       </Col>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
+        <SolflareWeb />
+      </Col>
+      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
+        <SolflareExtension />
+      </Col>
+
       <Col span={24}>
         <Row gutter={[16, 16]} align="middle">
           <Col flex="auto">
