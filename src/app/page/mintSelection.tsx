@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { account } from '@senswap/sen-js'
 
 import { Row, Col, Select, Space, Typography, Card } from 'antd'
 import { MintAvatar, MintName, MintSymbol } from 'shared/antd/mint'
@@ -8,35 +6,16 @@ import { MintAvatar, MintName, MintSymbol } from 'shared/antd/mint'
 import { AppState } from 'app/model'
 import { setMintAddress } from 'app/model/main.controller'
 import { numeric } from 'shared/util'
-import { useAccount, useWallet } from 'senhub/providers'
-import useAccountBalance from 'shared/hooks/useAccountBalance'
+import { useAccount } from 'senhub/providers'
+import { useAccountBalanceByMintAddress } from 'shared/hooks/useAccountBalance'
 
 const MintSelection = () => {
-  const [accountAddress, setAccountAddress] = useState('')
   const dispatch = useDispatch()
   const {
     main: { mintAddress },
   } = useSelector((state: AppState) => state)
   const { accounts } = useAccount()
-  const {
-    wallet: { address: walletAddress },
-  } = useWallet()
-  const { balance } = useAccountBalance(accountAddress)
-
-  useEffect(() => {
-    ;(async () => {
-      const {
-        sentre: { splt },
-      } = window
-      if (!account.isAddress(walletAddress) || !account.isAddress(mintAddress))
-        return setAccountAddress('')
-      const address = await splt.deriveAssociatedAddress(
-        walletAddress,
-        mintAddress,
-      )
-      return setAccountAddress(address)
-    })()
-  }, [walletAddress, mintAddress])
+  const { balance } = useAccountBalanceByMintAddress(mintAddress)
 
   return (
     <Card>
