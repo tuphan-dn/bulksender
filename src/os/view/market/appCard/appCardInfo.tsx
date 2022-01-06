@@ -27,7 +27,7 @@ const ActionButton = ({
   onInstall,
 }: ActionButtonProps) => {
   return appIds.includes(appId) ? (
-    <Button type="ghost" size="small" onClick={onOpen} id="open-action-button">
+    <Button ghost size="small" onClick={onOpen} id="open-action-button">
       Open
     </Button>
   ) : (
