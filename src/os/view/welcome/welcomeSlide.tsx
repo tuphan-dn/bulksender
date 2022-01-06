@@ -2,13 +2,13 @@ import { Fragment } from 'react'
 
 import { Card, Carousel, Col, Image, Row, Space, Typography } from 'antd'
 
-import { DataSlice } from './dataSlice'
+import { DataSlide } from './dataSlide'
 
 const WelcomeSlide = () => {
   return (
     <Card className="slide-container" hoverable={false} bordered={false}>
       <Carousel autoplay>
-        {DataSlice.map(({ title, logo, content }) => (
+        {DataSlide.map(({ title, logo, content }) => (
           <Fragment key={title}>
             <Row gutter={[24, 24]} justify="center">
               <Col>

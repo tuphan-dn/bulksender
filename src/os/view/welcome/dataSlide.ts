@@ -3,7 +3,7 @@ import logoAssets from 'os/static/images/logo-assets.png'
 import logoLp from 'os/static/images/logo-senlp.png'
 import logoFarming from 'os/static/images/logo-farming.png'
 
-export const DataSlice = [
+export const DataSlide = [
   {
     logo: logoAssets,
     title: 'Sen Assets',
