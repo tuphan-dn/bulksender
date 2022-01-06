@@ -9,7 +9,7 @@ import storePanel5 from 'os/static/images/store-panel5.png'
 
 const PAGE_PADDING = 20
 const ELEMENT_PADDING = 24
-const HEIGHT_RATIO = 1.94
+const HEIGHT_RATIO = 1.777777
 const PANELS = [
   {
     src: storePanel4,
@@ -30,9 +30,7 @@ const BannerBottom = () => {
 
   const bannerHeightRatio = width < 768 ? HEIGHT_RATIO : HEIGHT_RATIO * 2
   const bannerWidth =
-    width < 768
-      ? width - PAGE_PADDING * 2
-      : width - PAGE_PADDING * 2 - ELEMENT_PADDING
+    width < 768 ? width - PAGE_PADDING : width - PAGE_PADDING - ELEMENT_PADDING
 
   return (
     <Row gutter={[24, 16]}>
