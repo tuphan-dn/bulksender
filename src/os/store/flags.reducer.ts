@@ -7,7 +7,7 @@ import PDB from 'shared/pdb'
  * Interface & Utility
  */
 
-type State = {
+type FlagsState = {
   visited: boolean
 }
 
@@ -16,7 +16,7 @@ type State = {
  */
 
 const NAME = 'flags'
-const initialState: State = {
+const initialState: FlagsState = {
   visited: true,
 }
 
@@ -25,7 +25,7 @@ const initialState: State = {
  */
 
 export const loadVisited = createAsyncThunk<
-  Partial<State>,
+  Partial<FlagsState>,
   void,
   { state: any }
 >(`${NAME}/loadVisited`, async (_, { getState }) => {
@@ -41,7 +41,7 @@ export const loadVisited = createAsyncThunk<
 })
 
 export const updateVisited = createAsyncThunk<
-  Partial<State>,
+  Partial<FlagsState>,
   boolean,
   { state: any }
 >(`${NAME}/updateVisited`, async (visited, { getState }) => {

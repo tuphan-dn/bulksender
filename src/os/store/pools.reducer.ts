@@ -11,14 +11,14 @@ const {
  * Interface & Utility
  */
 
-export type State = Record<string, PoolData>
+export type PoolsState = Record<string, PoolData>
 
 /**
  * Store constructor
  */
 
 const NAME = 'pools'
-const initialState: State = {}
+const initialState: PoolsState = {}
 
 /**
  * Actions
@@ -34,7 +34,7 @@ export const getPools = createAsyncThunk(`${NAME}/getPools`, async () => {
         { memcmp: { bytes: taxmanAddress, offset: 65 } },
       ],
     })
-  let bulk: State = {}
+  let bulk: PoolsState = {}
   value.forEach(({ pubkey, account: { data: buf } }) => {
     const address = pubkey.toBase58()
     const data = swap.parsePoolData(buf)
@@ -44,7 +44,7 @@ export const getPools = createAsyncThunk(`${NAME}/getPools`, async () => {
 })
 
 export const getPool = createAsyncThunk<
-  State,
+  PoolsState,
   { address: string },
   { state: any }
 >(`${NAME}/getPool`, async ({ address }, { getState }) => {
@@ -59,7 +59,7 @@ export const getPool = createAsyncThunk<
 })
 
 export const upsetPool = createAsyncThunk<
-  State,
+  PoolsState,
   { address: string; data: PoolData },
   { state: any }
 >(`${NAME}/upsetPool`, async ({ address, data }) => {

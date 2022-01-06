@@ -12,7 +12,7 @@ const {
  * Interface & Utility
  */
 
-export type State = {
+export type PageState = {
   register: SenReg
   appIds: AppIds
   widgetIds: AppIds
@@ -36,7 +36,7 @@ const fetchRegister = async () => {
  */
 
 const NAME = 'page'
-const initialState: State = {
+const initialState: PageState = {
   register: {},
   appIds: [],
   widgetIds: [],
@@ -57,7 +57,7 @@ export const loadRegister = createAsyncThunk(
 
 // For sandbox only
 export const installManifest = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   ComponentManifest,
   { state: any }
 >(`${NAME}/installManifest`, async (manifest, { getState }) => {
@@ -82,32 +82,33 @@ export const installManifest = createAsyncThunk<
 /**
  * App Actions
  */
-export const loadPage = createAsyncThunk<Partial<State>, void, { state: any }>(
-  `${NAME}/loadPage`,
-  async (_, { getState }) => {
-    const {
-      wallet: { address },
-      page: { register },
-    } = getState()
+export const loadPage = createAsyncThunk<
+  Partial<PageState>,
+  void,
+  { state: any }
+>(`${NAME}/loadPage`, async (_, { getState }) => {
+  const {
+    wallet: { address },
+    page: { register },
+  } = getState()
 
-    if (!account.isAddress(address))
-      throw new Error('Wallet is not connected yet.')
-    // Fetch user's apps
-    const db = new PDB(address).createInstance('sentre')
-    const appIds = troubleshoot(
-      register,
-      (await db.getItem('appIds')) || initialState.appIds,
-    )
-    const widgetIds = troubleshoot(
-      register,
-      (await db.getItem('widgetIds')) || initialState.widgetIds,
-    )
-    return { appIds, widgetIds }
-  },
-)
+  if (!account.isAddress(address))
+    throw new Error('Wallet is not connected yet.')
+  // Fetch user's apps
+  const db = new PDB(address).createInstance('sentre')
+  const appIds = troubleshoot(
+    register,
+    (await db.getItem('appIds')) || initialState.appIds,
+  )
+  const widgetIds = troubleshoot(
+    register,
+    (await db.getItem('widgetIds')) || initialState.widgetIds,
+  )
+  return { appIds, widgetIds }
+})
 
 export const updatePage = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   AppIds,
   { state: any }
 >(`${NAME}/updatePage`, async (appIds, { getState }) => {
@@ -124,7 +125,7 @@ export const updatePage = createAsyncThunk<
 })
 
 export const installApp = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   string,
   { state: any }
 >(`${NAME}/installApp`, async (appId, { getState }) => {
@@ -147,7 +148,7 @@ export const installApp = createAsyncThunk<
 })
 
 export const uninstallApp = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   string,
   { state: any }
 >(`${NAME}/uninstallApp`, async (appId, { getState }) => {
@@ -172,7 +173,7 @@ export const uninstallApp = createAsyncThunk<
  * Dashboard Actions
  */
 export const updateDashboard = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   AppIds,
   { state: any }
 >(`${NAME}/updateDashboard`, async (widgetIds, { getState }) => {
@@ -187,7 +188,7 @@ export const updateDashboard = createAsyncThunk<
 })
 
 export const addWidgets = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   AppIds,
   { state: any }
 >(`${NAME}/addWidgets`, async (appIds, { getState }) => {
@@ -204,7 +205,7 @@ export const addWidgets = createAsyncThunk<
 })
 
 export const removeWidget = createAsyncThunk<
-  Partial<State>,
+  Partial<PageState>,
   string,
   { state: any }
 >(`${NAME}/removeWidget`, async (appId, { getState }) => {
