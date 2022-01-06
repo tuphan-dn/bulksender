@@ -4,10 +4,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
  * Interface & Utility
  */
 export type TransferData = Array<[string, string]>
+export enum Status {
+  None,
+  Estimating,
+  Estimated,
+  Sending,
+  Done,
+}
 export type State = {
   mintAddress: string
   data: TransferData /* address, amount */
   decimalized: boolean
+  status: Status
 }
 
 /**
@@ -19,6 +27,7 @@ const initialState: State = {
   mintAddress: '',
   data: [],
   decimalized: false,
+  status: Status.None,
 }
 
 /**
@@ -28,21 +37,28 @@ const initialState: State = {
 export const setData = createAsyncThunk(
   `${NAME}/setData`,
   async (data: TransferData) => {
-    return { data }
+    return { data, status: Status.None }
   },
 )
 
 export const setMintAddress = createAsyncThunk(
   `${NAME}/setMintAddress`,
   async (mintAddress: string) => {
-    return { mintAddress }
+    return { mintAddress, status: Status.None }
   },
 )
 
 export const setDecimalized = createAsyncThunk(
   `${NAME}/setDecimalized`,
   async (decimalized: boolean) => {
-    return { decimalized }
+    return { decimalized, status: Status.None }
+  },
+)
+
+export const setStatus = createAsyncThunk(
+  `${NAME}/setStatus`,
+  async (status: Status) => {
+    return { status }
   },
 )
 
@@ -66,6 +82,10 @@ const slice = createSlice({
       )
       .addCase(
         setDecimalized.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        setStatus.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })
