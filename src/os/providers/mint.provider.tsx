@@ -12,7 +12,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 
 import { RootState, RootDispatch } from 'os/store'
-import { getMint as _getMint, State as MintState } from 'os/store/mints.reducer'
+import { getMint as _getMint, MintsState } from 'os/store/mints.reducer'
 import TokenProvider from './tokenProvider'
 import { account } from '@senswap/sen-js'
 
@@ -20,8 +20,8 @@ const tokenProvider = new TokenProvider()
 const Context = createContext<MintProvider>({} as MintProvider)
 
 export type MintProvider = {
-  mints: MintState
-  getMint: (...agrs: Parameters<typeof _getMint>) => Promise<MintState>
+  mints: MintsState
+  getMint: (...agrs: Parameters<typeof _getMint>) => Promise<MintsState>
   getDecimals: (mintAddress: string) => Promise<number>
   tokenProvider: TokenProvider
 }

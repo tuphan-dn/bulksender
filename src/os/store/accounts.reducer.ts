@@ -5,14 +5,14 @@ import { account, AccountData } from '@senswap/sen-js'
  * Interface & Utility
  */
 
-export type State = Record<string, AccountData>
+export type AccountsState = Record<string, AccountData>
 
 /**
  * Store constructor
  */
 
 const NAME = 'accounts'
-const initialState: State = {}
+const initialState: AccountsState = {}
 
 /**
  * Actions
@@ -29,7 +29,7 @@ export const getAccounts = createAsyncThunk(
       ownerPublicKey,
       { programId: splt.spltProgramId },
     )
-    let bulk: State = {}
+    let bulk: AccountsState = {}
     value.forEach(({ pubkey, account: { data: buf } }) => {
       const address = pubkey.toBase58()
       const data = splt.parseAccountData(buf)
@@ -40,7 +40,7 @@ export const getAccounts = createAsyncThunk(
 )
 
 export const getAccount = createAsyncThunk<
-  State,
+  AccountsState,
   { address: string },
   { state: any }
 >(`${NAME}/getAccount`, async ({ address }, { getState }) => {
@@ -55,7 +55,7 @@ export const getAccount = createAsyncThunk<
 })
 
 export const upsetAccount = createAsyncThunk<
-  State,
+  AccountsState,
   { address: string; data: AccountData },
   { state: any }
 >(`${NAME}/upsetAccount`, async ({ address, data }) => {
