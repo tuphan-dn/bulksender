@@ -24,13 +24,14 @@ const BannerTop = () => {
 
   return (
     <Swiper
+      className="hero-banner"
       slidesPerView={1}
       navigation={!isMobile}
       pagination={{
         clickable: true,
         type: 'bullets',
         renderBullet: function (index, className) {
-          return `<span class="${className} pagination indicator" key="${index}"></span>`
+          return `<span class="${className} indicator" key="${index}"></span>`
         },
       }}
       modules={[Navigation, Pagination]}
