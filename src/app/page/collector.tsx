@@ -4,7 +4,11 @@ import Papa from 'papaparse'
 
 import { Row, Col, Upload, Space, Button, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import { TransferData, setData } from 'app/model/main.controller'
+import {
+  TransferData,
+  setData,
+  setDecimalized,
+} from 'app/model/main.controller'
 
 const parse = (file: any): Promise<TransferData> => {
   return new Promise((resolve, reject) => {
@@ -20,15 +24,16 @@ const Collector = () => {
   const dispatch = useDispatch()
 
   const upload = async (file: any) => {
-    await setLoading(true)
-    await dispatch(setData(await parse(file)))
-    await setLoading(false)
+    setLoading(true)
+    dispatch(setDecimalized(false))
+    dispatch(setData(await parse(file)))
+    setLoading(false)
     return false
   }
   const remove = async () => {
-    await setLoading(true)
-    await dispatch(setData([]))
-    await setLoading(false)
+    setLoading(true)
+    dispatch(setData([]))
+    setLoading(false)
     return true
   }
 
