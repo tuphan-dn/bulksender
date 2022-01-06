@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux'
 
 import { RootState } from 'os/store'
-import { State as WalletState } from 'os/store/wallet.reducer'
+import { WalletState } from 'os/store/wallet.reducer'
 
 const Context = createContext<WalletProvider>({} as WalletProvider)
 

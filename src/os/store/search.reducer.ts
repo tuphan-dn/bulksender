@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
  * Interface & Utility
  */
 
-type State = {
+type SearchState = {
   value: string
   loading: boolean
   disabled: boolean
@@ -15,7 +15,7 @@ type State = {
  */
 
 const NAME = 'search'
-const initialState: State = {
+const initialState: SearchState = {
   value: '',
   loading: false,
   disabled: false,
@@ -26,7 +26,7 @@ const initialState: State = {
  */
 
 export const setValue = createAsyncThunk<
-  Partial<State>,
+  Partial<SearchState>,
   string,
   { state: any }
 >(`${NAME}/setValue`, async (value) => {
@@ -34,7 +34,7 @@ export const setValue = createAsyncThunk<
 })
 
 export const setLoading = createAsyncThunk<
-  Partial<State>,
+  Partial<SearchState>,
   boolean,
   { state: any }
 >(`${NAME}/setLoading`, async (loading) => {
@@ -42,7 +42,7 @@ export const setLoading = createAsyncThunk<
 })
 
 export const setDisabled = createAsyncThunk<
-  Partial<State>,
+  Partial<SearchState>,
   boolean,
   { state: any }
 >(`${NAME}/setDisabled`, async (disabled) => {
