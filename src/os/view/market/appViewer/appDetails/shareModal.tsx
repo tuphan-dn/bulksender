@@ -105,7 +105,7 @@ const ShareModal = ({
         <Col>
           <Space>
             <Button className="btn-share" onClick={() => onClose()}>
-              Cancle
+              Cancel
             </Button>
             <Button
               type="primary"
