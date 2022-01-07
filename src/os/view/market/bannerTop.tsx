@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination } from 'swiper'
 
-import { Card, Carousel } from 'antd'
+import { Card } from 'antd'
 
 import { RootState } from 'os/store'
 
@@ -8,22 +10,44 @@ import storePanel1 from 'os/static/images/store-panel1.png'
 import storePanel2 from 'os/static/images/store-panel2.png'
 import storePanel3 from 'os/static/images/store-panel3.png'
 
+import './index.less'
+
 const PAGE_PADDING = 20
 const PANELS = [storePanel1, storePanel2, storePanel3]
 
 const BannerTop = () => {
   const {
-    ui: { width },
+    ui: { width, infix },
   } = useSelector((state: RootState) => state)
 
+  const isMobile = infix === 'xs'
+
   return (
-    <Carousel>
+    <Swiper
+      className="hero-banner"
+      slidesPerView={1}
+      navigation={!isMobile}
+      pagination={{
+        clickable: true,
+        type: 'bullets',
+        renderBullet: function (index, className) {
+          return `<span class="${className} indicator" key="${index}"></span>`
+        },
+      }}
+      modules={[Navigation, Pagination]}
+    >
       {PANELS.map((banner, index) => {
         return (
-          <div key={index}>
+          <SwiperSlide
+            style={{
+              height: Math.min(1920 / 3, (width - PAGE_PADDING * 2) / 3),
+              cursor: 'pointer',
+            }}
+            key={index}
+          >
             <Card
               style={{
-                height: Math.min(1920 / 3, (width - PAGE_PADDING * 2) / 3),
+                height: '100%',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
@@ -32,10 +56,10 @@ const BannerTop = () => {
               }}
               bordered={false}
             />
-          </div>
+          </SwiperSlide>
         )
       })}
-    </Carousel>
+    </Swiper>
   )
 }
 

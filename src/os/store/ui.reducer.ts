@@ -7,7 +7,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Theme = 'light' | 'dark'
 
-export type State = {
+export type UIState = {
   theme: Theme
   width: number
   infix: Infix
@@ -37,7 +37,7 @@ const getTheme = (): Theme => {
  */
 
 const NAME = 'ui'
-const initialState: State = {
+const initialState: UIState = {
   theme: getTheme(),
   width: window.innerWidth,
   infix: getInfix(),

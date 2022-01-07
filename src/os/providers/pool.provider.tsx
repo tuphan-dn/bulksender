@@ -11,12 +11,12 @@ import {
 import { useSelector } from 'react-redux'
 
 import { RootState } from 'os/store'
-import { State as PoolState } from 'os/store/pools.reducer'
+import { PoolsState } from 'os/store/pools.reducer'
 
 const Context = createContext<PoolProvider>({} as PoolProvider)
 
 export type PoolProvider = {
-  pools: PoolState
+  pools: PoolsState
 }
 
 /**

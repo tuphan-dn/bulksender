@@ -5,21 +5,21 @@ import { account, MintData } from '@senswap/sen-js'
  * Interface & Utility
  */
 
-export type State = Record<string, MintData>
+export type MintsState = Record<string, MintData>
 
 /**
  * Store constructor
  */
 
 const NAME = 'mints'
-const initialState: State = {}
+const initialState: MintsState = {}
 
 /**
  * Actions
  */
 
 export const getMint = createAsyncThunk<
-  State,
+  MintsState,
   { address: string; force?: boolean },
   { state: any }
 >(`${NAME}/getMint`, async ({ address, force = false }, { getState }) => {
@@ -36,7 +36,7 @@ export const getMint = createAsyncThunk<
 })
 
 export const upsetMint = createAsyncThunk<
-  State,
+  MintsState,
   { address: string; data: MintData },
   { state: any }
 >(`${NAME}/upsetMint`, async ({ address, data }) => {

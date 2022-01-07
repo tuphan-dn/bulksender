@@ -1,4 +1,5 @@
 import { account, DEFAULT_EMPTY_ADDRESS, utils } from '@senswap/sen-js'
+import { useEffect, useState } from 'react'
 import { useAccount, useWallet } from 'senhub/providers'
 import useMintDecimals from './useMintDecimals'
 
@@ -33,7 +34,7 @@ const buildResult = (
  * WalletProvider Ref: https://docs.sentre.io/senhub/development/providers/wallet-provider
  * MintProvider Ref: https://docs.sentre.io/senhub/development/providers/mint-provider
  * AccountProvider Ref: https://docs.sentre.io/senhub/development/providers/account-provider
- * @param mintAddress Mint address
+ * @param accountAddress Associated account address
  * @returns AccountBalanceReturn
  * - AccountBalanceReturn.amount: The amount with decimals
  * - AccountBalanceReturn.decimals: The corresponding mint decimals
@@ -57,3 +58,37 @@ const useAccountBalance = (accountAddress: string) => {
 }
 
 export default useAccountBalance
+
+/**
+ * The same as useAccountBalance but the input is mint address
+ * @param mintAddress Mint address
+ * @returns AccountBalanceReturn
+ */
+export const useAccountBalanceByMintAddress = (mintAddress: string) => {
+  const [accountAddress, setAccountAddress] = useState('')
+  const {
+    wallet: { address: walletAddress },
+  } = useWallet()
+  const data = useAccountBalance(accountAddress)
+
+  useEffect(() => {
+    ;(async () => {
+      if (!account.isAddress(walletAddress) || !account.isAddress(mintAddress))
+        return setAccountAddress('')
+      const {
+        sentre: { splt },
+      } = window
+      try {
+        const address = await splt.deriveAssociatedAddress(
+          walletAddress,
+          mintAddress,
+        )
+        return setAccountAddress(address)
+      } catch (er) {
+        return setAccountAddress('')
+      }
+    })()
+  })
+
+  return data
+}

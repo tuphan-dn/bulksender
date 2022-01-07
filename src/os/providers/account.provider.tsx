@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux'
 
 import { RootState } from 'os/store'
-import { State as AccountsState } from 'os/store/accounts.reducer'
+import { AccountsState } from 'os/store/accounts.reducer'
 
 const Context = createContext<AccountProvider>({} as AccountProvider)
 
