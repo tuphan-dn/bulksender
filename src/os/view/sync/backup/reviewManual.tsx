@@ -15,17 +15,13 @@ const ReviewManual = () => {
             <li>
               <Typography.Text>
                 Because Sentre never collects your data, so the data is locally
-                available.
+                available. Thus, it's nescessary to backup your data in case
+                your device is broken or suddenly lost.
               </Typography.Text>
             </li>
             <li>
               <Typography.Text>
                 You can move data in the current device to a new one.
-              </Typography.Text>
-            </li>
-            <li>
-              <Typography.Text>
-                Restore data in case your device is broken or suddenly lost.
               </Typography.Text>
             </li>
           </ul>
