@@ -24,7 +24,7 @@ const Welcome = () => {
       location: { search },
     } = history
     const params = new URLSearchParams(search)
-    const redirect = decodeURI(params.get('redirect') || '/dashboard')
+    const redirect = decodeURIComponent(params.get('redirect') || '/dashboard')
     if (account.isAddress(walletAddress)) history.push(redirect)
   }, [walletAddress, history])
 

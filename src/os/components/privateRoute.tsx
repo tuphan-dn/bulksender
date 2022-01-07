@@ -17,7 +17,7 @@ const PrivateRoute = ({
 
   const render = useCallback(
     (props) => {
-      const pathname = encodeURI(
+      const pathname = encodeURIComponent(
         window.location.href.replace(window.location.origin, ''),
       )
       if (!account.isAddress(walletAddress))
