@@ -3,7 +3,7 @@ import IonIcon from 'shared/antd/ionicon'
 const Verification = ({
   verified,
   size = 16,
-  color = '#5ed96e',
+  color = '#18A0FB',
 }: {
   verified?: boolean
   size?: number
