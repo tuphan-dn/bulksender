@@ -1,19 +1,19 @@
 import { Component, ReactNode } from 'react'
 
-interface Props {
+export type ErrorBoundaryProps = {
   children?: ReactNode
   defaultChildren: ReactNode
 }
 
-interface State {
+export type ErrorBoundaryState = {
   failed: boolean
 }
 
 /**
  * Error Boundary
  */
-class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props)
 
     this.state = {
@@ -21,7 +21,7 @@ class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: ErrorBoundaryProps) {
     if (prevProps.children !== this.props.children)
       return this.setState({ failed: false })
   }
