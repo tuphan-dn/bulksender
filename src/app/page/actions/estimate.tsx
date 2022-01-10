@@ -35,7 +35,7 @@ const Estimate = ({ disabled = false, onChange = () => {} }: EstimateProps) => {
     } = window
     if (!wallet) return setBulk([])
 
-    dispatch(setStatus(Status.Estimating))
+    await dispatch(setStatus(Status.Estimating))
 
     const bulksender = new Bulksender(
       bulksenderAddress,
@@ -61,11 +61,19 @@ const Estimate = ({ disabled = false, onChange = () => {} }: EstimateProps) => {
       } catch (er) {
         ok = false
       }
-      if (ok) newBulks[newBulks.length - 1] = simulatedBulk
-      else if (simulatedBulk.length <= 1) {
+      // There is a failed record
+      if (!ok && simulatedBulk.length <= 1) {
         setBulk([])
-        return dispatch(setStatus(Status.Estimated))
-      } else newBulks.push([[address, amount]])
+        window.notify({
+          type: 'error',
+          description:
+            'Cannot handle the transaction. Make sure that your SOL balance is enough to pay fees.',
+        })
+        return dispatch(setStatus(Status.None))
+      }
+      // Keep moving
+      if (ok) newBulks[newBulks.length - 1] = simulatedBulk
+      else newBulks.push([[address, amount]])
       // Progress
       setProgess(newBulks.flat().length / data.length)
     }

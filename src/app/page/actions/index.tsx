@@ -108,7 +108,7 @@ const Actions = () => {
         />
       </Col>
       <Col span={12}>
-        {status === Status.None ? (
+        {[Status.None, Status.Estimating].includes(status) ? (
           <Estimate disabled={!!error} onChange={setBulk} />
         ) : (
           <Send bulk={bulk} disabled={!!error} />
