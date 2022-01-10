@@ -2,8 +2,8 @@ const KEY = 'sentre'
 const driver = window.localStorage
 
 const convert = (value: string | null) => {
-  if (!value) return null
   try {
+    if (!value) return null
     return JSON.parse(value)
   } catch (e) {
     return null
