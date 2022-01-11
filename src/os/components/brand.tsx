@@ -19,9 +19,9 @@ const LOGO = {
   mainnet_lite: liteLogo,
   devnet: fullLogoDev,
   devnet_dark: fullLogoDevDark,
+  devnet_lite: liteLogoDev,
   testnet: fullLogoTest,
   testnet_dark: fullLogoTestDark,
-  devnet_lite: liteLogoDev,
   testnet_lite: liteLogoTest,
 }
 
@@ -29,19 +29,19 @@ const Brand = ({
   style,
   lite = false,
   darkTheme,
-  network,
+  network = 'mainnet',
 }: {
   lite?: boolean
   style: CSSProperties
   darkTheme?: boolean
-  network: Net
+  network?: Net
 }) => {
   const history = useHistory()
 
   const networkLogo = useMemo(() => {
-    if (lite) return LOGO?.[`${network}_lite`]
-    if (darkTheme) return LOGO?.[`${network}_dark`]
-    return LOGO?.[network]
+    if (lite) return LOGO[`${network}_lite`]
+    if (darkTheme) return LOGO[`${network}_dark`]
+    return LOGO[network]
   }, [darkTheme, lite, network])
 
   return (
