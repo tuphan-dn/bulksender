@@ -1,7 +1,7 @@
 import { CSSProperties, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { net } from 'shared/runtime'
+import { Net } from 'shared/runtime'
 
 import fullLogo from 'os/static/images/sen-full.png'
 import fullLogoDark from 'os/static/images/sen-full-dark.png'
@@ -29,18 +29,20 @@ const Brand = ({
   style,
   lite = false,
   darkTheme,
+  network,
 }: {
   lite?: boolean
   style: CSSProperties
   darkTheme?: boolean
+  network: Net
 }) => {
   const history = useHistory()
 
   const networkLogo = useMemo(() => {
-    if (lite) return LOGO?.[`${net}_lite`]
-    if (darkTheme) return LOGO?.[`${net}_dark`]
-    return LOGO?.[net]
-  }, [darkTheme, lite])
+    if (lite) return LOGO?.[`${network}_lite`]
+    if (darkTheme) return LOGO?.[`${network}_dark`]
+    return LOGO?.[network]
+  }, [darkTheme, lite, network])
 
   return (
     <img
