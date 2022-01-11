@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom'
 
 import { Net } from 'shared/runtime'
 
-import fullLogo from 'os/static/images/sen-full.png'
-import fullLogoDark from 'os/static/images/sen-full-dark.png'
-import liteLogo from 'os/static/images/sen-lite.png'
+import fullLogo from 'os/static/images/sen-full.svg'
+import fullLogoDark from 'os/static/images/sen-full-dark.svg'
+import liteLogo from 'os/static/images/sen-lite.svg'
 import fullLogoDev from 'os/static/images/sen-dev.svg'
 import fullLogoDevDark from 'os/static/images/sen-dev-dark.svg'
 import fullLogoTest from 'os/static/images/sen-test.svg'
