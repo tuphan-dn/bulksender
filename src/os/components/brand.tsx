@@ -43,7 +43,6 @@ const Brand = ({
     if (darkTheme) return LOGO[`${network}_dark`]
     return LOGO[network]
   }, [darkTheme, lite, network])
-  console.log(network, networkLogo, 'logo')
 
   return (
     <img
