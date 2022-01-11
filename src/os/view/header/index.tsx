@@ -14,6 +14,7 @@ import { RootDispatch, RootState } from 'os/store'
 import { loadRegister, loadPage } from 'os/store/page.reducer'
 import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import { loadVisited } from 'os/store/flags.reducer'
+import { net } from 'shared/runtime'
 
 type NavButtonProps = {
   id: string
@@ -83,6 +84,7 @@ const Header = () => {
           style={{ height: 24, cursor: 'pointer' }}
           lite={width < 768}
           darkTheme={theme === 'dark'}
+          network={net}
         />
       </Col>
       <Col flex="auto">
