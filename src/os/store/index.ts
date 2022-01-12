@@ -4,7 +4,6 @@ import {
   createStoreHook,
   useDispatch,
   useSelector,
-  useStore,
 } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { RootContext } from 'react-redux-context'
@@ -29,7 +28,7 @@ export type RootDispatch = typeof store.dispatch
 /**
  * Root hooks
  */
-export const useRootStore: typeof useStore = createStoreHook(RootContext as any)
+export const useRootStore = createStoreHook(RootContext)
 export const useRootDispatch: typeof useDispatch =
   createDispatchHook(RootContext)
 export const useRootSelector: typeof useSelector =

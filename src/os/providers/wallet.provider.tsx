@@ -22,7 +22,7 @@ export type WalletProvider = {
  * Wallet Context Provider
  */
 const WalletContextProvider = ({ children }: { children: ReactNode }) => {
-  const wallet = useRootSelector((state: RootState) => state.wallet)
+  const { wallet } = useRootSelector((state: RootState) => state)
   const provider = useMemo(() => ({ wallet }), [wallet])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }
