@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import {
   CategoryFilter,
   CategoryRelated,
@@ -29,7 +28,7 @@ export const useAppCategory = ({
   filter,
   title,
 }: CategoryOptions) => {
-  const { register } = useSelector((state: RootState) => state.page)
+  const { register } = useRootSelector((state: RootState) => state.page)
   const [appIds, setAppIds] = useState<AppIds>([])
 
   const categoryTitle = useMemo(() => {

@@ -1,20 +1,24 @@
 import { ChangeEvent, useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useHistory } from 'react-router-dom'
 
 import { Row, Col, Input, Button } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootState,
+  RootDispatch,
+} from 'os/store'
 import { setValue } from 'os/store/search.reducer'
-import { RootState } from 'os/store'
 
 const Search = () => {
-  const dispatch = useDispatch()
+  const dispatch = useRootDispatch<RootDispatch>()
   const location = useLocation()
   const history = useHistory()
-  const { value, loading, disabled } = useSelector(
-    (state: RootState) => state.search,
-  )
+  const {
+    search: { value, loading, disabled },
+  } = useRootSelector((state: RootState) => state)
 
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

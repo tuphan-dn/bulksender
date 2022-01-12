@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
@@ -6,11 +5,11 @@ import { Row, Col } from 'antd'
 import Navigation from './navigation'
 import Search from './search'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 
 const ContextMenu = () => {
   const { pathname } = useLocation()
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const { address } = useRootSelector((state: RootState) => state.wallet)
 
   if (pathname.startsWith('/store')) return <Search />
   if (!account.isAddress(address)) return null

@@ -1,5 +1,4 @@
 import { Fragment, useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {
   DndContext,
@@ -21,7 +20,7 @@ import AppIcon from 'os/components/appIcon'
 import DroppablePage from './droppablePage'
 import DraggableIcon from './draggableIcon'
 
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 import DraggableAction from './draggableAction'
 import IonIcon from 'shared/antd/ionicon'
@@ -57,7 +56,7 @@ const WidgetLayout = (props: Props) => {
     addLabel,
   } = props
   const history = useHistory()
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
 
   const [internalAppIds, setInternalPages] = useState<AppIds>([])

@@ -1,4 +1,13 @@
+import {
+  createDispatchHook,
+  createSelectorHook,
+  createStoreHook,
+  useDispatch,
+  useSelector,
+  useStore,
+} from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
+import { RootContext } from 'react-redux-context'
 import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
 
 import ui from './ui.reducer'
@@ -10,6 +19,21 @@ import mints from './mints.reducer'
 import pools from './pools.reducer'
 import search from './search.reducer'
 import walkthrough from './walkthrough.reducer'
+
+/**
+ * Root types
+ */
+export type RootState = ReturnType<typeof store.getState>
+export type RootDispatch = typeof store.dispatch
+
+/**
+ * Root hooks
+ */
+export const useRootStore: typeof useStore = createStoreHook(RootContext as any)
+export const useRootDispatch: typeof useDispatch =
+  createDispatchHook(RootContext)
+export const useRootSelector: typeof useSelector =
+  createSelectorHook(RootContext)
 
 /**
  * Root store
@@ -31,6 +55,4 @@ const store = configureStore({
   },
 })
 
-export type RootState = ReturnType<typeof store.getState>
-export type RootDispatch = typeof store.dispatch
 export default store

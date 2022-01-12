@@ -9,9 +9,13 @@ import {
   ReactNode,
   useMemo,
 } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
-import { RootState, RootDispatch } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootState,
+  RootDispatch,
+} from 'os/store'
 import { getMint as _getMint, MintsState } from 'os/store/mints.reducer'
 import TokenProvider from './tokenProvider'
 import { account } from '@senswap/sen-js'
@@ -30,8 +34,8 @@ export type MintProvider = {
  * Mint Context Provider
  */
 const MintContextProvider = ({ children }: { children: ReactNode }) => {
-  const dispatch = useDispatch<RootDispatch>()
-  const { mints, pools } = useSelector((state: RootState) => state)
+  const dispatch = useRootDispatch<RootDispatch>()
+  const { mints, pools } = useRootSelector((state: RootState) => state)
   const getMint = useCallback(
     async (...agrs: Parameters<typeof _getMint>) =>
       await dispatch(_getMint(...agrs)).unwrap(),

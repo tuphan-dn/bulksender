@@ -1,14 +1,13 @@
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 
 import { Row, Col, Button, Card, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
-import { RootDispatch } from 'os/store'
 
 const Sync = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
 
   return (

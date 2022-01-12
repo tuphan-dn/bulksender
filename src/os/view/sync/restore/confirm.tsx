@@ -1,10 +1,9 @@
 import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Modal, Row, Col, Space, Typography, Button } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import PDB from 'shared/pdb'
 
 const ConfirmRestore = ({
@@ -16,7 +15,7 @@ const ConfirmRestore = ({
   cid: string
   visible: boolean
 }) => {
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const { address } = useRootSelector((state: RootState) => state.wallet)
 
   const onRestore = useCallback(async () => {
     try {

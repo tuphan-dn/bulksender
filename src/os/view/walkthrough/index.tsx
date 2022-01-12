@@ -1,12 +1,16 @@
 import { useEffect, ReactNode } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 import Joyride, { CallBackProps, EVENTS, STATUS, Step } from 'react-joyride'
 
 import { Typography } from 'antd'
 import Tooltip from './tooltip'
 
-import { RootState } from 'os/store'
+import {
+  useRootSelector,
+  RootState,
+  useRootDispatch,
+  RootDispatch,
+} from 'os/store'
 import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import './index.os.less'
 
@@ -76,12 +80,12 @@ const STEPS: Step[] = [
 ]
 
 const Walkthrough = () => {
-  const dispatch = useDispatch()
+  const dispatch = useRootDispatch<RootDispatch>()
   const {
     wallet: { address },
     walkthrough: { run, step },
     flags: { visited },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
 
   useEffect(() => {
     if (account.isAddress(address) && !visited)
