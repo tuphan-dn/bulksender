@@ -8,9 +8,8 @@ import {
   ReactNode,
   useMemo,
 } from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import { PoolsState } from 'os/store/pools.reducer'
 
 const Context = createContext<PoolProvider>({} as PoolProvider)
@@ -23,7 +22,7 @@ export type PoolProvider = {
  * Pool Context Provider
  */
 const PoolContextProvider = ({ children }: { children: ReactNode }) => {
-  const pools = useSelector((state: RootState) => state.pools)
+  const { pools } = useRootSelector((state: RootState) => state)
   const provider = useMemo(() => ({ pools }), [pools])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }

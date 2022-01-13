@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux'
-
 import { Row, Card, Col, Avatar } from 'antd'
 
 import SLOPE from 'os/static/images/slope.svg'
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SlopeWallet } from '../../lib'
 
 const Slope = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
     const { Slope } = window

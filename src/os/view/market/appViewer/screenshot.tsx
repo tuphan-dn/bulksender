@@ -1,10 +1,8 @@
-import { useSelector } from 'react-redux'
-
 import { Col, Image, Row } from 'antd'
 import { SwiperSlide } from 'swiper/react'
 import { SwiperOs } from 'os/components/swiperOS'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import { MultiStaticLoader } from 'os/components/staticLoader'
 
 import imgError from 'os/static/images/error-image.svg'
@@ -13,7 +11,7 @@ const PADDING_CARD = 24
 const PADDING_PAGE = 39 //padding 24 +  width scroll bar 15
 
 const ScreenShot = ({ appId }: { appId: string }) => {
-  const { width } = useSelector((state: RootState) => state.ui)
+  const { width } = useRootSelector((state: RootState) => state.ui)
 
   const calculatePerCard = () => {
     if (width < 768) return 1

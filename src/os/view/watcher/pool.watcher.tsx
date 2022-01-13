@@ -1,8 +1,12 @@
 import { Fragment, useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import { getPools, upsetPool } from 'os/store/pools.reducer'
 import configs from 'os/configs'
 
@@ -14,10 +18,10 @@ const {
 let watchId = 0
 
 const PoolWatcher = () => {
-  const dispatch = useDispatch<RootDispatch>()
-  const { address: walletAddress } = useSelector(
-    (state: RootState) => state.wallet,
-  )
+  const dispatch = useRootDispatch<RootDispatch>()
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
 
   // First-time fetching
   const fetchData = useCallback(async () => {

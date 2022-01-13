@@ -1,11 +1,10 @@
 import { ReactNode } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Space, Avatar, Typography, Badge, AvatarProps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import { StaticLoader } from 'os/components/staticLoader'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import configs from 'os/configs'
 import './index.os.less'
 
@@ -44,7 +43,7 @@ const AppAvatar = ({
 
 const RawVerticalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 64, name = true } = props
-  const { register } = useSelector((state: RootState) => state.page)
+  const { register } = useRootSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
 
   return (
@@ -77,7 +76,7 @@ const RawVerticalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
 
 const RawHorizontalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   const { src, appId, onClick = () => {}, size = 32, name = true } = props
-  const { register } = useSelector((state: RootState) => state.page)
+  const { register } = useRootSelector((state: RootState) => state.page)
   const { name: appName } = register[appId] || { name: 'Unknown' }
 
   return (

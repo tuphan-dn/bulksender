@@ -1,13 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { MouseEvent } from 'react'
 import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
-import { MouseEvent } from 'react'
 
 import { Button, Card, Col, Row, Space, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import Verification from 'os/components/verification'
 
-import { RootState } from 'os/store'
+import {
+  useRootSelector,
+  RootState,
+  useRootDispatch,
+  RootDispatch,
+} from 'os/store'
 import { installApp } from 'os/store/page.reducer'
 import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
@@ -44,12 +48,12 @@ const ActionButton = ({
 
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
-  const dispatch = useDispatch()
+  const dispatch = useRootDispatch<RootDispatch>()
   const {
     page: { register, appIds },
     walkthrough: { run },
     wallet: { address: walletAddress },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
 
   const manifest = register[appId]
 

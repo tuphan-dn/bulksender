@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState, useMemo } from 'react'
-import { useSelector } from 'react-redux'
 import { utils } from '@senswap/sen-js'
 
 import { Skeleton } from 'antd'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import { numeric, fetchCGK } from 'shared/util'
 
 const Balance = ({
@@ -15,7 +14,7 @@ const Balance = ({
   inUSD?: boolean
 }) => {
   const [cgkData, setCGKData] = useState<CgkData>()
-  const { lamports } = useSelector((state: RootState) => state.wallet)
+  const { lamports } = useRootSelector((state: RootState) => state.wallet)
 
   const balance = numeric(utils.undecimalize(lamports, 9)).format('0.[000]')
   const usd = useMemo(() => {

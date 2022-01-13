@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper'
 
 import { Card } from 'antd'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 
 import storePanel1 from 'os/static/images/store-panel1.png'
 import storePanel2 from 'os/static/images/store-panel2.png'
@@ -18,7 +17,7 @@ const PANELS = [storePanel1, storePanel2, storePanel3]
 const BannerTop = () => {
   const {
     ui: { width, infix },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
 
   const isMobile = infix === 'xs'
 

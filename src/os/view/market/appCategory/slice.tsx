@@ -1,12 +1,12 @@
 import { useHistory } from 'react-router'
-import { useDispatch } from 'react-redux'
 
+import { Button, Col, Row, Typography } from 'antd'
+import IonIcon from 'shared/antd/ionicon'
 import AppCard from '../appCard'
 import { SwiperOs } from 'os/components/swiperOS'
-import IonIcon from 'shared/antd/ionicon'
 import { SwiperSlide } from 'swiper/react'
-import { Button, Col, Row, Typography } from 'antd'
 
+import { RootDispatch, useRootDispatch } from 'os/store'
 import { CategoryOptions, useAppCategory } from './hooks'
 import { setValue } from 'os/store/search.reducer'
 
@@ -16,7 +16,7 @@ const AppCategorySlice = ({
 }: {
   seeAll?: boolean
 } & CategoryOptions) => {
-  const dispatch = useDispatch()
+  const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
   const { title, appIds } = useAppCategory(options)
 

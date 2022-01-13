@@ -1,15 +1,14 @@
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
 import PageLoader from 'os/components/pageLoader'
 import NotFound from './notFound'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
-  const { appIds, register } = useSelector((state: RootState) => state.page)
+  const { appIds, register } = useRootSelector((state: RootState) => state.page)
 
   if (!register[appId]) return null
   return (

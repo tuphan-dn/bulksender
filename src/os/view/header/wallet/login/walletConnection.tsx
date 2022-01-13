@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Row, Col, Tooltip, Switch, Divider, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -12,11 +11,11 @@ import Slope from './slope'
 import SolflareWeb from './solflareWeb'
 import SolflareExtension from './solflareExt'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 
 const WalletConnection = () => {
   const [advance, setAdvance] = useState(false)
-  const { width } = useSelector((state: RootState) => state.ui)
+  const { width } = useRootSelector((state: RootState) => state.ui)
 
   const spacing = width <= 992 ? 16 : 24
   return (

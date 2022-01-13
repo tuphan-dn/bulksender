@@ -11,9 +11,20 @@ module.exports = {
     '@reduxjs/toolkit': { singleton: true, requiredVersion: '^1.6.2' },
     'react-redux': { singleton: true, requiredVersion: '^7.2.5' },
     antd: { singleton: true, requiredVersion: '^4.18.2' },
+    /**
+     * Singleton react-redux context
+     * The version is dummy and just indentical to the senhub version
+     */
+    'react-redux-context': {
+      import: 'os/store/context',
+      singleton: true,
+      requiredVersion: '^2.0.0',
+    },
   },
   remotes: {
     senhub,
+    '@frame/sen_swap':
+      'sen_swap@https://descartesnetwork.github.io/sen-swap/index.js',
   },
   exposes: {
     // app

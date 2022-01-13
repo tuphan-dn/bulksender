@@ -14,8 +14,7 @@ import {
 } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
-import { RootState } from 'os/store'
-import { useSelector } from 'react-redux'
+import { useRootSelector, RootState } from 'os/store'
 import { asyncWait } from 'shared/util'
 import Telegram from 'os/static/images/telegram.png'
 import Twitter from 'os/static/images/twitter.png'
@@ -34,7 +33,7 @@ const ShareModal = ({
   const [copied, setCopied] = useState(false)
   const {
     page: { register },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
   const { name } = register[appId] || {}
 
   const onClick = (type?: string) => {
