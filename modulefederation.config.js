@@ -23,8 +23,6 @@ module.exports = {
   },
   remotes: {
     senhub,
-    '@frame/sen_swap':
-      'sen_swap@https://descartesnetwork.github.io/sen-swap/index.js',
   },
   exposes: {
     // app
