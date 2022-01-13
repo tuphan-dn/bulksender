@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux'
-import { WalletProvider, UIProvider } from 'senhub/providers'
+import { WalletProvider, UIProvider } from '@senhub/providers'
 
 import PageView from 'app/page'
 import WidgetView from 'app/widget'

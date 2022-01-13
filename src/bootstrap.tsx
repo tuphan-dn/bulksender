@@ -1,7 +1,7 @@
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { RootContext } from 'react-redux-context'
+import { RootContext } from '@senhub/context'
 
 import { ConfigProvider } from 'antd'
 import View from 'os/view'
