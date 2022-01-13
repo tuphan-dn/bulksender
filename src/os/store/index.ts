@@ -6,7 +6,7 @@ import {
   useSelector,
 } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { RootContext } from 'react-redux-context'
+import { RootContext } from '@senhub/context'
 import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
 
 import ui from './ui.reducer'
