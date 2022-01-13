@@ -12,12 +12,6 @@ module.exports = {
     '@reduxjs/toolkit': { singleton: true, requiredVersion: '^1.6.2' },
     'react-redux': { singleton: true, requiredVersion: '^7.2.5' },
     antd: { singleton: true, requiredVersion: '^4.18.2' },
-    // Legacy
-    'react-redux-context': {
-      import: 'os/store/context',
-      singleton: true,
-      requiredVersion: senhubVersion,
-    },
     '@senhub/context': {
       import: 'os/store/context',
       singleton: true,
