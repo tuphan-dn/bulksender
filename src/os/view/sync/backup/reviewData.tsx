@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Col, Row, Typography } from 'antd'
 import JsonViewer from 'os/components/jsonViewer'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import PDB from 'shared/pdb'
 
 const ReviewData = () => {
-  const { address: walletAddress } = useSelector(
-    (state: RootState) => state.wallet,
-  )
   const [data, setData] = useState({})
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
 
   useEffect(() => {
     const pdb = new PDB(walletAddress)

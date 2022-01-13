@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Button, Card, Checkbox, Col, Row } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -7,16 +6,16 @@ import BackupSuccess from './backupSuccess'
 import ReviewManual from './reviewManual'
 import ReviewData from './reviewData'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import PDB from 'shared/pdb'
 
 const Backup = () => {
-  const { address: walletAddress } = useSelector(
-    (state: RootState) => state.wallet,
-  )
   const [link, setLink] = useState('')
   const [acceptable, setAcceptable] = useState(false)
   const [visible, setVisible] = useState(false)
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
 
   const onBackup = useCallback(async () => {
     const pdb = new PDB(walletAddress)

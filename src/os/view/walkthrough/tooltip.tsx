@@ -1,9 +1,8 @@
-import { useDispatch } from 'react-redux'
 import { TooltipRenderProps } from 'react-joyride'
 
 import { Row, Col, Card, Button } from 'antd'
 
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { updateVisited } from 'os/store/flags.reducer'
 
 const Tooltip = ({
@@ -12,7 +11,7 @@ const Tooltip = ({
   tooltipProps,
   skipProps,
 }: TooltipRenderProps) => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   // Patch skipProps
   const { onClick, ...rest } = skipProps

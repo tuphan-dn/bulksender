@@ -9,11 +9,10 @@ import {
   useMemo,
   CSSProperties,
 } from 'react'
-import { useSelector } from 'react-redux'
 
 import { ConfigProvider } from 'antd'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import { UIState } from 'os/store/ui.reducer'
 import { ConfigProviderProps } from 'antd/lib/config-provider'
 
@@ -37,7 +36,7 @@ const UIContextProvider = ({
   style?: CSSProperties
   antd?: boolean | ConfigProviderProps
 }) => {
-  const ui = useSelector((state: RootState) => state.ui)
+  const { ui } = useRootSelector((state: RootState) => state)
   const provider = useMemo(() => ({ ui }), [ui])
   const configProvider = antd
     ? {

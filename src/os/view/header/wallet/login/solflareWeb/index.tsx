@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux'
-
 import { Row, Card, Col, Avatar } from 'antd'
 
 import SOLFLARE from 'os/static/images/solflare.png'
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SolflareWallet } from '../../lib'
 
 const Solflare = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
     const solFlareWallet = new SolflareWallet()

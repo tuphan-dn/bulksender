@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { utils } from '@senswap/sen-js'
 
 import { Row, Col, Tooltip, Space, Card, Typography } from 'antd'
@@ -9,11 +8,11 @@ import PriceInfo from './priceInfo'
 import Address from './address'
 import Balance from './balance'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import './index.os.less'
 
 const WalletIntro = () => {
-  const { lamports } = useSelector((state: RootState) => state.wallet)
+  const { lamports } = useRootSelector((state: RootState) => state.wallet)
   const [hidden, setHidden] = useState(false)
 
   return (

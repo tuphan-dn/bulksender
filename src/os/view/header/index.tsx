@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
@@ -10,7 +9,12 @@ import Brand from 'os/components/brand'
 import ActionCenter from '../actionCenter'
 import ContextMenu from './contextMenu'
 
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import { loadRegister, loadPage } from 'os/store/page.reducer'
 import { setWalkthrough } from 'os/store/walkthrough.reducer'
 import { loadVisited } from 'os/store/flags.reducer'
@@ -24,7 +28,7 @@ type NavButtonProps = {
 }
 
 const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
-  const { width } = useSelector((state: RootState) => state.ui)
+  const { width } = useRootSelector((state: RootState) => state.ui)
   return (
     <Button
       type="text"
@@ -38,14 +42,14 @@ const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
 }
 
 const Header = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
   const {
     wallet: { address: walletAddress },
     ui: { width, theme },
     walkthrough: { run, step },
     page: { register },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
 
   const onDashboard = async () => {
     if (run && step === 3) await dispatch(setWalkthrough({ step: 4 }))

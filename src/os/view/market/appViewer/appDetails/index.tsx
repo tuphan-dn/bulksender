@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Space } from 'antd'
@@ -9,7 +8,7 @@ import AppTags from './appTags'
 import AppAuthor from './appAuthor'
 import AppReadMe from './appReadMe'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import AppShare from './appShare'
 
 const AppDetails = ({ appId }: { appId: string }) => {
@@ -17,7 +16,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
     ui: { infix },
     page: { register, appIds },
     wallet: { address: walletAddress },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
 
   const { description, author, name, tags, verified } = register[appId] || {}
   const isMobile = infix === 'xs' || infix === 'sm'

@@ -1,17 +1,23 @@
 import { Fragment } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Col, Drawer, Button, Tabs } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import Applications from './applications'
 import Settings from './settings'
 
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 
 const ActionCenter = () => {
-  const dispatch = useDispatch<RootDispatch>()
-  const { visibleActionCenter } = useSelector((state: RootState) => state.ui)
+  const dispatch = useRootDispatch<RootDispatch>()
+  const { visibleActionCenter } = useRootSelector(
+    (state: RootState) => state.ui,
+  )
 
   return (
     <Fragment>

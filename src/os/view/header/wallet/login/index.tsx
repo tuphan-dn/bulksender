@@ -1,15 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux'
-
 import { Modal } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
-import { RootState, RootDispatch } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootState,
+  RootDispatch,
+} from 'os/store'
 import { closeWallet } from 'os/store/wallet.reducer'
 import WalletConnection from './walletConnection'
 
 const Login = () => {
-  const { visible } = useSelector((state: RootState) => state.wallet)
-  const dispatch = useDispatch<RootDispatch>()
+  const { visible } = useRootSelector((state: RootState) => state.wallet)
+  const dispatch = useRootDispatch<RootDispatch>()
   return (
     <Modal
       visible={visible}

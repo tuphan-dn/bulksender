@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import { Row, Col, Button, Input, Card } from 'antd'
@@ -7,7 +6,7 @@ import IonIcon from 'shared/antd/ionicon'
 import JsonViewer from 'os/components/jsonViewer'
 import ConfirmRestore from './confirm'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import PDB from 'shared/pdb'
 import IPFS from 'shared/pdb/ipfs'
 
@@ -18,7 +17,7 @@ const Restore = () => {
   const { search } = useLocation()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const { address } = useRootSelector((state: RootState) => state.wallet)
 
   // Parse link
   useEffect(() => {

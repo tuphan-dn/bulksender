@@ -1,13 +1,11 @@
-import { useDispatch } from 'react-redux'
-
 import { Row, Col, Card, Typography, Upload } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { installManifest } from 'os/store/page.reducer'
-import { RootDispatch } from 'os/store'
 
 const Sandbox = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   const upload = async (file: File) => {
     const reader = new FileReader()

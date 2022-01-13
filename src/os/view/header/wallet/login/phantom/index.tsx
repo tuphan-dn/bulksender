@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux'
-
 import { Row, Card, Col, Avatar } from 'antd'
 
 import PHANTOM from 'os/static/images/phantom.png'
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { PhantomWallet } from '../../lib'
 
 const Phantom = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
     const { solana } = window

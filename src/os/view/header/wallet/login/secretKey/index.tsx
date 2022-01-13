@@ -1,17 +1,16 @@
 import { ChangeEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Input, Button, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SecretKeyWallet } from '../../lib'
 
 const SecretKey = () => {
   const [secretKey, setSecretKey] = useState('')
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
     if (!secretKey)

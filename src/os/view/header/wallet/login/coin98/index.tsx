@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux'
-
 import { Row, Card, Col, Avatar } from 'antd'
 
 import COIN98 from 'os/static/images/coin98.png'
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { Coin98Wallet } from '../../lib'
 
 const Coin98 = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
     const { coin98 } = window

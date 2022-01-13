@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import { Row, Col } from 'antd'
 import BannerTop from './bannerTop'
@@ -9,14 +8,16 @@ import SearchResult from './searchResults'
 import AppCategorySeeAll from './appCategory/seeAll'
 import AppCategorySlice from './appCategory/slice'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 
 const CATEGORIES = ['dapps', 'solana']
 
 const Market = () => {
   const { search } = useLocation()
-  const { value } = useSelector((state: RootState) => state.search)
-  const { register } = useSelector((state: RootState) => state.page)
+  const {
+    search: { value },
+    page: { register },
+  } = useRootSelector((state: RootState) => state)
 
   const tags = useMemo(() => {
     let tags: string[] = []
