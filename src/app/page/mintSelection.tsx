@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useAccount } from '@senhub/providers'
 
 import { Row, Col, Select, Space, Typography, Card } from 'antd'
 import { MintAvatar, MintName, MintSymbol } from 'shared/antd/mint'
@@ -6,7 +7,6 @@ import { MintAvatar, MintName, MintSymbol } from 'shared/antd/mint'
 import { AppState } from 'app/model'
 import { setMintAddress } from 'app/model/main.controller'
 import { numeric } from 'shared/util'
-import { useAccount } from 'senhub/providers'
 import { useAccountBalanceByMintAddress } from 'shared/hooks/useAccountBalance'
 
 const MintSelection = () => {

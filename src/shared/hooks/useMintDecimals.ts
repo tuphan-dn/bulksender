@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useMint } from 'senhub/providers'
+import { useMint } from '@senhub/providers'
 
 /**
  * Get token decimals from multiple resources. This hook needs MintProvider for work.

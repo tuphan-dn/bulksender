@@ -5,7 +5,7 @@ import {
   AccountProvider,
   MintProvider,
   PoolProvider,
-} from 'senhub/providers'
+} from '@senhub/providers'
 
 import PageView from 'app/page'
 import WidgetView from 'app/widget'

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { account, AccountData } from '@senswap/sen-js'
-import { useAccount, useWallet } from 'senhub/providers'
+import { useAccount, useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
