@@ -20,11 +20,11 @@ type Conf = {
   senreg: string
 }
 
-const DEFAULT_APP_ID = 'senhub'
+const DEFAULT_APP_ID = process.env.REACT_APP_ID
 const devApp = {
-  [process.env.REACT_APP_ID]: {
+  [DEFAULT_APP_ID]: {
     url: process.env.REACT_APP_URL,
-    appId: process.env.REACT_APP_ID,
+    appId: DEFAULT_APP_ID,
     name: process.env.REACT_APP_NAME,
     author: {
       name: process.env.REACT_APP_AUTHOR_NAME || '',
