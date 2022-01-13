@@ -1,5 +1,4 @@
 const name = process.env.REACT_APP_ID
-const senhub = process.env.REACT_APP_SENHUB
 const { version: senhubVersion } = require('./package.json')
 
 module.exports = {
@@ -23,14 +22,8 @@ module.exports = {
       requiredVersion: senhubVersion,
     },
   },
-  remotes: {
-    senhub,
-  },
   exposes: {
-    // app
     './bootstrap': 'app/bootstrap.app',
     './static': 'app/static.app',
-    // senhub - Legacy
-    './providers': 'os/providers',
   },
 }

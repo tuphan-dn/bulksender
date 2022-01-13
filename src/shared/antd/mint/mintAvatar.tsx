@@ -1,10 +1,9 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
+import { useMint, usePool } from '@senhub/providers'
 
 import { Avatar } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-
-import { useMint, usePool } from 'senhub/providers'
 
 const DEFAULT_AVATARS: Array<string | undefined> = [undefined]
 
