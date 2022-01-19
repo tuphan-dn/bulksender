@@ -12,6 +12,7 @@ import {
   RootState,
 } from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
+import Referral from './referral'
 
 const ActionCenter = () => {
   const dispatch = useRootDispatch<RootDispatch>()
@@ -56,6 +57,17 @@ const ActionCenter = () => {
                 key="applications"
               >
                 <Applications />
+              </Tabs.TabPane>
+              <Tabs.TabPane
+                tab={
+                  <span>
+                    <IonIcon name="person-outline" />
+                    Referral
+                  </span>
+                }
+                key="referral"
+              >
+                <Referral />
               </Tabs.TabPane>
               <Tabs.TabPane
                 tab={
