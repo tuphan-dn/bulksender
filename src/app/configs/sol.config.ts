@@ -35,7 +35,7 @@ const conf: Record<Net, Conf> = {
    * Production configurations
    */
   mainnet: {
-    node: 'https://api.mainnet-beta.solana.com',
+    node: 'https://solana-api.projectserum.com',
     spltAddress: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     splataAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
     bulksenderAddress: '8WB9yeJ946594RHtxdNoKbwC2y13yCwJCtSY1mAeLWu1',
