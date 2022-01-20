@@ -8,8 +8,9 @@ import Welcome from 'os/view/welcome'
 import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
 import Market from 'os/view/market'
-import AppViewer from './market/appViewer'
-import Sync from './sync'
+import AppViewer from 'os/view/market/appViewer'
+import Sync from 'os/view/sync'
+import Referral from 'os/view/referral'
 
 import Watcher from 'os/view/watcher'
 import Walkthrough from './walkthrough'
@@ -32,10 +33,7 @@ const View = () => {
       {/* Header */}
       <Affix>
         <Card
-          style={{
-            borderRadius: '0px 0px 16px 16px',
-            zIndex: 999,
-          }}
+          style={{ borderRadius: '0px 0px 16px 16px', zIndex: 999 }}
           bodyStyle={{ padding: 16 }}
           bordered={false}
         >
@@ -57,6 +55,11 @@ const View = () => {
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
               <PrivateRoute exact path="/sync" component={Sync} />
+              <PrivateRoute
+                exact
+                path="/referral/:referrer"
+                component={Referral}
+              />
               <Redirect from="*" to="/welcome" />
             </Switch>
           </Col>

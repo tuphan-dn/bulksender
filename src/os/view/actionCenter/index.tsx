@@ -51,7 +51,7 @@ const ActionCenter = () => {
                 tab={
                   <span>
                     <IonIcon name="grid-outline" />
-                    Applications
+                    Apps
                   </span>
                 }
                 key="applications"
@@ -62,7 +62,7 @@ const ActionCenter = () => {
                 tab={
                   <span>
                     <IonIcon name="person-outline" />
-                    Referral
+                    User
                   </span>
                 }
                 key="referral"
