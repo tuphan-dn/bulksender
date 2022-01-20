@@ -42,6 +42,11 @@ const EnterReferral = () => {
         type: 'warning',
         description: 'Cannot change the referrer address',
       })
+    if (walletAddress === referrer)
+      return window.notify({
+        type: 'warning',
+        description: 'Cannot invite yourself',
+      })
     if (!value.startsWith(base) || !account.isAddress(referrer))
       return window.notify({
         type: 'warning',

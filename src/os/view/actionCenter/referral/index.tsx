@@ -19,7 +19,7 @@ const Referral = () => {
           </Col>
           <Col span={24}>
             <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-              Send this link to friend or
+              Send this link to friends or
             </Typography.Text>
           </Col>
         </Row>
