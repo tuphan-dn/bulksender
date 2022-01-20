@@ -1,22 +1,43 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { account } from '@senswap/sen-js'
 
 import { Col, Row, Typography, Steps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
+import PDB from 'shared/pdb'
+import { RootState, useRootSelector } from 'os/store'
+
 const GuideReferral = () => {
-  const [guideStep, setGuideStep] = useState(0)
+  const [referrerAddress, setReferrerAddress] = useState('')
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
+
+  const loadReferrerAddress = useCallback(async () => {
+    if (!account.isAddress(walletAddress)) return
+    const db = new PDB(walletAddress).createInstance('sentre')
+    const referrer: string | null = await db.getItem('referrerAddress')
+    if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
+  }, [walletAddress])
+
+  const currentStep = useMemo(() => {
+    let step = 0
+    if (account.isAddress(walletAddress)) step = 1
+    if (referrerAddress) step = 2
+    return step
+  }, [referrerAddress, walletAddress])
+
+  useEffect(() => {
+    loadReferrerAddress()
+  }, [loadReferrerAddress])
+
   return (
     <Row gutter={[8, 8]}>
       <Col span={24}>
         <Typography.Title level={5}>Referral guide</Typography.Title>
       </Col>
       <Col span={24}>
-        <Steps
-          size="small"
-          current={guideStep}
-          onChange={setGuideStep}
-          direction="vertical"
-        >
+        <Steps size="small" current={currentStep} direction="vertical">
           <Steps.Step
             title={'Connect wallet to join the Sentre'}
             description={
