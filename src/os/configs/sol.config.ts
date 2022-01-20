@@ -49,7 +49,7 @@ const conf: Record<Net, Conf> = {
    */
   mainnet: {
     ...SOLVARS,
-    node: 'https://api.mainnet-beta.solana.com',
+    node: 'https://solana-api.projectserum.com',
     chainId: 101,
     sntrAddress: 'SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M',
     sntrPoolAddress: 'Aa3WZX7Xunfebp2MuAcz9CNw8TYTDL7mVrmb11rjyVm6',

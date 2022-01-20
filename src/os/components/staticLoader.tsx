@@ -1,11 +1,11 @@
 import { Suspense, forwardRef, cloneElement } from 'react'
-import { useSelector } from 'react-redux'
 import { useRemoteModule } from 'react-dynamic-remote-component'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 
 import { Spin } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
-import { RootState } from 'os/store'
+
+import { useRootSelector, RootState } from 'os/store'
 
 /**
  * Remote Static
@@ -37,7 +37,7 @@ export const StaticLoader = forwardRef<
     render: (url: string) => JSX.Element
   }
 >(({ type, appId, defaultData = '', render }, ref) => {
-  const { register } = useSelector((state: RootState) => state.page)
+  const { register } = useRootSelector((state: RootState) => state.page)
   const url = register[appId]?.url || ''
   const manifest: RemoteModule = { url, scope: appId, module: './static' }
   if (!url) return null
@@ -82,7 +82,7 @@ export const MultiStaticLoader = forwardRef<
     render: (url: string[]) => JSX.Element
   }
 >(({ type, appId, defaultData = [''], render }, ref) => {
-  const { register } = useSelector((state: RootState) => state.page)
+  const { register } = useRootSelector((state: RootState) => state.page)
   const url = register[appId]?.url || ''
   const manifest: RemoteModule = { url, scope: appId, module: './static' }
   if (!url) return null

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPDB } from 'shared/pdb'
+import { useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'
-import { useWallet } from 'senhub/providers'
 import configs from 'app/configs'
+import { createPDB } from 'shared/pdb'
 
 const {
   manifest: { appId },

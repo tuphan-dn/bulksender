@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Card } from 'antd'
@@ -8,15 +7,15 @@ import WelcomeSlide from './welcomeSlide'
 import SocialButton from './socialButton'
 import WalletConnection from '../header/wallet/login/walletConnection'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import './index.less'
 
 const Welcome = () => {
   const history = useHistory()
-  const { address: walletAddress } = useSelector(
+  const { address: walletAddress } = useRootSelector(
     (state: RootState) => state.wallet,
   )
-  const { width } = useSelector((state: RootState) => state.ui)
+  const { width } = useRootSelector((state: RootState) => state.ui)
 
   // Redirect callback
   useEffect(() => {
@@ -24,7 +23,7 @@ const Welcome = () => {
       location: { search },
     } = history
     const params = new URLSearchParams(search)
-    const redirect = decodeURI(params.get('redirect') || '/dashboard')
+    const redirect = decodeURIComponent(params.get('redirect') || '/dashboard')
     if (account.isAddress(walletAddress)) history.push(redirect)
   }, [walletAddress, history])
 

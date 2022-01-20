@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import { Layout, Row, Col, Card, Affix } from 'antd'
 import PrivateRoute from 'os/components/privateRoute'
@@ -16,14 +15,14 @@ import Watcher from 'os/view/watcher'
 import Walkthrough from './walkthrough'
 import Installer from './market/installer'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
 const View = () => {
   const {
     ui: { theme },
-  } = useSelector((state: RootState) => state)
+  } = useRootSelector((state: RootState) => state)
 
   useEffect(() => {
     return document.body.setAttribute('id', theme)

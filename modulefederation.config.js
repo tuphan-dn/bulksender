@@ -1,5 +1,5 @@
 const name = process.env.REACT_APP_ID
-const senhub = process.env.REACT_APP_SENHUB
+const { version: senhubVersion } = require('./package.json')
 
 module.exports = {
   name,
@@ -11,15 +11,19 @@ module.exports = {
     '@reduxjs/toolkit': { singleton: true, requiredVersion: '^1.6.2' },
     'react-redux': { singleton: true, requiredVersion: '^7.2.5' },
     antd: { singleton: true, requiredVersion: '^4.18.2' },
-  },
-  remotes: {
-    senhub,
+    '@senhub/context': {
+      import: 'os/store/context',
+      singleton: true,
+      requiredVersion: senhubVersion,
+    },
+    '@senhub/providers': {
+      import: 'os/providers',
+      singleton: true,
+      requiredVersion: senhubVersion,
+    },
   },
   exposes: {
-    // app
     './bootstrap': 'app/bootstrap.app',
     './static': 'app/static.app',
-    // senhub
-    './providers': 'os/providers',
   },
 }

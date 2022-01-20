@@ -1,22 +1,26 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { Button, Col, Modal, Row, Space, Typography, Switch } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import WidgetLayout from './widgetLayout'
 
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import { uninstallApp, updatePage } from 'os/store/page.reducer'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 
 const AllApplications = () => {
   const history = useHistory()
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
   const [disabled, setDisabled] = useState(true)
   const [appId, setAppId] = useState('')
   const [visible, setVisible] = useState(false)
-  const { appIds, register } = useSelector((state: RootState) => state.page)
+  const { appIds, register } = useRootSelector((state: RootState) => state.page)
 
   const onChange = (appIds: AppIds) => dispatch(updatePage(appIds))
   const onClose = async () => {

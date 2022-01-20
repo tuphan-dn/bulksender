@@ -8,9 +8,8 @@ import {
   ReactNode,
   useMemo,
 } from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import { AccountsState } from 'os/store/accounts.reducer'
 
 const Context = createContext<AccountProvider>({} as AccountProvider)
@@ -23,7 +22,7 @@ export type AccountProvider = {
  * Account Context Provider
  */
 const AccountContextProvider = ({ children }: { children: ReactNode }) => {
-  const accounts = useSelector((state: RootState) => state.accounts)
+  const { accounts } = useRootSelector((state: RootState) => state)
   const provider = useMemo(() => ({ accounts }), [accounts])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }

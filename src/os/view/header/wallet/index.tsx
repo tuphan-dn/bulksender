@@ -1,5 +1,4 @@
 import { CSSProperties, Fragment, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
 import { Button } from 'antd'
@@ -7,7 +6,12 @@ import IonIcon from 'shared/antd/ionicon'
 import Login from './login'
 
 import session from 'shared/session'
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import {
   connectWallet,
   openWallet,
@@ -24,8 +28,8 @@ import {
 } from './lib'
 
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
-  const dispatch = useDispatch<RootDispatch>()
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const dispatch = useRootDispatch<RootDispatch>()
+  const { address } = useRootSelector((state: RootState) => state.wallet)
 
   const reconnect = () => {
     const walletType = session.get('WalletType')

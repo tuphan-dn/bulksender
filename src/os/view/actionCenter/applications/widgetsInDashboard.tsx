@@ -1,12 +1,16 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Col, Drawer, Row, Typography, Switch, Divider } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import AppIcon from 'os/components/appIcon'
 import WidgetLayout from './widgetLayout'
 
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import {
   addWidgets,
   removeWidget,
@@ -14,13 +18,13 @@ import {
 } from 'os/store/page.reducer'
 
 const WidgetsInDashboard = () => {
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
   const [disabled, setDisabled] = useState(true)
   const [visible, setVisible] = useState(false)
   const [selectedWidgets, setSelectedWidgets] = useState<AppIds>([])
-  const { register, appIds, widgetIds } = useSelector(
-    (state: RootState) => state.page,
-  )
+  const {
+    page: { register, appIds, widgetIds },
+  } = useRootSelector((state: RootState) => state)
 
   const onChange = (appIds: AppIds) => dispatch(updateDashboard(appIds))
   const onRemove = (appId: string) => dispatch(removeWidget(appId))

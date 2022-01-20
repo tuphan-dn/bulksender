@@ -1,8 +1,12 @@
 import { Fragment, useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
-import { RootDispatch, RootState } from 'os/store'
+import {
+  useRootDispatch,
+  useRootSelector,
+  RootDispatch,
+  RootState,
+} from 'os/store'
 import { getAccounts, upsetAccount } from 'os/store/accounts.reducer'
 
 // Watch id
@@ -10,10 +14,10 @@ let watchId = 0
 let prevLamports: BigInt | undefined = undefined
 
 const AccountWatcher = () => {
-  const dispatch = useDispatch<RootDispatch>()
-  const { address: walletAddress, lamports } = useSelector(
-    (state: RootState) => state.wallet,
-  )
+  const dispatch = useRootDispatch<RootDispatch>()
+  const {
+    wallet: { address: walletAddress, lamports },
+  } = useRootSelector((state: RootState) => state)
 
   // First-time fetching
   const fetchData = useCallback(async () => {

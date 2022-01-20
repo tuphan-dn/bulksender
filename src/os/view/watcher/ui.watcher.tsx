@@ -1,15 +1,14 @@
 import { Fragment, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import { notification } from 'antd'
 
-import { RootDispatch } from 'os/store'
+import { useRootDispatch, RootDispatch } from 'os/store'
 import { resize } from 'os/store/ui.reducer'
 import IonIcon from 'shared/antd/ionicon'
 
 const UIWatcher = () => {
   const [api, contextHolder] = notification.useNotification()
-  const dispatch = useDispatch<RootDispatch>()
+  const dispatch = useRootDispatch<RootDispatch>()
 
   // Notification system
   window.notify = ({

@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Tooltip, Space, Typography, Popover } from 'antd'
 import QRCode from 'qrcode.react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
+import { useRootSelector, RootState } from 'os/store'
 import { explorer, shortenAddress } from 'shared/util'
-import { RootState } from 'os/store'
 import IconButton from './iconButton'
 
 const QR = ({ address }: { address: string }) => {
@@ -32,7 +31,7 @@ const QR = ({ address }: { address: string }) => {
 }
 
 const Address = () => {
-  const { address } = useSelector((state: RootState) => state.wallet)
+  const { address } = useRootSelector((state: RootState) => state.wallet)
   const [copied, setCopied] = useState(false)
 
   const onCopy = async () => {

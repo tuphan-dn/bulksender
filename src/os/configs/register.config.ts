@@ -3,8 +3,7 @@ import { Env } from 'shared/runtime'
 if (
   typeof process.env.REACT_APP_ID !== 'string' ||
   typeof process.env.REACT_APP_NAME !== 'string' ||
-  typeof process.env.REACT_APP_URL !== 'string' ||
-  typeof process.env.REACT_APP_SENHUB !== 'string'
+  typeof process.env.REACT_APP_URL !== 'string'
 )
   throw new Error(
     'Please add REACT_APP_ID, REACT_APP_NAME, REACT_APP_URL in .env.local!',
@@ -20,11 +19,11 @@ type Conf = {
   senreg: string
 }
 
-const DEFAULT_APP_ID = 'senhub'
+const DEFAULT_APP_ID = process.env.REACT_APP_ID
 const devApp = {
-  [process.env.REACT_APP_ID]: {
+  [DEFAULT_APP_ID]: {
     url: process.env.REACT_APP_URL,
-    appId: process.env.REACT_APP_ID,
+    appId: DEFAULT_APP_ID,
     name: process.env.REACT_APP_NAME,
     author: {
       name: process.env.REACT_APP_AUTHOR_NAME || '',

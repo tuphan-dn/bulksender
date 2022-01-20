@@ -1,15 +1,15 @@
-import { useSelector } from 'react-redux'
-
 import { Row, Col } from 'antd'
 import WidgetLoader from 'os/components/widgetLoader'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 
 const Dashboard = () => {
-  const { widgetIds, register } = useSelector((state: RootState) => state.page)
+  const { widgetIds, register } = useRootSelector(
+    (state: RootState) => state.page,
+  )
 
   return (
-    <Row gutter={[24, 24]} justify="center">
+    <Row gutter={[24, 24]}>
       <Col span={24} className="sentre-col-container">
         <Row gutter={[24, 24]}>
           {widgetIds.map((appId) => {

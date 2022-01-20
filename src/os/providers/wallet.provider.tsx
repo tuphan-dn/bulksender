@@ -8,9 +8,8 @@ import {
   ReactNode,
   useMemo,
 } from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from 'os/store'
+import { useRootSelector, RootState } from 'os/store'
 import { WalletState } from 'os/store/wallet.reducer'
 
 const Context = createContext<WalletProvider>({} as WalletProvider)
@@ -23,7 +22,7 @@ export type WalletProvider = {
  * Wallet Context Provider
  */
 const WalletContextProvider = ({ children }: { children: ReactNode }) => {
-  const wallet = useSelector((state: RootState) => state.wallet)
+  const { wallet } = useRootSelector((state: RootState) => state)
   const provider = useMemo(() => ({ wallet }), [wallet])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }

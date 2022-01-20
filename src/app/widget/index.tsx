@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useUI } from '@senhub/providers'
 
 import { Row, Col, Typography, Space, Button } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -7,7 +8,6 @@ import IonIcon from 'shared/antd/ionicon'
 import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'
 import { env } from 'shared/runtime'
-import { useUI } from 'senhub/providers'
 
 const Widget = () => {
   const {
