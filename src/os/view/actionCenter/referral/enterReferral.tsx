@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
 
-import { Button, Col, Input, Row, Typography } from 'antd'
+import { Button, Col, Input, Row, Space, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import { RootState, useRootSelector } from 'os/store'
@@ -48,9 +48,10 @@ const EnterReferral = () => {
         </Button>
       </Col>
       <Col span={24}>
-        <Typography.Text>
-          You was refered by {shortenAddress(referrerAddress)}
-        </Typography.Text>
+        <Space style={{ fontSize: 12 }}>
+          <Typography.Text type="secondary">You was refered by</Typography.Text>
+          <Typography.Text>{shortenAddress(referrerAddress)}</Typography.Text>
+        </Space>
       </Col>
     </Row>
   )
