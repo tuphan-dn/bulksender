@@ -1,49 +1,21 @@
-import { Button, Col, Divider, Input, Row, Space, Typography } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import { Col, Divider, Row, Space, Typography } from 'antd'
 import EnterReferral from './enterReferral'
 import ShareReferral from './shareReferral'
 import GuideReferral from './guideReferral'
+import YourReferral from './yourReferral'
 
-import configs from 'os/configs'
-import { RootState, useRootSelector } from 'os/store'
 import './index.os.less'
 
-const {
-  referral: { base },
-} = configs
-
 const Referral = () => {
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
-
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[16, 16]}>
       <Col span={24}>
         <Row gutter={[8, 8]}>
           <Col span={24}>
             <Typography.Text>Your referral link</Typography.Text>
           </Col>
           <Col span={24}>
-            <Input
-              value={base + walletAddress}
-              size="large"
-              suffix={
-                <Space>
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<IonIcon name="qr-code-outline" />}
-                  />
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<IonIcon name="copy-outline" />}
-                  />
-                </Space>
-              }
-              readOnly
-            />
+            <YourReferral />
           </Col>
           <Col span={24}>
             <Typography.Text type="secondary" style={{ fontSize: 12 }}>
