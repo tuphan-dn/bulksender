@@ -23,13 +23,18 @@ const ConfirmSuccessFully = ({
     dispatch(setVisibleActionCenter(false))
   }
 
+  const onBackDashboard = () => {
+    onCancel(false)
+    history.push('/dashboard')
+  }
+
   return (
     <Modal
       visible={visible}
-      onCancel={() => onCancel(false)}
+      onCancel={onBackDashboard}
       footer={false}
       centered
-      closeIcon={<IonIcon name="close" />}
+      closeIcon={<IonIcon name="close-outline" />}
     >
       <Row gutter={[34, 34]} justify="center">
         <Col>
