@@ -12,7 +12,11 @@ const Referral = () => {
   const { referrer } = useParams<{ referrer: string | undefined }>()
 
   const setReferrerAddress = useCallback(async () => {
-    if (!account.isAddress(walletAddress) || !account.isAddress(referrer))
+    if (
+      !account.isAddress(walletAddress) ||
+      !account.isAddress(referrer) ||
+      walletAddress === referrer
+    )
       return
     const db = new PDB(walletAddress).createInstance('sentre')
     const currentReferrer: string | null = await db.getItem('referrerAddress')

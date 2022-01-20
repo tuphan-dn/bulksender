@@ -35,12 +35,15 @@ const GuideReferral = () => {
                 <Typography.Text>
                   <IonIcon name="menu-outline" />
                 </Typography.Text>{' '}
-                in the upper right corner {'>'}{' '}
-                <Typography.Text>User</Typography.Text> {'>'}{' '}
+                in the upper right corner{' '}
+                <IonIcon name="chevron-forward-outline" />{' '}
+                <Typography.Text>User</Typography.Text>{' '}
+                <IonIcon name="chevron-forward-outline" />{' '}
                 <Typography.Text>
-                  Enter referral link or upload QR code
+                  Enter the referral link or scan the QR code
                 </Typography.Text>{' '}
-                of referrer {'>'} <Typography.Text>Confirm</Typography.Text>
+                <IonIcon name="chevron-forward-outline" />{' '}
+                <Typography.Text>Confirm</Typography.Text>
               </Typography.Text>
             }
             key={2}
