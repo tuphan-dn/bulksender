@@ -3,6 +3,7 @@ import { account } from '@senswap/sen-js'
 
 import { Button, Col, Input, Row, Typography, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
+import ConfirmSuccessFully from './confirmSuccess'
 
 import configs from 'os/configs'
 import { RootState, useRootSelector } from 'os/store'
@@ -19,6 +20,7 @@ const EnterReferral = () => {
   } = useRootSelector((state: RootState) => state)
   const [referrerAddress, setReferrerAddress] = useState('')
   const [value, setValue] = useState('')
+  const [visible, setVisible] = useState(false)
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return
@@ -52,6 +54,7 @@ const EnterReferral = () => {
         description: 'Broken referral link',
       })
     await setReferrer(walletAddress, address)
+    setVisible(true)
     return loadReferrerAddress()
   }, [value, walletAddress, loadReferrerAddress, validLink])
 
@@ -100,6 +103,7 @@ const EnterReferral = () => {
           </Space>
         )}
       </Col>
+      <ConfirmSuccessFully visible={visible} onCancel={setVisible} />
     </Row>
   )
 }

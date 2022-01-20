@@ -4,8 +4,6 @@ import ShareReferral from './shareReferral'
 import GuideReferral from './guideReferral'
 import YourReferral from './yourReferral'
 
-import './index.os.less'
-
 const Referral = () => {
   return (
     <Row gutter={[16, 16]}>
