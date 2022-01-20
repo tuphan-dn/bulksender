@@ -19,7 +19,7 @@ const Referral = () => {
           </Col>
           <Col span={24}>
             <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-              Send this link for friend or
+              Send this link to friend or
             </Typography.Text>
           </Col>
         </Row>
@@ -34,17 +34,7 @@ const Referral = () => {
         <Divider style={{ margin: 0 }} />
       </Col>
       <Col span={24}>
-        <Row gutter={[6, 6]}>
-          <Col span={24}>
-            <EnterReferral />
-          </Col>
-          <Col span={24}>
-            <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-              Enter the link of the referrer for both of you to receive the
-              reward.
-            </Typography.Text>
-          </Col>
-        </Row>
+        <EnterReferral />
       </Col>
       <Col span={24}>
         <GuideReferral />
