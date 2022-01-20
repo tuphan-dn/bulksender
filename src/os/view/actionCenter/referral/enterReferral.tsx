@@ -20,23 +20,34 @@ const EnterReferral = () => {
   const [referrerAddress, setReferrerAddress] = useState('')
   const [value, setValue] = useState('')
 
-  useEffect(() => {
-    ;(async () => {
-      if (!account.isAddress(walletAddress)) return
-      const db = new PDB(walletAddress).createInstance('sentre')
-      const referrer: string | null = await db.getItem('referrerAddress')
-      if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
-    })()
+  const loadReferrerAddress = useCallback(async () => {
+    if (!account.isAddress(walletAddress)) return
+    const db = new PDB(walletAddress).createInstance('sentre')
+    const referrer: string | null = await db.getItem('referrerAddress')
+    if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
   }, [walletAddress])
 
-  const onConfirm = useCallback(() => {
+  const onConfirm = useCallback(async () => {
     const temp = value.split('/')
     const referrer = temp.find((e) => account.isAddress(e))
-    if (!account.isAddress(walletAddress) || !account.isAddress(referrer))
-      return
+    if (!account.isAddress(walletAddress))
+      return window.notify({
+        type: 'error',
+        description: 'Wallet is not connected',
+      })
+    if (!value.startsWith(base) || !account.isAddress(referrer))
+      return window.notify({
+        type: 'warning',
+        description: 'Broken referral link',
+      })
     const db = new PDB(walletAddress).createInstance('sentre')
-    return db.setItem('referrerAddress', referrer)
-  }, [value, walletAddress])
+    await db.setItem('referrerAddress', referrer)
+    return loadReferrerAddress()
+  }, [value, walletAddress, loadReferrerAddress])
+
+  useEffect(() => {
+    loadReferrerAddress()
+  }, [loadReferrerAddress])
 
   const validLink = account.isAddress(referrerAddress)
 
