@@ -1,5 +1,6 @@
-import { Col, Row, Typography, Steps } from 'antd'
 import { useState } from 'react'
+
+import { Col, Row, Typography, Steps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 const GuideReferral = () => {
