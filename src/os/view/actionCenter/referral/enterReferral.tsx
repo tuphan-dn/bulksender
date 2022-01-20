@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
 
 import { Button, Col, Input, Row, Typography, Space } from 'antd'
+import IonIcon from 'shared/antd/ionicon'
 
 import configs from 'os/configs'
 import { RootState, useRootSelector } from 'os/store'
 import PDB from 'shared/pdb'
 import { shortenAddress, explorer } from 'shared/util'
-import IonIcon from 'shared/antd/ionicon'
 
 const {
   referral: { base },

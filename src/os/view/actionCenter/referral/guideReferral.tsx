@@ -23,7 +23,7 @@ const GuideReferral = () => {
   const currentStep = useMemo(() => {
     let step = 0
     if (account.isAddress(walletAddress)) step = 1
-    if (referrerAddress) step = 2
+    if (account.isAddress(referrerAddress)) step = 2
     return step
   }, [referrerAddress, walletAddress])
 
