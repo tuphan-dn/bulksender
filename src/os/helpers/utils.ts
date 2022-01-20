@@ -18,9 +18,10 @@ export const setReferrer = async (
     !account.isAddress(referrerAddress) ||
     walletAddress === referrerAddress
   )
-    return
+    return false
   const db = new PDB(walletAddress).createInstance('sentre')
   const currentReferrer = await getReferrer(walletAddress)
-  if (account.isAddress(currentReferrer)) return
-  return await db.setItem('referrerAddress', referrerAddress)
+  if (account.isAddress(currentReferrer)) return false
+  await db.setItem('referrerAddress', referrerAddress)
+  return true
 }
