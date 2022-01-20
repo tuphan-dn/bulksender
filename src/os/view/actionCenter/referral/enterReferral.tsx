@@ -1,10 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { account } from '@senswap/sen-js'
 
-import { Button, Col, Input, Row } from 'antd'
+import { Button, Col, Input, Row, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
+import { RootState, useRootSelector } from 'os/store'
+import PDB from 'shared/pdb'
+import { shortenAddress } from 'shared/util'
+
 const EnterReferral = () => {
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
+  const [referrerAddress, setReferrerAddress] = useState('')
   const [value, setValue] = useState('')
+
+  useEffect(() => {
+    ;(async () => {
+      if (!account.isAddress(walletAddress)) return
+      const db = new PDB(walletAddress).createInstance('sentre')
+      const referrer: string | null = await db.getItem('referrerAddress')
+      if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
+    })()
+  }, [walletAddress])
 
   return (
     <Row gutter={[12, 12]}>
@@ -13,7 +31,7 @@ const EnterReferral = () => {
           size="large"
           placeholder="Enter referral link"
           value={value}
-          onChange={(val) => setValue(val.target.value)}
+          onChange={(e) => setValue(e.target.value)}
           suffix={
             <Button
               type="text"
@@ -28,6 +46,11 @@ const EnterReferral = () => {
         <Button type="primary" size="large" onClick={() => {}} block>
           Confirm
         </Button>
+      </Col>
+      <Col span={24}>
+        <Typography.Text>
+          You was refered by {shortenAddress(referrerAddress)}
+        </Typography.Text>
       </Col>
     </Row>
   )
