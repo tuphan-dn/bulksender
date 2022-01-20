@@ -14,6 +14,7 @@ import Sync from './sync'
 
 import Watcher from 'os/view/watcher'
 import Walkthrough from './walkthrough'
+import Installer from './market/installer'
 
 import { RootState } from 'os/store'
 import 'os/static/styles/dark.os.less'
@@ -66,6 +67,7 @@ const View = () => {
       {/* In-Background Run Jobs */}
       <Walkthrough />
       <Watcher />
+      <Installer />
     </Layout>
   )
 }
