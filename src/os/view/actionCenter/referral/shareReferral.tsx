@@ -2,16 +2,25 @@ import { Button, Image, Space } from 'antd'
 
 import telegram from 'os/static/images/icon-telegram.svg'
 import twitter from 'os/static/images/icon-twitter.svg'
+import { RootState, useRootSelector } from 'os/store'
+import configs from 'os/configs'
 
 const SHARE_SOCIAL = [
   { icon: twitter, src: 'http://twitter.com/intent/tweet?' },
   { icon: telegram, src: 'https://telegram.me/share/url?' },
 ]
+const {
+  referral: { base },
+} = configs
 
-const ShareReferral = ({ referralLink }: { referralLink: string }) => {
+const ShareReferral = () => {
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
+
   const onShare = (url: string) => {
     const params: Record<string, string> = {
-      url: referralLink,
+      url: base + walletAddress,
       text: 'Referral link',
     }
     for (const prop in params)
