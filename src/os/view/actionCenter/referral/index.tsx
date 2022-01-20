@@ -17,6 +17,8 @@ const Referral = () => {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
 
+  const referralLink = base + walletAddress
+
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
@@ -26,7 +28,7 @@ const Referral = () => {
           </Col>
           <Col span={24}>
             <Input
-              value={base + walletAddress}
+              value={referralLink}
               size="large"
               suffix={
                 <Space>
@@ -55,7 +57,7 @@ const Referral = () => {
       <Col span={24}>
         <Space direction="vertical">
           <Typography.Text>Share</Typography.Text>
-          <ShareReferral />
+          <ShareReferral referralLink={referralLink} />
         </Space>
       </Col>
       <Col span={24}>
