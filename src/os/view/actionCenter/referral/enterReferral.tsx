@@ -6,8 +6,8 @@ import IonIcon from 'shared/antd/ionicon'
 
 import configs from 'os/configs'
 import { RootState, useRootSelector } from 'os/store'
-import PDB from 'shared/pdb'
 import { shortenAddress, explorer } from 'shared/util'
+import { getReferrer, setReferrer } from 'os/helpers/utils'
 
 const {
   referral: { base },
@@ -22,40 +22,38 @@ const EnterReferral = () => {
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    const referrer: string | null = await db.getItem('referrerAddress')
-    if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
+    const address = await getReferrer(walletAddress)
+    if (account.isAddress(address)) setReferrerAddress(address)
   }, [walletAddress])
 
   const validLink = account.isAddress(referrerAddress)
 
   const onConfirm = useCallback(async () => {
     const temp = value.split('/')
-    const referrer = temp.find((e) => account.isAddress(e))
+    const address = temp.find((e) => account.isAddress(e))
     if (!account.isAddress(walletAddress))
       return window.notify({
         type: 'error',
         description: 'Wallet is not connected',
       })
-    if (account.isAddress(referrerAddress))
+    if (validLink)
       return window.notify({
         type: 'warning',
         description: 'Cannot change the referrer address',
       })
-    if (walletAddress === referrer)
+    if (walletAddress === address)
       return window.notify({
         type: 'warning',
         description: 'Cannot invite yourself',
       })
-    if (!value.startsWith(base) || !account.isAddress(referrer))
+    if (!value.startsWith(base) || !account.isAddress(address))
       return window.notify({
         type: 'warning',
         description: 'Broken referral link',
       })
-    const db = new PDB(walletAddress).createInstance('sentre')
-    await db.setItem('referrerAddress', referrer)
+    await setReferrer(walletAddress, address)
     return loadReferrerAddress()
-  }, [value, walletAddress, loadReferrerAddress, referrerAddress])
+  }, [value, walletAddress, loadReferrerAddress, validLink])
 
   useEffect(() => {
     loadReferrerAddress()

@@ -3,30 +3,27 @@ import { Redirect, useParams } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
 import { RootState, useRootSelector } from 'os/store'
-import PDB from 'shared/pdb'
+import { setReferrer } from 'os/helpers/utils'
 
 const Referral = () => {
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
-  const { referrer } = useParams<{ referrer: string | undefined }>()
+  const { referrer: referrerAddress } =
+    useParams<{ referrer: string | undefined }>()
 
-  const setReferrerAddress = useCallback(async () => {
+  const setAddress = useCallback(async () => {
     if (
       !account.isAddress(walletAddress) ||
-      !account.isAddress(referrer) ||
-      walletAddress === referrer
+      !account.isAddress(referrerAddress)
     )
       return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    const currentReferrer: string | null = await db.getItem('referrerAddress')
-    if (currentReferrer && account.isAddress(currentReferrer)) return
-    await db.setItem('referrerAddress', referrer)
-  }, [walletAddress, referrer])
+    await setReferrer(walletAddress, referrerAddress)
+  }, [walletAddress, referrerAddress])
 
   useEffect(() => {
-    setReferrerAddress()
-  }, [setReferrerAddress])
+    setAddress()
+  }, [setAddress])
 
   return <Redirect to="/welcome" />
 }

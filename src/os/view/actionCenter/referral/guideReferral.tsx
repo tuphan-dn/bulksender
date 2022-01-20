@@ -4,8 +4,8 @@ import { account } from '@senswap/sen-js'
 import { Col, Row, Typography, Steps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
-import PDB from 'shared/pdb'
 import { RootState, useRootSelector } from 'os/store'
+import { getReferrer } from 'os/helpers/utils'
 
 const GuideReferral = () => {
   const [referrerAddress, setReferrerAddress] = useState('')
@@ -15,9 +15,8 @@ const GuideReferral = () => {
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    const referrer: string | null = await db.getItem('referrerAddress')
-    if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
+    const address = await getReferrer(walletAddress)
+    if (account.isAddress(address)) return setReferrerAddress(address)
   }, [walletAddress])
 
   const currentStep = useMemo(() => {
