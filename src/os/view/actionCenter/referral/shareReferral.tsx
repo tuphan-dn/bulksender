@@ -21,7 +21,7 @@ const ShareReferral = () => {
   const onShare = (url: string) => {
     const params: Record<string, string> = {
       url: base + walletAddress,
-      text: 'Referral link',
+      text: "Many Sentre's 🎁 is waiting. Join the party with me here 🎉🥳",
     }
     for (const prop in params)
       url += '&' + prop + '=' + encodeURIComponent(params[prop] || '')

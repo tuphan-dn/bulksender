@@ -27,6 +27,8 @@ const EnterReferral = () => {
     if (referrer && account.isAddress(referrer)) setReferrerAddress(referrer)
   }, [walletAddress])
 
+  const validLink = account.isAddress(referrerAddress)
+
   const onConfirm = useCallback(async () => {
     const temp = value.split('/')
     const referrer = temp.find((e) => account.isAddress(e))
@@ -34,6 +36,11 @@ const EnterReferral = () => {
       return window.notify({
         type: 'error',
         description: 'Wallet is not connected',
+      })
+    if (account.isAddress(referrerAddress))
+      return window.notify({
+        type: 'warning',
+        description: 'Cannot change the referrer address',
       })
     if (!value.startsWith(base) || !account.isAddress(referrer))
       return window.notify({
@@ -43,13 +50,11 @@ const EnterReferral = () => {
     const db = new PDB(walletAddress).createInstance('sentre')
     await db.setItem('referrerAddress', referrer)
     return loadReferrerAddress()
-  }, [value, walletAddress, loadReferrerAddress])
+  }, [value, walletAddress, loadReferrerAddress, referrerAddress])
 
   useEffect(() => {
     loadReferrerAddress()
   }, [loadReferrerAddress])
-
-  const validLink = account.isAddress(referrerAddress)
 
   return (
     <Row gutter={[12, 12]}>

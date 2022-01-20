@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
@@ -11,12 +11,18 @@ const Referral = () => {
   } = useRootSelector((state: RootState) => state)
   const { referrer } = useParams<{ referrer: string | undefined }>()
 
-  useEffect(() => {
+  const setReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress) || !account.isAddress(referrer))
       return
     const db = new PDB(walletAddress).createInstance('sentre')
-    db.setItem('referrerAddress', referrer)
+    const currentReferrer: string | null = await db.getItem('referrerAddress')
+    if (currentReferrer && account.isAddress(currentReferrer)) return
+    await db.setItem('referrerAddress', referrer)
   }, [walletAddress, referrer])
+
+  useEffect(() => {
+    setReferrerAddress()
+  }, [setReferrerAddress])
 
   return <Redirect to="/welcome" />
 }
