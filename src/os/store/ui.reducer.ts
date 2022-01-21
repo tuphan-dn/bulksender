@@ -42,7 +42,7 @@ const initialState: UIState = {
   width: window.innerWidth,
   infix: getInfix(),
   touchable: isTouchable(),
-  visibleActionCenter: true,
+  visibleActionCenter: false,
 }
 
 /**

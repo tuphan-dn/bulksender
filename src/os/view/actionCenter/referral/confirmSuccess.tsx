@@ -1,40 +1,35 @@
 import { useHistory } from 'react-router-dom'
 
 import { Button, Col, Image, Modal, Row, Space, Typography } from 'antd'
+import IonIcon from 'shared/antd/ionicon'
 
-import iconSuccessFully from 'os/static/images/icon-cs-referral.svg'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 import { RootDispatch, useRootDispatch } from 'os/store'
-import IonIcon from 'shared/antd/ionicon'
+import iconSuccessFully from 'os/static/images/icon-cs-referral.svg'
 
 const ConfirmSuccessFully = ({
   visible = false,
   onCancel = () => {},
 }: {
   visible?: boolean
-  onCancel?: (visible: boolean) => void
+  onCancel?: () => void
 }) => {
   const history = useHistory()
   const dispatch = useRootDispatch<RootDispatch>()
 
   const onDeposit = () => {
-    onCancel(false)
+    onCancel()
     history.push('/app/sen_lp')
-    dispatch(setVisibleActionCenter(false))
-  }
-
-  const onBackDashboard = () => {
-    onCancel(false)
-    history.push('/dashboard')
+    return dispatch(setVisibleActionCenter(false))
   }
 
   return (
     <Modal
       visible={visible}
-      onCancel={onBackDashboard}
+      onCancel={onCancel}
       footer={false}
       centered
-      closeIcon={<IonIcon name="close-outline" />}
+      closeIcon={<IonIcon name="close" />}
     >
       <Row gutter={[34, 34]} justify="center">
         <Col>

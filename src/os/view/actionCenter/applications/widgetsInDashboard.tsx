@@ -72,7 +72,7 @@ const WidgetsInDashboard = () => {
         extra={
           <Button
             type="text"
-            icon={<IonIcon name="close-outline" />}
+            icon={<IonIcon name="close" />}
             onClick={onClose}
           />
         }

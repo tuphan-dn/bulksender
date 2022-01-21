@@ -41,7 +41,7 @@ const ActionCenter = () => {
               tabBarExtraContent={
                 <Button
                   type="text"
-                  icon={<IonIcon name="close-outline" />}
+                  icon={<IonIcon name="close" />}
                   onClick={() => dispatch(setVisibleActionCenter(false))}
                 />
               }

@@ -9,6 +9,7 @@ import configs from 'os/configs'
 import { RootState, useRootSelector } from 'os/store'
 import { shortenAddress, explorer } from 'shared/util'
 import { getReferrer, setReferrer } from 'os/helpers/utils'
+import PDB from 'shared/pdb'
 
 const {
   referral: { base },
@@ -23,10 +24,21 @@ const EnterReferral = () => {
   const [visible, setVisible] = useState(false)
 
   const loadReferrerAddress = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return
+    if (!account.isAddress(walletAddress)) return setReferrerAddress('')
     const address = await getReferrer(walletAddress)
-    if (account.isAddress(address)) setReferrerAddress(address)
+    if (!account.isAddress(address)) return setReferrerAddress('')
+    return setReferrerAddress(address)
   }, [walletAddress])
+
+  // For testing only
+  const removeReferrerAddress = useCallback(async () => {
+    if (!account.isAddress(walletAddress)) return
+    const db = new PDB(walletAddress).createInstance('sentre')
+    db.removeItem('referrerAddress')
+    const address = await getReferrer(walletAddress)
+    console.log(address)
+    return loadReferrerAddress()
+  }, [walletAddress, loadReferrerAddress])
 
   const validLink = account.isAddress(referrerAddress)
 
@@ -91,6 +103,7 @@ const EnterReferral = () => {
           </Typography.Text>
         ) : (
           <Space size={4}>
+            <IonIcon name="close" onClick={removeReferrerAddress} />
             <Typography.Text type="secondary">
               You was invited by
             </Typography.Text>
@@ -103,7 +116,10 @@ const EnterReferral = () => {
           </Space>
         )}
       </Col>
-      <ConfirmSuccessFully visible={visible} onCancel={setVisible} />
+      <ConfirmSuccessFully
+        visible={visible}
+        onCancel={() => setVisible(false)}
+      />
     </Row>
   )
 }
