@@ -67,7 +67,7 @@ const ActionCenter = () => {
             >
               <Tabs.TabPane
                 tab={
-                  <span onClick={onUserTab}>
+                  <span>
                     <IonIcon name="grid-outline" />
                     Apps
                   </span>
@@ -78,7 +78,7 @@ const ActionCenter = () => {
               </Tabs.TabPane>
               <Tabs.TabPane
                 tab={
-                  <span id="action-center-tab-user">
+                  <span id="action-center-tab-user" onClick={onUserTab}>
                     <IonIcon name="person-outline" />
                     User
                   </span>

@@ -75,28 +75,29 @@ export const REFERRAL_STEPS: Step[] = [
   step({
     content: (
       <Typography.Text>
-        Click the icon <IonIcon name="menu-outline" /> to enter referral
+        Click the icon <IonIcon name="menu-outline" /> to access the referral
+        system.
       </Typography.Text>
     ),
     target: '#button-action-center',
-    title: 'Action center',
+    title: 'Hoorays, you got invited.',
   }),
   step({
     content: (
       <Typography.Text>
-        Switch to the <strong>User</strong> tab to access the referral system
+        Switch to the <strong>User</strong> tab to enter the invitation link.
       </Typography.Text>
     ),
     target: '#action-center-tab-user',
-    title: 'User',
+    title: 'Enter the invitation link',
   }),
   step({
     content: (
       <Typography.Text>
-        Click the <strong>Confirm</strong> button to get closer to the reward
+        Click the <strong>Confirm</strong> button to get closer to the reward.
       </Typography.Text>
     ),
     target: '#button-confirm-referral',
-    title: 'Confirm the referral link',
+    title: 'Confirm the invitation link',
   }),
 ]
