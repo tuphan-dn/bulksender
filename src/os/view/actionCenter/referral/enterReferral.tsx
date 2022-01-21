@@ -31,6 +31,8 @@ const EnterReferral = () => {
   const [value, setValue] = useState('')
   const [visible, setVisible] = useState(false)
   const { search } = useLocation()
+  const query = new URLSearchParams(search)
+  const referrer = query.get('referrer') || ''
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return setReferrerAddress('')
@@ -40,11 +42,8 @@ const EnterReferral = () => {
       return setReferrerAddress(currentReferrerAddress)
     setReferrerAddress('')
     // Parse referrer address from url
-    const query = new URLSearchParams(search)
-    const referrerAddress = query.get('referral') || ''
-    if (account.isAddress(referrerAddress))
-      return setValue(base + referrerAddress)
-  }, [search, walletAddress])
+    if (account.isAddress(referrer)) return setValue(base + referrer)
+  }, [referrer, walletAddress])
 
   // For testing only
   const removeReferrerAddress = useCallback(async () => {
@@ -60,7 +59,7 @@ const EnterReferral = () => {
     try {
       if (!value.startsWith(base)) throw new Error('Broken referral link')
       const params = new URLSearchParams(new URL(value).search)
-      const referrerAddress = params.get('referral') || ''
+      const referrerAddress = params.get('referrer') || ''
       await setReferrer(walletAddress, referrerAddress)
       setVisible(true)
       await loadReferrerAddress()
