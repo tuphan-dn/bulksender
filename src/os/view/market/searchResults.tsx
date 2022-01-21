@@ -35,6 +35,11 @@ const SearchResult = ({ value }: { value: string }) => {
     }, 500)
   }, [dispatch, register, value])
 
+  const onBack = useCallback(async () => {
+    await dispatch(setValue(''))
+    return history.push('/store')
+  }, [dispatch, history])
+
   useEffect(() => {
     onSearch()
   }, [onSearch])
@@ -47,10 +52,7 @@ const SearchResult = ({ value }: { value: string }) => {
           size="small"
           icon={<IonIcon name="arrow-back-outline" />}
           style={{ marginLeft: -8 }}
-          onClick={() => {
-            history.push('/store')
-            dispatch(setValue(''))
-          }}
+          onClick={onBack}
         >
           Back
         </Button>

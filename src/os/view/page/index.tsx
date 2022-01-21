@@ -1,20 +1,41 @@
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
+import NotFound from 'os/view/page/notFound'
 import PageLoader from 'os/components/pageLoader'
-import NotFound from './notFound'
 
-import { useRootSelector, RootState } from 'os/store'
+import {
+  useRootSelector,
+  RootState,
+  useRootDispatch,
+  RootDispatch,
+} from 'os/store'
+import { useCallback, useEffect } from 'react'
+import { setVisibleInstaller } from 'os/store/ui.reducer'
+import { setValue } from 'os/store/search.reducer'
 
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
-  const { appIds, register } = useRootSelector((state: RootState) => state.page)
+  const {
+    page: { appIds, register },
+  } = useRootSelector((state: RootState) => state)
+  const dispatch = useRootDispatch<RootDispatch>()
 
-  if (!register[appId]) return null
+  const existing = appIds.includes(appId) && register[appId]
+
+  const openInstaller = useCallback(async () => {
+    await dispatch(setVisibleInstaller(!existing))
+    await dispatch(setValue(!existing ? appId : ''))
+  }, [dispatch, existing, appId])
+
+  useEffect(() => {
+    openInstaller()
+  }, [openInstaller])
+
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
-        {appIds.includes(appId) ? (
+        {existing ? (
           <PageLoader {...(register[appId] as ComponentManifest)} />
         ) : (
           <NotFound appId={appId} />

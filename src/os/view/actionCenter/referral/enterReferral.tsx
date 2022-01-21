@@ -48,8 +48,6 @@ const EnterReferral = () => {
     if (!account.isAddress(walletAddress)) return
     const db = new PDB(walletAddress).createInstance('sentre')
     db.removeItem('referrerAddress')
-    const address = await getReferrer(walletAddress)
-    console.log(address)
     return loadReferrerAddress()
   }, [walletAddress, loadReferrerAddress])
 
@@ -60,38 +58,17 @@ const EnterReferral = () => {
       await dispatch(
         setWalkthrough({ type: WalkThroughType.Referral, step: 3 }),
       )
-    if (!account.isAddress(walletAddress))
-      return window.notify({
-        type: 'error',
-        description: 'Wallet is not connected',
-      })
-    if (validLink)
-      return window.notify({
-        type: 'warning',
-        description: 'Cannot change the referrer address',
-      })
-    if (walletAddress === value)
-      return window.notify({
-        type: 'warning',
-        description: 'Cannot invite yourself',
-      })
-    if (!account.isAddress(value))
-      return window.notify({
-        type: 'warning',
-        description: 'Broken referral link',
-      })
-    await setReferrer(walletAddress, value)
-    setVisible(true)
-    return loadReferrerAddress()
-  }, [
-    run,
-    step,
-    dispatch,
-    value,
-    walletAddress,
-    validLink,
-    loadReferrerAddress,
-  ])
+    try {
+      if (!value.startsWith(base)) throw new Error('Broken referral link')
+      const temp = value.split('/')
+      const address = temp.find((e) => account.isAddress(e))
+      await setReferrer(walletAddress, address)
+      setVisible(true)
+      return loadReferrerAddress()
+    } catch (er: any) {
+      return window.notify({ type: 'warning', description: er.message })
+    }
+  }, [run, step, dispatch, value, walletAddress, loadReferrerAddress])
 
   useEffect(() => {
     loadReferrerAddress()
