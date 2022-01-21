@@ -14,6 +14,7 @@ import Referral from 'os/view/referral'
 
 import Watcher from 'os/view/watcher'
 import Walkthrough from './walkthrough'
+import Installer from './market/installer'
 
 import { useRootSelector, RootState } from 'os/store'
 import 'os/static/styles/dark.os.less'
@@ -68,6 +69,7 @@ const View = () => {
       {/* In-Background Run Jobs */}
       <Walkthrough />
       <Watcher />
+      <Installer />
     </Layout>
   )
 }

@@ -1,14 +1,23 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
 import PageLoader from 'os/components/pageLoader'
 import NotFound from './notFound'
 
-import { useRootSelector, RootState } from 'os/store'
+import { useRootSelector, RootState, useRootDispatch } from 'os/store'
+import { setCurrentAppId } from 'os/store/search.reducer'
 
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
-  const { appIds, register } = useRootSelector((state: RootState) => state.page)
+  const dispatch = useRootDispatch()
+  const {
+    page: { appIds, register },
+  } = useRootSelector((state: RootState) => state)
+
+  useEffect(() => {
+    dispatch(setCurrentAppId(appId))
+  }, [appId, dispatch])
 
   if (!register[appId]) return null
   return (
