@@ -27,7 +27,7 @@ export const step = ({
   }
 }
 
-export const DEFAULT_STEPS = []
+export const DEFAULT_STEPS: Step[] = []
 
 export const NEWCOMER_STEPS: Step[] = [
   step({
@@ -70,4 +70,4 @@ export const NEWCOMER_STEPS: Step[] = [
   }),
 ]
 
-export const REFERRAL_STEPS = []
+export const REFERRAL_STEPS: Step[] = []
