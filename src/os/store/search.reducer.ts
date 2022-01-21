@@ -8,8 +8,6 @@ type SearchState = {
   value: string
   loading: boolean
   disabled: boolean
-  visible: boolean
-  currentAppId: string
 }
 
 /**
@@ -21,8 +19,6 @@ const initialState: SearchState = {
   value: '',
   loading: false,
   disabled: false,
-  visible: true,
-  currentAppId: '',
 }
 
 /**
@@ -53,28 +49,6 @@ export const setDisabled = createAsyncThunk<
   return { disabled }
 })
 
-export const openModalInstall = createAsyncThunk(
-  `${NAME}/openModalInstall`,
-  async () => {
-    return { visible: true }
-  },
-)
-
-export const closeModalInstall = createAsyncThunk(
-  `${NAME}/closeModalInstall`,
-  async () => {
-    return { visible: false }
-  },
-)
-
-export const setCurrentAppId = createAsyncThunk<
-  Partial<SearchState>,
-  string,
-  { state: any }
->(`${NAME}/setCurrentAppId`, async (currentAppId) => {
-  return { currentAppId }
-})
-
 /**
  * Usual procedure
  */
@@ -95,18 +69,6 @@ const slice = createSlice({
       )
       .addCase(
         setDisabled.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        openModalInstall.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        closeModalInstall.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        setCurrentAppId.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })

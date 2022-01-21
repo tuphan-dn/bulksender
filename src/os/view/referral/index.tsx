@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
+import ConfirmSuccessFully from 'os/view/actionCenter/referral/confirmSuccess'
+
 import { RootState, useRootSelector } from 'os/store'
 import { setReferrer, getReferrer } from 'os/helpers/utils'
-import ConfirmSuccessFully from '../actionCenter/referral/confirmSuccess'
 
 const Referral = () => {
   const {
@@ -21,16 +22,14 @@ const Referral = () => {
   }, [history])
 
   const setReferrerAddress = useCallback(async () => {
-    if (
-      !account.isAddress(walletAddress) ||
-      !account.isAddress(referrerAddress)
-    )
-      return setVisible(false)
     const currentReferrerAddress = await getReferrer(walletAddress)
     if (account.isAddress(currentReferrerAddress)) return setVisible(false)
-    const ok = await setReferrer(walletAddress, referrerAddress)
-    if (!ok) return onClose()
-    return setVisible(true)
+    try {
+      await setReferrer(walletAddress, referrerAddress)
+      return setVisible(true)
+    } catch (er) {
+      return onClose()
+    }
   }, [walletAddress, referrerAddress, onClose])
 
   useEffect(() => {

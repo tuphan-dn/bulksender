@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react'
+import { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Button, Space, Typography } from 'antd'
@@ -6,30 +6,30 @@ import AppIcon from 'os/components/appIcon'
 
 import { RootState, useRootDispatch, useRootSelector } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
-import { closeModalInstall } from 'os/store/search.reducer'
 
-const CustomAppIcon = ({ appId }: { appId: string }) => {
+export type CustomAppIconProps = { appId: string; onCallback?: () => void }
+
+const CustomAppIcon = ({
+  appId,
+  onCallback = () => {},
+}: CustomAppIconProps) => {
   const {
     page: { register, appIds },
-    search: { currentAppId },
   } = useRootSelector((state: RootState) => state)
-  const { name: appName } = register[appId] || { name: 'Unknown' }
   const dispatch = useRootDispatch()
   const history = useHistory()
 
-  const onInstall = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    if (appId === currentAppId) dispatch(closeModalInstall())
-    return dispatch(installApp(appId))
-  }
-
-  const onOpen = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    history.push(`/app/${appId}`)
-    return dispatch(closeModalInstall())
-  }
-
+  const { name: appName } = register[appId] || { name: 'Unknown' }
   const installed = appIds.includes(appId)
+
+  const onInstall = useCallback(async () => {
+    return dispatch(installApp(appId))
+  }, [dispatch, appId])
+
+  const onOpen = useCallback(async () => {
+    history.push(`/app/${appId}`)
+    return onCallback()
+  }, [history, appId, onCallback])
 
   return (
     <Space size={16}>
@@ -38,7 +38,7 @@ const CustomAppIcon = ({ appId }: { appId: string }) => {
         <Typography.Text>{appName}</Typography.Text>
         <Button
           onClick={installed ? onOpen : onInstall}
-          type="primary"
+          type={installed ? undefined : 'primary'}
           size="small"
         >
           {installed ? 'Open' : 'Install'}
