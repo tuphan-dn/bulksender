@@ -1,8 +1,7 @@
-import { useEffect, ReactNode } from 'react'
+import { useEffect, useMemo } from 'react'
 import { account } from '@senswap/sen-js'
-import Joyride, { CallBackProps, EVENTS, STATUS, Step } from 'react-joyride'
+import Joyride, { CallBackProps, EVENTS, STATUS } from 'react-joyride'
 
-import { Typography } from 'antd'
 import Tooltip from './tooltip'
 
 import {
@@ -11,85 +10,21 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { setWalkthrough } from 'os/store/walkthrough.reducer'
+import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import './index.os.less'
-
-const step = ({
-  content,
-  target,
-  title,
-}: {
-  content: ReactNode
-  target: string
-  title: string
-}) => {
-  return {
-    content,
-    disableBeacon: true,
-    disableOverlayClose: true,
-    spotlightClicks: true,
-    styles: {
-      options: {
-        zIndex: 10000,
-      },
-    },
-    target,
-    title: <Typography.Title level={5}>{title}</Typography.Title>,
-  }
-}
-
-const STEPS: Step[] = [
-  step({
-    content: (
-      <Typography.Text>
-        Click the <b>Store</b> button to explore the numerous DeFi applications.
-      </Typography.Text>
-    ),
-    target: '#store-nav-button',
-    title: 'Search an app',
-  }),
-  step({
-    content: (
-      <Typography.Text>
-        Find an application in the list and click the <b>Install</b> button to
-        set up the application.
-      </Typography.Text>
-    ),
-    target: '#install-action-button',
-    title: 'Install an app',
-  }),
-  step({
-    content: (
-      <Typography.Text>
-        Click the <b>Open</b> button to explore more interesting features.
-      </Typography.Text>
-    ),
-    target: '#open-action-button',
-    title: 'Open the app',
-  }),
-  step({
-    content: (
-      <Typography.Text>
-        Helps you keep an overview and quick actions with many applications at
-        the same time.
-      </Typography.Text>
-    ),
-    target: '#dashboard-nav-button',
-    title: 'Your Dashboard',
-  }),
-]
+import { DEFAULT_STEPS, NEWCOMER_STEPS, REFERRAL_STEPS } from './steps'
 
 const Walkthrough = () => {
   const dispatch = useRootDispatch<RootDispatch>()
   const {
     wallet: { address },
-    walkthrough: { run, step },
+    walkthrough: { type, run, step },
     flags: { visited },
   } = useRootSelector((state: RootState) => state)
 
   useEffect(() => {
     if (account.isAddress(address) && !visited)
-      dispatch(setWalkthrough({ run: true }))
+      dispatch(setWalkthrough({ type: WalkThroughType.NewComer, run: true }))
   }, [address, dispatch, visited])
 
   const onCallback = async ({
@@ -114,11 +49,17 @@ const Walkthrough = () => {
     }
   }
 
+  const steps = useMemo(() => {
+    if (type === WalkThroughType.NewComer) return NEWCOMER_STEPS
+    if (type === WalkThroughType.Referral) return REFERRAL_STEPS
+    return DEFAULT_STEPS
+  }, [type])
+
   return (
     <Joyride
       continuous={true}
       run={run}
-      steps={STEPS}
+      steps={steps}
       stepIndex={step}
       scrollOffset={128}
       scrollToFirstStep={true}

@@ -3,8 +3,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 /**
  * Interface & Utility
  */
+export enum WalkThroughType {
+  NewComer,
+  Referral,
+}
 
 type WalkThorughState = {
+  type: WalkThroughType
   run: boolean
   step: number
 }
@@ -15,6 +20,7 @@ type WalkThorughState = {
 
 const NAME = 'walkthrough'
 const initialState: WalkThorughState = {
+  type: WalkThroughType.NewComer,
   run: false,
   step: 0,
 }

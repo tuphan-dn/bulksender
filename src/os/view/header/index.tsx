@@ -16,7 +16,7 @@ import {
   RootState,
 } from 'os/store'
 import { loadRegister, loadPage } from 'os/store/page.reducer'
-import { setWalkthrough } from 'os/store/walkthrough.reducer'
+import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { loadVisited } from 'os/store/flags.reducer'
 import { net } from 'shared/runtime'
 
@@ -52,12 +52,18 @@ const Header = () => {
   } = useRootSelector((state: RootState) => state)
 
   const onDashboard = async () => {
-    if (run && step === 3) await dispatch(setWalkthrough({ step: 4 }))
+    if (run && step === 3)
+      await dispatch(
+        setWalkthrough({ type: WalkThroughType.NewComer, step: 4 }),
+      )
     return history.push('/dashboard')
   }
 
   const onStore = async () => {
-    if (run && step === 0) await dispatch(setWalkthrough({ step: 1 }))
+    if (run && step === 0)
+      await dispatch(
+        setWalkthrough({ type: WalkThroughType.NewComer, step: 1 }),
+      )
     return history.push('/store')
   }
 
