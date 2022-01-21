@@ -62,10 +62,10 @@ export const installManifest = createAsyncThunk<
   { state: any }
 >(`${NAME}/installManifest`, async (manifest, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { appIds, widgetIds, register },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
   if (appIds.includes(manifest.appId))
     throw new Error('Cannot run sandbox for an installed application.')
@@ -88,14 +88,14 @@ export const loadPage = createAsyncThunk<
   { state: any }
 >(`${NAME}/loadPage`, async (_, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { register },
   } = getState()
 
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
   // Fetch user's apps
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   const appIds = troubleshoot(
     register,
     (await db.getItem('appIds')) || initialState.appIds,
@@ -113,13 +113,13 @@ export const updatePage = createAsyncThunk<
   { state: any }
 >(`${NAME}/updatePage`, async (appIds, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { register },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
   appIds = troubleshoot(register, appIds)
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   await db.setItem('appIds', appIds)
   return { appIds }
 })
@@ -130,10 +130,10 @@ export const installApp = createAsyncThunk<
   { state: any }
 >(`${NAME}/installApp`, async (appId, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { register, appIds, widgetIds },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
   if (appIds.includes(appId)) return {}
   const newAppIds: AppIds = [...appIds]
@@ -141,7 +141,7 @@ export const installApp = createAsyncThunk<
   const newWidgetIds = register[appId]?.supportedViews?.includes('widget')
     ? [...widgetIds, appId]
     : [...widgetIds]
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   await db.setItem('appIds', newAppIds)
   await db.setItem('widgetIds', newWidgetIds)
   return { appIds: newAppIds, widgetIds: newWidgetIds }
@@ -153,15 +153,15 @@ export const uninstallApp = createAsyncThunk<
   { state: any }
 >(`${NAME}/uninstallApp`, async (appId, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { appIds, widgetIds },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
   if (!appIds.includes(appId)) return {}
   const newAppIds = appIds.filter((_appId: string) => _appId !== appId)
   const newWidgetIds = widgetIds.filter((_appId: string) => _appId !== appId)
-  const pdb = new PDB(address)
+  const pdb = new PDB(walletAddress)
   const db = pdb.createInstance('sentre')
   await db.setItem('appIds', newAppIds)
   await db.setItem('widgetIds', newWidgetIds)
@@ -178,11 +178,11 @@ export const updateDashboard = createAsyncThunk<
   { state: any }
 >(`${NAME}/updateDashboard`, async (widgetIds, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   await db.setItem('widgetIds', widgetIds)
   return { widgetIds }
 })
@@ -193,13 +193,13 @@ export const addWidgets = createAsyncThunk<
   { state: any }
 >(`${NAME}/addWidgets`, async (appIds, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { widgetIds },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet')
   const newWidgetIds: AppIds = [...widgetIds, ...appIds]
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   await db.setItem('widgetIds', newWidgetIds)
   return { widgetIds: newWidgetIds }
 })
@@ -210,14 +210,14 @@ export const removeWidget = createAsyncThunk<
   { state: any }
 >(`${NAME}/removeWidget`, async (appId, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     page: { widgetIds },
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet.')
   if (!widgetIds.includes(appId)) return {}
   const newWidgetIds = widgetIds.filter((_appId: string) => _appId !== appId)
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   await db.setItem('widgetIds', newWidgetIds)
   return { widgetIds: newWidgetIds }
 })

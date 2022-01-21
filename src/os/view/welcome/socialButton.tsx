@@ -19,13 +19,13 @@ const SOCIAL_MEDIA = [
 const SocialButton = () => {
   return (
     <Space className="social-button" size={24}>
-      {SOCIAL_MEDIA.map((item, idx) => (
+      {SOCIAL_MEDIA.map((item, i) => (
         <Button
           type="text"
           size="small"
+          key={i}
           onClick={() => window.open(item.src, '_blank')}
           icon={<IonIcon name={item.icon} />}
-          key={item.icon + idx}
         />
       ))}
     </Space>
