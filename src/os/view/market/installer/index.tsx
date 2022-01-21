@@ -1,5 +1,3 @@
-import { useHistory } from 'react-router-dom'
-
 import { Col, Modal, Row, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import CustomAppIcon from './customAppIcon'
@@ -10,13 +8,11 @@ import { closeModalInstall } from 'os/store/search.reducer'
 const Installer = () => {
   const {
     page: { register },
-    search: { visible, prevAppId, currentAppId },
+    search: { visible, currentAppId },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch()
-  const history = useHistory()
 
   const closeModal = () => {
-    history.push(`/app/${prevAppId}`)
     dispatch(closeModalInstall())
   }
 
