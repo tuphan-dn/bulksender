@@ -10,7 +10,7 @@ import Page from 'os/view/page'
 import Market from 'os/view/market'
 import AppViewer from 'os/view/market/appViewer'
 import Sync from 'os/view/sync'
-import Referral from 'os/view/referral'
+// import Referral from 'os/view/referral'
 
 import Watcher from 'os/view/watcher'
 import Walkthrough from './walkthrough'
@@ -55,11 +55,11 @@ const View = () => {
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
               <PrivateRoute exact path="/sync" component={Sync} />
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path="/referral/:referrer"
                 component={Referral}
-              />
+              /> */}
               <Redirect from="*" to="/welcome" />
             </Switch>
           </Col>

@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 import Joyride, { CallBackProps, EVENTS, STATUS } from 'react-joyride'
 
@@ -10,22 +11,42 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
-import './index.os.less'
+
 import { DEFAULT_STEPS, NEWCOMER_STEPS, REFERRAL_STEPS } from './steps'
+import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
+import { getReferrer } from 'os/helpers/utils'
+import './index.os.less'
 
 const Walkthrough = () => {
   const dispatch = useRootDispatch<RootDispatch>()
   const {
     wallet: { address },
-    walkthrough: { type, run, step },
+    walkthrough: { type: walkthroughType, run, step },
     flags: { visited },
   } = useRootSelector((state: RootState) => state)
+  const query = new URLSearchParams(useLocation().search)
+  const referrerAddress = query.get('referral') || ''
 
   useEffect(() => {
-    if (account.isAddress(address) && !visited)
-      dispatch(setWalkthrough({ type: WalkThroughType.NewComer, run: true }))
-  }, [address, dispatch, visited])
+    ;(async () => {
+      const validReferrer = await getReferrer(address)
+      if (!account.isAddress(address)) return
+      if (
+        !account.isAddress(validReferrer) &&
+        account.isAddress(referrerAddress)
+      )
+        return dispatch(
+          setWalkthrough({ type: WalkThroughType.Referral, run: true }),
+        )
+      if (!visited)
+        return dispatch(
+          setWalkthrough({ type: WalkThroughType.NewComer, run: true }),
+        )
+      return dispatch(
+        setWalkthrough({ type: WalkThroughType.Default, run: false }),
+      )
+    })()
+  }, [address, dispatch, referrerAddress, visited])
 
   const onCallback = async ({
     type,
@@ -50,10 +71,10 @@ const Walkthrough = () => {
   }
 
   const steps = useMemo(() => {
-    if (type === WalkThroughType.NewComer) return NEWCOMER_STEPS
-    if (type === WalkThroughType.Referral) return REFERRAL_STEPS
+    if (walkthroughType === WalkThroughType.NewComer) return NEWCOMER_STEPS
+    if (walkthroughType === WalkThroughType.Referral) return REFERRAL_STEPS
     return DEFAULT_STEPS
-  }, [type])
+  }, [walkthroughType])
 
   return (
     <Joyride

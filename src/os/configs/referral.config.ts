@@ -13,21 +13,21 @@ const conf: Record<Env, Conf> = {
    * Development configurations
    */
   development: {
-    base: `${window.location.origin}/referral/`,
+    base: `${window.location.origin}/dashboard?referral=`,
   },
 
   /**
    * Staging configurations
    */
   staging: {
-    base: 'https://hub.sentre.io/referral/',
+    base: 'https://hub.sentre.io/dashboard?referral=',
   },
 
   /**
    * Production configurations
    */
   production: {
-    base: 'https://hub.sentre.io/referral/',
+    base: 'https://hub.sentre.io/dashboard?referral=',
   },
 }
 
