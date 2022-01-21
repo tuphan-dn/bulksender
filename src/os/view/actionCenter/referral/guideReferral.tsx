@@ -62,8 +62,8 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
             title={'Deposit to Sentre pools'}
             description={
               <Typography.Text type="secondary">
-                Deposit from <Typography.Text>1000 SNTR</Typography.Text> to
-                Sentre pools in <Typography.Text>7 days</Typography.Text>
+                Deposit more than <Typography.Text>1000 SNTR</Typography.Text>{' '}
+                to your wallet in <Typography.Text>7 days</Typography.Text>
               </Typography.Text>
             }
             key={3}

@@ -1,6 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
-import moment from 'moment'
 
 import { useRootSelector, RootState } from 'os/store'
 import configs from 'os/configs'
@@ -10,7 +9,9 @@ const {
   sol: { sntrAddress },
 } = configs
 
-const SentreLogger = () => {
+const THRESHOLD = BigInt(1000 * 10 ** 9)
+
+const Logger = () => {
   const {
     accounts,
     wallet: { address: walletAddress },
@@ -18,10 +19,10 @@ const SentreLogger = () => {
   const [accountAddress, setAccountAddress] = useState('')
 
   const getAccountAddress = useCallback(async () => {
-    if (!walletAddress) return
     const {
       sentre: { splt },
     } = window
+    if (!account.isAddress(walletAddress)) return
     const accountAddress = await splt.deriveAssociatedAddress(
       walletAddress,
       sntrAddress,
@@ -30,13 +31,24 @@ const SentreLogger = () => {
       return setAccountAddress(accountAddress)
   }, [walletAddress])
 
-  const onLogAmountSntr = useCallback(() => {
+  const watch = useCallback(async () => {
+    if (!account.isAddress(walletAddress) || !account.isAddress(accountAddress))
+      return
     const { amount } = accounts[accountAddress] || {}
-    if (!walletAddress || !amount) return
-    const db = new PDB(walletAddress).createInstance('sentre_logger')
-    const date = moment().format('MM_DD_YYYY')
-
-    return db.setItem(date, amount)
+    if (amount === undefined) return
+    const db = new PDB(walletAddress).createInstance('sentre')
+    const prevLogs: { date: number; amount: string } = (await db.getItem(
+      'logs',
+    )) || { date: 0, amount: '0' }
+    const prevAmount = BigInt(prevLogs.amount)
+    if (amount < THRESHOLD) await db.removeItem('logs')
+    else if (prevAmount < THRESHOLD) {
+      await db.setItem('logs', {
+        date: Number(new Date()),
+        amount: String(amount),
+      })
+    }
+    console.log(await db.getItem('logs'))
   }, [accountAddress, accounts, walletAddress])
 
   useEffect(() => {
@@ -44,10 +56,10 @@ const SentreLogger = () => {
   }, [getAccountAddress])
 
   useEffect(() => {
-    onLogAmountSntr()
-  }, [onLogAmountSntr])
+    watch()
+  }, [watch])
 
   return <Fragment />
 }
 
-export default SentreLogger
+export default Logger
