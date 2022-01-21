@@ -41,14 +41,13 @@ const Logger = () => {
       'logs',
     )) || { date: 0, amount: '0' }
     const prevAmount = BigInt(prevLogs.amount)
-    if (amount < THRESHOLD) await db.removeItem('logs')
-    else if (prevAmount < THRESHOLD) {
-      await db.setItem('logs', {
+    if (amount < THRESHOLD) return db.removeItem('logs')
+    if (prevAmount < THRESHOLD) {
+      return db.setItem('logs', {
         date: Number(new Date()),
         amount: String(amount),
       })
     }
-    console.log(await db.getItem('logs'))
   }, [accountAddress, accounts, walletAddress])
 
   useEffect(() => {
