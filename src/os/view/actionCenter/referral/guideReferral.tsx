@@ -1,23 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { account } from '@senswap/sen-js'
 
 import { Col, Row, Typography, Steps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import { RootState, useRootSelector } from 'os/store'
-import { getReferrer } from 'os/helpers/utils'
 
-const GuideReferral = () => {
-  const [referrerAddress, setReferrerAddress] = useState('')
+export type GuideReferralProps = { referrerAddress?: string }
+
+const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
-
-  const loadReferrerAddress = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return
-    const address = await getReferrer(walletAddress)
-    if (account.isAddress(address)) return setReferrerAddress(address)
-  }, [walletAddress])
 
   const currentStep = useMemo(() => {
     let step = 0
@@ -25,10 +19,6 @@ const GuideReferral = () => {
     if (account.isAddress(referrerAddress)) step = 2
     return step
   }, [referrerAddress, walletAddress])
-
-  useEffect(() => {
-    loadReferrerAddress()
-  }, [loadReferrerAddress])
 
   return (
     <Row gutter={[8, 8]}>

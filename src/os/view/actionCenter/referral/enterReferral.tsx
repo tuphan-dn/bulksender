@@ -7,71 +7,50 @@ import IonIcon from 'shared/antd/ionicon'
 import ConfirmSuccessFully from './confirmSuccess'
 
 import configs from 'os/configs'
-import {
-  RootDispatch,
-  RootState,
-  useRootDispatch,
-  useRootSelector,
-} from 'os/store'
+import { RootState, useRootSelector } from 'os/store'
 import { shortenAddress, explorer } from 'shared/util'
-import { getReferrer, setReferrer } from 'os/helpers/utils'
 import PDB from 'shared/pdb'
-import { setWalkthrough } from 'os/store/walkthrough.reducer'
 
 const {
   referral: { base },
 } = configs
 
-const EnterReferral = () => {
-  const dispatch = useRootDispatch<RootDispatch>()
+export type EnterReferralProps = {
+  referrerAddress?: string
+  onConfirm?: (value: string) => void
+}
+
+const EnterReferral = ({
+  referrerAddress = '',
+  onConfirm = () => {},
+}: EnterReferralProps) => {
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
-  const [referrerAddress, setReferrerAddress] = useState('')
   const [value, setValue] = useState('')
   const [visible, setVisible] = useState(false)
   const { search } = useLocation()
   const query = new URLSearchParams(search)
   const referrer = query.get('referrer') || ''
 
-  const loadReferrerAddress = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return setReferrerAddress('')
-    // Referrer existed
-    const currentReferrerAddress = await getReferrer(walletAddress)
-    if (account.isAddress(currentReferrerAddress))
-      return setReferrerAddress(currentReferrerAddress)
-    setReferrerAddress('')
-    // Parse referrer address from url
+  // Parse referrer address from url
+  const parseReferrerAddress = useCallback(async () => {
     if (account.isAddress(referrer)) return setValue(base + referrer)
-  }, [referrer, walletAddress])
+  }, [referrer])
 
   // For testing only
   const removeReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return
     const db = new PDB(walletAddress).createInstance('sentre')
-    db.removeItem('referrerAddress')
-    return loadReferrerAddress()
-  }, [walletAddress, loadReferrerAddress])
+    await db.removeItem('referrerAddress')
+    return window.location.reload()
+  }, [walletAddress])
 
-  const validLink = account.isAddress(referrerAddress)
-
-  const onConfirm = useCallback(async () => {
-    try {
-      if (!value.startsWith(base)) throw new Error('Broken referral link')
-      const params = new URLSearchParams(new URL(value).search)
-      const referrerAddress = params.get('referrer') || ''
-      await setReferrer(walletAddress, referrerAddress)
-      setVisible(true)
-      await loadReferrerAddress()
-      return dispatch(setWalkthrough({ run: false }))
-    } catch (er: any) {
-      return window.notify({ type: 'warning', description: er.message })
-    }
-  }, [dispatch, value, walletAddress, loadReferrerAddress])
+  const existed = account.isAddress(referrerAddress)
 
   useEffect(() => {
-    loadReferrerAddress()
-  }, [loadReferrerAddress])
+    parseReferrerAddress()
+  }, [parseReferrerAddress])
 
   return (
     <Row gutter={[12, 12]}>
@@ -79,9 +58,9 @@ const EnterReferral = () => {
         <Input
           size="large"
           placeholder="Referral link"
-          value={validLink ? base + referrerAddress : value}
+          value={existed ? base + referrerAddress : value}
           onChange={(e) => setValue(e.target.value)}
-          readOnly={validLink}
+          readOnly={existed}
         />
       </Col>
       <Col>
@@ -89,15 +68,15 @@ const EnterReferral = () => {
           id="button-confirm-referral"
           type="primary"
           size="large"
-          onClick={onConfirm}
-          disabled={validLink}
+          onClick={() => onConfirm(value)}
+          disabled={existed}
           block
         >
           Confirm
         </Button>
       </Col>
       <Col span={24} style={{ fontSize: 12 }}>
-        {!validLink ? (
+        {!existed ? (
           <Typography.Text type="secondary">
             Enter the referral link to receive the reward for both.
           </Typography.Text>
