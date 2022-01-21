@@ -24,8 +24,9 @@ const Walkthrough = () => {
     walkthrough: { type, run, step },
     flags: { visited },
   } = useRootSelector((state: RootState) => state)
-  const query = new URLSearchParams(useLocation().search)
-  const referrerAddress = query.get('referral') || ''
+  const { search } = useLocation()
+  const query = new URLSearchParams(search)
+  const referrerAddress = query.get('referrer') || ''
 
   const onCallback = async ({
     type,
