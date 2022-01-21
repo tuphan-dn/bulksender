@@ -15,6 +15,7 @@ import Sync from 'os/view/sync'
 import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
 import Installer from 'os/view/installer'
+import SentreLogger from './sentreLogger'
 
 import {
   useRootSelector,
@@ -104,6 +105,7 @@ const View = () => {
       <Walkthrough />
       <Watcher />
       <Installer />
+      <SentreLogger />
     </Layout>
   )
 }
