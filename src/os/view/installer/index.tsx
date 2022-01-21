@@ -56,7 +56,7 @@ const Installer = () => {
       visible={visibleInstaller}
     >
       <Row gutter={[18, 18]}>
-        {exactAppId ? (
+        {exactAppId && (
           <Fragment>
             <Col span={24}>
               <Typography.Title level={4}>
@@ -68,12 +68,12 @@ const Installer = () => {
             </Col>
             <Col span={24} />
           </Fragment>
-        ) : null}
+        )}
         <Col span={24}>
           <Typography.Title level={4}>Recommended Apps</Typography.Title>
         </Col>
-        {recommendedApps.map((appId) => (
-          <Col span={12} key={appId}>
+        {recommendedApps.map((appId, i) => (
+          <Col span={12} key={i}>
             <CustomAppIcon appId={appId} />
           </Col>
         ))}

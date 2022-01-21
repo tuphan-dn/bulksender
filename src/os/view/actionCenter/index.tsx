@@ -1,9 +1,10 @@
-import { Fragment, useCallback, useEffect, useState } from 'react'
+import { Fragment, useCallback } from 'react'
 
 import { Row, Col, Drawer, Button, Tabs } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import Applications from './applications'
 import Settings from './settings'
+import Referral from './referral'
 
 import {
   useRootDispatch,
@@ -12,46 +13,36 @@ import {
   RootState,
 } from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
-import Referral from './referral'
 import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 
 const ActionCenter = () => {
-  const [activeTab, setActiveTab] = useState('applications')
   const dispatch = useRootDispatch<RootDispatch>()
   const {
     ui: { visibleActionCenter },
     walkthrough: { run, step },
   } = useRootSelector((state: RootState) => state)
 
-  const onActionCenter = async () => {
-    if (run && step === 0)
-      await dispatch(
-        setWalkthrough({ type: WalkThroughType.Referral, step: 1 }),
-      )
-  }
   const onUserTab = useCallback(async () => {
-    if (activeTab !== 'referral') return
     if (run && step === 1)
       await dispatch(
         setWalkthrough({ type: WalkThroughType.Referral, step: 2 }),
       )
-  }, [activeTab, dispatch, run, step])
+  }, [dispatch, run, step])
 
-  useEffect(() => {
-    onUserTab()
-  }, [onUserTab])
-
-  const onHandleActionCenter = () => {
-    onActionCenter()
-    dispatch(setVisibleActionCenter(!visibleActionCenter))
-  }
+  const onActionCenter = useCallback(async () => {
+    if (run && step === 0)
+      await dispatch(
+        setWalkthrough({ type: WalkThroughType.Referral, step: 1 }),
+      )
+    return dispatch(setVisibleActionCenter(true))
+  }, [dispatch, run, step])
 
   return (
     <Fragment>
       <Button
         type="text"
         icon={<IonIcon name="menu" style={{ fontSize: 20 }} />}
-        onClick={onHandleActionCenter}
+        onClick={onActionCenter}
         id="button-action-center"
       />
       <Drawer
@@ -72,13 +63,11 @@ const ActionCenter = () => {
                   onClick={() => dispatch(setVisibleActionCenter(false))}
                 />
               }
-              onChange={setActiveTab}
               destroyInactiveTabPane
-              activeKey={activeTab}
             >
               <Tabs.TabPane
                 tab={
-                  <span>
+                  <span onClick={onUserTab}>
                     <IonIcon name="grid-outline" />
                     Apps
                   </span>

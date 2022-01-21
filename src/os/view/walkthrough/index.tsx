@@ -70,9 +70,6 @@ const Walkthrough = () => {
       return dispatch(
         setWalkthrough({ type: WalkThroughType.NewComer, run: true }),
       )
-    return dispatch(
-      setWalkthrough({ type: WalkThroughType.Default, run: false }),
-    )
   }, [dispatch, walletAddress, referrerAddress, visited])
 
   useEffect(() => {
