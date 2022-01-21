@@ -33,6 +33,7 @@ const Installer = () => {
   }, [dispatch, history])
 
   const onSearch = useCallback(async () => {
+    if (!visibleInstaller) return setRecommendeddApps([]) // For performance
     const engine = new SearchEngine(register)
     const appIds = engine.search(value)
     // Suggest additional apps
@@ -41,7 +42,7 @@ const Installer = () => {
       if (!appIds.includes(randAppId)) appIds.push(randAppId)
     }
     return setRecommendeddApps(appIds)
-  }, [allAppIds, register, value])
+  }, [allAppIds, register, value, visibleInstaller])
 
   useEffect(() => {
     onSearch()
@@ -54,6 +55,7 @@ const Installer = () => {
       footer={null}
       onCancel={closeInstaller}
       visible={visibleInstaller}
+      destroyOnClose
     >
       <Row gutter={[18, 18]}>
         {exactAppId && (

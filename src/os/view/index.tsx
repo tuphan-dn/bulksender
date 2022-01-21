@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { account } from '@senswap/sen-js'
 
 import { Layout, Row, Col, Card, Affix } from 'antd'
 import PrivateRoute from 'os/components/privateRoute'
@@ -15,17 +16,56 @@ import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
 import Installer from 'os/view/installer'
 
-import { useRootSelector, RootState } from 'os/store'
+import {
+  useRootSelector,
+  RootState,
+  useRootDispatch,
+  RootDispatch,
+} from 'os/store'
+import { loadPage, loadRegister } from 'os/store/page.reducer'
+import { loadVisited } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
 const View = () => {
   const {
     ui: { theme },
+    wallet: { address: walletAddress },
+    page: { register },
   } = useRootSelector((state: RootState) => state)
+  const dispatch = useRootDispatch<RootDispatch>()
 
+  /**
+   * Init the system
+   */
+
+  // Load DApp register
+  const initRegister = useCallback(async () => {
+    await dispatch(loadRegister())
+  }, [dispatch])
   useEffect(() => {
-    return document.body.setAttribute('id', theme)
+    initRegister()
+  }, [initRegister])
+  // Load page
+  const initPage = useCallback(async () => {
+    if (!account.isAddress(walletAddress) || !Object.keys(register).length)
+      return
+    await dispatch(loadPage())
+  }, [dispatch, walletAddress, register])
+  useEffect(() => {
+    initPage()
+  }, [initPage])
+  // Load flags
+  const initFlags = useCallback(async () => {
+    if (account.isAddress(walletAddress)) return
+    await dispatch(loadVisited())
+  }, [dispatch, walletAddress])
+  useEffect(() => {
+    initFlags()
+  }, [initFlags])
+  // Load theme
+  useEffect(() => {
+    document.body.setAttribute('id', theme)
   }, [theme])
 
   return (

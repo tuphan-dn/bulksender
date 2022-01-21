@@ -14,6 +14,8 @@ import { useCallback, useEffect } from 'react'
 import { setVisibleInstaller } from 'os/store/ui.reducer'
 import { setValue } from 'os/store/search.reducer'
 
+let delaying: NodeJS.Timeout
+
 const Dashboard = () => {
   const { appId } = useParams<{ appId: string }>()
   const {
@@ -29,8 +31,12 @@ const Dashboard = () => {
   }, [dispatch, existing, appId])
 
   useEffect(() => {
-    openInstaller()
-  }, [openInstaller])
+    // Wait a while for system loading
+    if (Object.keys(register).length) {
+      if (delaying) clearTimeout(delaying)
+      delaying = setTimeout(openInstaller, 500)
+    }
+  }, [openInstaller, register])
 
   return (
     <Row gutter={[24, 24]}>
