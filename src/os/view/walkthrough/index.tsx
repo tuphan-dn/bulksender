@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 import Joyride, { CallBackProps, EVENTS, STATUS } from 'react-joyride'
@@ -20,33 +20,12 @@ import './index.os.less'
 const Walkthrough = () => {
   const dispatch = useRootDispatch<RootDispatch>()
   const {
-    wallet: { address },
-    walkthrough: { type: walkthroughType, run, step },
+    wallet: { address: walletAddress },
+    walkthrough: { type, run, step },
     flags: { visited },
   } = useRootSelector((state: RootState) => state)
   const query = new URLSearchParams(useLocation().search)
   const referrerAddress = query.get('referral') || ''
-
-  useEffect(() => {
-    ;(async () => {
-      const validReferrer = await getReferrer(address)
-      if (!account.isAddress(address)) return
-      if (
-        !account.isAddress(validReferrer) &&
-        account.isAddress(referrerAddress)
-      )
-        return dispatch(
-          setWalkthrough({ type: WalkThroughType.Referral, run: true }),
-        )
-      if (!visited)
-        return dispatch(
-          setWalkthrough({ type: WalkThroughType.NewComer, run: true }),
-        )
-      return dispatch(
-        setWalkthrough({ type: WalkThroughType.Default, run: false }),
-      )
-    })()
-  }, [address, dispatch, referrerAddress, visited])
 
   const onCallback = async ({
     type,
@@ -71,10 +50,33 @@ const Walkthrough = () => {
   }
 
   const steps = useMemo(() => {
-    if (walkthroughType === WalkThroughType.NewComer) return NEWCOMER_STEPS
-    if (walkthroughType === WalkThroughType.Referral) return REFERRAL_STEPS
+    if (type === WalkThroughType.NewComer) return NEWCOMER_STEPS
+    if (type === WalkThroughType.Referral) return REFERRAL_STEPS
     return DEFAULT_STEPS
-  }, [walkthroughType])
+  }, [type])
+
+  const initWalkthrough = useCallback(async () => {
+    if (!account.isAddress(walletAddress)) return
+    const currentReferrerAddress = await getReferrer(walletAddress)
+    if (
+      !account.isAddress(currentReferrerAddress) &&
+      account.isAddress(referrerAddress)
+    )
+      return dispatch(
+        setWalkthrough({ type: WalkThroughType.Referral, run: true }),
+      )
+    if (!visited)
+      return dispatch(
+        setWalkthrough({ type: WalkThroughType.NewComer, run: true }),
+      )
+    return dispatch(
+      setWalkthrough({ type: WalkThroughType.Default, run: false }),
+    )
+  }, [dispatch, walletAddress, referrerAddress, visited])
+
+  useEffect(() => {
+    initWalkthrough()
+  }, [initWalkthrough])
 
   return (
     <Joyride

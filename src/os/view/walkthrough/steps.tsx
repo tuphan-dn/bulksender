@@ -90,7 +90,6 @@ export const REFERRAL_STEPS: Step[] = [
     target: '#action-center-tab-user',
     title: 'User',
   }),
-
   step({
     content: (
       <Typography.Text>

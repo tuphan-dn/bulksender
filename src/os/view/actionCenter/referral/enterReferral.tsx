@@ -16,7 +16,7 @@ import {
 import { shortenAddress, explorer } from 'shared/util'
 import { getReferrer, setReferrer } from 'os/helpers/utils'
 import PDB from 'shared/pdb'
-import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
+import { setWalkthrough } from 'os/store/walkthrough.reducer'
 
 const {
   referral: { base },
@@ -26,22 +26,25 @@ const EnterReferral = () => {
   const dispatch = useRootDispatch<RootDispatch>()
   const {
     wallet: { address: walletAddress },
-    walkthrough: { run, step },
   } = useRootSelector((state: RootState) => state)
   const [referrerAddress, setReferrerAddress] = useState('')
   const [value, setValue] = useState('')
   const [visible, setVisible] = useState(false)
-  const query = new URLSearchParams(useLocation().search)
-  const paramReferrerAddress = query.get('referral') || ''
+  const { search } = useLocation()
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return setReferrerAddress('')
-    const address = await getReferrer(walletAddress)
-    if (account.isAddress(address)) return setReferrerAddress(address)
+    // Referrer existed
+    const currentReferrerAddress = await getReferrer(walletAddress)
+    if (account.isAddress(currentReferrerAddress))
+      return setReferrerAddress(currentReferrerAddress)
     setReferrerAddress('')
-    if (account.isAddress(paramReferrerAddress))
-      return setValue(paramReferrerAddress)
-  }, [paramReferrerAddress, walletAddress])
+    // Parse referrer address from url
+    const query = new URLSearchParams(search)
+    const referrerAddress = query.get('referral') || ''
+    if (account.isAddress(referrerAddress))
+      return setValue(base + referrerAddress)
+  }, [search, walletAddress])
 
   // For testing only
   const removeReferrerAddress = useCallback(async () => {
@@ -54,21 +57,18 @@ const EnterReferral = () => {
   const validLink = account.isAddress(referrerAddress)
 
   const onConfirm = useCallback(async () => {
-    if (run && step === 2)
-      await dispatch(
-        setWalkthrough({ type: WalkThroughType.Referral, step: 3 }),
-      )
     try {
       if (!value.startsWith(base)) throw new Error('Broken referral link')
-      const temp = value.split('/')
-      const address = temp.find((e) => account.isAddress(e))
-      await setReferrer(walletAddress, address)
+      const params = new URLSearchParams(new URL(value).search)
+      const referrerAddress = params.get('referral') || ''
+      await setReferrer(walletAddress, referrerAddress)
       setVisible(true)
-      return loadReferrerAddress()
+      await loadReferrerAddress()
+      return dispatch(setWalkthrough({ run: false }))
     } catch (er: any) {
       return window.notify({ type: 'warning', description: er.message })
     }
-  }, [run, step, dispatch, value, walletAddress, loadReferrerAddress])
+  }, [dispatch, value, walletAddress, loadReferrerAddress])
 
   useEffect(() => {
     loadReferrerAddress()

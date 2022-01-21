@@ -30,12 +30,12 @@ export const loadVisited = createAsyncThunk<
   { state: any }
 >(`${NAME}/loadVisited`, async (_, { getState }) => {
   const {
-    wallet: { address },
+    wallet: { address: walletAddress },
     flags: prevFlags,
   } = getState()
-  if (!account.isAddress(address))
+  if (!account.isAddress(walletAddress))
     throw new Error('Wallet is not connected yet')
-  const db = new PDB(address).createInstance('sentre')
+  const db = new PDB(walletAddress).createInstance('sentre')
   const visited = (await db.getItem('visited')) || false
   return { ...prevFlags, visited }
 })

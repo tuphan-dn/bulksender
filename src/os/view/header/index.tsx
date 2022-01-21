@@ -83,6 +83,11 @@ const Header = () => {
       if (!account.isAddress(walletAddress) || !Object.keys(register).length)
         return
       await dispatch(loadPage()) // Load page
+    })()
+  }, [dispatch, walletAddress, register])
+  useEffect(() => {
+    ;(async () => {
+      if (!account.isAddress(walletAddress)) return
       await dispatch(loadVisited()) // Load flags
     })()
   }, [dispatch, walletAddress, register])
