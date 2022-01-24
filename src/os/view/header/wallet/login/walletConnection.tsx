@@ -1,17 +1,11 @@
 import { useState } from 'react'
 
-import { Row, Col, Tooltip, Switch, Divider, Typography } from 'antd'
+import { Row, Col, Tooltip, Switch, Typography, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import Coin98 from './coin98'
-import Phantom from './phantom'
-import SolletWeb from './solletWeb'
-import Keystore from './keystore'
-import SecretKey from './secretKey'
-import Slope from './slope'
-import SolflareWeb from './solflareWeb'
-import SolflareExtension from './solflareExt'
+import OtherMethods from './otherMethods'
+import WalletMethods from './walletMethods'
 
-import { useRootSelector, RootState } from 'os/store'
+import { RootState, useRootSelector } from 'os/store'
 
 const WalletConnection = () => {
   const [advance, setAdvance] = useState(false)
@@ -19,62 +13,29 @@ const WalletConnection = () => {
 
   const spacing = width <= 992 ? 16 : 24
   return (
-    <Row gutter={[spacing, spacing]}>
+    <Row gutter={[spacing, spacing]} style={{ boxShadow: 'unset' }}>
       <Col span={24}>
-        <Typography.Title level={5}>Wallet Connection</Typography.Title>
-      </Col>
-      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <Coin98 />
-      </Col>
-      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <Phantom />
-      </Col>
-      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <SolletWeb />
-      </Col>
-      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <Slope />
-      </Col>
-      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <SolflareWeb />
-      </Col>
-      <Col xs={{ span: 12 }} sm={{ span: 8 }}>
-        <SolflareExtension />
-      </Col>
-
-      <Col span={24}>
-        <Row gutter={[16, 16]} align="middle">
+        <Row>
           <Col flex="auto">
-            <Divider plain orientation="left">
-              Other methods
-            </Divider>
+            <Typography.Title level={5}>Wallet Connection</Typography.Title>
           </Col>
           <Col>
-            <Tooltip title="Caution! These methods is not recommended due to lack of cryptographical protection. By switching the button, you agree that you will use this function at your own risk.">
-              <Switch
-                size="small"
-                checked={advance}
-                onChange={setAdvance}
-                checkedChildren={<IonIcon name="warning" />}
-                unCheckedChildren={<IonIcon name="help-circle" />}
-              />
-            </Tooltip>
+            <Space>
+              <Typography.Text>Other methods</Typography.Text>
+              <Tooltip title="Caution! These methods is not recommended due to lack of cryptographical protection. By switching the button, you agree that you will use this function at your own risk.">
+                <Switch
+                  size="small"
+                  checked={advance}
+                  onChange={setAdvance}
+                  checkedChildren={<IonIcon name="warning" />}
+                  unCheckedChildren={<IonIcon name="help-circle" />}
+                />
+              </Tooltip>
+            </Space>
           </Col>
         </Row>
       </Col>
-      <Col span={24}>
-        {advance ? (
-          <Row gutter={[16, 16]}>
-            <Col span={24}>
-              <Keystore />
-            </Col>
-            <Col span={24} style={{ height: 16 }} /> {/* Safe space */}
-            <Col span={24}>
-              <SecretKey />
-            </Col>
-          </Row>
-        ) : null}
-      </Col>
+      <Col span={24}>{advance ? <OtherMethods /> : <WalletMethods />} </Col>
     </Row>
   )
 }

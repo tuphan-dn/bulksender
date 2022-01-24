@@ -20,16 +20,17 @@ const SolletWeb = () => {
   return (
     <Card
       onClick={connect}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', borderRadius: 8, boxShadow: 'unset' }}
+      className="card-wallet-item"
       bordered={false}
       hoverable
-      bodyStyle={{ padding: '24px 16px' }}
+      bodyStyle={{ padding: '12px 16px' }}
     >
-      <Row gutter={[16, 16]} justify="center">
+      <Row gutter={[16, 16]} align="middle">
         <Col>
-          <Avatar size={64} shape="square" src={SOLLET} />
+          <Avatar size={32} shape="square" src={SOLLET} />
         </Col>
-        <Col span={24}>
+        <Col>
           <p style={{ margin: 0, textAlign: 'center' }}>Sollet Web</p>
         </Col>
       </Row>

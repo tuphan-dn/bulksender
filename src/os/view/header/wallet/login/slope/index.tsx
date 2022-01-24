@@ -27,16 +27,17 @@ const Slope = () => {
   return (
     <Card
       onClick={connect}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', borderRadius: 8, boxShadow: 'unset' }}
       bordered={false}
+      className="card-wallet-item"
       hoverable
-      bodyStyle={{ padding: '24px 16px' }}
+      bodyStyle={{ padding: '12px 16px' }}
     >
-      <Row gutter={[16, 16]} justify="center">
+      <Row gutter={[16, 16]} align="middle">
         <Col>
-          <Avatar size={64} shape="square" src={SLOPE} />
+          <Avatar size={32} shape="square" src={SLOPE} />
         </Col>
-        <Col span={24}>
+        <Col>
           <p style={{ margin: 0, textAlign: 'center' }}>Slope</p>
         </Col>
       </Row>
