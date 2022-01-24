@@ -16,17 +16,19 @@ import {
 } from 'os/store'
 import { getReferrer, setReferrer } from 'os/helpers/utils'
 import { setWalkthrough } from 'os/store/walkthrough.reducer'
+import ConfirmSuccessFully from './confirmSuccess'
 
 const {
   referral: { base },
 } = configs
 
 const Referral = () => {
+  const dispatch = useRootDispatch<RootDispatch>()
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
   const [referrerAddress, setReferrerAddress] = useState('')
-  const dispatch = useRootDispatch<RootDispatch>()
+  const [visible, setVisible] = useState(false)
 
   const loadReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return setReferrerAddress('')
@@ -46,6 +48,7 @@ const Referral = () => {
         const referrerAddress = params.get('referrer') || ''
         await setReferrer(walletAddress, referrerAddress)
         await loadReferrerAddress()
+        setVisible(true)
       } catch (er: any) {
         return window.notify({ type: 'warning', description: er.message })
       }
@@ -92,6 +95,10 @@ const Referral = () => {
       <Col span={24}>
         <GuideReferral referrerAddress={referrerAddress} />
       </Col>
+      <ConfirmSuccessFully
+        visible={visible}
+        onCancel={() => setVisible(false)}
+      />
     </Row>
   )
 }
