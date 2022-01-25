@@ -14,7 +14,7 @@ export const sol = (chainId: 101 | 102 | 103) => ({
 })
 
 // Pseudo SNTR info
-// Only for testnet and mainnet
+// Only for devnet and testnet
 export const sntr = (chainId: 102 | 103) => ({
   symbol: 'SNTR',
   name: 'Sentre',

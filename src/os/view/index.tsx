@@ -15,7 +15,7 @@ import Sync from 'os/view/sync'
 import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
 import Installer from 'os/view/installer'
-import Logger from './logger'
+import Logger from './actionCenter/referral/logger'
 
 import {
   useRootSelector,
