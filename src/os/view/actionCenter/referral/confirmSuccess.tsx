@@ -19,7 +19,7 @@ const ConfirmSuccessFully = ({
 
   const onDeposit = () => {
     onCancel()
-    history.push('/app/sen_lp')
+    history.push('/app/sen_swap')
     return dispatch(setVisibleActionCenter(false))
   }
 

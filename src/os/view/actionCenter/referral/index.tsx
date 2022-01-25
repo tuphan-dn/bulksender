@@ -6,6 +6,7 @@ import EnterReferral from './enterReferral'
 import ShareReferral from './shareReferral'
 import GuideReferral from './guideReferral'
 import YourReferral from './yourReferral'
+import ConfirmSuccessFully from './confirmSuccess'
 
 import configs from 'os/configs'
 import {
@@ -22,6 +23,7 @@ const {
 } = configs
 
 const Referral = () => {
+  const [visible, setVisible] = useState(false)
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
@@ -46,6 +48,7 @@ const Referral = () => {
         const referrerAddress = params.get('referrer') || ''
         await setReferrer(walletAddress, referrerAddress)
         await loadReferrerAddress()
+        setVisible(true)
       } catch (er: any) {
         return window.notify({ type: 'warning', description: er.message })
       }
@@ -92,6 +95,10 @@ const Referral = () => {
       <Col span={24}>
         <GuideReferral referrerAddress={referrerAddress} />
       </Col>
+      <ConfirmSuccessFully
+        visible={visible}
+        onCancel={() => setVisible(false)}
+      />
     </Row>
   )
 }
