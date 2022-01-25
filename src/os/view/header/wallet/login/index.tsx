@@ -1,5 +1,6 @@
 import { Modal } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
+import WalletConnection from './walletConnection'
 
 import {
   useRootDispatch,
@@ -8,7 +9,7 @@ import {
   RootDispatch,
 } from 'os/store'
 import { closeWallet } from 'os/store/wallet.reducer'
-import WalletConnection from './walletConnection'
+import './index.os.less'
 
 const Login = () => {
   const { visible } = useRootSelector((state: RootState) => state.wallet)
@@ -19,6 +20,7 @@ const Login = () => {
       onCancel={() => dispatch(closeWallet())}
       closeIcon={<IonIcon name="close" />}
       footer={null}
+      bodyStyle={{ padding: 24 }}
     >
       <WalletConnection />
     </Modal>

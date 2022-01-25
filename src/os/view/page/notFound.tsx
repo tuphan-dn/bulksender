@@ -1,13 +1,15 @@
-import { useHistory } from 'react-router'
+import { useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { Row, Col, Typography, Button } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 const NotFound = ({ appId }: { appId: string }) => {
   const history = useHistory()
-  const search = () => {
+
+  const search = useCallback(() => {
     return history.push(`/store?search=${appId}`)
-  }
+  }, [history, appId])
 
   return (
     <Row gutter={[16, 16]} justify="center">
@@ -19,11 +21,7 @@ const NotFound = ({ appId }: { appId: string }) => {
       </Col>
       <Col span={24} />
       <Col>
-        <Button
-          type="primary"
-          onClick={search}
-          icon={<IonIcon name="search-outline" />}
-        >
+        <Button onClick={search} icon={<IonIcon name="search-outline" />}>
           Search in the store
         </Button>
       </Col>

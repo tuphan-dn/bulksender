@@ -8,14 +8,14 @@ import SocialButton from './socialButton'
 import WalletConnection from '../header/wallet/login/walletConnection'
 
 import { useRootSelector, RootState } from 'os/store'
-import './index.less'
+import './index.os.less'
 
 const Welcome = () => {
   const history = useHistory()
-  const { address: walletAddress } = useRootSelector(
-    (state: RootState) => state.wallet,
-  )
-  const { width } = useRootSelector((state: RootState) => state.ui)
+  const {
+    wallet: { address: walletAddress },
+    ui: { width },
+  } = useRootSelector((state: RootState) => state)
 
   // Redirect callback
   useEffect(() => {

@@ -10,9 +10,9 @@ const Tooltip = ({
   step,
   tooltipProps,
   skipProps,
+  size,
 }: TooltipRenderProps) => {
   const dispatch = useRootDispatch<RootDispatch>()
-
   // Patch skipProps
   const { onClick, ...rest } = skipProps
   skipProps = {
@@ -33,15 +33,13 @@ const Tooltip = ({
             <Row gutter={[8, 8]} align="middle" wrap={false}>
               <Col flex="auto">
                 <div style={{ display: 'flex', flex: 1, alignItems: 'center' }}>
-                  {Array.from({ length: 4 }, (_, i) => i + 1).map((item) => (
+                  {Array.from({ length: size }, (_, i) => i + 1).map((item) => (
                     <div
                       key={item}
                       style={{
                         width: item === index + 1 ? 20 : 12,
                         height: 4,
-                        background: `${
-                          item === index + 1 ? '#F9575E' : '#FEDDDF'
-                        }`,
+                        background: item === index + 1 ? '#F9575E' : '#FEDDDF',
                         margin: '0px 4px',
                         borderRadius: 8,
                       }}

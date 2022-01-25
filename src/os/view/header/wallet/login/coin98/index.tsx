@@ -1,6 +1,6 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import COIN98 from 'os/static/images/coin98.png'
+import COIN98 from 'os/static/images/wallet/coin98.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { Coin98Wallet } from '../../lib'
@@ -27,16 +27,17 @@ const Coin98 = () => {
   return (
     <Card
       onClick={connect}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', borderRadius: 8, boxShadow: 'unset' }}
       bordered={false}
+      className="card-wallet-method"
       hoverable
-      bodyStyle={{ padding: '24px 16px' }}
+      bodyStyle={{ padding: '12px 16px' }}
     >
-      <Row gutter={[16, 16]} justify="center">
+      <Row gutter={[16, 16]} align="middle">
         <Col>
-          <Avatar size={64} shape="square" src={COIN98} />
+          <Avatar size={32} shape="square" src={COIN98} />
         </Col>
-        <Col span={24}>
+        <Col>
           <p style={{ margin: 0, textAlign: 'center' }}>Coin98</p>
         </Col>
       </Row>

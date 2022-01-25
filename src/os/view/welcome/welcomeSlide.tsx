@@ -1,15 +1,13 @@
-import { Fragment } from 'react'
-
 import { Card, Carousel, Col, Image, Row, Space, Typography } from 'antd'
 
 import { DataSlide } from './dataSlide'
 
 const WelcomeSlide = () => {
   return (
-    <Card className="slide-container" hoverable={false} bordered={false}>
+    <Card className="slide-container" bordered={false}>
       <Carousel autoplay>
-        {DataSlide.map(({ title, logo, content }) => (
-          <Fragment key={title}>
+        {DataSlide.map(({ title, logo, content }, i) => (
+          <span key={i}>
             <Row gutter={[24, 24]} justify="center">
               <Col>
                 <Space direction="vertical" size={24} align="center">
@@ -21,7 +19,7 @@ const WelcomeSlide = () => {
                 {content}
               </Col>
             </Row>
-          </Fragment>
+          </span>
         ))}
       </Carousel>
     </Card>
