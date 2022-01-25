@@ -42,7 +42,7 @@ const EnterReferral = ({
       <Col flex="auto">
         <Input
           size="large"
-          placeholder="Invitaion link"
+          placeholder="Invitation link"
           value={existed ? base + referrerAddress : value}
           onChange={(e) => setValue(e.target.value)}
           readOnly={existed}
