@@ -58,7 +58,7 @@ const Logger = () => {
       'validated_swap_transaction',
     )) || { txIds: [], amount: 0 }
     if (!swapLogs.txIds.length && swapLogs.amount < SWAP_THRESHOLD) return
-    const params = {
+    const params: ConfirmReferralParam = {
       signatures: swapLogs.txIds,
       address: walletAddress,
       referrer: referrerAddress,

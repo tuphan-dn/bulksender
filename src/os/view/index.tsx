@@ -15,7 +15,7 @@ import Sync from 'os/view/sync'
 import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
 import Installer from 'os/view/installer'
-import Logger from './actionCenter/referral/logger'
+import ReferralLogger from './actionCenter/referral/logger'
 
 import {
   useRootSelector,
@@ -58,7 +58,7 @@ const View = () => {
   }, [initPage])
   // Load flags
   const initFlags = useCallback(async () => {
-    if (account.isAddress(walletAddress)) return
+    if (!account.isAddress(walletAddress)) return
     await dispatch(loadVisited())
   }, [dispatch, walletAddress])
   useEffect(() => {
@@ -105,7 +105,7 @@ const View = () => {
       <Walkthrough />
       <Watcher />
       <Installer />
-      <Logger />
+      <ReferralLogger />
     </Layout>
   )
 }
