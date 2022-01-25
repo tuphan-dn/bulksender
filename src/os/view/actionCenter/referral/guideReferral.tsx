@@ -30,10 +30,10 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
       <Col span={24}>
         <Steps size="small" current={currentStep} direction="vertical">
           <Steps.Step
-            title={'Connect wallet to join the Sentre'}
+            title={'Connect wallet to join Sentre'}
             description={
               <Typography.Text type="secondary">
-                Launch <Typography.Text>hub.sentre.io</Typography.Text> and then
+                Launch <Typography.Text>hub.sentre.io</Typography.Text> then
                 select a wallet to connect.
               </Typography.Text>
             }
@@ -61,10 +61,10 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
             key={2}
           />
           <Steps.Step
-            title={'Using Sen Swap application'}
+            title={'Use Sen Swap application'}
             description={
               <Typography.Text type="secondary">
-                Swap more than <Typography.Text>100 USD</Typography.Text> to
+                Swap at least <Typography.Text>100 USD</Typography.Text> to
                 complete referral and claim reward (* To be qualified to receive
                 the reward, you need to mint SNTR beforehand).
               </Typography.Text>
