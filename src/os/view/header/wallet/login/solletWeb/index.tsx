@@ -21,7 +21,7 @@ const SolletWeb = () => {
     <Card
       onClick={connect}
       style={{ cursor: 'pointer', borderRadius: 8, boxShadow: 'unset' }}
-      className="card-wallet-item"
+      className="card-wallet-method"
       bordered={false}
       hoverable
       bodyStyle={{ padding: '12px 16px' }}

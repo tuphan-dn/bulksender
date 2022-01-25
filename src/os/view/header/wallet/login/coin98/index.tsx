@@ -29,7 +29,7 @@ const Coin98 = () => {
       onClick={connect}
       style={{ cursor: 'pointer', borderRadius: 8, boxShadow: 'unset' }}
       bordered={false}
-      className="card-wallet-item"
+      className="card-wallet-method"
       hoverable
       bodyStyle={{ padding: '12px 16px' }}
     >

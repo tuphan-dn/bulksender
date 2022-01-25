@@ -21,7 +21,7 @@ const Login = () => {
       onCancel={() => dispatch(closeWallet())}
       closeIcon={<IonIcon name="close" />}
       footer={null}
-      bodyStyle={{ padding: 24, paddingTop: 50 }}
+      bodyStyle={{ padding: 24 }}
     >
       <WalletConnection />
     </Modal>
