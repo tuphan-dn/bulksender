@@ -10,6 +10,8 @@ import {
 import { closeWallet } from 'os/store/wallet.reducer'
 import WalletConnection from './walletConnection'
 
+import './index.os.less'
+
 const Login = () => {
   const { visible } = useRootSelector((state: RootState) => state.wallet)
   const dispatch = useRootDispatch<RootDispatch>()
@@ -19,6 +21,7 @@ const Login = () => {
       onCancel={() => dispatch(closeWallet())}
       closeIcon={<IonIcon name="close" />}
       footer={null}
+      bodyStyle={{ padding: 24 }}
     >
       <WalletConnection />
     </Modal>
