@@ -11,14 +11,16 @@ export type GuideReferralProps = { referrerAddress?: string }
 const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
   const {
     wallet: { address: walletAddress },
+    flags: { referred },
   } = useRootSelector((state: RootState) => state)
 
   const currentStep = useMemo(() => {
     let step = 0
     if (account.isAddress(walletAddress)) step = 1
     if (account.isAddress(referrerAddress)) step = 2
+    if (referred) step = 3
     return step
-  }, [referrerAddress, walletAddress])
+  }, [referrerAddress, referred, walletAddress])
 
   return (
     <Row gutter={[8, 8]}>
@@ -38,7 +40,7 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
             key={1}
           />
           <Steps.Step
-            title={'Enter referral link'}
+            title={'Enter invitation link'}
             description={
               <Typography.Text type="secondary">
                 Click the icon{' '}
@@ -50,7 +52,7 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
                 <Typography.Text>User</Typography.Text>{' '}
                 <IonIcon name="chevron-forward-outline" />{' '}
                 <Typography.Text>
-                  Enter the referral link or scan the QR code
+                  Enter the invitation link or scan the QR code
                 </Typography.Text>{' '}
                 <IonIcon name="chevron-forward-outline" />{' '}
                 <Typography.Text>Confirm</Typography.Text>
@@ -59,11 +61,12 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
             key={2}
           />
           <Steps.Step
-            title={'Deposit to Sentre pools'}
+            title={'Using Sen Swap application'}
             description={
               <Typography.Text type="secondary">
-                Deposit more than <Typography.Text>1000 SNTR</Typography.Text>{' '}
-                to your wallet in <Typography.Text>7 days</Typography.Text>
+                Swap more than <Typography.Text>100 USD</Typography.Text> to
+                complete referral and claim reward (* To be qualified to receive
+                the reward, you need to mint SNTR beforehand).
               </Typography.Text>
             }
             key={3}

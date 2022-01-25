@@ -4,12 +4,9 @@ import { account } from '@senswap/sen-js'
 
 import { Button, Col, Input, Row, Typography, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import ConfirmSuccessFully from './confirmSuccess'
 
 import configs from 'os/configs'
-import { RootState, useRootSelector } from 'os/store'
 import { shortenAddress, explorer } from 'shared/util'
-import PDB from 'shared/pdb'
 
 const {
   referral: { base },
@@ -24,11 +21,7 @@ const EnterReferral = ({
   referrerAddress = '',
   onConfirm = () => {},
 }: EnterReferralProps) => {
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
   const [value, setValue] = useState('')
-  const [visible, setVisible] = useState(false)
   const { search } = useLocation()
   const query = new URLSearchParams(search)
   const referrer = query.get('referrer') || ''
@@ -37,14 +30,6 @@ const EnterReferral = ({
   const parseReferrerAddress = useCallback(async () => {
     if (account.isAddress(referrer)) return setValue(base + referrer)
   }, [referrer])
-
-  // For testing only
-  const removeReferrerAddress = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    await db.removeItem('referrerAddress')
-    return window.location.reload()
-  }, [walletAddress])
 
   const existed = account.isAddress(referrerAddress)
 
@@ -57,7 +42,7 @@ const EnterReferral = ({
       <Col flex="auto">
         <Input
           size="large"
-          placeholder="Referral link"
+          placeholder="Invitaion link"
           value={existed ? base + referrerAddress : value}
           onChange={(e) => setValue(e.target.value)}
           readOnly={existed}
@@ -78,11 +63,10 @@ const EnterReferral = ({
       <Col span={24} style={{ fontSize: 12 }}>
         {!existed ? (
           <Typography.Text type="secondary">
-            Enter the referral link to receive the reward for both.
+            Enter the invitation link to receive the reward for both.
           </Typography.Text>
         ) : (
           <Space size={4}>
-            <IonIcon name="close" onClick={removeReferrerAddress} />
             <Typography.Text type="secondary">
               You was invited by
             </Typography.Text>
@@ -95,10 +79,6 @@ const EnterReferral = ({
           </Space>
         )}
       </Col>
-      <ConfirmSuccessFully
-        visible={visible}
-        onCancel={() => setVisible(false)}
-      />
     </Row>
   )
 }

@@ -15,7 +15,7 @@ import Sync from 'os/view/sync'
 import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
 import Installer from 'os/view/installer'
-import Logger from './logger'
+import ReferralLogger from './actionCenter/referral/logger'
 
 import {
   useRootSelector,
@@ -24,7 +24,7 @@ import {
   RootDispatch,
 } from 'os/store'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
-import { loadVisited } from 'os/store/flags.reducer'
+import { loadReferred, loadVisited } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
@@ -58,8 +58,9 @@ const View = () => {
   }, [initPage])
   // Load flags
   const initFlags = useCallback(async () => {
-    if (account.isAddress(walletAddress)) return
+    if (!account.isAddress(walletAddress)) return
     await dispatch(loadVisited())
+    await dispatch(loadReferred())
   }, [dispatch, walletAddress])
   useEffect(() => {
     initFlags()
@@ -105,7 +106,7 @@ const View = () => {
       <Walkthrough />
       <Watcher />
       <Installer />
-      <Logger />
+      <ReferralLogger />
     </Layout>
   )
 }

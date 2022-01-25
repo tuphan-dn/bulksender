@@ -1,23 +1,27 @@
-import { Button, Col, Image, Modal, Row, Space, Typography } from 'antd'
+import { useCallback } from 'react'
+
+import { Button, Col, Image, Modal, Row, Space, Typography, Avatar } from 'antd'
 
 import iconSuccessFully from 'os/static/images/icon-dc-referral.svg'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 import { RootDispatch, useRootDispatch } from 'os/store'
-import { MintAvatar, MintSymbol } from 'shared/antd/mint'
+import { sntr } from 'os/providers/tokenProvider/supplementary'
 
-const ReferralSuccessFully = ({
-  visible = false,
-  onCancel = () => {},
-}: {
+export type ReferralSuccessProps = {
   visible?: boolean
   onCancel?: (visible: boolean) => void
-}) => {
+}
+
+const ReferralSuccess = ({
+  visible = false,
+  onCancel = () => {},
+}: ReferralSuccessProps) => {
   const dispatch = useRootDispatch<RootDispatch>()
 
-  const onGotIt = () => {
+  const onGotIt = useCallback(() => {
     onCancel(false)
     dispatch(setVisibleActionCenter(false))
-  }
+  }, [dispatch, onCancel])
 
   return (
     <Modal
@@ -45,11 +49,15 @@ const ReferralSuccessFully = ({
                 color: '#F9575E',
               }}
             >
-              1
+              10
             </Typography.Text>
             <Space>
-              <MintAvatar mintAddress={''} />
-              <MintSymbol mintAddress={''} />
+              <Avatar
+                alt="sntr"
+                size={24}
+                src={sntr(102).logoURI} /* The nerwork doesn't matter */
+              />
+              <Typography.Text>SNTR</Typography.Text>
             </Space>
           </Space>
         </Col>
@@ -62,4 +70,4 @@ const ReferralSuccessFully = ({
     </Modal>
   )
 }
-export default ReferralSuccessFully
+export default ReferralSuccess

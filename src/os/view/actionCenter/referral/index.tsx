@@ -6,6 +6,7 @@ import EnterReferral from './enterReferral'
 import ShareReferral from './shareReferral'
 import GuideReferral from './guideReferral'
 import YourReferral from './yourReferral'
+import ConfirmSuccess from './confirmSuccess'
 
 import configs from 'os/configs'
 import {
@@ -22,6 +23,7 @@ const {
 } = configs
 
 const Referral = () => {
+  const [visible, setVisible] = useState(false)
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
@@ -41,11 +43,12 @@ const Referral = () => {
     async (link) => {
       await dispatch(setWalkthrough({ run: false }))
       try {
-        if (!link.startsWith(base)) throw new Error('Broken referral link')
+        if (!link.startsWith(base)) throw new Error('Broken invitation link')
         const params = new URLSearchParams(new URL(link).search)
         const referrerAddress = params.get('referrer') || ''
         await setReferrer(walletAddress, referrerAddress)
         await loadReferrerAddress()
+        setVisible(true)
       } catch (er: any) {
         return window.notify({ type: 'warning', description: er.message })
       }
@@ -62,7 +65,7 @@ const Referral = () => {
       <Col span={24}>
         <Row gutter={[8, 8]}>
           <Col span={24}>
-            <Typography.Text>Your referral link</Typography.Text>
+            <Typography.Text>Your invitation link</Typography.Text>
           </Col>
           <Col span={24}>
             <YourReferral />
@@ -92,6 +95,7 @@ const Referral = () => {
       <Col span={24}>
         <GuideReferral referrerAddress={referrerAddress} />
       </Col>
+      <ConfirmSuccess visible={visible} onCancel={() => setVisible(false)} />
     </Row>
   )
 }
