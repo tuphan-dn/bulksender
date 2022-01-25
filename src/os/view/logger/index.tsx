@@ -1,64 +1,77 @@
-import { Fragment, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
+import axios from 'axios'
 
 import { useRootSelector, RootState } from 'os/store'
-import configs from 'os/configs'
 import PDB from 'shared/pdb'
+import { getReferrer } from 'os/helpers/utils'
+
+import configs from 'os/configs'
+import ReferralSuccessFully from '../actionCenter/referral/referralSuccess'
 
 const {
-  sol: { sntrAddress },
+  stat: { baseURL: statURL },
 } = configs
+const api = axios.create({
+  baseURL: statURL,
+  timeout: 60000,
+})
+export enum EndPoint {
+  endpointReferral = 'public/api/v1/referral',
+}
+export const SWAP_SUCCESS_RANGE = 100
 
-const THRESHOLD = BigInt(1000 * 10 ** 9)
+type ConfirmReferralParam = {
+  signatures: string[]
+  address: string
+  referrer: string
+}
 
 const Logger = () => {
   const {
-    accounts,
     wallet: { address: walletAddress },
+    accounts,
   } = useRootSelector((state: RootState) => state)
-  const [accountAddress, setAccountAddress] = useState('')
+  const [visible, setVisible] = useState(false)
 
-  const getAccountAddress = useCallback(async () => {
-    const {
-      sentre: { splt },
-    } = window
-    if (!account.isAddress(walletAddress)) return
-    const accountAddress = await splt.deriveAssociatedAddress(
-      walletAddress,
-      sntrAddress,
-    )
-    if (account.isAddress(accountAddress))
-      return setAccountAddress(accountAddress)
-  }, [walletAddress])
+  const confirmReferralSuccess = useCallback(
+    async (data: ConfirmReferralParam) => {
+      try {
+        const db = new PDB(walletAddress).createInstance('sentre')
+        const validConfirmReferrer = await db.getItem(data.referrer)
+        if (validConfirmReferrer) return
+        const res = await api.post(EndPoint.endpointReferral, data)
+        await db.setItem(res.data.referrer, res)
+        setVisible(true)
+      } catch (er) {
+        console.log(er)
+      }
+    },
+    [walletAddress],
+  )
 
   const watch = useCallback(async () => {
-    if (!account.isAddress(walletAddress) || !account.isAddress(accountAddress))
-      return
-    const { amount } = accounts[accountAddress] || {}
-    if (amount === undefined) return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    const prevLogs: { date: number; amount: string } = (await db.getItem(
-      'logs',
-    )) || { date: 0, amount: '0' }
-    const prevAmount = BigInt(prevLogs.amount)
-    if (amount < THRESHOLD) return db.removeItem('logs')
-    if (prevAmount < THRESHOLD) {
-      return db.setItem('logs', {
-        date: Number(new Date()),
-        amount: String(amount),
-      })
+    if (!account.isAddress(walletAddress) || !accounts) return
+    const db = new PDB(walletAddress).createInstance('sen_swap')
+    const referrerAddress = await getReferrer(walletAddress)
+    if (!account.isAddress(referrerAddress)) return
+    const swapLogs: { txId: string[]; amount: number } = (await db.getItem(
+      'validate_swap',
+    )) || { txId: [], amount: 0 }
+    if (!swapLogs.txId.length && swapLogs.amount < SWAP_SUCCESS_RANGE) return
+    const params = {
+      signatures: swapLogs.txId,
+      address: walletAddress,
+      referrer: referrerAddress,
     }
-  }, [accountAddress, accounts, walletAddress])
-
-  useEffect(() => {
-    getAccountAddress()
-  }, [getAccountAddress])
+    await confirmReferralSuccess(params)
+  }, [accounts, confirmReferralSuccess, walletAddress])
 
   useEffect(() => {
     watch()
   }, [watch])
 
-  return <Fragment />
+  return <ReferralSuccessFully visible={visible} onCancel={setVisible} />
 }
 
 export default Logger
