@@ -6,9 +6,7 @@ import { Button, Col, Input, Row, Typography, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import configs from 'os/configs'
-import { RootState, useRootSelector } from 'os/store'
 import { shortenAddress, explorer } from 'shared/util'
-import PDB from 'shared/pdb'
 
 const {
   referral: { base },
@@ -23,9 +21,6 @@ const EnterReferral = ({
   referrerAddress = '',
   onConfirm = () => {},
 }: EnterReferralProps) => {
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
   const [value, setValue] = useState('')
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -35,17 +30,6 @@ const EnterReferral = ({
   const parseReferrerAddress = useCallback(async () => {
     if (account.isAddress(referrer)) return setValue(base + referrer)
   }, [referrer])
-
-  // For testing only
-  const removeReferrerAddress = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return
-    const sentreDB = new PDB(walletAddress).createInstance('sentre')
-    await sentreDB.removeItem('referred')
-    await sentreDB.removeItem('referrerAddress')
-    const swapDB = new PDB(walletAddress).createInstance('sen_swap')
-    await swapDB.removeItem('validated_swap_transaction')
-    return window.location.reload()
-  }, [walletAddress])
 
   const existed = account.isAddress(referrerAddress)
 
@@ -83,7 +67,6 @@ const EnterReferral = ({
           </Typography.Text>
         ) : (
           <Space size={4}>
-            <IonIcon name="close" onClick={removeReferrerAddress} />
             <Typography.Text type="secondary">
               You was invited by
             </Typography.Text>
