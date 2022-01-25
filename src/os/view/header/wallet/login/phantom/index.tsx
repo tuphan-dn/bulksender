@@ -1,6 +1,6 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import PHANTOM from 'os/static/images/phantom.png'
+import PHANTOM from 'os/static/images/wallet/phantom.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { PhantomWallet } from '../../lib'

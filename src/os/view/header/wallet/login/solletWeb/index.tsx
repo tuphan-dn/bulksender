@@ -1,6 +1,6 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import SOLLET from 'os/static/images/sollet.png'
+import SOLLET from 'os/static/images/wallet/sollet.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SolletWallet } from '../../lib'

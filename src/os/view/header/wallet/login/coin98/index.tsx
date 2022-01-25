@@ -1,6 +1,6 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import COIN98 from 'os/static/images/coin98.png'
+import COIN98 from 'os/static/images/wallet/coin98.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { Coin98Wallet } from '../../lib'

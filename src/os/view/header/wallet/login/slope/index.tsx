@@ -1,6 +1,6 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import SLOPE from 'os/static/images/slope.svg'
+import SLOPE from 'os/static/images/wallet/slope.svg'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SlopeWallet } from '../../lib'

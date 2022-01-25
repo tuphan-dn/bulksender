@@ -1,6 +1,6 @@
 import { Row, Card, Col, Avatar } from 'antd'
 
-import SOLFLARE from 'os/static/images/solflare.png'
+import SOLFLARE from 'os/static/images/wallet/solflare.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
 import { SolflareWallet } from '../../lib'
