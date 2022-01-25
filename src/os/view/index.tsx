@@ -24,7 +24,7 @@ import {
   RootDispatch,
 } from 'os/store'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
-import { loadVisited } from 'os/store/flags.reducer'
+import { loadReferred, loadVisited } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
@@ -60,6 +60,7 @@ const View = () => {
   const initFlags = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return
     await dispatch(loadVisited())
+    await dispatch(loadReferred())
   }, [dispatch, walletAddress])
   useEffect(() => {
     initFlags()

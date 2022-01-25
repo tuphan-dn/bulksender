@@ -6,28 +6,31 @@ import IonIcon from 'shared/antd/ionicon'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'
 import { RootDispatch, useRootDispatch } from 'os/store'
 import iconSuccessFully from 'os/static/images/icon-cs-referral.svg'
+import { useCallback } from 'react'
 
-const ConfirmSuccessFully = ({
-  visible = false,
-  onCancel = () => {},
-}: {
+export type ConfirmSuccessProps = {
   visible?: boolean
   onCancel?: () => void
-}) => {
+}
+
+const ConfirmSuccess = ({
+  visible = false,
+  onCancel = () => {},
+}: ConfirmSuccessProps) => {
   const history = useHistory()
   const dispatch = useRootDispatch<RootDispatch>()
 
-  const onDeposit = () => {
+  const onSwap = useCallback(async () => {
     onCancel()
-    history.push('/app/sen_swap')
-    return dispatch(setVisibleActionCenter(false))
-  }
+    await dispatch(setVisibleActionCenter(false))
+    return history.push('/app/sen_swap')
+  }, [dispatch, history, onCancel])
 
   return (
     <Modal
       visible={visible}
       onCancel={onCancel}
-      footer={false}
+      footer={null}
       centered
       closeIcon={<IonIcon name="close" />}
     >
@@ -50,12 +53,12 @@ const ConfirmSuccessFully = ({
           </Space>
         </Col>
         <Col>
-          <Button type="primary" onClick={onDeposit}>
-            Deposit
+          <Button type="primary" onClick={onSwap}>
+            Swap Now
           </Button>
         </Col>
       </Row>
     </Modal>
   )
 }
-export default ConfirmSuccessFully
+export default ConfirmSuccess

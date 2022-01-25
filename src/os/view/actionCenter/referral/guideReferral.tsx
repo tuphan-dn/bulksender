@@ -1,40 +1,26 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { account } from '@senswap/sen-js'
 
 import { Col, Row, Typography, Steps } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import { RootState, useRootSelector } from 'os/store'
-import PDB from 'shared/pdb'
 
 export type GuideReferralProps = { referrerAddress?: string }
 
 const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
   const {
     wallet: { address: walletAddress },
-    accounts,
+    flags: { referred },
   } = useRootSelector((state: RootState) => state)
-  const [validReferrer, setValidReferrer] = useState(false)
-
-  const getValidReferrer = useCallback(async () => {
-    if (!accounts) return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    const validReferrer = await db.getItem(referrerAddress)
-    if (validReferrer) return setValidReferrer(true)
-    return setValidReferrer(false)
-  }, [accounts, referrerAddress, walletAddress])
 
   const currentStep = useMemo(() => {
     let step = 0
     if (account.isAddress(walletAddress)) step = 1
     if (account.isAddress(referrerAddress)) step = 2
-    if (validReferrer) step = 3
+    if (referred) step = 3
     return step
-  }, [referrerAddress, validReferrer, walletAddress])
-
-  useEffect(() => {
-    getValidReferrer()
-  }, [getValidReferrer])
+  }, [referrerAddress, referred, walletAddress])
 
   return (
     <Row gutter={[8, 8]}>
@@ -78,9 +64,9 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
             title={'Using Sen Swap application'}
             description={
               <Typography.Text type="secondary">
-                Swap to any token more than{' '}
-                <Typography.Text>100 USD</Typography.Text> to finish referral
-                and claim reward.
+                Swap more than <Typography.Text>100 USD</Typography.Text> to
+                complete referral and claim reward (* To be qualified to receive
+                the reward, you need to mint SNTR beforehand).
               </Typography.Text>
             }
             key={3}

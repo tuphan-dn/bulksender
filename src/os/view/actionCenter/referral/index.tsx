@@ -6,7 +6,7 @@ import EnterReferral from './enterReferral'
 import ShareReferral from './shareReferral'
 import GuideReferral from './guideReferral'
 import YourReferral from './yourReferral'
-import ConfirmSuccessFully from './confirmSuccess'
+import ConfirmSuccess from './confirmSuccess'
 
 import configs from 'os/configs'
 import {
@@ -95,10 +95,7 @@ const Referral = () => {
       <Col span={24}>
         <GuideReferral referrerAddress={referrerAddress} />
       </Col>
-      <ConfirmSuccessFully
-        visible={visible}
-        onCancel={() => setVisible(false)}
-      />
+      <ConfirmSuccess visible={visible} onCancel={() => setVisible(false)} />
     </Row>
   )
 }

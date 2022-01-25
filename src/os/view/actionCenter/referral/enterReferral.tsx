@@ -39,8 +39,11 @@ const EnterReferral = ({
   // For testing only
   const removeReferrerAddress = useCallback(async () => {
     if (!account.isAddress(walletAddress)) return
-    const db = new PDB(walletAddress).createInstance('sentre')
-    await db.removeItem('referrerAddress')
+    const sentreDB = new PDB(walletAddress).createInstance('sentre')
+    await sentreDB.removeItem('referred')
+    await sentreDB.removeItem('referrerAddress')
+    const swapDB = new PDB(walletAddress).createInstance('sen_swap')
+    await swapDB.removeItem('validated_swap_transaction')
     return window.location.reload()
   }, [walletAddress])
 
