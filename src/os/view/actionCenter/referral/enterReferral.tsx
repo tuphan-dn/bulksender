@@ -58,7 +58,7 @@ const EnterReferral = ({
       <Col flex="auto">
         <Input
           size="large"
-          placeholder="Referral link"
+          placeholder="Invitaion link"
           value={existed ? base + referrerAddress : value}
           onChange={(e) => setValue(e.target.value)}
           readOnly={existed}
@@ -79,7 +79,7 @@ const EnterReferral = ({
       <Col span={24} style={{ fontSize: 12 }}>
         {!existed ? (
           <Typography.Text type="secondary">
-            Enter the referral link to receive the reward for both.
+            Enter the invitation link to receive the reward for both.
           </Typography.Text>
         ) : (
           <Space size={4}>

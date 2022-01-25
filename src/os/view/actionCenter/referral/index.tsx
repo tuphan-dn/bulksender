@@ -43,7 +43,7 @@ const Referral = () => {
     async (link) => {
       await dispatch(setWalkthrough({ run: false }))
       try {
-        if (!link.startsWith(base)) throw new Error('Broken referral link')
+        if (!link.startsWith(base)) throw new Error('Broken invitation link')
         const params = new URLSearchParams(new URL(link).search)
         const referrerAddress = params.get('referrer') || ''
         await setReferrer(walletAddress, referrerAddress)
@@ -65,7 +65,7 @@ const Referral = () => {
       <Col span={24}>
         <Row gutter={[8, 8]}>
           <Col span={24}>
-            <Typography.Text>Your referral link</Typography.Text>
+            <Typography.Text>Your invitation link</Typography.Text>
           </Col>
           <Col span={24}>
             <YourReferral />

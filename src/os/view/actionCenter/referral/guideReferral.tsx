@@ -40,7 +40,7 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
             key={1}
           />
           <Steps.Step
-            title={'Enter referral link'}
+            title={'Enter invitation link'}
             description={
               <Typography.Text type="secondary">
                 Click the icon{' '}
@@ -52,7 +52,7 @@ const GuideReferral = ({ referrerAddress = '' }: GuideReferralProps) => {
                 <Typography.Text>User</Typography.Text>{' '}
                 <IonIcon name="chevron-forward-outline" />{' '}
                 <Typography.Text>
-                  Enter the referral link or scan the QR code
+                  Enter the invitation link or scan the QR code
                 </Typography.Text>{' '}
                 <IonIcon name="chevron-forward-outline" />{' '}
                 <Typography.Text>Confirm</Typography.Text>
