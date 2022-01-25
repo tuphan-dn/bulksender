@@ -4,6 +4,7 @@ import { account } from '@senswap/sen-js'
 
 import { Button, Col, Input, Row, Typography, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
+import ConfirmSuccessFully from './confirmSuccess'
 
 import configs from 'os/configs'
 import { RootState, useRootSelector } from 'os/store'
@@ -27,6 +28,7 @@ const EnterReferral = ({
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
   const [value, setValue] = useState('')
+  const [visible, setVisible] = useState(false)
   const { search } = useLocation()
   const query = new URLSearchParams(search)
   const referrer = query.get('referrer') || ''
@@ -93,6 +95,10 @@ const EnterReferral = ({
           </Space>
         )}
       </Col>
+      <ConfirmSuccessFully
+        visible={visible}
+        onCancel={() => setVisible(false)}
+      />
     </Row>
   )
 }
