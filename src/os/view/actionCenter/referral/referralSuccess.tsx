@@ -39,7 +39,8 @@ const ReferralSuccess = ({
           <Space size={4} direction="vertical">
             <Typography.Title level={3}>Congratulation!</Typography.Title>
             <Typography.Text type="secondary">
-              You have a reward.
+              You have a reward. The reward will be distributed periodically by
+              the team.
             </Typography.Text>
             <Typography.Text
               style={{
