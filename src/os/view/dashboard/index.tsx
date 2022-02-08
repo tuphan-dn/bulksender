@@ -9,7 +9,7 @@ const Dashboard = () => {
   } = useRootSelector((state: RootState) => state)
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[24, 24]} justify="center">
       <Col span={24} className="sentre-col-container">
         <Row gutter={[24, 24]}>
           {widgetIds.map((appId) =>
