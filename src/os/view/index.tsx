@@ -93,7 +93,7 @@ const View = () => {
                 path="/dashboard/:pageId?"
                 component={Dashboard}
               />
-              <PrivateRoute exact path="/app/:appId" component={Page} />
+              <PrivateRoute path="/app/:appId" component={Page} />
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />
               <PrivateRoute exact path="/sync" component={Sync} />
