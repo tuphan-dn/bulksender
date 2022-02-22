@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Welcome
-        run: echo Start deploying
+        run: echo Start deploying SenHub
+      - name: Deploy static to Render
+        run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
       - name: Checkout git
         uses: actions/checkout@v2
       - name: Install dependencies
