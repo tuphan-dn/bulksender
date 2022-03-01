@@ -10,6 +10,7 @@ import SolflareWeb from './solflareWeb'
 import SolletWeb from './solletWeb'
 import KeyStore from './keystore'
 import SecretKey from './secretKey'
+import CloverWallet from './clover'
 
 const SecureMethods = () => {
   return (
@@ -31,6 +32,9 @@ const SecureMethods = () => {
       </Col>
       <Col span={24}>
         <SolflareExtension />
+      </Col>
+      <Col span={24}>
+        <CloverWallet />
       </Col>
     </Row>
   )
