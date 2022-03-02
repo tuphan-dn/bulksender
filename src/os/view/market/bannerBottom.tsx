@@ -2,20 +2,20 @@ import { Card, Col, Row } from 'antd'
 
 import { useRootSelector, RootState } from 'os/store'
 
-import storePanel4 from 'os/static/images/store-panel4.png'
-import storePanel5 from 'os/static/images/store-panel5.png'
+import storePanel1 from 'os/static/images/store-bpanel1.png'
+import storePanel2 from 'os/static/images/store-bpanel2.png'
 
 const PAGE_PADDING = 20
 const ELEMENT_PADDING = 24
 const HEIGHT_RATIO = 1.777777
 const PANELS = [
   {
-    src: storePanel4,
+    src: storePanel1,
     redirect:
       'https://sentre.medium.com/sentre-to-change-its-token-name-to-sntr-532af58fab31',
   },
   {
-    src: storePanel5,
+    src: storePanel2,
     redirect:
       'https://sentre.medium.com/sentre-to-repay-users-with-a-retroactive-airdrop-event-f7fbb70ae4ca',
   },
