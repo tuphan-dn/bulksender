@@ -25,6 +25,7 @@ import {
   SlopeWallet,
   SolflareWallet,
   SolflareExtensionWallet,
+  CloverWallet,
 } from './lib'
 
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
@@ -43,6 +44,8 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
     if (walletType === 'Slope') return new SlopeWallet()
     if (walletType === 'SolflareWeb') return new SolflareWallet()
     if (walletType === 'SolflareExtension') return new SolflareExtensionWallet()
+    if (walletType === 'Clover') return new CloverWallet()
+
     return null
   }
 
