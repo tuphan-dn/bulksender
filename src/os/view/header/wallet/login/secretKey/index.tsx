@@ -33,7 +33,7 @@ const SecretKey = () => {
   }
 
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[24, 24]}>
       <Col span={24}>
         <Space align="center">
           <IonIcon name="key" />

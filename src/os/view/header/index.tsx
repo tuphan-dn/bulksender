@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
@@ -15,9 +14,7 @@ import {
   RootDispatch,
   RootState,
 } from 'os/store'
-import { loadRegister, loadPage } from 'os/store/page.reducer'
-import { setWalkthrough } from 'os/store/walkthrough.reducer'
-import { loadVisited } from 'os/store/flags.reducer'
+import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { net } from 'shared/runtime'
 
 type NavButtonProps = {
@@ -48,38 +45,23 @@ const Header = () => {
     wallet: { address: walletAddress },
     ui: { width, theme },
     walkthrough: { run, step },
-    page: { register },
   } = useRootSelector((state: RootState) => state)
 
   const onDashboard = async () => {
-    if (run && step === 3) await dispatch(setWalkthrough({ step: 4 }))
+    if (run && step === 3)
+      await dispatch(
+        setWalkthrough({ type: WalkThroughType.NewComer, step: 4 }),
+      )
     return history.push('/dashboard')
   }
 
   const onStore = async () => {
-    if (run && step === 0) await dispatch(setWalkthrough({ step: 1 }))
+    if (run && step === 0)
+      await dispatch(
+        setWalkthrough({ type: WalkThroughType.NewComer, step: 1 }),
+      )
     return history.push('/store')
   }
-
-  /**
-   * Init the system
-   * - Load DApp register
-   * - Load page
-   * - Set flags
-   */
-  useEffect(() => {
-    ;(async () => {
-      await dispatch(loadRegister()) // Load DApp register
-    })()
-  }, [dispatch])
-  useEffect(() => {
-    ;(async () => {
-      if (!account.isAddress(walletAddress) || !Object.keys(register).length)
-        return
-      await dispatch(loadPage()) // Load page
-      await dispatch(loadVisited()) // Load flags
-    })()
-  }, [dispatch, walletAddress, register])
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>

@@ -20,11 +20,13 @@ interface Window {
   ipfs?: ReturnType<import('ipfs-core').create>
   // Utility
   notify: ({ type, description, onClick }: SentreNotification) => void
+  goto: (url: string) => void
   // Partner wallets
   coin98: any
   solana: any
   Slope: any
   solflare: any
+  clover_solana: any
 }
 
 // For bigint serialization

@@ -4,23 +4,22 @@ import WidgetLoader from 'os/components/widgetLoader'
 import { useRootSelector, RootState } from 'os/store'
 
 const Dashboard = () => {
-  const { widgetIds, register } = useRootSelector(
-    (state: RootState) => state.page,
-  )
+  const {
+    page: { widgetIds, register },
+  } = useRootSelector((state: RootState) => state)
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[24, 24]} justify="center">
       <Col span={24} className="sentre-col-container">
         <Row gutter={[24, 24]}>
-          {widgetIds.map((appId) => {
-            if (!register[appId]) return null
-            return (
+          {widgetIds.map((appId) =>
+            register[appId] ? (
               <WidgetLoader
                 key={appId}
                 {...(register[appId] as ComponentManifest)}
               />
-            )
-          })}
+            ) : null,
+          )}
         </Row>
       </Col>
     </Row>

@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, useCallback } from 'react'
 import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
 
@@ -13,7 +13,7 @@ import {
   RootDispatch,
 } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
-import { setWalkthrough } from 'os/store/walkthrough.reducer'
+import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
 import { updateVisited } from 'os/store/flags.reducer'
 
@@ -57,21 +57,33 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
 
   const manifest = register[appId]
 
-  const onInstall = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    if (!account.isAddress(walletAddress)) return dispatch(openWallet())
-    if (run) await dispatch(setWalkthrough({ step: 2 }))
-    if (appId) {
-      await dispatch(updateVisited(true))
-      return dispatch(installApp(appId))
-    }
-  }
+  const onInstall = useCallback(
+    async (e: MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation()
+      if (!account.isAddress(walletAddress)) return dispatch(openWallet())
+      if (run)
+        await dispatch(
+          setWalkthrough({ type: WalkThroughType.NewComer, step: 2 }),
+        )
+      if (appId) {
+        await dispatch(updateVisited(true))
+        return dispatch(installApp(appId))
+      }
+    },
+    [appId, dispatch, run, walletAddress],
+  )
 
-  const onOpen = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    if (run) await dispatch(setWalkthrough({ step: 3 }))
-    return history.push(`/app/${appId}`)
-  }
+  const onOpen = useCallback(
+    async (e: MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation()
+      if (run)
+        await dispatch(
+          setWalkthrough({ type: WalkThroughType.NewComer, step: 3 }),
+        )
+      return history.push(`/app/${appId}`)
+    },
+    [appId, history, dispatch, run],
+  )
 
   return (
     <Col span={24}>

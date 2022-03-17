@@ -8,11 +8,12 @@ import { useRootSelector, RootState } from 'os/store'
 import storePanel1 from 'os/static/images/store-panel1.png'
 import storePanel2 from 'os/static/images/store-panel2.png'
 import storePanel3 from 'os/static/images/store-panel3.png'
+import storePanel4 from 'os/static/images/store-panel4.png'
 
 import './index.less'
 
 const PAGE_PADDING = 20
-const PANELS = [storePanel1, storePanel2, storePanel3]
+const PANELS = [storePanel1, storePanel2, storePanel3, storePanel4]
 
 const BannerTop = () => {
   const {
