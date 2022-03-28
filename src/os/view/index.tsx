@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
@@ -35,35 +35,22 @@ const View = () => {
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
 
-  /**
-   * Init the system
-   */
-
   // Load DApp register
-  const initRegister = useCallback(async () => {
-    await dispatch(loadRegister())
-  }, [dispatch])
   useEffect(() => {
-    initRegister()
-  }, [initRegister])
+    dispatch(loadRegister())
+  }, [dispatch])
   // Load page
-  const initPage = useCallback(async () => {
+  useEffect(() => {
     if (!account.isAddress(walletAddress) || !Object.keys(register).length)
       return
-    await dispatch(loadPage())
+    dispatch(loadPage())
   }, [dispatch, walletAddress, register])
-  useEffect(() => {
-    initPage()
-  }, [initPage])
   // Load flags
-  const initFlags = useCallback(async () => {
-    if (!account.isAddress(walletAddress)) return
-    await dispatch(loadVisited())
-    await dispatch(loadReferred())
-  }, [dispatch, walletAddress])
   useEffect(() => {
-    initFlags()
-  }, [initFlags])
+    if (!account.isAddress(walletAddress)) return
+    dispatch(loadVisited())
+    dispatch(loadReferred())
+  }, [dispatch, walletAddress])
   // Load theme
   useEffect(() => {
     document.body.setAttribute('id', theme)
@@ -74,7 +61,11 @@ const View = () => {
       {/* Header */}
       <Affix>
         <Card
-          style={{ borderRadius: '0px 0px 16px 16px', zIndex: 999 }}
+          style={{
+            borderRadius: '0px 0px 16px 16px',
+            backdropFilter: 'opacity(0.5) blur(60px)',
+            zIndex: 999,
+          }}
           bodyStyle={{ padding: 16 }}
           bordered={false}
         >
