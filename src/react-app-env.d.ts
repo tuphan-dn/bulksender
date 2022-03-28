@@ -67,7 +67,6 @@ type CgkData = {
  * Declare module
  */
 declare module '*.md'
-declare module 'flexsearch'
 declare module '@senhub/context' {
   export * from 'os/store/context'
 }
