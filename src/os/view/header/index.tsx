@@ -1,9 +1,9 @@
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Button, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import Wallet from 'os/view/header/wallet'
+import Wallet from 'os/view/wallet'
 import Brand from 'os/components/brand'
 import ActionCenter from '../actionCenter'
 import ContextMenu from './contextMenu'
@@ -39,21 +39,14 @@ const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
 }
 
 const Header = () => {
-  const dispatch = useRootDispatch<RootDispatch>()
-  const history = useHistory()
   const {
     wallet: { address: walletAddress },
     ui: { width, theme },
     walkthrough: { run, step },
   } = useRootSelector((state: RootState) => state)
-
-  const onDashboard = async () => {
-    if (run && step === 3)
-      await dispatch(
-        setWalkthrough({ type: WalkThroughType.NewComer, step: 4 }),
-      )
-    return history.push('/dashboard')
-  }
+  const dispatch = useRootDispatch<RootDispatch>()
+  const history = useHistory()
+  const { pathname } = useLocation()
 
   const onStore = async () => {
     if (run && step === 0)
@@ -78,14 +71,14 @@ const Header = () => {
       </Col>
       <Col>
         <Space align="center">
-          {account.isAddress(walletAddress) && (
+          {pathname.startsWith('/store') ? (
             <NavButton
-              id="dashboard-nav-button"
+              id="workspace-nav-button"
               iconName="grid-outline"
-              onClick={onDashboard}
-              title="Dashboard"
+              onClick={() => history.push('/welcome')}
+              title="Workspace"
             />
-          )}
+          ) : null}
           <NavButton
             id="store-nav-button"
             iconName="bag-handle-outline"

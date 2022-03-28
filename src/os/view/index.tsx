@@ -6,7 +6,6 @@ import { Layout, Row, Col, Card, Affix } from 'antd'
 import PrivateRoute from 'os/components/privateRoute'
 import Header from 'os/view/header'
 import Welcome from 'os/view/welcome'
-import Dashboard from 'os/view/dashboard'
 import Page from 'os/view/page'
 import Market from 'os/view/market'
 import AppViewer from 'os/view/market/appViewer'
@@ -88,11 +87,6 @@ const View = () => {
           <Col span={24}>
             <Switch>
               <Route exact path="/welcome" component={Welcome} />
-              <PrivateRoute
-                exact
-                path="/dashboard/:pageId?"
-                component={Dashboard}
-              />
               <PrivateRoute path="/app/:appId" component={Page} />
               <Route exact path="/store" component={Market} />
               <Route exact path="/store/:appId" component={AppViewer} />

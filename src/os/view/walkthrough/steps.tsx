@@ -59,16 +59,6 @@ export const NEWCOMER_STEPS: Step[] = [
     target: '#open-action-button',
     title: 'Open the app',
   }),
-  step({
-    content: (
-      <Typography.Text>
-        Helps you keep an overview and quick actions with many applications at
-        the same time.
-      </Typography.Text>
-    ),
-    target: '#dashboard-nav-button',
-    title: 'Your Dashboard',
-  }),
 ]
 
 export const REFERRAL_STEPS: Step[] = [
