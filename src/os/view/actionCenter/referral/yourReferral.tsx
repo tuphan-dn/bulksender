@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import QRCode from 'qrcode.react'
+import QRCodeCanvas from 'qrcode.react'
 
 import { Button, Input, Popover, Space, Tooltip } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -20,7 +20,12 @@ const QR = ({ value }: { value: string }) => {
       color="#ffffff"
       overlayInnerStyle={{ paddingTop: 6 }}
       content={
-        <QRCode value={value} size={140} bgColor="#ffffff" fgColor="#1f1f1f" />
+        <QRCodeCanvas
+          value={value}
+          size={140}
+          bgColor="#ffffff"
+          fgColor="#1f1f1f"
+        />
       }
       trigger="click"
       arrowPointAtCenter
