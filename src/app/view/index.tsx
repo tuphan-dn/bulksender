@@ -14,7 +14,7 @@ const {
   manifest: { appId },
 } = configs
 
-const Page = () => {
+const View = () => {
   const {
     wallet: { address },
   } = useWallet()
@@ -32,7 +32,7 @@ const Page = () => {
       <Col span={24}>
         <Space align="center">
           <IonIcon name="newspaper-outline" />
-          <Typography.Title level={4}>Page</Typography.Title>
+          <Typography.Title level={4}>App View</Typography.Title>
         </Space>
       </Col>
       <Col span={24}>
@@ -48,4 +48,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default View
