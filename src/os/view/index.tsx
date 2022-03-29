@@ -60,7 +60,6 @@ const View = () => {
       {/* Header */}
       <Affix>
         <Card
-          className="glass"
           style={{ borderRadius: '0px 0px 16px 16px' }}
           bodyStyle={{ padding: 16 }}
           bordered={false}
