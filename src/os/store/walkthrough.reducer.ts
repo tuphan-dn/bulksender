@@ -6,7 +6,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export enum WalkThroughType {
   Default,
   NewComer,
-  Referral,
 }
 
 type WalkThorughState = {

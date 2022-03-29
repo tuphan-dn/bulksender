@@ -9,7 +9,6 @@ import PDB from 'shared/pdb'
 
 type FlagsState = {
   visited: boolean
-  referred: boolean
   loading: boolean
 }
 
@@ -20,7 +19,6 @@ type FlagsState = {
 const NAME = 'flags'
 const initialState: FlagsState = {
   visited: true,
-  referred: false,
   loading: true,
 }
 
@@ -58,36 +56,6 @@ export const updateVisited = createAsyncThunk<
   return { visited }
 })
 
-export const loadReferred = createAsyncThunk<
-  Partial<FlagsState>,
-  void,
-  { state: any }
->(`${NAME}/loadReferred`, async (_, { getState }) => {
-  const {
-    wallet: { address: walletAddress },
-  } = getState()
-  if (!account.isAddress(walletAddress))
-    throw new Error('Wallet is not connected yet')
-  const db = new PDB(walletAddress).createInstance('sentre')
-  const referred: boolean = (await db.getItem('referred')) || false
-  return { referred }
-})
-
-export const updateReferred = createAsyncThunk<
-  Partial<FlagsState>,
-  boolean,
-  { state: any }
->(`${NAME}/updateReferred`, async (referred, { getState }) => {
-  const {
-    wallet: { address },
-  } = getState()
-  if (!account.isAddress(address))
-    throw new Error('Wallet is not connected yet')
-  const db = new PDB(address).createInstance('sentre')
-  await db.setItem('referred', referred)
-  return { referred }
-})
-
 export const updateLoading = createAsyncThunk(
   `${NAME}/updateLoading`,
   async (loading: boolean) => {
@@ -111,14 +79,6 @@ const slice = createSlice({
       )
       .addCase(
         updateVisited.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        loadReferred.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        updateReferred.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       )
       .addCase(

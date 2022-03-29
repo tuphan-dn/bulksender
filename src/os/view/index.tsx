@@ -15,7 +15,6 @@ import Loading from 'os/view/loading'
 import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
 import Installer from 'os/view/installer'
-import ReferralLogger from './actionCenter/referral/logger'
 
 import {
   useRootSelector,
@@ -24,11 +23,7 @@ import {
   RootDispatch,
 } from 'os/store'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
-import {
-  loadReferred,
-  loadVisited,
-  updateLoading,
-} from 'os/store/flags.reducer'
+import { loadVisited, updateLoading } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
@@ -42,11 +37,10 @@ const View = () => {
   // Load DApp flags, registry, page
   useEffect(() => {
     ;(async () => {
+      if (!account.isAddress(walletAddress)) return
       try {
-        if (!account.isAddress(walletAddress)) return
         await dispatch(updateLoading(true))
         await dispatch(loadVisited())
-        await dispatch(loadReferred())
         const register = await dispatch(loadRegister()).unwrap()
         if (Object.keys(register).length) await dispatch(loadPage())
       } catch (er: any) {
@@ -94,7 +88,6 @@ const View = () => {
       <Walkthrough />
       <Watcher />
       <Installer />
-      <ReferralLogger />
     </Layout>
   )
 }
