@@ -16,6 +16,7 @@ const Welcome = () => {
     wallet: { address: walletAddress },
     ui: { width },
     page: { appIds },
+    flags: { loading },
   } = useRootSelector((state: RootState) => state)
 
   // Redirect callback
@@ -26,8 +27,8 @@ const Welcome = () => {
     const params = new URLSearchParams(search)
     const fallback = appIds.length ? `/app/${appIds[0]}` : '/store'
     const redirect = decodeURIComponent(params.get('redirect') || fallback)
-    if (account.isAddress(walletAddress)) history.push(redirect)
-  }, [walletAddress, history, appIds])
+    if (account.isAddress(walletAddress) && !loading) history.push(redirect)
+  }, [walletAddress, history, appIds, loading])
 
   return (
     <Row gutter={[24, 24]} justify="center" className="welcome">

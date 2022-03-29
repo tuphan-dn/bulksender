@@ -10,6 +10,7 @@ import Page from 'os/view/page'
 import Market from 'os/view/market'
 import AppViewer from 'os/view/market/appViewer'
 import Sync from 'os/view/sync'
+import Loading from 'os/view/loading'
 
 import Watcher from 'os/view/watcher'
 import Walkthrough from 'os/view/walkthrough'
@@ -23,7 +24,11 @@ import {
   RootDispatch,
 } from 'os/store'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
-import { loadReferred, loadVisited } from 'os/store/flags.reducer'
+import {
+  loadReferred,
+  loadVisited,
+  updateLoading,
+} from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
@@ -31,25 +36,25 @@ const View = () => {
   const {
     ui: { theme },
     wallet: { address: walletAddress },
-    page: { register },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
 
-  // Load DApp register
+  // Load DApp flags, registry, page
   useEffect(() => {
-    dispatch(loadRegister())
-  }, [dispatch])
-  // Load page
-  useEffect(() => {
-    if (!account.isAddress(walletAddress) || !Object.keys(register).length)
-      return
-    dispatch(loadPage())
-  }, [dispatch, walletAddress, register])
-  // Load flags
-  useEffect(() => {
-    if (!account.isAddress(walletAddress)) return
-    dispatch(loadVisited())
-    dispatch(loadReferred())
+    ;(async () => {
+      try {
+        if (!account.isAddress(walletAddress)) return
+        await dispatch(updateLoading(true))
+        await dispatch(loadVisited())
+        await dispatch(loadReferred())
+        const register = await dispatch(loadRegister()).unwrap()
+        if (Object.keys(register).length) await dispatch(loadPage())
+      } catch (er: any) {
+        return window.notify({ type: 'warning', description: er.message })
+      } finally {
+        await dispatch(updateLoading(false))
+      }
+    })()
   }, [dispatch, walletAddress])
   // Load theme
   useEffect(() => {
@@ -62,7 +67,7 @@ const View = () => {
       <Affix>
         <Card
           className="glass"
-          style={{ borderRadius: '0px 0px 16px 16px', zIndex: 999 }}
+          style={{ borderRadius: '0px 0px 16px 16px' }}
           bodyStyle={{ padding: 16 }}
           bordered={false}
         >
@@ -85,6 +90,7 @@ const View = () => {
         </Row>
       </Layout>
       {/* In-Background Run Jobs */}
+      <Loading />
       <Walkthrough />
       <Watcher />
       <Installer />

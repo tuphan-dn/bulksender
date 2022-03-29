@@ -10,6 +10,7 @@ import PDB from 'shared/pdb'
 type FlagsState = {
   visited: boolean
   referred: boolean
+  loading: boolean
 }
 
 /**
@@ -20,6 +21,7 @@ const NAME = 'flags'
 const initialState: FlagsState = {
   visited: true,
   referred: false,
+  loading: true,
 }
 
 /**
@@ -86,6 +88,13 @@ export const updateReferred = createAsyncThunk<
   return { referred }
 })
 
+export const updateLoading = createAsyncThunk(
+  `${NAME}/updateLoading`,
+  async (loading: boolean) => {
+    return { loading }
+  },
+)
+
 /**
  * Usual procedure
  */
@@ -110,6 +119,10 @@ const slice = createSlice({
       )
       .addCase(
         updateReferred.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        updateLoading.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })
