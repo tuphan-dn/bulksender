@@ -1,19 +1,14 @@
 import lunr, { Index } from 'lunr'
 import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry'
 
-import { net } from 'shared/runtime'
-import configs from 'os/configs'
+import { net, chainId, ChainId, Net } from 'shared/runtime'
 import supplementary, { sntr, sol } from './supplementary'
-
-const {
-  sol: { chainId },
-} = configs
 
 class TokenProvider {
   private tokenMap: Map<string, TokenInfo>
   private engine: Index | undefined
-  readonly chainId: typeof chainId
-  readonly cluster: typeof net
+  readonly chainId: ChainId
+  readonly cluster: Net
   private loading: boolean
   private queue: Array<any>
 

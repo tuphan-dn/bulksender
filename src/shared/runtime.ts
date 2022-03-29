@@ -40,3 +40,21 @@ export const onSwitchNetwork = (value: Net) => {
   storage.set('network', value)
   return window.location.reload()
 }
+
+/**
+ * Chain ID
+ */
+const getChainId = () => {
+  switch (net) {
+    case 'devnet':
+      return 103
+    case 'testnet':
+      return 102
+    case 'mainnet':
+      return 101
+    default:
+      return 101
+  }
+}
+export type ChainId = 101 | 102 | 103
+export const chainId: ChainId = getChainId()
