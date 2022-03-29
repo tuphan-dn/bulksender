@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { utils } from '@senswap/sen-js'
 
 import { Row, Col, Tooltip, Space, Card, Typography } from 'antd'
-import Wallet from 'os/view/header/wallet'
+import Wallet from 'os/view/wallet'
 import IconButton from './iconButton'
 import PriceInfo from './priceInfo'
 import Address from './address'

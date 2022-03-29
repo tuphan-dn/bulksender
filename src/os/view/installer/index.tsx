@@ -29,7 +29,7 @@ const Installer = () => {
 
   const closeInstaller = useCallback(async () => {
     await dispatch(setVisibleInstaller(false))
-    return history.push('/dashboard')
+    return history.push('/welcome')
   }, [dispatch, history])
 
   const onSearch = useCallback(async () => {

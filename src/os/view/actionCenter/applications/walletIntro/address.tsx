@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Tooltip, Space, Typography, Popover } from 'antd'
-import QRCode from 'qrcode.react'
+import QRCodeCanvas from 'qrcode.react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
 import { useRootSelector, RootState } from 'os/store'
@@ -15,7 +15,7 @@ const QR = ({ address }: { address: string }) => {
       color="#ffffff"
       overlayInnerStyle={{ paddingTop: 6 }}
       content={
-        <QRCode
+        <QRCodeCanvas
           value={address}
           size={140}
           bgColor="#ffffff"

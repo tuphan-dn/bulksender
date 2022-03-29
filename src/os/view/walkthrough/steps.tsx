@@ -2,7 +2,6 @@ import { ReactNode } from 'react'
 import { Step } from 'react-joyride'
 
 import { Typography } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
 
 export const step = ({
   content,
@@ -58,46 +57,5 @@ export const NEWCOMER_STEPS: Step[] = [
     ),
     target: '#open-action-button',
     title: 'Open the app',
-  }),
-  step({
-    content: (
-      <Typography.Text>
-        Helps you keep an overview and quick actions with many applications at
-        the same time.
-      </Typography.Text>
-    ),
-    target: '#dashboard-nav-button',
-    title: 'Your Dashboard',
-  }),
-]
-
-export const REFERRAL_STEPS: Step[] = [
-  step({
-    content: (
-      <Typography.Text>
-        Click the icon <IonIcon name="menu-outline" /> to access the referral
-        system.
-      </Typography.Text>
-    ),
-    target: '#button-action-center',
-    title: 'Hoorays, you got invited.',
-  }),
-  step({
-    content: (
-      <Typography.Text>
-        Switch to the <strong>User</strong> tab to enter the invitation link.
-      </Typography.Text>
-    ),
-    target: '#action-center-tab-user',
-    title: 'Enter the invitation link',
-  }),
-  step({
-    content: (
-      <Typography.Text>
-        Click the <strong>Confirm</strong> button to get closer to the reward.
-      </Typography.Text>
-    ),
-    target: '#button-confirm-referral',
-    title: 'Confirm the invitation link',
   }),
 ]

@@ -31,14 +31,6 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   webpackConfig.cache.buildDependencies.config.push(
     path.join(context.paths.appPath, './craco.config.js'),
   )
-  // Fix "fully specified"
-  // https://github.com/webpack/webpack/issues/11467#issuecomment-808618999/
-  webpackConfig.module.rules.push({
-    test: /\.m?js/,
-    resolve: {
-      fullySpecified: false,
-    },
-  })
   return webpackConfig
 }
 
