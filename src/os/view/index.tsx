@@ -37,8 +37,8 @@ const View = () => {
   // Load DApp flags, registry, page
   useEffect(() => {
     ;(async () => {
-      if (!account.isAddress(walletAddress)) return
       try {
+        if (!account.isAddress(walletAddress)) return
         await dispatch(updateLoading(true))
         await dispatch(loadVisited())
         const register = await dispatch(loadRegister()).unwrap()
