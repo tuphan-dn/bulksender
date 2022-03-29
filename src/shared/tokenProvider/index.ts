@@ -1,34 +1,14 @@
-import { Document } from 'flexsearch'
+import lunr, { Index } from 'lunr'
 import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry'
 
-import { net } from 'shared/runtime'
-import configs from 'os/configs'
+import { net, chainId, ChainId, Net } from 'shared/runtime'
 import supplementary, { sntr, sol } from './supplementary'
-
-const {
-  sol: { chainId },
-} = configs
-const DELIMITER = /[\W_]+/g
-const PRESET = {
-  tokenize: 'full',
-  context: true,
-  minlength: 3,
-}
-const DOCUMENT = {
-  document: {
-    id: 'address',
-    index: [
-      { field: 'symbol', ...PRESET },
-      { field: 'name', ...PRESET },
-    ],
-  },
-}
 
 class TokenProvider {
   private tokenMap: Map<string, TokenInfo>
-  private engine: typeof Document | undefined
-  readonly chainId: typeof chainId
-  readonly cluster: typeof net
+  private engine: Index | undefined
+  readonly chainId: ChainId
+  readonly cluster: Net
   private loading: boolean
   private queue: Array<any>
 
@@ -43,8 +23,8 @@ class TokenProvider {
     this._init()
   }
 
-  private _init = async (): Promise<[Map<string, TokenInfo>, any]> => {
-    if (this.tokenMap.size) return [this.tokenMap, this.engine]
+  private _init = async (): Promise<[Map<string, TokenInfo>, Index]> => {
+    if (this.tokenMap.size && this.engine) return [this.tokenMap, this.engine]
     return new Promise(async (resolve) => {
       // Queue of getters to avoid race condition of multiple _init calling
       if (this.loading) return this.queue.push(resolve)
@@ -61,10 +41,12 @@ class TokenProvider {
       // Build token map
       tokenList.forEach((token) => this.tokenMap.set(token.address, token))
       // Build search engine
-      this.engine = new Document(DOCUMENT)
-      this.tokenMap.forEach(({ address, ...doc }) =>
-        this.engine.add(address, doc),
-      )
+      this.engine = lunr(function () {
+        this.ref('address')
+        this.field('symbol')
+        this.field('name')
+        tokenList.forEach((doc) => this.add(doc))
+      })
       // Resolve the main getter
       resolve([this.tokenMap, this.engine])
       // Resolve the rest of getters
@@ -84,21 +66,17 @@ class TokenProvider {
     return tokenMap.get(addr)
   }
 
-  find = async (keyword: string, limit?: 10): Promise<TokenInfo[]> => {
+  find = async (keyword: string, limit = 10): Promise<TokenInfo[]> => {
     const [tokenMap, engine] = await this._init()
     let tokens: TokenInfo[] = []
-    keyword.split(DELIMITER).forEach((key) => {
-      const raw: Array<{ result: string[] }> = engine.search(key, limit)
-      return raw.forEach(({ result }) => {
-        return result.forEach((id: string) => {
-          if (tokens.findIndex(({ address }) => address === id) < 0) {
-            const token = tokenMap.get(id)
-            if (token) tokens.push(token)
-          }
-        })
-      })
+    if (!keyword) return []
+    engine.search(keyword).forEach(({ ref }) => {
+      if (tokens.findIndex(({ address }) => address === ref) < 0) {
+        const token = tokenMap.get(ref)
+        if (token) tokens.push(token)
+      }
     })
-    return tokens
+    return tokens.slice(0, limit)
   }
 }
 

@@ -1,4 +1,11 @@
-import { ChangeEvent, useCallback, useEffect } from 'react'
+import {
+  ChangeEvent,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 
 import { Row, Col, Input, Button } from 'antd'
@@ -12,7 +19,9 @@ import {
 } from 'os/store'
 import { setValue } from 'os/store/search.reducer'
 
-const Search = () => {
+const Search = forwardRef((_, ref: any) => {
+  const [cursor, setCursor] = useState<number | null>(null)
+  const innerRef = useRef(ref)
   const dispatch = useRootDispatch<RootDispatch>()
   const location = useLocation()
   const history = useHistory()
@@ -22,6 +31,7 @@ const Search = () => {
 
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
+      setCursor(e.target.selectionStart)
       dispatch(setValue(e.target.value))
     },
     [dispatch],
@@ -35,6 +45,10 @@ const Search = () => {
     const params = new URLSearchParams(location.search)
     dispatch(setValue(params.get('search') || ''))
   }, [dispatch, location.search])
+
+  // Handle cursor jumping
+  // To prevent autofocus on mobile, we must strictly check cursor different from null
+  if (cursor !== null) innerRef?.current?.setSelectionRange(cursor, cursor)
 
   return (
     <Row gutter={[12, 12]}>
@@ -59,10 +73,11 @@ const Search = () => {
             />
           }
           disabled={disabled}
+          ref={innerRef}
         />
       </Col>
     </Row>
   )
-}
+})
 
 export default Search

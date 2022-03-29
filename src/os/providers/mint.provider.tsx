@@ -9,6 +9,7 @@ import {
   ReactNode,
   useMemo,
 } from 'react'
+import { account } from '@senswap/sen-js'
 
 import {
   useRootDispatch,
@@ -17,8 +18,7 @@ import {
   RootDispatch,
 } from 'os/store'
 import { getMint as _getMint, MintsState } from 'os/store/mints.reducer'
-import TokenProvider from './tokenProvider'
-import { account } from '@senswap/sen-js'
+import TokenProvider from 'shared/tokenProvider'
 
 const tokenProvider = new TokenProvider()
 const Context = createContext<MintProvider>({} as MintProvider)

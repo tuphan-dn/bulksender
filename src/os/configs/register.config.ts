@@ -29,12 +29,6 @@ const devApp = {
       name: process.env.REACT_APP_AUTHOR_NAME || '',
       email: process.env.REACT_APP_AUTHOR_EMAIL || '',
     },
-    supportedViews: (process.env.REACT_APP_SUPPORTED_VIEWS || '')
-      .split(',')
-      .map((view) => view.trim())
-      .filter((view) => ['page', 'widget'].includes(view)) as Array<
-      'widget' | 'page'
-    >,
     tags: (process.env.REACT_APP_TAGS || '')
       .split(',')
       .map((tag) => tag.trim()),

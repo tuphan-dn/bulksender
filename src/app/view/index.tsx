@@ -4,7 +4,7 @@ import Collector from './collector'
 import MintSelection from './mintSelection'
 import Representor from './representor'
 
-const Page = () => {
+const View = () => {
   return (
     <Row gutter={[24, 24]} justify="center">
       <Col span={24} style={{ maxWidth: 1200 }}>
@@ -39,4 +39,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default View
