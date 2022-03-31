@@ -57,7 +57,9 @@ const View = () => {
   useEffect(() => {
     document.body.setAttribute('id', theme)
     const DEFAULT_BG = theme === 'light' ? DEFAULT_LIGHT_BG : DEFAULT_DARK_BG
-    document.body.style.background = `url(${background[theme] || DEFAULT_BG})`
+    document.body.style.backgroundImage = `url(${
+      background[theme] || DEFAULT_BG
+    })`
   }, [theme, background])
 
   return (
