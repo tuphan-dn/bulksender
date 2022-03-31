@@ -19,14 +19,14 @@ import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { net } from 'shared/runtime'
 import { setVisible } from 'os/store/search.reducer'
 
-type NavButtonProps = {
+export type NavButtonProps = {
   id: string
   iconName: string
   title: string
   onClick: () => void
 }
 
-const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
+export const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
   const { width } = useRootSelector((state: RootState) => state.ui)
   return (
     <Button
@@ -51,7 +51,6 @@ const Header = () => {
   const { pathname } = useLocation()
 
   const onSearch = () => dispatch(setVisible(true))
-
   const onStore = async () => {
     if (run && step === 0)
       await dispatch(

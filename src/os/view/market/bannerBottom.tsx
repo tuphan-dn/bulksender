@@ -2,8 +2,8 @@ import { Card, Col, Row } from 'antd'
 
 import { useRootSelector, RootState } from 'os/store'
 
-import storePanel1 from 'os/static/images/store-bpanel1.png'
-import storePanel2 from 'os/static/images/store-bpanel2.png'
+import storePanel1 from 'os/static/images/market/store-bpanel1.png'
+import storePanel2 from 'os/static/images/market/store-bpanel2.png'
 
 const PAGE_PADDING = 20
 const ELEMENT_PADDING = 24

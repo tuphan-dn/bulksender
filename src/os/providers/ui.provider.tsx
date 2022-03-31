@@ -8,18 +8,31 @@ import {
   ReactNode,
   useMemo,
   CSSProperties,
+  useCallback,
 } from 'react'
 
 import { ConfigProvider } from 'antd'
 
-import { useRootSelector, RootState } from 'os/store'
-import { UIState } from 'os/store/ui.reducer'
+import {
+  useRootSelector,
+  RootState,
+  useRootDispatch,
+  RootDispatch,
+} from 'os/store'
+import {
+  UIState,
+  setBackground as _setBackground,
+  Background,
+} from 'os/store/ui.reducer'
 import { ConfigProviderProps } from 'antd/lib/config-provider'
 
 const Context = createContext<UIProvider>({} as UIProvider)
 
 export type UIProvider = {
   ui: UIState
+  setBackground: (
+    ...args: Parameters<typeof _setBackground>
+  ) => Promise<{ background: Background }>
 }
 
 /**
@@ -36,8 +49,14 @@ const UIContextProvider = ({
   style?: CSSProperties
   antd?: boolean | ConfigProviderProps
 }) => {
+  const dispatch = useRootDispatch<RootDispatch>()
   const { ui } = useRootSelector((state: RootState) => state)
-  const provider = useMemo(() => ({ ui }), [ui])
+  const setBackground = useCallback(
+    async (...args: Parameters<typeof _setBackground>) =>
+      await dispatch(_setBackground(...args)).unwrap(),
+    [dispatch],
+  )
+  const provider = useMemo(() => ({ ui, setBackground }), [ui, setBackground])
   const configProvider = antd
     ? {
         getPopupContainer: () => document.getElementById(appId) as HTMLElement,

@@ -6,6 +6,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export type Infix = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 export type Theme = 'light' | 'dark'
+export type Background = Record<Theme, string | undefined>
 
 export type UIState = {
   theme: Theme
@@ -14,6 +15,7 @@ export type UIState = {
   touchable: boolean
   visibleActionCenter: boolean
   visibleInstaller: boolean
+  background: Background
 }
 
 const getInfix = (): Infix => {
@@ -45,6 +47,10 @@ const initialState: UIState = {
   touchable: isTouchable(),
   visibleActionCenter: false,
   visibleInstaller: false,
+  background: {
+    light: '',
+    dark: '',
+  },
 }
 
 /**
@@ -78,6 +84,13 @@ export const setVisibleInstaller = createAsyncThunk(
   },
 )
 
+export const setBackground = createAsyncThunk(
+  `${NAME}/setBackground`,
+  async (background: Background) => {
+    return { background }
+  },
+)
+
 /**
  * Usual procedure
  */
@@ -102,6 +115,10 @@ const slice = createSlice({
       )
       .addCase(
         setVisibleInstaller.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
+      .addCase(
+        setBackground.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })

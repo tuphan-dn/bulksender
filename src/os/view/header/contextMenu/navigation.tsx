@@ -19,7 +19,7 @@ const Navigation = () => {
           <Badge
             dot={params?.appId === appId}
             className="sentre-active-app"
-            offset={[-4, 4]}
+            offset={[-5, 5]}
           >
             <AppIcon
               appId={appId}

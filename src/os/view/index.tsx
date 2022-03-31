@@ -27,9 +27,12 @@ import { loadVisited, updateLoading } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
+import DEFAULT_LIGHT_BG from 'os/static/images/bg/light-bg.png'
+import DEFAULT_DARK_BG from 'os/static/images/bg/dark-bg.png'
+
 const View = () => {
   const {
-    ui: { theme },
+    ui: { theme, background },
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
@@ -50,10 +53,12 @@ const View = () => {
       }
     })()
   }, [dispatch, walletAddress])
-  // Load theme
+  // Load theme & background
   useEffect(() => {
     document.body.setAttribute('id', theme)
-  }, [theme])
+    const DEFAULT_BG = theme === 'light' ? DEFAULT_LIGHT_BG : DEFAULT_DARK_BG
+    document.body.style.background = `url(${background[theme] || DEFAULT_BG})`
+  }, [theme, background])
 
   return (
     <Layout>
