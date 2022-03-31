@@ -16,8 +16,8 @@ import IonIcon from 'shared/antd/ionicon'
 
 import { useRootSelector, RootState } from 'os/store'
 import { asyncWait } from 'shared/util'
-import Telegram from 'os/static/images/telegram.png'
-import Twitter from 'os/static/images/twitter.png'
+import Telegram from 'os/static/images/social/telegram.png'
+import Twitter from 'os/static/images/social/twitter.png'
 
 const ShareModal = ({
   appId,

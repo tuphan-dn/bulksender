@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 
-import { Row, Col, Input, Button } from 'antd'
+import { Row, Col, Input, Button, Modal, Divider } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 
 import {
@@ -17,7 +17,8 @@ import {
   RootState,
   RootDispatch,
 } from 'os/store'
-import { setValue } from 'os/store/search.reducer'
+import { setValue, setVisible } from 'os/store/search.reducer'
+import Result from './result'
 
 const Search = forwardRef((_, ref: any) => {
   const [cursor, setCursor] = useState<number | null>(null)
@@ -26,7 +27,7 @@ const Search = forwardRef((_, ref: any) => {
   const location = useLocation()
   const history = useHistory()
   const {
-    search: { value, loading, disabled },
+    search: { visible, value, loading, disabled },
   } = useRootSelector((state: RootState) => state)
 
   const onChange = useCallback(
@@ -51,32 +52,46 @@ const Search = forwardRef((_, ref: any) => {
   if (cursor !== null) innerRef?.current?.setSelectionRange(cursor, cursor)
 
   return (
-    <Row gutter={[12, 12]}>
-      <Col span={24}>
-        <Input
-          placeholder="Search"
-          bordered={false}
-          onChange={onChange}
-          value={value}
-          prefix={
-            <Button
-              type="text"
-              size="small"
-              icon={
-                <IonIcon
-                  name={value ? 'close-circle-outline' : 'search-outline'}
-                />
-              }
-              loading={loading}
-              disabled={disabled}
-              onClick={value ? onClear : () => {}}
-            />
-          }
-          disabled={disabled}
-          ref={innerRef}
-        />
-      </Col>
-    </Row>
+    <Modal
+      visible={visible}
+      onCancel={() => dispatch(setVisible(false))}
+      closeIcon={<IonIcon name="close-outline" />}
+      footer={null}
+    >
+      <Row gutter={[12, 12]}>
+        <Col span={24}>
+          <Input
+            placeholder="Search"
+            bordered={false}
+            onChange={onChange}
+            value={value}
+            prefix={
+              <Button
+                type="text"
+                size="small"
+                icon={
+                  <IonIcon
+                    name={value ? 'close-circle-outline' : 'search-outline'}
+                  />
+                }
+                loading={loading}
+                disabled={disabled}
+                onClick={value ? onClear : () => {}}
+              />
+            }
+            disabled={disabled}
+            ref={innerRef}
+            style={{ marginLeft: -16 }}
+          />
+        </Col>
+        <Col span={24}>
+          <Divider style={{ margin: 0 }} />
+        </Col>
+        <Col span={24}>
+          <Result value={value} />
+        </Col>
+      </Row>
+    </Modal>
   )
 })
 

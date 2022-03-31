@@ -97,7 +97,7 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
           padding: '12px 16px',
         }}
       >
-        <Row align="middle" gutter={[8, 8]}>
+        <Row align="middle" gutter={[8, 8]} wrap={false}>
           <Col>
             <AppIcon size={32} appId={appId} name={false} />
           </Col>

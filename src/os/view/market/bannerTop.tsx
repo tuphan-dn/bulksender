@@ -5,10 +5,10 @@ import { Card } from 'antd'
 
 import { useRootSelector, RootState } from 'os/store'
 
-import storePanel1 from 'os/static/images/store-panel1.png'
-import storePanel2 from 'os/static/images/store-panel2.png'
-import storePanel3 from 'os/static/images/store-panel3.png'
-import storePanel4 from 'os/static/images/store-panel4.png'
+import storePanel1 from 'os/static/images/market/store-panel1.png'
+import storePanel2 from 'os/static/images/market/store-panel2.png'
+import storePanel3 from 'os/static/images/market/store-panel3.png'
+import storePanel4 from 'os/static/images/market/store-panel4.png'
 
 import './index.less'
 

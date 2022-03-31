@@ -1,7 +1,7 @@
-import logoSwap from 'os/static/images/logo-senswap.svg'
-import logoAssets from 'os/static/images/logo-assets.svg'
-import logoLp from 'os/static/images/logo-senlp.svg'
-import logoFarming from 'os/static/images/logo-farming.svg'
+import logoSwap from 'os/static/images/welcome/logo-senswap.svg'
+import logoAssets from 'os/static/images/welcome/logo-assets.svg'
+import logoLp from 'os/static/images/welcome/logo-senlp.svg'
+import logoFarming from 'os/static/images/welcome/logo-farming.svg'
 
 export const DataSlide = [
   {

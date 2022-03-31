@@ -8,7 +8,7 @@ import { MultiStaticLoader } from 'os/components/staticLoader'
 import imgError from 'os/static/images/error-image.svg'
 
 const PADDING_CARD = 24
-const PADDING_PAGE = 39 //padding 24 +  width scroll bar 15
+const PADDING_PAGE = 39 // padding 24 + width scroll bar 15
 
 const ScreenShot = ({ appId }: { appId: string }) => {
   const { width } = useRootSelector((state: RootState) => state.ui)

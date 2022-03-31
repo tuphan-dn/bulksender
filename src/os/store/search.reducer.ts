@@ -5,6 +5,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
  */
 
 type SearchState = {
+  visible: boolean
   value: string
   loading: boolean
   disabled: boolean
@@ -16,6 +17,7 @@ type SearchState = {
 
 const NAME = 'search'
 const initialState: SearchState = {
+  visible: false,
   value: '',
   loading: false,
   disabled: false,
@@ -25,29 +27,33 @@ const initialState: SearchState = {
  * Actions
  */
 
-export const setValue = createAsyncThunk<
-  Partial<SearchState>,
-  string,
-  { state: any }
->(`${NAME}/setValue`, async (value) => {
-  return { value }
-})
+export const setVisible = createAsyncThunk(
+  `${NAME}/setVisible`,
+  async (visible: boolean) => {
+    return { visible }
+  },
+)
 
-export const setLoading = createAsyncThunk<
-  Partial<SearchState>,
-  boolean,
-  { state: any }
->(`${NAME}/setLoading`, async (loading) => {
-  return { loading }
-})
+export const setValue = createAsyncThunk(
+  `${NAME}/setValue`,
+  async (value: string) => {
+    return { value }
+  },
+)
 
-export const setDisabled = createAsyncThunk<
-  Partial<SearchState>,
-  boolean,
-  { state: any }
->(`${NAME}/setDisabled`, async (disabled) => {
-  return { disabled }
-})
+export const setLoading = createAsyncThunk(
+  `${NAME}/setLoading`,
+  async (loading: boolean) => {
+    return { loading }
+  },
+)
+
+export const setDisabled = createAsyncThunk(
+  `${NAME}/setDisabled`,
+  async (disabled: boolean) => {
+    return { disabled }
+  },
+)
 
 /**
  * Usual procedure
@@ -59,6 +65,10 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     void builder
+      .addCase(
+        setVisible.fulfilled,
+        (state, { payload }) => void Object.assign(state, payload),
+      )
       .addCase(
         setValue.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),

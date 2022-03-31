@@ -3,15 +3,15 @@ import { useHistory } from 'react-router-dom'
 
 import { Net } from 'shared/runtime'
 
-import fullLogo from 'os/static/images/sen-full.svg'
-import fullLogoDark from 'os/static/images/sen-full-dark.svg'
-import liteLogo from 'os/static/images/sen-lite.svg'
-import fullLogoDev from 'os/static/images/sen-dev.svg'
-import fullLogoDevDark from 'os/static/images/sen-dev-dark.svg'
-import fullLogoTest from 'os/static/images/sen-test.svg'
-import fullLogoTestDark from 'os/static/images/sen-test-dark.svg'
-import liteLogoTest from 'os/static/images/sen-test-lite.svg'
-import liteLogoDev from 'os/static/images/sen-dev-lite.svg'
+import fullLogo from 'os/static/images/brand/sen-full.svg'
+import fullLogoDark from 'os/static/images/brand/sen-full-dark.svg'
+import liteLogo from 'os/static/images/brand/sen-lite.svg'
+import fullLogoDev from 'os/static/images/brand/sen-dev.svg'
+import fullLogoDevDark from 'os/static/images/brand/sen-dev-dark.svg'
+import fullLogoTest from 'os/static/images/brand/sen-test.svg'
+import fullLogoTestDark from 'os/static/images/brand/sen-test-dark.svg'
+import liteLogoTest from 'os/static/images/brand/sen-test-lite.svg'
+import liteLogoDev from 'os/static/images/brand/sen-dev-lite.svg'
 
 const LOGO = {
   mainnet: fullLogo,

@@ -27,9 +27,12 @@ import { loadVisited, updateLoading } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
+import DEFAULT_LIGHT_BG from 'os/static/images/bg/light-bg.png'
+import DEFAULT_DARK_BG from 'os/static/images/bg/dark-bg.png'
+
 const View = () => {
   const {
-    ui: { theme },
+    ui: { theme, background },
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
@@ -37,7 +40,7 @@ const View = () => {
   // Load DApp flags, registry, page
   useEffect(() => {
     ;(async () => {
-      if (!account.isAddress(walletAddress)) return
+      if (!account.isAddress(walletAddress)) return dispatch(loadRegister())
       try {
         await dispatch(updateLoading(true))
         await dispatch(loadVisited())
@@ -50,16 +53,21 @@ const View = () => {
       }
     })()
   }, [dispatch, walletAddress])
-  // Load theme
+  // Load theme & background
   useEffect(() => {
     document.body.setAttribute('id', theme)
-  }, [theme])
+    const DEFAULT_BG = theme === 'light' ? DEFAULT_LIGHT_BG : DEFAULT_DARK_BG
+    document.body.style.backgroundImage = `url(${
+      background[theme] || DEFAULT_BG
+    })`
+  }, [theme, background])
 
   return (
     <Layout>
       {/* Header */}
       <Affix>
         <Card
+          className="glass"
           style={{ borderRadius: '0px 0px 16px 16px' }}
           bodyStyle={{ padding: 16 }}
           bordered={false}
