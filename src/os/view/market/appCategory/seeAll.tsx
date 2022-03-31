@@ -29,7 +29,7 @@ const CategorySeeAll = (options: CategoryOptions) => {
         </Typography.Title>
       </Col>
       {appIds.map((appId) => (
-        <Col lg={6} md={8} sm={12} xs={24} key={appId}>
+        <Col xs={24} sm={12} md={8} xl={6} key={appId}>
           <AppCard appId={appId} />
         </Col>
       ))}

@@ -7,6 +7,7 @@ import Wallet from 'os/view/wallet'
 import Brand from 'os/components/brand'
 import ActionCenter from '../actionCenter'
 import ContextMenu from './contextMenu'
+import Search from './search'
 
 import {
   useRootDispatch,
@@ -16,6 +17,7 @@ import {
 } from 'os/store'
 import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { net } from 'shared/runtime'
+import { setVisible } from 'os/store/search.reducer'
 
 type NavButtonProps = {
   id: string
@@ -48,6 +50,8 @@ const Header = () => {
   const history = useHistory()
   const { pathname } = useLocation()
 
+  const onSearch = () => dispatch(setVisible(true))
+
   const onStore = async () => {
     if (run && step === 0)
       await dispatch(
@@ -73,10 +77,10 @@ const Header = () => {
         <Space align="center">
           {pathname.startsWith('/store') ? (
             <NavButton
-              id="workspace-nav-button"
-              iconName="grid-outline"
-              onClick={() => history.push('/welcome')}
-              title="Workspace"
+              id="search-nav-button"
+              iconName="search-outline"
+              onClick={onSearch}
+              title="Search"
             />
           ) : null}
           <NavButton
@@ -88,6 +92,7 @@ const Header = () => {
           {!account.isAddress(walletAddress) ? <Wallet /> : <ActionCenter />}
         </Space>
       </Col>
+      <Search />
     </Row>
   )
 }

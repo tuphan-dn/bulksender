@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 import { Row, Col } from 'antd'
 import BannerTop from './bannerTop'
 import BannerBottom from './bannerBottom'
-import SearchResult from './searchResults'
 import AppCategorySeeAll from './appCategory/seeAll'
 import AppCategorySlice from './appCategory/slice'
 
@@ -15,7 +14,6 @@ const CATEGORIES = ['dapps', 'solana']
 const Market = () => {
   const { search } = useLocation()
   const {
-    search: { value },
     page: { register },
   } = useRootSelector((state: RootState) => state)
 
@@ -29,10 +27,8 @@ const Market = () => {
     return CATEGORIES.filter((category) => tags.includes(category))
   }, [register])
 
-  const searchLocation = useMemo(() => new URLSearchParams(search), [search])
-  const category = searchLocation.get('category')
+  const category = new URLSearchParams(search).get('category')
 
-  if (value) return <SearchResult value={value} />
   if (category) return <AppCategorySeeAll category={category} />
   return (
     <Row gutter={[16, 48]} justify="center">

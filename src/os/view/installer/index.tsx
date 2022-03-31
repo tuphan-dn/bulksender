@@ -7,7 +7,7 @@ import CustomAppIcon from './customAppIcon'
 
 import { RootState, useRootDispatch, useRootSelector } from 'os/store'
 import { setVisibleInstaller } from 'os/store/ui.reducer'
-import SearchEngine from 'os/view/market/searchEngine'
+import SearchEngine from 'os/view/header/search/searchEngine'
 import { randChoose } from 'os/helpers/utils'
 
 const SUGGESTION_LIMIT = 6

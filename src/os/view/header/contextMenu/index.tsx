@@ -1,21 +1,24 @@
-import { useLocation } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col } from 'antd'
 import Navigation from './navigation'
-import Search from './search'
 
 import { useRootSelector, RootState } from 'os/store'
 
 const ContextMenu = () => {
-  const { pathname } = useLocation()
-  const { address } = useRootSelector((state: RootState) => state.wallet)
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
 
-  if (pathname.startsWith('/store')) return <Search />
-  if (!account.isAddress(address)) return null
+  if (!account.isAddress(walletAddress)) return null
   return (
-    <Row gutter={[12, 12]}>
-      <Col span={24} style={{ width: 0, marginLeft: 8 }} className="scrollbar">
+    <Row gutter={[12, 12]} wrap={false}>
+      <Col
+        span={24}
+        style={{ width: 0, marginLeft: 8 }}
+        className="scrollbar"
+        flex="auto"
+      >
         <Navigation />
       </Col>
     </Row>
