@@ -82,6 +82,7 @@ const Search = forwardRef((_, ref: any) => {
             disabled={disabled}
             ref={innerRef}
             style={{ marginLeft: -16 }}
+            autoFocus
           />
         </Col>
         <Col span={24}>
