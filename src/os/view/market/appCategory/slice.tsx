@@ -20,18 +20,18 @@ const AppCategorySlice = ({
   const history = useHistory()
   const { title, appIds } = useAppCategory(options)
 
-  //not displayed category if no application exists
+  // Do not display category if no application exists
   if (!appIds.length) return null
 
   return (
     <Row gutter={[20, 20]} align="bottom">
-      {/* title */}
+      {/* Title */}
       <Col flex="auto">
-        <Typography.Title level={2} style={{ textTransform: 'capitalize' }}>
+        <Typography.Title level={3} style={{ textTransform: 'capitalize' }}>
           {title}
         </Typography.Title>
       </Col>
-      {/* see all button*/}
+      {/* See all button */}
       {seeAll && (
         <Col>
           <Typography.Text type="danger">

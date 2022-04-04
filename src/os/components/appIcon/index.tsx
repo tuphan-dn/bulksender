@@ -49,7 +49,7 @@ const RawVerticalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   return (
     <Space
       direction="vertical"
-      style={{ width: size, textAlign: 'center', lineHeight: 1 }}
+      style={{ width: size, textAlign: 'center', lineHeight: 1.25 }}
       onClick={onClick}
     >
       <AppAvatar
