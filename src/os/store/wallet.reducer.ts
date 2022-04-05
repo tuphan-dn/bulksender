@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Lamports, SPLT, Swap, WalletInterface } from '@senswap/sen-js'
 
 import configs from 'os/configs'
+import { GuestWallet } from 'os/view/wallet/lib'
 
 /**
  * Interface & Utility
@@ -18,7 +19,7 @@ const initializeWindow = async (wallet?: WalletInterface) => {
     sol: { node, spltAddress, splataAddress, swapAddress },
   } = configs
   window.sentre = {
-    wallet,
+    wallet: wallet || new GuestWallet(),
     lamports: new Lamports(node),
     splt: new SPLT(spltAddress, splataAddress, node),
     swap: new Swap(swapAddress, spltAddress, splataAddress, node),

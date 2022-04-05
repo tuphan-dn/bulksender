@@ -11,7 +11,7 @@ type SentreNotification = {
 interface Window {
   // Sentre
   sentre: {
-    wallet?: import('@senswap/sen-js').WalletInterface
+    wallet: import('@senswap/sen-js').WalletInterface
     lamports: import('@senswap/sen-js').Lamports
     splt: import('@senswap/sen-js').SPLT
     swap: import('@senswap/sen-js').Swap

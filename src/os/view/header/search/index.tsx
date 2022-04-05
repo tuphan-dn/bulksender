@@ -24,7 +24,7 @@ const Search = forwardRef((_, ref: any) => {
   const [cursor, setCursor] = useState<number | null>(null)
   const innerRef = useRef(ref)
   const dispatch = useRootDispatch<RootDispatch>()
-  const location = useLocation()
+  const { pathname, search } = useLocation()
   const history = useHistory()
   const {
     search: { visible, value, loading, disabled },
@@ -39,13 +39,13 @@ const Search = forwardRef((_, ref: any) => {
   )
   const onClear = useCallback(() => {
     dispatch(setValue(''))
-    history.push(location.pathname)
-  }, [dispatch, history, location.pathname])
+    history.push(pathname)
+  }, [dispatch, history, pathname])
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search)
+    const params = new URLSearchParams(search)
     dispatch(setValue(params.get('search') || ''))
-  }, [dispatch, location.search])
+  }, [dispatch, search])
 
   // Handle cursor jumping
   // To prevent autofocus on mobile, we must strictly check cursor different from null

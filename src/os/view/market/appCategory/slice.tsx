@@ -38,9 +38,9 @@ const AppCategorySlice = ({
             <Button
               size="small"
               type="text"
-              onClick={() => {
-                dispatch(setValue(''))
-                history.push({
+              onClick={async () => {
+                await dispatch(setValue(''))
+                return history.push({
                   pathname: '/store',
                   search: `?category=${options.category}`,
                 })
