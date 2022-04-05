@@ -13,7 +13,7 @@ export type WalletState = {
   lamports: bigint
 }
 
-const initializeWindow = async (wallet: WalletInterface | undefined) => {
+const initializeWindow = async (wallet?: WalletInterface) => {
   const {
     sol: { node, spltAddress, splataAddress, swapAddress },
   } = configs
@@ -27,7 +27,7 @@ const initializeWindow = async (wallet: WalletInterface | undefined) => {
 
 const destroyWindow = async () => {
   if (window.sentre?.wallet) window.sentre.wallet.disconnect()
-  await initializeWindow(undefined)
+  await initializeWindow()
 }
 
 /**

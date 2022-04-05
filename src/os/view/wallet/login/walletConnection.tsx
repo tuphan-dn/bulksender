@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Row, Col, Tooltip, Switch, Typography, Divider, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
+import Guest from './guest'
 import Coin98 from './coin98'
 import Phantom from './phantom'
 import Slope from './slope'
@@ -17,6 +18,9 @@ import { env } from 'shared/runtime'
 const SecureMethods = () => {
   return (
     <Row gutter={[12, 12]}>
+      <Col span={24}>
+        <Guest />
+      </Col>
       <Col span={24}>
         <Coin98 />
       </Col>

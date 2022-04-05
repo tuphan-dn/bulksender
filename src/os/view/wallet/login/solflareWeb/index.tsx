@@ -1,17 +1,17 @@
-import { Row, Card, Col, Avatar } from 'antd'
+import { Row, Card, Col, Avatar, Typography } from 'antd'
 
 import SOLFLARE from 'os/static/images/wallet/solflare.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
-import { SolflareWallet } from '../../lib'
+import { SolflareWebWallet } from '../../lib'
 
 const Solflare = () => {
   const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
-    const solFlareWallet = new SolflareWallet()
+    const solflareWebWallet = new SolflareWebWallet()
     try {
-      await dispatch(connectWallet(solFlareWallet)).unwrap()
+      await dispatch(connectWallet(solflareWebWallet)).unwrap()
     } catch (er: any) {
       return window.notify({ type: 'error', description: er.message })
     }
@@ -31,7 +31,7 @@ const Solflare = () => {
           <Avatar size={32} shape="square" src={SOLFLARE} />
         </Col>
         <Col>
-          <p style={{ margin: 0, textAlign: 'center' }}>Solflare Web</p>
+          <Typography.Text>Solflare Web</Typography.Text>
         </Col>
       </Row>
     </Card>

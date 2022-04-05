@@ -8,7 +8,7 @@ import configs from 'os/configs'
 
 const PROVIDER_URL = 'https://solflare.com/provider'
 
-class SolflareWallet extends BaseWallet {
+class SolflareWebWallet extends BaseWallet {
   private provider: WalletAdapter & Provider
 
   constructor() {
@@ -69,4 +69,4 @@ class SolflareWallet extends BaseWallet {
   }
 }
 
-export default SolflareWallet
+export default SolflareWebWallet

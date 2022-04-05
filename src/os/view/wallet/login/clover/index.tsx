@@ -1,4 +1,4 @@
-import { Row, Card, Col, Avatar } from 'antd'
+import { Row, Card, Col, Avatar, Typography } from 'antd'
 
 import CLOVER from 'os/static/images/wallet/clover.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
@@ -39,7 +39,7 @@ const Clover = () => {
           <Avatar size={32} shape="square" src={CLOVER} />
         </Col>
         <Col>
-          <p style={{ margin: 0, textAlign: 'center' }}>Clover</p>
+          <Typography.Text>Clover</Typography.Text>
         </Col>
       </Row>
     </Card>

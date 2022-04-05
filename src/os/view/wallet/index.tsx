@@ -18,48 +18,62 @@ import {
   disconnectWallet,
 } from 'os/store/wallet.reducer'
 import {
+  GuestWallet,
   Coin98Wallet,
   PhantomWallet,
   SecretKeyWallet,
   SolletWallet,
   SlopeWallet,
-  SolflareWallet,
+  SolflareWebWallet,
   SolflareExtensionWallet,
   CloverWallet,
 } from './lib'
 
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const { address } = useRootSelector((state: RootState) => state.wallet)
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
 
   const reconnect = () => {
     const walletType = session.get('WalletType')
-    if (walletType === 'SecretKey')
-      return new SecretKeyWallet(session.get('SecretKey'))
-    if (walletType === 'Keystore')
-      return new SecretKeyWallet(session.get('SecretKey'))
-    if (walletType === 'Coin98') return new Coin98Wallet()
-    if (walletType === 'Phantom') return new PhantomWallet()
-    if (walletType === 'SolletWeb') return new SolletWallet()
-    if (walletType === 'Slope') return new SlopeWallet()
-    if (walletType === 'SolflareWeb') return new SolflareWallet()
-    if (walletType === 'SolflareExtension') return new SolflareExtensionWallet()
-    if (walletType === 'Clover') return new CloverWallet()
-
-    return null
+    switch (walletType) {
+      case 'Guest':
+        return new GuestWallet()
+      case 'SecretKey':
+        return new SecretKeyWallet(session.get('SecretKey'))
+      case 'Keystore':
+        return new SecretKeyWallet(session.get('SecretKey'))
+      case 'Coin98':
+        return new Coin98Wallet()
+      case 'Phantom':
+        return new PhantomWallet()
+      case 'SolletWeb':
+        return new SolletWallet()
+      case 'Slope':
+        return new SlopeWallet()
+      case 'SolflareWeb':
+        return new SolflareWebWallet()
+      case 'SolflareExtension':
+        return new SolflareExtensionWallet()
+      case 'Clover':
+        return new CloverWallet()
+      default:
+        return undefined
+    }
   }
 
   useEffect(() => {
-    if (account.isAddress(address)) return
-    const wallet = reconnect()
+    if (account.isAddress(walletAddress)) return
     try {
+      const wallet = reconnect()
       if (wallet) dispatch(connectWallet(wallet)).unwrap()
     } catch (er: any) {
       return window.notify({ type: 'error', description: er.message })
     }
-  }, [dispatch, address])
+  }, [dispatch, walletAddress])
 
-  if (account.isAddress(address))
+  if (account.isAddress(walletAddress))
     return (
       <Button
         type="text"

@@ -1,4 +1,4 @@
-import { Row, Card, Col, Avatar } from 'antd'
+import { Row, Card, Col, Avatar, Typography } from 'antd'
 
 import SOLLET from 'os/static/images/wallet/sollet.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
@@ -31,7 +31,7 @@ const SolletWeb = () => {
           <Avatar size={32} shape="square" src={SOLLET} />
         </Col>
         <Col>
-          <p style={{ margin: 0, textAlign: 'center' }}>Sollet Web</p>
+          <Typography.Text>Sollet Web</Typography.Text>
         </Col>
       </Row>
     </Card>

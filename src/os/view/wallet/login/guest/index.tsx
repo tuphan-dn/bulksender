@@ -1,22 +1,15 @@
 import { Row, Card, Col, Avatar, Typography } from 'antd'
+import IonIcon from 'shared/antd/ionicon'
 
-import SLOPE from 'os/static/images/wallet/slope.svg'
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'
-import { SlopeWallet } from '../../lib'
+import { GuestWallet } from '../../lib'
 
-const Slope = () => {
+const Guest = () => {
   const dispatch = useRootDispatch<RootDispatch>()
 
   const connect = async () => {
-    const { Slope } = window
-    if (!Slope)
-      return window.notify({
-        type: 'warning',
-        description:
-          'Slope Wallet is not installed. If this is the first time you install Slope wallet, please restart your browser to complete the setup.',
-      })
-    const wallet = new SlopeWallet()
+    const wallet = new GuestWallet()
     try {
       await dispatch(connectWallet(wallet)).unwrap()
     } catch (er: any) {
@@ -35,14 +28,20 @@ const Slope = () => {
     >
       <Row gutter={[16, 16]} align="middle">
         <Col>
-          <Avatar size={32} shape="square" src={SLOPE} />
+          <Avatar
+            size={32}
+            shape="square"
+            style={{ backgroundColor: '#f9575e' }}
+          >
+            <IonIcon name="person-outline" />
+          </Avatar>
         </Col>
         <Col>
-          <Typography.Text>Slope</Typography.Text>
+          <Typography.Text>Try as a guest</Typography.Text>
         </Col>
       </Row>
     </Card>
   )
 }
 
-export default Slope
+export default Guest
