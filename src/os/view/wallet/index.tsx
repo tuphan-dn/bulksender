@@ -18,7 +18,6 @@ import {
   disconnectWallet,
 } from 'os/store/wallet.reducer'
 import {
-  GuestWallet,
   Coin98Wallet,
   PhantomWallet,
   SecretKeyWallet,
@@ -38,8 +37,6 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const reconnect = () => {
     const walletType = session.get('WalletType')
     switch (walletType) {
-      case 'Guest':
-        return new GuestWallet()
       case 'SecretKey':
         return new SecretKeyWallet(session.get('SecretKey'))
       case 'Keystore':
