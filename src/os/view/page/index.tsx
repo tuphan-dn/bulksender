@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
-import NotFound from 'os/view/page/notFound'
 import PageLoader from 'os/components/pageLoader'
 
 import {
@@ -38,9 +37,7 @@ const Dashboard = () => {
       <Col span={24}>
         {existing ? (
           <PageLoader {...(register[appId] as ComponentManifest)} />
-        ) : (
-          <NotFound appId={appId} />
-        )}
+        ) : null}
       </Col>
     </Row>
   )

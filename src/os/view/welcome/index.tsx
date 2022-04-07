@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Card } from 'antd'
@@ -12,6 +12,7 @@ import './index.os.less'
 
 const Welcome = () => {
   const history = useHistory()
+  const { search } = useLocation()
   const {
     wallet: { address: walletAddress },
     ui: { width },
@@ -21,14 +22,11 @@ const Welcome = () => {
 
   // Redirect callback
   useEffect(() => {
-    const {
-      location: { search },
-    } = history
     const params = new URLSearchParams(search)
     const fallback = appIds.length ? `/app/${appIds[0]}` : '/store'
     const redirect = decodeURIComponent(params.get('redirect') || fallback)
     if (account.isAddress(walletAddress) && !loading) history.push(redirect)
-  }, [walletAddress, history, appIds, loading])
+  }, [walletAddress, history, search, appIds, loading])
 
   return (
     <Row gutter={[24, 24]} justify="center" className="welcome">
