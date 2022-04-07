@@ -32,7 +32,8 @@ const isPlain = (val: any): boolean => {
     isPlainObject(val) ||
     typeof val === 'bigint' ||
     val instanceof PublicKey ||
-    val instanceof BN
+    val instanceof BN ||
+    val instanceof Buffer
   )
 }
 BigInt.prototype.toJSON = function () {
