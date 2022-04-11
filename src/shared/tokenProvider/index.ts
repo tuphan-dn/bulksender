@@ -70,7 +70,8 @@ class TokenProvider {
     const [tokenMap, engine] = await this._init()
     let tokens: TokenInfo[] = []
     if (!keyword) return []
-    engine.search(keyword).forEach(({ ref }) => {
+    const fuzzy = keyword + '~1'
+    engine.search(fuzzy).forEach(({ ref }) => {
       if (tokens.findIndex(({ address }) => address === ref) < 0) {
         const token = tokenMap.get(ref)
         if (token) tokens.push(token)
