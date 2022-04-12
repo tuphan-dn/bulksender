@@ -69,7 +69,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         centered
         destroyOnClose
       >
-        <Row gutter={[36, 36]}>
+        <Row gutter={[32, 32]}>
           <Col span={24}>
             <Typography.Title level={5} type="secondary">
               Token Selection
