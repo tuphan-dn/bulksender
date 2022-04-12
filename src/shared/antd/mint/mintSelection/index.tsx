@@ -62,6 +62,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         onCancel={() => setVisible(false)}
         footer={null}
         closeIcon={<IonIcon name="close-outline" />}
+        centered
       >
         <Row gutter={[36, 36]}>
           <Col span={24}>
