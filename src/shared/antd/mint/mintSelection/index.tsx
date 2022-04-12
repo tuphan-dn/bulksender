@@ -44,6 +44,10 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
     forceCheck()
   }, [searchedMintAddresses])
 
+  useEffect(() => {
+    if (!visible) setKeyword('')
+  }, [visible])
+
   return (
     <Fragment>
       <Button
@@ -63,6 +67,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         footer={null}
         closeIcon={<IonIcon name="close-outline" />}
         centered
+        destroyOnClose
       >
         <Row gutter={[36, 36]}>
           <Col span={24}>
