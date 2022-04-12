@@ -71,6 +71,7 @@ class TokenProvider {
     let tokens: TokenInfo[] = []
     if (!keyword) return []
     const fuzzy = keyword + '~1'
+    console.log('Debug OS Isolation:', process.env.REACT_APP_ID, fuzzy)
     engine.search(fuzzy).forEach(({ ref }) => {
       if (tokens.findIndex(({ address }) => address === ref) < 0) {
         const token = tokenMap.get(ref)
