@@ -23,3 +23,4 @@ yarn-error.log*
 
 *.orig
 *.manifest.json
+package-lock.json
