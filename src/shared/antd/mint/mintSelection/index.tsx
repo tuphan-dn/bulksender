@@ -43,7 +43,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
   const { randomHundredAddresses, refresh } = useRandomMintAddresses(LIMIT)
 
   const onSelect = useCallback(
-    (mintAddress) => {
+    (mintAddress: string) => {
       setVisible(false)
       onChange(mintAddress)
     },
