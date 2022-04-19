@@ -6,14 +6,14 @@ import {
   SignedMessage,
 } from '@senswap/sen-js'
 
-import session from 'shared/session'
+import storage from 'shared/storage'
 
 class BaseWallet implements WalletInterface {
   readonly walletType: string
 
   constructor(walletType: string) {
     this.walletType = walletType
-    session.set('WalletType', this.walletType)
+    storage.set('WalletType', this.walletType)
   }
 
   getProvider = async (): Promise<Provider> => {
@@ -47,7 +47,7 @@ class BaseWallet implements WalletInterface {
   }
 
   disconnect = async (): Promise<void> => {
-    session.clear('WalletType')
+    storage.clear('WalletType')
     const provider = await this.getProvider()
     provider.disconnect()
   }

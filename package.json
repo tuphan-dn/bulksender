@@ -13,7 +13,7 @@
     "bn.js": "^5.2.0",
     "bs58": "^4.0.1",
     "iconsax-react": "^0.0.7",
-    "ipfs-core": "^0.11.1",
+    "ipfs-core": "^0.14.2",
     "js-file-download": "^0.4.12",
     "localforage": "^1.10.0",
     "lunr": "^2.3.9",
@@ -43,7 +43,8 @@
     "deploy": "gh-pages -d build",
     "preserve": "npm run build:staging",
     "serve": "serve -s build -l 3000",
-    "manifest": "NODE_ENV=production node ./plugins/manifest-builder.js"
+    "manifest": "NODE_ENV=production node ./plugins/manifest-builder.js",
+    "debug": "nodemon debug.js"
   },
   "eslintConfig": {
     "extends": [
