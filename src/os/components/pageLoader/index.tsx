@@ -81,7 +81,7 @@ const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
     // We have to watch on the current appId to check mount/unmount events.
     useEffect(() => {
       // Mount executions
-      document.title = `Sentre Hub | ${props.name}`
+      document.title = `${props.name} | Sentre Hub`
       // Unmount executions inside the return
       return () => {
         if (!currentAppId) return
