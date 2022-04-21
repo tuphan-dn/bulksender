@@ -2,8 +2,9 @@ import { Net } from 'shared/runtime'
 
 const balancing = () => {
   const endPoints = [
-    'https://sentre.genesysgo.net',
-    'https://api.mainnet-beta.solana.com/',
+    // 'https://ssc-dao.genesysgo.net/',
+    // 'https://sentre.genesysgo.net',
+    // 'https://api.mainnet-beta.solana.com/',
     'https://solana-api.projectserum.com',
     'https://api.google.mainnet-beta.solana.com',
   ]
