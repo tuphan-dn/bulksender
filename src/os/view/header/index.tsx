@@ -64,9 +64,10 @@ const Header = () => {
       <Col>
         <Brand
           style={{ height: 24, cursor: 'pointer' }}
-          lite={width < 768}
-          darkTheme={theme === 'dark'}
+          direction={width < 768 ? 'vertical' : 'horizontal'}
+          theme={theme}
           network={net}
+          onClick={() => history.push('/')}
         />
       </Col>
       <Col flex="auto">

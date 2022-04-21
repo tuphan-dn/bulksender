@@ -1,4 +1,4 @@
-import { Row, Card, Col, Avatar } from 'antd'
+import { Row, Card, Col, Avatar, Typography } from 'antd'
 
 import PHANTOM from 'os/static/images/wallet/phantom.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
@@ -38,7 +38,7 @@ const Phantom = () => {
           <Avatar size={32} shape="square" src={PHANTOM} />
         </Col>
         <Col>
-          <p style={{ margin: 0, textAlign: 'center' }}>Phantom</p>
+          <Typography.Text>Phantom</Typography.Text>
         </Col>
       </Row>
     </Card>

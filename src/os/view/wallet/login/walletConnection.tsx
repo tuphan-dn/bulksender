@@ -13,6 +13,7 @@ import SecretKey from './secretKey'
 import CloverWallet from './clover'
 
 import { env } from 'shared/runtime'
+import NetSwitch from 'os/view/actionCenter/settings/network/netSwitch'
 
 const SecureMethods = () => {
   return (
@@ -70,13 +71,15 @@ const WalletConnection = () => {
 
   return (
     <Row gutter={[24, 24]}>
-      <Col span="24">
+      <Col span={24}>
         <Space>
           <Typography.Title level={5}>Wallet Connection</Typography.Title>
+          <Divider type="vertical" />
+          <NetSwitch />
           {env === 'production' ? null : (
             <Space>
               <Divider type="vertical" />
-              <Typography.Text>Development Only</Typography.Text>
+              <Typography.Text>Dev Only</Typography.Text>
               <Tooltip title="Caution! These methods is not recommended due to lack of cryptographical protection. By switching the button, you agree that you will use this function at your own risk.">
                 <Switch
                   size="small"

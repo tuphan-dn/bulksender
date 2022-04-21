@@ -16,6 +16,7 @@ import { installApp } from 'os/store/page.reducer'
 import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
 import { updateVisited } from 'os/store/flags.reducer'
+import { setVisible } from 'os/store/search.reducer'
 
 type ActionButtonProps = {
   appIds: AppIds
@@ -53,6 +54,7 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
     page: { register, appIds },
     walkthrough: { run },
     wallet: { address: walletAddress },
+    search: { visible },
   } = useRootSelector((state: RootState) => state)
 
   const manifest = register[appId]
@@ -76,13 +78,14 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   const onOpen = useCallback(
     async (e: MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation()
+      if (visible) await dispatch(setVisible(false))
       if (run)
         await dispatch(
           setWalkthrough({ type: WalkThroughType.NewComer, step: 3 }),
         )
       return history.push(`/app/${appId}`)
     },
-    [appId, history, dispatch, run],
+    [appId, history, dispatch, run, visible],
   )
 
   return (

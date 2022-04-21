@@ -1,4 +1,4 @@
-import { Row, Card, Col, Avatar } from 'antd'
+import { Row, Card, Col, Avatar, Typography } from 'antd'
 
 import SOLFLARE from 'os/static/images/wallet/solflare.png'
 import { useRootDispatch, RootDispatch } from 'os/store'
@@ -38,7 +38,7 @@ const SolflareExtension = () => {
           <Avatar size={32} shape="square" src={SOLFLARE} />
         </Col>
         <Col>
-          <p style={{ margin: 0, textAlign: 'center' }}>Solflare Ext</p>
+          <Typography.Text>Solflare Extension</Typography.Text>
         </Col>
       </Row>
     </Card>

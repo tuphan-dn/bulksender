@@ -25,6 +25,7 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     crypto: require.resolve('crypto-browserify'),
     https: require.resolve('https-browserify'),
     path: require.resolve('path-browserify'),
+    url: require.resolve('url/'),
     fs: false,
   }
   // Fix unrecognized change / caching problem

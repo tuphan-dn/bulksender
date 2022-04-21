@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import { Col, Modal, Row, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
@@ -8,19 +8,23 @@ import CustomAppIcon from './customAppIcon'
 import { RootState, useRootDispatch, useRootSelector } from 'os/store'
 import { setVisibleInstaller } from 'os/store/ui.reducer'
 import SearchEngine from 'os/view/header/search/searchEngine'
-import { randChoose } from 'os/helpers/utils'
+import { installApp } from 'os/store/page.reducer'
+import { randChoose } from 'shared/util'
 
 const SUGGESTION_LIMIT = 6
 
 const Installer = () => {
   const [recommendedApps, setRecommendeddApps] = useState<string[]>([])
   const {
-    page: { register },
+    page: { appIds, register },
     search: { value },
     ui: { visibleInstaller },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch()
   const history = useHistory()
+  const { pathname, search } = useLocation()
+  const params = new URLSearchParams(search)
+  const autoInstall = params.get('autoInstall') === 'true' ? true : false
 
   const allAppIds = useMemo(() => Object.keys(register), [register])
   const exactAppId = useMemo(() => {
@@ -48,6 +52,18 @@ const Installer = () => {
     onSearch()
   }, [onSearch])
 
+  useEffect(() => {
+    if (
+      autoInstall &&
+      exactAppId &&
+      register[exactAppId] &&
+      !appIds.includes(exactAppId)
+    ) {
+      dispatch(installApp(exactAppId))
+    }
+  }, [dispatch, autoInstall, exactAppId, appIds, register])
+
+  if (autoInstall || !pathname.startsWith('/app')) return <Fragment />
   return (
     <Modal
       title={null}

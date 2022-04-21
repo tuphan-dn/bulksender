@@ -82,7 +82,7 @@ const BackupSuccess = ({
         <Col span={24}>
           <CopyToClipboard text={link} onCopy={onCopy}>
             <Button type="primary" onClick={onClose}>
-              Copy and Close
+              {'Copy & Close'}
             </Button>
           </CopyToClipboard>
         </Col>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useMint } from '@senhub/providers'
 
 /**
- * Get token decimals from multiple resources. This hook needs MintProvider for work.
+ * Get token decimals from multiple resources. This hook needs MintProvider for working.
  * MintProvider Ref: https://docs.sentre.io/senhub/development/providers/mint-provider
  * @param mintAddress Mint address
  * @returns Decimals

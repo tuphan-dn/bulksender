@@ -27,7 +27,8 @@ class SearchEngine {
   search = (keyword: string, limit = 10) => {
     let appIds: string[] = []
     if (!keyword) return []
-    this.index.search(keyword).forEach(({ ref }) => {
+    const fuzzy = keyword + '~1'
+    this.index.search(fuzzy).forEach(({ ref }) => {
       if (!appIds.includes(ref)) return appIds.push(ref)
     })
     return appIds

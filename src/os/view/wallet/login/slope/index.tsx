@@ -1,4 +1,4 @@
-import { Row, Card, Col, Avatar } from 'antd'
+import { Row, Card, Col, Avatar, Typography } from 'antd'
 
 import SLOPE from 'os/static/images/wallet/slope.svg'
 import { useRootDispatch, RootDispatch } from 'os/store'
@@ -38,7 +38,7 @@ const Slope = () => {
           <Avatar size={32} shape="square" src={SLOPE} />
         </Col>
         <Col>
-          <p style={{ margin: 0, textAlign: 'center' }}>Slope</p>
+          <Typography.Text>Slope</Typography.Text>
         </Col>
       </Row>
     </Card>

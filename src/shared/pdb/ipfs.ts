@@ -35,8 +35,8 @@ class IPFS {
     if (!data) throw new Error('Empty data')
     const raw = JSON.stringify(data)
     const ipfs = await this._ipfs()
-    const { path: cid } = await ipfs.add(raw)
-    return cid as string
+    const { cid } = await ipfs.add(raw)
+    return cid.toString()
   }
 }
 

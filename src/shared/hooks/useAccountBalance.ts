@@ -31,7 +31,7 @@ const buildResult = (
 }
 
 /**
- * Get account balance. This hook needs WalletProvider, MintProvider, and AccountProvider for work.
+ * Get account balance. This hook needs WalletProvider, MintProvider, and AccountProvider for working.
  * WalletProvider Ref: https://docs.sentre.io/senhub/development/providers/wallet-provider
  * MintProvider Ref: https://docs.sentre.io/senhub/development/providers/mint-provider
  * AccountProvider Ref: https://docs.sentre.io/senhub/development/providers/account-provider

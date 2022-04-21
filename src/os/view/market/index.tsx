@@ -8,8 +8,9 @@ import AppCategorySeeAll from './appCategory/seeAll'
 import AppCategorySlice from './appCategory/slice'
 
 import { useRootSelector, RootState } from 'os/store'
+import AllApps from './allApps'
 
-const CATEGORIES = ['dapps', 'solana']
+const CATEGORIES = ['utility', 'sentre']
 
 const Market = () => {
   const { search } = useLocation()
@@ -28,7 +29,6 @@ const Market = () => {
   }, [register])
 
   const category = new URLSearchParams(search).get('category')
-
   if (category) return <AppCategorySeeAll category={category} />
   return (
     <Row gutter={[16, 48]} justify="center">
@@ -43,7 +43,7 @@ const Market = () => {
             </Col>
           ))}
           <Col span={24}>
-            <AppCategorySlice category="others" />
+            <AllApps />
           </Col>
           <Col span={24}>
             <BannerBottom />
