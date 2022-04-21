@@ -2,13 +2,12 @@ import { Net } from 'shared/runtime'
 
 const balancing = () => {
   const endPoints = [
-    // 'https://ssc-dao.genesysgo.net/',
+    'https://ssc-dao.genesysgo.net/',
     // 'https://sentre.genesysgo.net',
-    // 'https://api.mainnet-beta.solana.com/',
     'https://solana-api.projectserum.com',
     'https://api.google.mainnet-beta.solana.com',
   ]
-  const rand = Math.floor(Math.random() * 10) % endPoints.length
+  const rand = Math.floor(Math.random() * 100) % endPoints.length
   console.log('Debug OS RPC:', endPoints[rand])
   return endPoints[rand]
 }
