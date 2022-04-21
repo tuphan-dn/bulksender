@@ -22,8 +22,6 @@ const SOLVARS = {
  */
 type Conf = {
   node: string
-  sntrAddress: string
-  sntrPoolAddress: string
   swapAddress: string
   taxmanAddress: string
 } & typeof SOLVARS
@@ -35,8 +33,6 @@ const conf: Record<Net, Conf> = {
   devnet: {
     ...SOLVARS,
     node: 'https://api.devnet.solana.com',
-    sntrAddress: '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
-    sntrPoolAddress: '3EUPL7YQLbU6DNU5LZeQeHPXTf1MigJ2yASXA9rH5Ku4',
     swapAddress: '4erFSLP7oBFSVC1t35jdxmbfxEhYCKfoM6XdG2BLR3UF',
     taxmanAddress: '8UaZw2jDhJzv5V53569JbCd3bD4BnyCfBH3sjwgajGS9',
   },
@@ -47,10 +43,8 @@ const conf: Record<Net, Conf> = {
   testnet: {
     ...SOLVARS,
     node: 'https://api.testnet.solana.com',
-    sntrAddress: '',
-    sntrPoolAddress: '',
-    swapAddress: '',
-    taxmanAddress: '',
+    swapAddress: '4erFSLP7oBFSVC1t35jdxmbfxEhYCKfoM6XdG2BLR3UF',
+    taxmanAddress: '8UaZw2jDhJzv5V53569JbCd3bD4BnyCfBH3sjwgajGS9',
   },
 
   /**
@@ -59,8 +53,6 @@ const conf: Record<Net, Conf> = {
   mainnet: {
     ...SOLVARS,
     node: balancing(),
-    sntrAddress: 'SENBBKVCM7homnf5RX9zqpf1GFe935hnbU4uVzY1Y6M',
-    sntrPoolAddress: 'Aa3WZX7Xunfebp2MuAcz9CNw8TYTDL7mVrmb11rjyVm6',
     swapAddress: 'SSW7ooZ1EbEognq5GosbygA3uWW1Hq1NsFq6TsftCFV',
     taxmanAddress: '9doo2HZQEmh2NgfT3Yx12M89aoBheycYqH1eaR5gKb3e',
   },

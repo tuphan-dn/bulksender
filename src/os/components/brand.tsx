@@ -1,57 +1,53 @@
-import { CSSProperties, useMemo } from 'react'
-import { useHistory } from 'react-router-dom'
+import { CSSProperties } from 'react'
 
 import { Net } from 'shared/runtime'
 
-import fullLogo from 'os/static/images/brand/sen-full.svg'
-import fullLogoDark from 'os/static/images/brand/sen-full-dark.svg'
-import liteLogo from 'os/static/images/brand/sen-lite.svg'
-import fullLogoDev from 'os/static/images/brand/sen-dev.svg'
-import fullLogoDevDark from 'os/static/images/brand/sen-dev-dark.svg'
-import fullLogoTest from 'os/static/images/brand/sen-test.svg'
-import fullLogoTestDark from 'os/static/images/brand/sen-test-dark.svg'
-import liteLogoTest from 'os/static/images/brand/sen-test-lite.svg'
-import liteLogoDev from 'os/static/images/brand/sen-dev-lite.svg'
+import mainnet_horizontal_light from 'os/static/images/brand/mainnet-horizontal-light-sen.svg'
+import mainnet_horizontal_dark from 'os/static/images/brand/mainnet-horizontal-dark-sen.svg'
+import mainnet_vertical_light from 'os/static/images/brand/mainnet-vertical-light-sen.svg'
+import mainnet_vertical_dark from 'os/static/images/brand/mainnet-vertical-dark-sen.svg'
+import testnet_horizontal_light from 'os/static/images/brand/testnet-horizontal-light-sen.svg'
+import testnet_horizontal_dark from 'os/static/images/brand/testnet-horizontal-dark-sen.svg'
+import testnet_vertical_light from 'os/static/images/brand/testnet-vertical-light-sen.svg'
+import testnet_vertical_dark from 'os/static/images/brand/testnet-vertical-dark-sen.svg'
+import devnet_horizontal_light from 'os/static/images/brand/devnet-horizontal-light-sen.svg'
+import devnet_horizontal_dark from 'os/static/images/brand/devnet-horizontal-dark-sen.svg'
+import devnet_vertical_light from 'os/static/images/brand/devnet-vertical-light-sen.svg'
+import devnet_vertical_dark from 'os/static/images/brand/devnet-vertical-dark-sen.svg'
 
 const LOGO = {
-  mainnet: fullLogo,
-  mainnet_dark: fullLogoDark,
-  mainnet_lite: liteLogo,
-  devnet: fullLogoDev,
-  devnet_dark: fullLogoDevDark,
-  devnet_lite: liteLogoDev,
-  testnet: fullLogoTest,
-  testnet_dark: fullLogoTestDark,
-  testnet_lite: liteLogoTest,
+  mainnet_horizontal_light,
+  mainnet_horizontal_dark,
+  mainnet_vertical_light,
+  mainnet_vertical_dark,
+  testnet_horizontal_light,
+  testnet_horizontal_dark,
+  testnet_vertical_light,
+  testnet_vertical_dark,
+  devnet_horizontal_light,
+  devnet_horizontal_dark,
+  devnet_vertical_light,
+  devnet_vertical_dark,
+}
+
+export type BrandProps = {
+  style?: CSSProperties
+  network?: Net
+  direction?: 'horizontal' | 'vertical'
+  theme?: 'light' | 'dark'
+  onClick?: () => void
 }
 
 const Brand = ({
-  style,
-  lite = false,
-  darkTheme,
+  style = {},
   network = 'mainnet',
-}: {
-  lite?: boolean
-  style: CSSProperties
-  darkTheme?: boolean
-  network?: Net
-}) => {
-  const history = useHistory()
-
-  const networkLogo = useMemo(() => {
-    if (lite) return LOGO[`${network}_lite`]
-    if (darkTheme) return LOGO[`${network}_dark`]
-    return LOGO[network]
-  }, [darkTheme, lite, network])
-
-  return (
-    <img
-      src={networkLogo}
-      style={style}
-      alt="logo"
-      onClick={() => history.push('/')}
-    />
-  )
+  direction = 'horizontal',
+  theme = 'light',
+  onClick = () => {},
+}: BrandProps) => {
+  const name = `${network}_${direction}_${theme}` as keyof typeof LOGO
+  const logo = LOGO[name]
+  return <img src={logo} style={style} alt={name} onClick={onClick} />
 }
 
 export default Brand
