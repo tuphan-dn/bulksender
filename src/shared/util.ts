@@ -82,3 +82,29 @@ export const randomColor = (seed?: string, opacity?: string | number) => {
 export const fetchCGK = async (ticket = '') => {
   return DataLoader.load('fetchCGK' + ticket, () => utils.parseCGK(ticket))
 }
+
+/**
+ * Randomly choose an element in the input array
+ * @param arr - Original array of elements
+ * @returns
+ */
+export const randChoose = <T>(arr: T[]): T => {
+  const rand = Math.floor(Math.random() * arr.length)
+  return arr[rand]
+}
+
+/**
+ * Randomize a subarray in the input array with a specific number of elements
+ * @param arr - Original array of elements
+ * @param num - Number of elements in randomized subarray
+ * @returns
+ */
+export const randElements = <T>(arr: T[], num: number): T[] => {
+  if (arr.length < num) return [...arr]
+  const re: T[] = []
+  while (re.length < num) {
+    const el = randChoose(arr)
+    if (!re.includes(el)) re.push(el)
+  }
+  return re
+}

@@ -2,10 +2,10 @@ import { useCallback, useState, useEffect } from 'react'
 import { Connection } from '@solana/web3.js'
 
 import { Row, Col, Typography, Space, Badge, Card } from 'antd'
+import IonIcon from 'shared/antd/ionicon'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'
-import IonIcon from 'shared/antd/ionicon'
 
 const {
   sol: { node },
@@ -68,7 +68,7 @@ const Network = () => {
     <Card bodyStyle={{ padding: 16 }} hoverable bordered={false}>
       <Row gutter={[8, 8]}>
         <Col span={24}>
-          <Row gutter={[8, 8]} wrap={false}>
+          <Row gutter={[8, 8]} wrap={false} align="middle">
             <Col flex="auto">
               <Space>
                 <IonIcon name="wifi-outline" />

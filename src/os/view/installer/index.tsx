@@ -8,8 +8,8 @@ import CustomAppIcon from './customAppIcon'
 import { RootState, useRootDispatch, useRootSelector } from 'os/store'
 import { setVisibleInstaller } from 'os/store/ui.reducer'
 import SearchEngine from 'os/view/header/search/searchEngine'
-import { randChoose } from 'os/helpers/utils'
 import { installApp } from 'os/store/page.reducer'
+import { randChoose } from 'shared/util'
 
 const SUGGESTION_LIMIT = 6
 

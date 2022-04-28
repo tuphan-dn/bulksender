@@ -1,13 +1,14 @@
 import { Suspense, forwardRef, useCallback, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useRemoteModule } from 'react-dynamic-remote-component'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 
 import { Row, Col, Typography, Button, Skeleton } from 'antd'
-import ErrorBoundary from 'os/components/errorBoundary'
 import IonIcon from 'shared/antd/ionicon'
+import ErrorBoundary from 'os/components/errorBoundary'
+
 import { RootDispatch, useRootDispatch } from 'os/store'
 import { setBackground } from 'os/store/ui.reducer'
-import { useLocation } from 'react-router-dom'
 
 /**
  * Remote component
@@ -77,16 +78,17 @@ const PageLoader = forwardRef<HTMLElement, ComponentManifest>(
     const { pathname } = useLocation()
     const currentAppId = pathname.split('/')[2]
 
-    // Unmount the app
-    // We have to watch on the current appId to correctly check the unmount event.
+    // We have to watch on the current appId to check mount/unmount events.
     useEffect(() => {
+      // Mount executions
+      document.title = `${props.name} | Sentre Hub`
+      // Unmount executions inside the return
       return () => {
-        if (currentAppId) {
-          dispatch(setBackground({ light: '', dark: '' }))
-          // Unmount executions here
-        }
+        if (!currentAppId) return
+        dispatch(setBackground({ light: '', dark: '' }))
+        document.title = 'Sentre Hub'
       }
-    }, [dispatch, currentAppId])
+    }, [dispatch, currentAppId, props.name])
 
     return (
       <ErrorBoundary defaultChildren={<PageError url={url} />}>

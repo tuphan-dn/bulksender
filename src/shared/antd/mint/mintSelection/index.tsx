@@ -1,5 +1,4 @@
 import {
-  ChangeEvent,
   CSSProperties,
   Fragment,
   useCallback,
@@ -7,8 +6,18 @@ import {
   useState,
 } from 'react'
 import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
+import { account } from '@senswap/sen-js'
 
-import { Button, Col, Input, Modal, Row, Space, Typography } from 'antd'
+import {
+  Button,
+  Col,
+  Divider,
+  Input,
+  Modal,
+  Row,
+  Space,
+  Typography,
+} from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
@@ -16,8 +25,9 @@ import MintCard from './mintCard'
 
 import { useRecommendedMintAddresses } from './useRecommendedMintAddresses'
 import { useSearchedMintAddresses } from './useSearchedMintAddresses'
-import { useAllMintAddresses } from './useAllMintAddresses'
-import { account } from '@senswap/sen-js'
+import { useRandomMintAddresses } from './useRandomMintAddress'
+
+const LIMIT = 50
 
 export type MintSelectionProps = {
   value: string
@@ -29,16 +39,21 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
   const recommendedMintAddresses = useRecommendedMintAddresses()
-  const allMintAddresses = useAllMintAddresses()
   const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
+  const { randomHundredAddresses, refresh } = useRandomMintAddresses(LIMIT)
 
   const onSelect = useCallback(
-    (mintAddress) => {
+    (mintAddress: string) => {
       setVisible(false)
       onChange(mintAddress)
     },
     [onChange],
   )
+  const onRefresh = useCallback(() => {
+    const list = document.getElementById('sentre-token-selection-list')
+    if (list) list.scrollTop = 0
+    return refresh()
+  }, [refresh])
 
   useEffect(() => {
     forceCheck()
@@ -92,9 +107,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
                 />
               }
               value={keyword}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setKeyword(e.target.value || '')
-              }
+              onChange={(e) => setKeyword(e.target.value || '')}
             />
           </Col>
           <Col span={24}>
@@ -104,20 +117,23 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
                   <MintTag mintAddress={value} active />
                 </Col>
               ) : null}
-              {recommendedMintAddresses.map((mintAddress) => (
-                <Col key={mintAddress}>
-                  <MintTag mintAddress={mintAddress} onClick={onSelect} />
-                </Col>
-              ))}
+              {recommendedMintAddresses
+                .filter((mintAddress) => mintAddress !== value)
+                .map((mintAddress) => (
+                  <Col key={mintAddress}>
+                    <MintTag mintAddress={mintAddress} onClick={onSelect} />
+                  </Col>
+                ))}
             </Row>
           </Col>
           <Col span={24}>
             <Row
               gutter={[8, 8]}
-              style={{ maxHeight: '45vh' }}
+              style={{ maxHeight: 360 }}
               className="scrollbar"
+              id="sentre-token-selection-list"
             >
-              {(searchedMintAddresses || allMintAddresses).map(
+              {(searchedMintAddresses || randomHundredAddresses).map(
                 (mintAddress) => (
                   <Col span={24} key={mintAddress}>
                     <LazyLoad height={60} overflow>
@@ -126,6 +142,28 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
                   </Col>
                 ),
               )}
+              {!searchedMintAddresses ? (
+                <Fragment>
+                  <Col span={24}>
+                    <Divider style={{ marginBottom: 0 }} />
+                  </Col>
+                  <Col span={24}>
+                    <Typography.Text type="secondary" className="caption">
+                      <IonIcon
+                        name="chatbox-ellipses-outline"
+                        style={{ marginRight: 6 }}
+                      />
+                      This is the list of {LIMIT} random tokens while the full
+                      list is pretty longer. You can find your tokens by the
+                      search bar. Or{' '}
+                      <Typography.Link onClick={onRefresh}>
+                        Click here
+                      </Typography.Link>{' '}
+                      to refresh the current list.
+                    </Typography.Text>
+                  </Col>
+                </Fragment>
+              ) : null}
             </Row>
           </Col>
         </Row>
