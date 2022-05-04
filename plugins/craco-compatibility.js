@@ -27,6 +27,8 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     path: require.resolve('path-browserify'),
     url: require.resolve('url/'),
     fs: false,
+    // For Jupiter Aggregator
+    process: require.resolve('process/browser'),
   }
   // Fix unrecognized change / caching problem
   webpackConfig.cache.buildDependencies.config.push(
