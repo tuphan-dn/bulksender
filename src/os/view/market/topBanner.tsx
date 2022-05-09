@@ -15,7 +15,7 @@ import './index.less'
 const PAGE_PADDING = 20
 const PANELS = [storePanel1, storePanel2, storePanel3, storePanel4]
 
-const BannerTop = () => {
+const TopBanner = () => {
   const {
     ui: { width, infix },
   } = useRootSelector((state: RootState) => state)
@@ -63,4 +63,4 @@ const BannerTop = () => {
   )
 }
 
-export default BannerTop
+export default TopBanner

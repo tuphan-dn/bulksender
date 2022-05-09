@@ -3,38 +3,38 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRootSelector, RootState } from 'os/store'
 import {
   CategoryFilter,
-  CategoryRelated,
+  RelatedCategory,
   filterApp,
-  findAppOthers,
-  findAppSuggest,
-  findAppWithTag,
+  findSuggestedApps,
+  findTaggedApps,
 } from './custom'
 
 export enum CustomCategory {
-  others = 'others',
   suggest = 'for-you',
 }
 
 export type CategoryOptions = {
   category: string
-  title?: string
-  related?: CategoryRelated
+  defaultTitle?: string
+  related?: RelatedCategory
   filter?: CategoryFilter
 }
 
 export const useAppCategory = ({
   category,
+  defaultTitle = '',
   related,
   filter,
-  title,
 }: CategoryOptions) => {
-  const { register } = useRootSelector((state: RootState) => state.page)
+  const {
+    page: { register },
+  } = useRootSelector((state: RootState) => state)
   const [appIds, setAppIds] = useState<AppIds>([])
 
-  const categoryTitle = useMemo(() => {
-    if (title) return title
+  const title = useMemo(() => {
+    if (defaultTitle) return defaultTitle
     return category.replace(/\W/g, ' ')
-  }, [category, title])
+  }, [category, defaultTitle])
 
   /**
    * find all app with CategoryData with case:
@@ -43,29 +43,25 @@ export const useAppCategory = ({
    * default: filter apps with tags
    */
   const findApps = useCallback(async () => {
-    let appIds: AppIds = Object.keys(register)
+    let appIds: AppIds = []
     switch (category) {
       case CustomCategory.suggest:
-        let suggestData = related || {}
-        appIds = findAppSuggest(register, appIds, suggestData)
-        break
-      case CustomCategory.others:
-        appIds = findAppOthers(register, appIds)
+        appIds = findSuggestedApps(related || {}, register)
         break
       default:
-        appIds = findAppWithTag(register, appIds, category)
+        appIds = findTaggedApps(category, register)
         break
     }
     if (filter) appIds = filterApp(register, appIds, filter)
-    setAppIds(appIds)
-  }, [register, category, filter, related])
+    return setAppIds(appIds)
+  }, [register, category, related, filter])
 
   useEffect(() => {
     findApps()
   }, [findApps])
 
   return {
-    title: categoryTitle,
+    title,
     appIds,
   }
 }

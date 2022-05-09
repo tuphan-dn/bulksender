@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useHistory } from 'react-router'
 
 import { Button, Col, Row, Typography } from 'antd'
@@ -10,15 +11,26 @@ import { RootDispatch, useRootDispatch } from 'os/store'
 import { CategoryOptions, useAppCategory } from './hooks'
 import { setValue } from 'os/store/search.reducer'
 
+export type AppCategorySliceProps = {
+  seeAll?: boolean
+} & CategoryOptions
+
 const AppCategorySlice = ({
   seeAll = true,
   ...options
-}: {
-  seeAll?: boolean
-} & CategoryOptions) => {
+}: AppCategorySliceProps) => {
   const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
   const { title, appIds } = useAppCategory(options)
+
+  const onSeeAll = useCallback(async () => {
+    const { category } = options
+    await dispatch(setValue(''))
+    return history.push({
+      pathname: '/store',
+      search: `?category=${category}`,
+    })
+  }, [dispatch, history, options])
 
   // Do not display category if no application exists
   if (!appIds.length) return null
@@ -27,7 +39,7 @@ const AppCategorySlice = ({
     <Row gutter={[20, 20]} align="bottom">
       {/* Title */}
       <Col flex="auto">
-        <Typography.Title level={3} style={{ textTransform: 'capitalize' }}>
+        <Typography.Title level={2} style={{ textTransform: 'capitalize' }}>
           {title}
         </Typography.Title>
       </Col>
@@ -38,13 +50,7 @@ const AppCategorySlice = ({
             <Button
               size="small"
               type="text"
-              onClick={async () => {
-                await dispatch(setValue(''))
-                return history.push({
-                  pathname: '/store',
-                  search: `?category=${options.category}`,
-                })
-              }}
+              onClick={onSeeAll}
               className="btn-see-all"
             >
               See all
@@ -53,17 +59,11 @@ const AppCategorySlice = ({
           </Typography.Text>
         </Col>
       )}
-      {/* list app in the category */}
+      {/* Apps in the category */}
       <Col span={24}>
         <SwiperOs>
           {appIds.map((appId) => (
-            <SwiperSlide
-              key={appId}
-              style={{
-                maxWidth: 334,
-                width: '75vw',
-              }}
-            >
+            <SwiperSlide key={appId} style={{ maxWidth: 334, width: '75vw' }}>
               <AppCard appId={appId} />
             </SwiperSlide>
           ))}

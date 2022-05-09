@@ -21,7 +21,7 @@ const PANELS = [
   },
 ]
 
-const BannerBottom = () => {
+const BottomBanner = () => {
   const {
     ui: { width },
   } = useRootSelector((state: RootState) => state)
@@ -57,4 +57,4 @@ const BannerBottom = () => {
   )
 }
 
-export default BannerBottom
+export default BottomBanner
