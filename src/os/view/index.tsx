@@ -22,6 +22,8 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
+import { getRPCs } from 'shared/runtime'
+import { pingSolanaCluster } from 'shared/util'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
 import { loadVisited, updateLoading } from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
@@ -36,6 +38,32 @@ const View = () => {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
+
+  // Init Dapp context
+  useEffect(() => {
+    ;(async () => {
+      try {
+        await dispatch(updateLoading(true))
+        // Get best RPC balancing
+        const RPCs = getRPCs()
+        const bestRpc: string = await new Promise(async (resolveBestRpc) => {
+          await Promise.all(
+            RPCs.map(async (rpc) => {
+              try {
+                await pingSolanaCluster(rpc)
+                resolveBestRpc(rpc)
+              } catch (error) {}
+            }),
+          )
+        })
+        window.rpc_balancing = bestRpc
+      } catch (er: any) {
+        return window.notify({ type: 'warning', description: er.message })
+      } finally {
+        await dispatch(updateLoading(false))
+      }
+    })()
+  }, [dispatch])
 
   // Load DApp flags, registry, page
   useEffect(() => {

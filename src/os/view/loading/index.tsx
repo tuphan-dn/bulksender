@@ -9,21 +9,17 @@ import {
 } from 'os/store'
 import './index.os.less'
 import { updateLoading } from 'os/store/flags.reducer'
-import { account } from '@senswap/sen-js'
 
 const Loading = () => {
   const {
-    wallet: { address: walletAddress },
     flags: { loading },
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
 
-  const visible = account.isAddress(walletAddress) && loading
-
   return (
     <div
       className="loading-screen"
-      style={{ display: visible ? 'block' : 'none' }}
+      style={{ display: loading ? 'block' : 'none' }}
     >
       <Row gutter={[24, 24]}>
         <Col span={24}>

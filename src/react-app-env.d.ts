@@ -26,6 +26,7 @@ interface Window {
   Slope: any
   solflare: any
   clover_solana: any
+  rpc_balancing?: string
 }
 
 // For bigint serialization
