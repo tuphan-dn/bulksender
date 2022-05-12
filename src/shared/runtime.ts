@@ -102,9 +102,8 @@ export const pingSolanaCluster = async (nodeRpc: string): Promise<number> => {
 }
 
 /**
- * Ping solana cluster
- * @param nodeRpc - solana cluster's node RPC
- * @returns duration ping to solana
+ * Check health and get best cluster
+ * @returns best cluster with duration at least
  */
 export const getBestCluster = async (): Promise<string> => {
   const clusters = CLUSTERS[net]
