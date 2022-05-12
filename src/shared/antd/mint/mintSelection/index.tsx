@@ -3,6 +3,7 @@ import {
   Fragment,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
@@ -10,8 +11,10 @@ import { account } from '@senswap/sen-js'
 
 import {
   Button,
+  ButtonProps,
   Col,
   Divider,
+  Empty,
   Input,
   Modal,
   Row,
@@ -31,23 +34,38 @@ const LIMIT = 50
 
 export type MintSelectionProps = {
   value: string
-  onChange: (value: string) => void
+  onSelected: (value: string) => void
   style?: CSSProperties
+  disabled?: boolean
 }
 
-const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
+const MintSelection = ({
+  value,
+  onSelected,
+  style = {},
+  disabled = false,
+}: MintSelectionProps) => {
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
   const recommendedMintAddresses = useRecommendedMintAddresses()
   const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
   const { randomHundredAddresses, refresh } = useRandomMintAddresses(LIMIT)
 
+  const validSearched = useMemo(
+    () => !!keyword.length && !!searchedMintAddresses?.length,
+    [keyword, searchedMintAddresses?.length],
+  )
+
+  const mints = !!keyword.length
+    ? searchedMintAddresses
+    : randomHundredAddresses
+
   const onSelect = useCallback(
     (mintAddress: string) => {
       setVisible(false)
-      onChange(mintAddress)
+      onSelected(mintAddress)
     },
-    [onChange],
+    [onSelected],
   )
   const onRefresh = useCallback(() => {
     const list = document.getElementById('sentre-token-selection-list')
@@ -69,6 +87,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         type="text"
         onClick={() => setVisible(true)}
         style={{ padding: 4, ...style }}
+        disabled={disabled}
       >
         <Space>
           <MintAvatar mintAddress={value} />
@@ -82,7 +101,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         footer={null}
         closeIcon={<IonIcon name="close-outline" />}
         centered
-        destroyOnClose
+        // forceRender
       >
         <Row gutter={[32, 32]}>
           <Col span={24}>
@@ -110,39 +129,46 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
               onChange={(e) => setKeyword(e.target.value || '')}
             />
           </Col>
-          <Col span={24}>
-            <Row gutter={[8, 8]}>
-              {account.isAddress(value) ? (
-                <Col>
-                  <MintTag mintAddress={value} active />
-                </Col>
-              ) : null}
-              {recommendedMintAddresses
-                .filter((mintAddress) => mintAddress !== value)
-                .map((mintAddress) => (
-                  <Col key={mintAddress}>
-                    <MintTag mintAddress={mintAddress} onClick={onSelect} />
+          {!validSearched && (
+            <Col span={24}>
+              <Row gutter={[8, 8]}>
+                {account.isAddress(value) ? (
+                  <Col>
+                    <MintTag mintAddress={value} active />
                   </Col>
-                ))}
-            </Row>
-          </Col>
+                ) : null}
+                {recommendedMintAddresses
+                  .filter((mintAddress) => mintAddress !== value)
+                  .map((mintAddress) => (
+                    <Col key={mintAddress}>
+                      <MintTag mintAddress={mintAddress} onClick={onSelect} />
+                    </Col>
+                  ))}
+              </Row>
+            </Col>
+          )}
           <Col span={24}>
             <Row
               gutter={[8, 8]}
               style={{ maxHeight: 360 }}
               className="scrollbar"
               id="sentre-token-selection-list"
+              justify="center"
             >
-              {(searchedMintAddresses || randomHundredAddresses).map(
-                (mintAddress) => (
+              {mints?.length ? (
+                mints.map((mintAddress) => (
                   <Col span={24} key={mintAddress}>
                     <LazyLoad height={60} overflow>
                       <MintCard mintAddress={mintAddress} onClick={onSelect} />
                     </LazyLoad>
                   </Col>
-                ),
+                ))
+              ) : (
+                <Col>
+                  <Empty style={{ padding: 40 }} />
+                </Col>
               )}
-              {!searchedMintAddresses ? (
+              {!validSearched && (
                 <Fragment>
                   <Col span={24}>
                     <Divider style={{ marginBottom: 0 }} />
@@ -163,9 +189,10 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
                     </Typography.Text>
                   </Col>
                 </Fragment>
-              ) : null}
+              )}
             </Row>
           </Col>
+          {!validSearched}
         </Row>
       </Modal>
     </Fragment>
