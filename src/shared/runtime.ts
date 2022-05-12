@@ -62,30 +62,26 @@ export const chainId: ChainId = getChainId()
 /**
  * RPC Node
  */
-const devnetRPCs = [
-  'https://api.devnet.solana.com',
-  'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
-]
-const testnetRPCs = ['https://api.testnet.solana.com']
-const mainnetRPCs = [
-  'https://ssc-dao.genesysgo.net/',
-  'https://solana-api.projectserum.com',
-]
-const balancing = <T>(arr: T[]): T => {
-  const rpc = arr[Math.floor(Math.random() * arr.length)]
-  console.log('Debug OS RPC:', rpc)
-  return rpc
+const RPC_NETS: Record<Net, string[]> = {
+  devnet: [
+    'https://api.devnet.solana.com',
+    'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
+  ],
+  testnet: ['https://api.testnet.solana.com'],
+  mainnet: [
+    'https://ssc-dao.genesysgo.net/',
+    'https://solana-api.projectserum.com',
+  ],
 }
-const getRPC = () => {
-  switch (net) {
-    case 'devnet':
-      return balancing(devnetRPCs)
-    case 'testnet':
-      return balancing(testnetRPCs)
-    case 'mainnet':
-      return balancing(mainnetRPCs)
-    default:
-      return balancing(mainnetRPCs)
+
+const balancing = (): string => {
+  if (!!window.rpc_balancing) {
+    console.log('Debug OS Window RPC:', window.rpc_balancing)
+    return window.rpc_balancing
   }
+  const RPCs = getRPCs()
+  return RPCs[Math.floor(Math.random() * RPCs.length)]
 }
-export const rpc: string = getRPC()
+
+export const getRPCs = () => RPC_NETS[net]
+export const rpc: string = balancing()

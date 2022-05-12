@@ -1,4 +1,5 @@
 import { account, utils } from '@senswap/sen-js'
+import { Connection } from '@solana/web3.js'
 import numbro from 'numbro'
 
 import { net } from 'shared/runtime'
@@ -107,4 +108,17 @@ export const randElements = <T>(arr: T[], num: number): T[] => {
     if (!re.includes(el)) re.push(el)
   }
   return re
+}
+
+/**
+ * Ping solana cluster
+ * @param nodeRpc - solana cluster's node RPC
+ * @returns duration ping to solana
+ */
+export const pingSolanaCluster = async (nodeRpc: string): Promise<number> => {
+  const connection = new Connection(nodeRpc)
+  const start = Date.now()
+  await connection.getVersion()
+  const end = Date.now()
+  return end - start
 }
