@@ -32,7 +32,7 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const dispatch = useRootDispatch<RootDispatch>()
   const {
     wallet: { address: walletAddress },
-    flags: { loading },
+    flags: { loadingCluster },
   } = useRootSelector((state: RootState) => state)
 
   const reconnect = () => {
@@ -62,14 +62,14 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   }
 
   useEffect(() => {
-    if (account.isAddress(walletAddress) || loading) return
+    if (account.isAddress(walletAddress) || loadingCluster) return
     try {
       const wallet = reconnect()
       if (wallet) dispatch(connectWallet(wallet)).unwrap()
     } catch (er: any) {
       return window.notify({ type: 'error', description: er.message })
     }
-  }, [dispatch, loading, walletAddress])
+  }, [dispatch, loadingCluster, walletAddress])
 
   if (account.isAddress(walletAddress))
     return (

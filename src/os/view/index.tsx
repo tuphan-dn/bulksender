@@ -22,10 +22,13 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { getRPCs } from 'shared/runtime'
-import { pingSolanaCluster } from 'shared/util'
+import { getBestCluster } from 'shared/runtime'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
-import { loadVisited, updateLoading } from 'os/store/flags.reducer'
+import {
+  loadVisited,
+  updateLoading,
+  updateLoadingCluster,
+} from 'os/store/flags.reducer'
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
 
@@ -42,26 +45,9 @@ const View = () => {
   // Init Dapp context
   useEffect(() => {
     ;(async () => {
-      try {
-        await dispatch(updateLoading(true))
-        // Get best RPC balancing
-        const RPCs = getRPCs()
-        const bestRpc: string = await new Promise(async (resolveBestRpc) => {
-          await Promise.all(
-            RPCs.map(async (rpc) => {
-              try {
-                await pingSolanaCluster(rpc)
-                resolveBestRpc(rpc)
-              } catch (error) {}
-            }),
-          )
-        })
-        window.rpc_balancing = bestRpc
-      } catch (er: any) {
-        return window.notify({ type: 'warning', description: er.message })
-      } finally {
-        await dispatch(updateLoading(false))
-      }
+      // Get best RPC balancing
+      window.cluster = await getBestCluster()
+      await dispatch(updateLoadingCluster(false))
     })()
   }, [dispatch])
 
@@ -70,7 +56,6 @@ const View = () => {
     ;(async () => {
       if (!account.isAddress(walletAddress)) return dispatch(loadRegister())
       try {
-        await dispatch(updateLoading(true))
         await dispatch(loadVisited())
         const register = await dispatch(loadRegister()).unwrap()
         if (Object.keys(register).length) await dispatch(loadPage())

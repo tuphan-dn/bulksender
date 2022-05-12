@@ -1,3 +1,4 @@
+import { Connection } from '@solana/web3.js'
 import storage from './storage'
 
 /**
@@ -62,7 +63,7 @@ export const chainId: ChainId = getChainId()
 /**
  * RPC Node
  */
-const RPC_NETS: Record<Net, string[]> = {
+const CLUSTERS: Record<Net, string[]> = {
   devnet: [
     'https://api.devnet.solana.com',
     'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
@@ -75,13 +76,42 @@ const RPC_NETS: Record<Net, string[]> = {
 }
 
 const balancing = (): string => {
-  if (!!window.rpc_balancing) {
-    console.log('Debug OS Window RPC:', window.rpc_balancing)
-    return window.rpc_balancing
+  if (!!window.cluster) {
+    console.log('Debug OS Window RPC:', window.cluster)
+    return window.cluster
   }
-  const RPCs = getRPCs()
-  return RPCs[Math.floor(Math.random() * RPCs.length)]
+  const clusters = CLUSTERS[net]
+  return clusters[Math.floor(Math.random() * clusters.length)]
 }
 
-export const getRPCs = () => RPC_NETS[net]
 export const rpc: string = balancing()
+
+/**
+ * Ping solana cluster
+ * @param nodeRpc - solana cluster's node RPC
+ * @returns duration ping to solana
+ */
+export const pingSolanaCluster = async (nodeRpc: string): Promise<number> => {
+  const connection = new Connection(nodeRpc)
+  const start = Date.now()
+  await connection.getVersion()
+  const end = Date.now()
+  return end - start
+}
+
+/**
+ * Ping solana cluster
+ * @param nodeRpc - solana cluster's node RPC
+ * @returns duration ping to solana
+ */
+export const getBestCluster = async (): Promise<string> => {
+  const clusters = CLUSTERS[net]
+  return new Promise((resolveBestCluster) =>
+    clusters.forEach(async (cluster) => {
+      try {
+        await pingSolanaCluster(cluster)
+        resolveBestCluster(cluster)
+      } catch (error) {}
+    }),
+  )
+}

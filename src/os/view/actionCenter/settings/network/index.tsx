@@ -5,7 +5,7 @@ import IonIcon from 'shared/antd/ionicon'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'
-import { pingSolanaCluster } from 'shared/util'
+import { pingSolanaCluster } from 'shared/runtime'
 
 const {
   sol: { node },
