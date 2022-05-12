@@ -76,12 +76,14 @@ const CLUSTERS: Record<Net, string[]> = {
 }
 
 const balancing = (): string => {
-  if (!!window.cluster) {
-    console.log('Debug OS Window RPC:', window.cluster)
-    return window.cluster
+  if (!window.cluster) {
+    const clusters = CLUSTERS[net]
+    const cluster = clusters[Math.floor(Math.random() * clusters.length)]
+    console.log('Debug OS Random Cluster:', window.cluster)
+    return cluster
   }
-  const clusters = CLUSTERS[net]
-  return clusters[Math.floor(Math.random() * clusters.length)]
+  console.log('Debug OS Window Cluster:', window.cluster)
+  return window.cluster
 }
 
 export const rpc: string = balancing()
