@@ -75,14 +75,12 @@ const CLUSTERS: Record<Net, string[]> = {
     'https://solitary-autumn-water.solana-mainnet.quiknode.pro/dcbac9d444818a20ac583541dec35b44c6840888/',
   ],
 }
-
 const getRPC = () => {
   const rpcs = CLUSTERS[net]
   const rpc = rpcs[Math.floor(Math.random() * rpcs.length)]
   console.log('Debug OS RPC:', rpc)
   return rpc
 }
-
 export const rpc: string = getRPC()
 
 /**
