@@ -22,7 +22,6 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { setupCluster } from 'shared/runtime'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
 import { loadVisited, updateLoading } from 'os/store/flags.reducer'
 
@@ -41,16 +40,16 @@ const View = () => {
   // Load DApp flags, registry, page
   useEffect(() => {
     ;(async () => {
-      await setupCluster()
       if (!account.isAddress(walletAddress)) return dispatch(loadRegister())
       try {
+        await dispatch(updateLoading(true))
         await dispatch(loadVisited())
         const register = await dispatch(loadRegister()).unwrap()
         if (Object.keys(register).length) await dispatch(loadPage())
       } catch (er: any) {
         return window.notify({ type: 'warning', description: er.message })
       } finally {
-        await dispatch(updateLoading(false))
+        return dispatch(updateLoading(false))
       }
     })()
   }, [dispatch, walletAddress])

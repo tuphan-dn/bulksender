@@ -76,15 +76,11 @@ const CLUSTERS: Record<Net, string[]> = {
   ],
 }
 
-export const getRPC = (): string => {
-  if (!window.cluster) {
-    const clusters = CLUSTERS[net]
-    const cluster = clusters[Math.floor(Math.random() * clusters.length)]
-    console.log('Debug OS Random Cluster:', cluster)
-    return cluster
-  }
-  console.log('Debug OS Window Cluster:', window.cluster)
-  return window.cluster || ''
+const getRPC = () => {
+  const rpcs = CLUSTERS[net]
+  const rpc = rpcs[Math.floor(Math.random() * rpcs.length)]
+  console.log('Debug OS RPC:', rpc)
+  return rpc
 }
 
 export const rpc: string = getRPC()
@@ -100,20 +96,4 @@ export const pingCluster = async (nodeRpc: string): Promise<number> => {
   await connection.getVersion()
   const end = Date.now()
   return end - start
-}
-
-/**
- * Check health and get best cluster
- * @returns best cluster with duration at least
- */
-export const setupCluster = async () => {
-  const clusters = CLUSTERS[net]
-  window.cluster = await new Promise((resolve) =>
-    clusters.forEach(async (cluster) => {
-      try {
-        await pingCluster(cluster)
-        return resolve(cluster)
-      } catch (error) {}
-    }),
-  )
 }
