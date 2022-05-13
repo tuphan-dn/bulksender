@@ -10,7 +10,6 @@ import PDB from 'shared/pdb'
 type FlagsState = {
   visited: boolean
   loading: boolean
-  loadingCluster: boolean
 }
 
 /**
@@ -21,7 +20,6 @@ const NAME = 'flags'
 const initialState: FlagsState = {
   visited: true,
   loading: true,
-  loadingCluster: true,
 }
 
 /**
@@ -65,13 +63,6 @@ export const updateLoading = createAsyncThunk(
   },
 )
 
-export const updateLoadingCluster = createAsyncThunk(
-  `${NAME}/updateLoadingCluster`,
-  async (loadingCluster: boolean) => {
-    return { loadingCluster }
-  },
-)
-
 /**
  * Usual procedure
  */
@@ -92,10 +83,6 @@ const slice = createSlice({
       )
       .addCase(
         updateLoading.fulfilled,
-        (state, { payload }) => void Object.assign(state, payload),
-      )
-      .addCase(
-        updateLoadingCluster.fulfilled,
         (state, { payload }) => void Object.assign(state, payload),
       ),
 })

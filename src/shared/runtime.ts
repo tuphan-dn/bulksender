@@ -72,28 +72,29 @@ const CLUSTERS: Record<Net, string[]> = {
   mainnet: [
     'https://ssc-dao.genesysgo.net/',
     'https://solana-api.projectserum.com',
+    'https://solitary-autumn-water.solana-mainnet.quiknode.pro/dcbac9d444818a20ac583541dec35b44c6840888/',
   ],
 }
 
-const balancing = (): string => {
+export const getRPC = (): string => {
   if (!window.cluster) {
     const clusters = CLUSTERS[net]
     const cluster = clusters[Math.floor(Math.random() * clusters.length)]
-    console.log('Debug OS Random Cluster:', window.cluster)
+    console.log('Debug OS Random Cluster:', cluster)
     return cluster
   }
   console.log('Debug OS Window Cluster:', window.cluster)
-  return window.cluster
+  return window.cluster || ''
 }
 
-export const rpc: string = balancing()
+export const rpc: string = getRPC()
 
 /**
- * Ping solana cluster
- * @param nodeRpc - solana cluster's node RPC
- * @returns duration ping to solana
+ * Ping Solana cluster
+ * @param nodeRpc - Solana's RPC cluster
+ * @returns ping time
  */
-export const pingSolanaCluster = async (nodeRpc: string): Promise<number> => {
+export const pingCluster = async (nodeRpc: string): Promise<number> => {
   const connection = new Connection(nodeRpc)
   const start = Date.now()
   await connection.getVersion()
@@ -105,13 +106,13 @@ export const pingSolanaCluster = async (nodeRpc: string): Promise<number> => {
  * Check health and get best cluster
  * @returns best cluster with duration at least
  */
-export const getBestCluster = async (): Promise<string> => {
+export const setupCluster = async () => {
   const clusters = CLUSTERS[net]
-  return new Promise((resolveBestCluster) =>
+  window.cluster = await new Promise((resolve) =>
     clusters.forEach(async (cluster) => {
       try {
-        await pingSolanaCluster(cluster)
-        resolveBestCluster(cluster)
+        await pingCluster(cluster)
+        return resolve(cluster)
       } catch (error) {}
     }),
   )

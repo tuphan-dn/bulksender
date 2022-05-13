@@ -22,16 +22,12 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { getBestCluster } from 'shared/runtime'
+import { setupCluster } from 'shared/runtime'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
-import {
-  loadVisited,
-  updateLoading,
-  updateLoadingCluster,
-} from 'os/store/flags.reducer'
+import { loadVisited, updateLoading } from 'os/store/flags.reducer'
+
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
-
 import DEFAULT_LIGHT_BG from 'os/static/images/bg/light-bg.png'
 import DEFAULT_DARK_BG from 'os/static/images/bg/dark-bg.png'
 
@@ -42,18 +38,10 @@ const View = () => {
   } = useRootSelector((state: RootState) => state)
   const dispatch = useRootDispatch<RootDispatch>()
 
-  // Init Dapp context
-  useEffect(() => {
-    ;(async () => {
-      // Get best RPC balancing
-      window.cluster = await getBestCluster()
-      await dispatch(updateLoadingCluster(false))
-    })()
-  }, [dispatch])
-
   // Load DApp flags, registry, page
   useEffect(() => {
     ;(async () => {
+      await setupCluster()
       if (!account.isAddress(walletAddress)) return dispatch(loadRegister())
       try {
         await dispatch(loadVisited())
