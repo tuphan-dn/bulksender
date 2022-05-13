@@ -26,6 +26,7 @@ interface Window {
   Slope: any
   solflare: any
   clover_solana: any
+  cluster?: string
 }
 
 // For bigint serialization

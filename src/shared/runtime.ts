@@ -1,3 +1,4 @@
+import { Connection } from '@solana/web3.js'
 import storage from './storage'
 
 /**
@@ -62,30 +63,56 @@ export const chainId: ChainId = getChainId()
 /**
  * RPC Node
  */
-const devnetRPCs = [
-  'https://api.devnet.solana.com',
-  'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
-]
-const testnetRPCs = ['https://api.testnet.solana.com']
-const mainnetRPCs = [
-  'https://ssc-dao.genesysgo.net/',
-  'https://solana-api.projectserum.com',
-]
-const balancing = <T>(arr: T[]): T => {
-  const rpc = arr[Math.floor(Math.random() * arr.length)]
-  console.log('Debug OS RPC:', rpc)
-  return rpc
+const CLUSTERS: Record<Net, string[]> = {
+  devnet: [
+    'https://api.devnet.solana.com',
+    'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
+  ],
+  testnet: ['https://api.testnet.solana.com'],
+  mainnet: [
+    'https://ssc-dao.genesysgo.net/',
+    'https://solana-api.projectserum.com',
+  ],
 }
-const getRPC = () => {
-  switch (net) {
-    case 'devnet':
-      return balancing(devnetRPCs)
-    case 'testnet':
-      return balancing(testnetRPCs)
-    case 'mainnet':
-      return balancing(mainnetRPCs)
-    default:
-      return balancing(mainnetRPCs)
+
+const balancing = (): string => {
+  if (!window.cluster) {
+    const clusters = CLUSTERS[net]
+    const cluster = clusters[Math.floor(Math.random() * clusters.length)]
+    console.log('Debug OS Random Cluster:', window.cluster)
+    return cluster
   }
+  console.log('Debug OS Window Cluster:', window.cluster)
+  return window.cluster
 }
-export const rpc: string = getRPC()
+
+export const rpc: string = balancing()
+
+/**
+ * Ping solana cluster
+ * @param nodeRpc - solana cluster's node RPC
+ * @returns duration ping to solana
+ */
+export const pingSolanaCluster = async (nodeRpc: string): Promise<number> => {
+  const connection = new Connection(nodeRpc)
+  const start = Date.now()
+  await connection.getVersion()
+  const end = Date.now()
+  return end - start
+}
+
+/**
+ * Check health and get best cluster
+ * @returns best cluster with duration at least
+ */
+export const getBestCluster = async (): Promise<string> => {
+  const clusters = CLUSTERS[net]
+  return new Promise((resolveBestCluster) =>
+    clusters.forEach(async (cluster) => {
+      try {
+        await pingSolanaCluster(cluster)
+        resolveBestCluster(cluster)
+      } catch (error) {}
+    }),
+  )
+}
