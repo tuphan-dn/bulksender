@@ -1,5 +1,5 @@
 import { ComponentProps, ElementType, useCallback } from 'react'
-import { Route, Redirect, useLocation } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { account } from '@senswap/sen-js'
 
 import { useRootSelector, RootState } from 'os/store'
@@ -9,20 +9,22 @@ export type PrivateRouteProps = {
 } & ComponentProps<typeof Route>
 
 const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {
-  const { pathname } = useLocation()
   const {
     wallet: { address: walletAddress },
   } = useRootSelector((state: RootState) => state)
 
   const render = useCallback(
     (props) => {
+      const pathname = encodeURIComponent(
+        window.location.href.replace(window.location.origin, ''),
+      )
       if (!account.isAddress(walletAddress))
         return (
           <Redirect to={'/welcome?redirect=' + encodeURIComponent(pathname)} />
         )
       return <Component {...props} />
     },
-    [walletAddress, Component, pathname],
+    [walletAddress, Component],
   )
 
   return <Route {...rest} render={render} />
