@@ -26,13 +26,11 @@ export const useRecommendedMintAddresses = () => {
   }, [accounts])
 
   const getRecommendedMintAddresses = useCallback(async () => {
-    // const addresses = myMintAddresses.filter((mintAddress) =>
-    //   allMintAddresses.includes(mintAddress),
-    // )
-    const addresses = myMintAddresses.splice(0, 50)
+    const addresses = myMintAddresses.filter((mintAddress) =>
+      allMintAddresses.includes(mintAddress),
+    )
     return setRecommendedMintAddresses(addresses)
-    // }, [myMintAddresses, allMintAddresses])
-  }, [myMintAddresses])
+  }, [myMintAddresses, allMintAddresses])
 
   useEffect(() => {
     getRecommendedMintAddresses()

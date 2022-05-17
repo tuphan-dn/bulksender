@@ -1,6 +1,7 @@
 import { Card, Space, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import { MintAvatar, MintName } from 'shared/antd/mint'
+import { MintAvatar } from 'shared/antd/mint'
+import MintSymbol from '../mintSymbol'
 
 export type MintTagProps = {
   mintAddress: string
@@ -25,7 +26,7 @@ const MintTag = ({
       <Space>
         <MintAvatar mintAddress={mintAddress} />
         <Typography.Text>
-          <MintName mintAddress={mintAddress} />
+          <MintSymbol mintAddress={mintAddress} />
         </Typography.Text>
         {active && <IonIcon name="checkmark-outline" />}
       </Space>

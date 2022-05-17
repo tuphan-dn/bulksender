@@ -11,7 +11,6 @@ import { account } from '@senswap/sen-js'
 
 import {
   Button,
-  ButtonProps,
   Col,
   Divider,
   Empty,
@@ -101,7 +100,6 @@ const MintSelection = ({
         footer={null}
         closeIcon={<IonIcon name="close-outline" />}
         centered
-        // forceRender
       >
         <Row gutter={[32, 32]}>
           <Col span={24}>
@@ -133,14 +131,14 @@ const MintSelection = ({
             <Col span={24}>
               <Row gutter={[8, 8]}>
                 {account.isAddress(value) ? (
-                  <Col>
+                  <Col span={6}>
                     <MintTag mintAddress={value} active />
                   </Col>
                 ) : null}
                 {recommendedMintAddresses
                   .filter((mintAddress) => mintAddress !== value)
                   .map((mintAddress) => (
-                    <Col key={mintAddress}>
+                    <Col span={8} key={mintAddress}>
                       <MintTag mintAddress={mintAddress} onClick={onSelect} />
                     </Col>
                   ))}
