@@ -24,9 +24,9 @@ import {
 } from 'os/store'
 import { loadPage, loadRegister } from 'os/store/page.reducer'
 import { loadVisited, updateLoading } from 'os/store/flags.reducer'
+
 import 'os/static/styles/dark.os.less'
 import 'os/static/styles/light.os.less'
-
 import DEFAULT_LIGHT_BG from 'os/static/images/bg/light-bg.png'
 import DEFAULT_DARK_BG from 'os/static/images/bg/dark-bg.png'
 
@@ -49,7 +49,7 @@ const View = () => {
       } catch (er: any) {
         return window.notify({ type: 'warning', description: er.message })
       } finally {
-        await dispatch(updateLoading(false))
+        return dispatch(updateLoading(false))
       }
     })()
   }, [dispatch, walletAddress])

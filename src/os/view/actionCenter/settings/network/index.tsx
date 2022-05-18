@@ -1,56 +1,67 @@
 import { useCallback, useState, useEffect } from 'react'
-import { Connection } from '@solana/web3.js'
 
 import { Row, Col, Typography, Space, Badge, Card } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'
+import { pingCluster } from 'shared/runtime'
 
 const {
   sol: { node },
 } = configs
-const connection = new Connection(node)
+
 // 0: Failed, 1: Poor, 2: Moderate, 3: Good
-type NetworkStatus = 0 | 1 | 2 | 3
+enum NetworkStatus {
+  Failed,
+  Poor,
+  Moderate,
+  Good,
+}
 let intervalId: ReturnType<typeof setTimeout> | undefined
 
-const parseType = (status: number) => {
-  return status === 3
-    ? 'success'
-    : status === 2
-    ? 'warning'
-    : status === 1
-    ? 'error'
-    : 'default'
+const parseType = (status: NetworkStatus) => {
+  switch (status) {
+    case NetworkStatus.Good:
+      return 'success'
+    case NetworkStatus.Moderate:
+      return 'warning'
+    case NetworkStatus.Poor:
+      return 'error'
+    default:
+      return 'default'
+  }
 }
 
 const parseMessage = (status: number) => {
-  return status === 3
-    ? 'Good'
-    : status === 2
-    ? 'Moderate'
-    : status === 1
-    ? 'Poor'
-    : 'No'
+  switch (status) {
+    case NetworkStatus.Good:
+      return 'Good'
+    case NetworkStatus.Moderate:
+      return 'Moderate'
+    case NetworkStatus.Poor:
+      return 'Poor'
+    default:
+      return 'No'
+  }
 }
 
 const Network = () => {
-  const [networkStatus, setNetworkStatus] = useState<NetworkStatus>(0)
+  const [networkStatus, setNetworkStatus] = useState<NetworkStatus>(
+    NetworkStatus.Failed,
+  )
 
   // Intervally ping solana cluster
   const ping = useCallback(async () => {
     try {
-      if (!window.navigator.onLine) return setNetworkStatus(0)
-      const start = Date.now()
-      await connection.getVersion()
-      const end = Date.now()
-      const duration = end - start
-      if (duration < 250) return setNetworkStatus(3)
-      if (duration < 1000) return setNetworkStatus(2)
-      return setNetworkStatus(1)
+      if (!window.navigator.onLine)
+        return setNetworkStatus(NetworkStatus.Failed)
+      const duration = await pingCluster(node)
+      if (duration < 250) return setNetworkStatus(NetworkStatus.Good)
+      if (duration < 1000) return setNetworkStatus(NetworkStatus.Moderate)
+      return setNetworkStatus(NetworkStatus.Poor)
     } catch (er) {
-      return setNetworkStatus(0)
+      return setNetworkStatus(NetworkStatus.Failed)
     }
   }, [])
 

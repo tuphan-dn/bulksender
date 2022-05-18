@@ -1,15 +1,12 @@
-import { Row, Col, Divider } from 'antd'
+import { Row, Col } from 'antd'
 import WalletIntro from './walletIntro'
 import AllApplications from './allApplications'
 
 const Applications = () => {
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[24, 32]}>
       <Col span={24}>
         <WalletIntro />
-      </Col>
-      <Col span={24}>
-        <Divider style={{ margin: 0 }} />
       </Col>
       <Col span={24}>
         <AllApplications />

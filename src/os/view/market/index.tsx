@@ -2,21 +2,27 @@ import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
-import BannerTop from './bannerTop'
-import BannerBottom from './bannerBottom'
+import TopBanner from './topBanner'
+import BottomBanner from './bottomBanner'
 import AppCategorySeeAll from './appCategory/seeAll'
 import AppCategorySlice from './appCategory/slice'
-
-import { useRootSelector, RootState } from 'os/store'
 import AllApps from './allApps'
 
-const CATEGORIES = ['utility', 'sentre']
+import { useRootSelector, RootState } from 'os/store'
+import { compareAliasString } from './appCategory/hooks/custom'
+
+const CATEGORIES = ['utility', 'DAO', 'liquidity', 'sentre']
 
 const Market = () => {
   const { search } = useLocation()
   const {
     page: { register },
   } = useRootSelector((state: RootState) => state)
+
+  const category = useMemo(
+    () => new URLSearchParams(search).get('category'),
+    [search],
+  )
 
   const tags = useMemo(() => {
     let tags: string[] = []
@@ -25,17 +31,16 @@ const Market = () => {
       // Remove duplicate elements
       tags = Array.from(new Set([...tags, ...newTags]))
     }
-    return CATEGORIES.filter((category) => tags.includes(category))
+    return CATEGORIES.filter((category) => compareAliasString(category, tags))
   }, [register])
 
-  const category = new URLSearchParams(search).get('category')
   if (category) return <AppCategorySeeAll category={category} />
   return (
     <Row gutter={[16, 48]} justify="center">
       <Col span={24} className="sentre-col-container">
         <Row gutter={[16, 48]}>
           <Col span={24}>
-            <BannerTop />
+            <TopBanner />
           </Col>
           {tags.map((tag) => (
             <Col span={24} key={tag}>
@@ -46,7 +51,7 @@ const Market = () => {
             <AllApps />
           </Col>
           <Col span={24}>
-            <BannerBottom />
+            <BottomBanner />
           </Col>
         </Row>
       </Col>

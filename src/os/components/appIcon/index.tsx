@@ -9,7 +9,7 @@ import configs from 'os/configs'
 import './index.os.less'
 
 const {
-  register: { defaultAppId },
+  register: { devAppId },
 } = configs
 
 type AppIconProps = {
@@ -28,7 +28,7 @@ const AppAvatar = ({
   appId: string
   avatarProps: AvatarProps
 }) => {
-  return appId === defaultAppId ? (
+  return appId === devAppId ? (
     <Badge.Ribbon className="sentre-ribbon-dev" text="dev" placement="start">
       <Avatar {...avatarProps}>
         <IonIcon name="image-outline" />

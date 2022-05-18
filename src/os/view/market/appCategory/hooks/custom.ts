@@ -1,4 +1,4 @@
-export type CategoryRelated = {
+export type RelatedCategory = {
   appIds?: AppIds
 }
 
@@ -6,34 +6,36 @@ export type CategoryFilter = {
   authorEmail?: string
 }
 
-export const findAppWithTag = (
-  register: SenReg,
-  appIds: AppIds,
-  tag: string,
-): AppIds => {
-  return appIds.filter((appId) => register[appId]?.tags?.includes(tag))
+export const compareAliasString = (
+  val: string,
+  arr: string[] = [],
+): boolean => {
+  return arr.map((val) => val.toLowerCase()).includes(val.toLowerCase())
 }
 
-export const findAppOthers = (register: SenReg, appIds: AppIds): AppIds => {
-  return appIds.filter((appId) => !register[appId]?.tags)
+export const findTaggedApps = (tag: string, register: SenReg): AppIds => {
+  const appIds: AppIds = Object.keys(register)
+  return appIds.filter((appId) =>
+    compareAliasString(tag, register[appId]?.tags),
+  )
 }
 
-export const findAppSuggest = (
+export const findSuggestedApps = (
+  related: RelatedCategory,
   register: SenReg,
-  appIds: AppIds,
-  related: CategoryRelated,
 ) => {
   if (!related.appIds) return []
-  //Suggest by tag
-  let tagsSuggest: string[] = []
+  // Suggested by tags
+  let appIds: AppIds = Object.keys(register)
+  let suggestedTags: string[] = []
   for (const appId of related.appIds) {
-    const newTags = register[appId]?.tags || []
-    tagsSuggest = Array.from(new Set([...tagsSuggest, ...newTags]))
+    const additionalTags = register[appId]?.tags || []
+    suggestedTags = Array.from(new Set([...suggestedTags, ...additionalTags]))
   }
   return appIds.filter((appId) => {
     if (related.appIds?.includes(appId)) return false
-    for (const tag of tagsSuggest)
-      if (register[appId]?.tags?.includes(tag)) return true
+    for (const tag of suggestedTags)
+      if (compareAliasString(tag, register[appId]?.tags)) return true
     return false
   })
 }

@@ -1,3 +1,4 @@
+import { Connection } from '@solana/web3.js'
 import storage from './storage'
 
 /**
@@ -62,30 +63,35 @@ export const chainId: ChainId = getChainId()
 /**
  * RPC Node
  */
-const devnetRPCs = [
-  'https://api.devnet.solana.com',
-  'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
-]
-const testnetRPCs = ['https://api.testnet.solana.com']
-const mainnetRPCs = [
-  'https://ssc-dao.genesysgo.net/',
-  'https://solana-api.projectserum.com',
-]
-const balancing = <T>(arr: T[]): T => {
-  const rpc = arr[Math.floor(Math.random() * arr.length)]
+const CLUSTERS: Record<Net, string[]> = {
+  devnet: [
+    'https://api.devnet.solana.com',
+    'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/',
+  ],
+  testnet: ['https://api.testnet.solana.com'],
+  mainnet: [
+    'https://ssc-dao.genesysgo.net/',
+    'https://solana-api.projectserum.com',
+    'https://solitary-autumn-water.solana-mainnet.quiknode.pro/dcbac9d444818a20ac583541dec35b44c6840888/',
+  ],
+}
+const getRPC = () => {
+  const rpcs = CLUSTERS[net]
+  const rpc = rpcs[Math.floor(Math.random() * rpcs.length)]
   console.log('Debug OS RPC:', rpc)
   return rpc
 }
-const getRPC = () => {
-  switch (net) {
-    case 'devnet':
-      return balancing(devnetRPCs)
-    case 'testnet':
-      return balancing(testnetRPCs)
-    case 'mainnet':
-      return balancing(mainnetRPCs)
-    default:
-      return balancing(mainnetRPCs)
-  }
-}
 export const rpc: string = getRPC()
+
+/**
+ * Ping Solana cluster
+ * @param nodeRpc - Solana's RPC cluster
+ * @returns ping time
+ */
+export const pingCluster = async (nodeRpc: string): Promise<number> => {
+  const connection = new Connection(nodeRpc)
+  const start = Date.now()
+  await connection.getVersion()
+  const end = Date.now()
+  return end - start
+}

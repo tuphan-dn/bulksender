@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { Button, Col, Modal, Row, Space, Typography, Switch } from 'antd'
@@ -23,7 +23,10 @@ const AllApplications = () => {
   const [visible, setVisible] = useState(false)
   const { appIds, register } = useRootSelector((state: RootState) => state.page)
 
-  const onChange = (appIds: AppIds) => dispatch(updatePage(appIds))
+  const onChange = useCallback(
+    (appIds: AppIds) => dispatch(updatePage(appIds)),
+    [dispatch],
+  )
   const onClose = async () => {
     await setAppId('')
     return setVisible(false)
@@ -32,15 +35,16 @@ const AllApplications = () => {
     await setAppId(appId)
     return setVisible(true)
   }
-  const onUninstall = async () => {
+  const onUninstall = useCallback(async () => {
     await dispatch(uninstallApp(appId))
     await onClose()
-    if (pathname.startsWith(`/app/${appId}`)) return history.push('/welcome')
-  }
-  const onGotoStore = async () => {
+    if (!pathname.startsWith(`/app/${appId}`)) return
+    return history.push('/welcome')
+  }, [dispatch, pathname, history, appId])
+  const onGotoStore = useCallback(async () => {
     await dispatch(setVisibleActionCenter(false))
     return history.push('/store')
-  }
+  }, [dispatch, history])
 
   return (
     <Row gutter={[16, 16]}>

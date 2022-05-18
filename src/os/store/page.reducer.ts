@@ -3,9 +3,10 @@ import { account } from '@senswap/sen-js'
 
 import PDB from 'shared/pdb'
 import configs from 'os/configs'
+import { env } from 'shared/runtime'
 
 const {
-  register: { senreg, extra },
+  register: { senreg, extra, devAppId },
 } = configs
 
 /**
@@ -19,6 +20,8 @@ export type PageState = {
 
 const troubleshoot = (register: SenReg, appIds?: AppIds): AppIds => {
   if (!appIds || !Array.isArray(appIds)) return []
+  if (env === 'development' && !appIds.includes(devAppId))
+    appIds.unshift(devAppId)
   return appIds.filter((appId) => register[appId])
 }
 const fetchRegister = async () => {

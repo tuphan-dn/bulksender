@@ -14,7 +14,7 @@ if (
  */
 
 type Conf = {
-  defaultAppId: string
+  devAppId: string
   extra: SenReg
   senreg: string
 }
@@ -42,7 +42,7 @@ const conf: Record<Env, Conf> = {
    * Development configurations
    */
   development: {
-    defaultAppId: DEFAULT_APP_ID,
+    devAppId: DEFAULT_APP_ID,
     extra: devApp,
     senreg: 'https://descartesnetwork.github.io/senreg/register.json',
   },
@@ -51,7 +51,7 @@ const conf: Record<Env, Conf> = {
    * Staging configurations
    */
   staging: {
-    defaultAppId: DEFAULT_APP_ID,
+    devAppId: DEFAULT_APP_ID,
     extra: devApp,
     senreg: 'https://descartesnetwork.github.io/senreg/register.json',
   },
@@ -60,7 +60,7 @@ const conf: Record<Env, Conf> = {
    * Production configurations
    */
   production: {
-    defaultAppId: DEFAULT_APP_ID,
+    devAppId: DEFAULT_APP_ID,
     extra: {},
     senreg: 'https://descartesnetwork.github.io/senreg/register.json',
   },
