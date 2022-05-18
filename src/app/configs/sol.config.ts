@@ -1,4 +1,4 @@
-import { Net } from 'shared/runtime'
+import { Net, rpc } from 'shared/runtime'
 
 /**
  * Contructor
@@ -15,7 +15,7 @@ const conf: Record<Net, Conf> = {
    * Development configurations
    */
   devnet: {
-    node: 'https://api.devnet.solana.com',
+    node: rpc,
     spltAddress: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     splataAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
     bulksenderAddress: 'FjkVzT6QJCQrgoZ8VoyAqysD5Mfa73ekpXWe9zDprWRA',
@@ -25,7 +25,7 @@ const conf: Record<Net, Conf> = {
    * Staging configurations
    */
   testnet: {
-    node: 'https://api.testnet.solana.com',
+    node: rpc,
     spltAddress: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     splataAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
     bulksenderAddress: '',
@@ -35,7 +35,7 @@ const conf: Record<Net, Conf> = {
    * Production configurations
    */
   mainnet: {
-    node: 'https://api.google.mainnet-beta.solana.com',
+    node: rpc,
     spltAddress: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     splataAddress: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
     bulksenderAddress: '8WB9yeJ946594RHtxdNoKbwC2y13yCwJCtSY1mAeLWu1',
