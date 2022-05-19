@@ -22,6 +22,7 @@ import IonIcon from 'shared/antd/ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
 import MintCard from './mintCard'
+import LazyLoad from '@senswap/react-lazyload'
 
 import { useRecommendedMintAddresses } from './useRecommendedMintAddresses'
 import { useSearchedMintAddresses } from './useSearchedMintAddresses'
@@ -29,8 +30,8 @@ import { useRandomMintAddresses } from './useRandomMintAddress'
 import { createPDB } from 'shared/pdb'
 import configs from 'app/configs'
 import { useWallet } from '@senhub/providers'
+import { forceCheck } from '@senswap/react-lazyload'
 import { useNoSearchMintAddresses } from './useNoSearchMintAddress'
-import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
 import { account } from '@senswap/sen-js'
 
 const {
@@ -57,7 +58,6 @@ const MintSelection = ({
   const {
     wallet: { address },
   } = useWallet()
-
   const { recommendedMintAddresses, setRecommendedMintAddresses } =
     useRecommendedMintAddresses()
   const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)

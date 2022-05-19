@@ -24,19 +24,18 @@ const useSortMintByBalance = () => {
               address,
               mint,
             )
+            if (!decimal || !accounts[associatedAddress]) {
+              return {
+                address: mint,
+                value: 0,
+              }
+            }
 
             return {
               address: mint,
-              value: !decimal
-                ? 0
-                : Number(
-                    utils.undecimalize(
-                      accounts[associatedAddress]
-                        ? accounts[associatedAddress].amount
-                        : BigInt(0),
-                      decimal,
-                    ),
-                  ),
+              value: Number(
+                utils.undecimalize(accounts[associatedAddress].amount, decimal),
+              ),
             }
           } catch {
             return {

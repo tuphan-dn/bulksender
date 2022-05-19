@@ -1,26 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
+import { MintSelection } from 'shared/antd/mint'
 
 import { AppDispatch, AppState } from 'app/model'
+import { useWallet } from '@senhub/providers'
 import { increaseCounter } from 'app/model/main.controller'
-import configs from 'app/configs'
 import { createPDB } from 'shared/pdb'
-import { MintSelection } from 'shared/antd/mint'
+import configs from 'app/configs'
 
 const {
   manifest: { appId },
 } = configs
-
-const SUPPORTED_MINT = [
-  '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
-  '27hdcZv7RtuMp75vupThR3T4KLsL61t476eosMdoec4c',
-  '3aMbgP7aGsP1sVcFKc6j65zu7UiziP57SMFzf6ptiCSX',
-  '2t8MT1QunqZnthRu6hZG6Tf59ZQHP4ZURyzv1XK9jA6A',
-]
 
 const View = () => {
   const [selected, setSelected] = useState<string>('abc')
