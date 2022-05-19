@@ -6,8 +6,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
-import { account } from '@senswap/sen-js'
 
 import {
   Button,
@@ -28,6 +26,16 @@ import MintCard from './mintCard'
 import { useRecommendedMintAddresses } from './useRecommendedMintAddresses'
 import { useSearchedMintAddresses } from './useSearchedMintAddresses'
 import { useRandomMintAddresses } from './useRandomMintAddress'
+import { createPDB } from 'shared/pdb'
+import configs from 'app/configs'
+import { useWallet } from '@senhub/providers'
+import { useNoSearchMintAddresses } from './useNoSearchMintAddress'
+import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
+import { account } from '@senswap/sen-js'
+
+const {
+  manifest: { appId },
+} = configs
 
 const LIMIT = 50
 
@@ -46,26 +54,47 @@ const MintSelection = ({
 }: MintSelectionProps) => {
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
-  const recommendedMintAddresses = useRecommendedMintAddresses()
+  const {
+    wallet: { address },
+  } = useWallet()
+
+  const { recommendedMintAddresses, setRecommendedMintAddresses } =
+    useRecommendedMintAddresses()
   const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
-  const { randomHundredAddresses, refresh } = useRandomMintAddresses(LIMIT)
+  const { refresh } = useRandomMintAddresses(LIMIT)
+  const sortedNoSearchAddress = useNoSearchMintAddresses()
 
   const validSearched = useMemo(
     () => !!keyword.length && !!searchedMintAddresses?.length,
     [keyword, searchedMintAddresses?.length],
   )
-
-  const mints = !!keyword.length
-    ? searchedMintAddresses
-    : randomHundredAddresses
+  const mints = !!keyword.length ? searchedMintAddresses : sortedNoSearchAddress
 
   const onSelect = useCallback(
-    (mintAddress: string) => {
+    async (mintAddress: string) => {
       setVisible(false)
       onSelected(mintAddress)
+      const pdb = createPDB(address, appId)
+      if (pdb) {
+        const cachedMints: string[] =
+          (await pdb.getItem('recommended_token')) || []
+        if (
+          cachedMints.length === 0 ||
+          (cachedMints.length < 6 && !cachedMints.includes(mintAddress))
+        ) {
+          await pdb.setItem('recommended_token', [mintAddress, ...cachedMints])
+          return setRecommendedMintAddresses([mintAddress, ...cachedMints])
+        }
+        if (!cachedMints.includes(mintAddress)) {
+          cachedMints.pop()
+          await pdb.setItem('recommended_token', [mintAddress, ...cachedMints])
+          setRecommendedMintAddresses([mintAddress, ...cachedMints])
+        }
+      }
     },
-    [onSelected],
+    [address, onSelected, setRecommendedMintAddresses],
   )
+
   const onRefresh = useCallback(() => {
     const list = document.getElementById('sentre-token-selection-list')
     if (list) list.scrollTop = 0

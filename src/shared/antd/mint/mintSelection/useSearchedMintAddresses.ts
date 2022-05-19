@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
+
 import { useMint } from '@senhub/providers'
+import useSortMintByBalance from 'shared/hooks/useSortMintByBalance'
 
 let searching: NodeJS.Timeout
 
@@ -8,6 +10,7 @@ export const useSearchedMintAddresses = (keyword: string = '') => {
   const [searchedMintAddresses, setSearchedMintAddresses] = useState<
     string[] | undefined
   >()
+  const sortMintsByBalances = useSortMintByBalance()
   const { tokenProvider } = useMint()
 
   const getRecommendedMintAddresses = useCallback(async () => {
@@ -22,9 +25,11 @@ export const useSearchedMintAddresses = (keyword: string = '') => {
         ({ address }) => address,
       )
       setLoading(false)
-      return setSearchedMintAddresses(addresses)
+      const sortedAddresses = await sortMintsByBalances(addresses)
+
+      return setSearchedMintAddresses(sortedAddresses)
     }, 500)
-  }, [keyword, tokenProvider])
+  }, [keyword, sortMintsByBalances, tokenProvider])
 
   useEffect(() => {
     getRecommendedMintAddresses()
