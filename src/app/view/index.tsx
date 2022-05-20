@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
 import { MintSelection } from 'shared/antd/mint'
 
 import { AppDispatch, AppState } from 'app/model'
-import { useWallet } from '@senhub/providers'
 import { increaseCounter } from 'app/model/main.controller'
 import { createPDB } from 'shared/pdb'
 import configs from 'app/configs'
