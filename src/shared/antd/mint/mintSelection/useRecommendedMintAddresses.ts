@@ -1,18 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-
-import { account } from '@senswap/sen-js'
 import { useAccount, useWallet } from '@senhub/providers'
+
 import { useAllMintAddresses } from './useAllMintAddresses'
-import { createPDB } from 'shared/pdb'
-import configs from 'app/configs'
 import useSortMintByBalance from 'shared/hooks/useSortMintByBalance'
 import { net } from 'shared/runtime'
+import { createPDB } from 'shared/pdb'
+import configs from 'app/configs'
 
 const {
   manifest: { appId },
 } = configs
-
-const EMPTY_MINT_ADDRESS = ''
+const LIMIT = 7
 
 export const useRecommendedMintAddresses = () => {
   const [recommendedMintAddresses, setRecommendedMintAddresses] = useState<
@@ -26,15 +24,17 @@ export const useRecommendedMintAddresses = () => {
   const sortMintsByBalances = useSortMintByBalance()
 
   const myMintAddresses = useMemo(() => {
-    return Object.values(accounts)
-      .map(({ mint, amount }) => {
-        if (amount > BigInt(0)) return mint
-        return EMPTY_MINT_ADDRESS
-      })
-      .filter(
-        (mintAddress, index, self) =>
-          account.isAddress(mintAddress) && self.indexOf(mintAddress) === index,
-      )
+    const keyAccount = Object.values(accounts)
+    const mintAddresses: string[] = []
+    for (let i = 1; i < keyAccount.length; i++) {
+      if (
+        Number(keyAccount[i].amount.toString()) &&
+        !mintAddresses.includes(keyAccount[i].mint)
+      ) {
+        mintAddresses.push(keyAccount[i].mint)
+      }
+    }
+    return mintAddresses
   }, [accounts])
 
   const getRecommendedMintAddresses = useCallback(async () => {
@@ -42,7 +42,7 @@ export const useRecommendedMintAddresses = () => {
       allMintAddresses.includes(mintAddress),
     )
 
-    const defaultMint = (await sortMintsByBalances(addresses)).slice(0, 7)
+    const defaultMint = (await sortMintsByBalances(addresses)).slice(LIMIT)
 
     const pdb = createPDB(address, appId)
     if (pdb) {

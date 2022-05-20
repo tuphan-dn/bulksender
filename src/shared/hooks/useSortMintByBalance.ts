@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-
 import { useAccount, useMint, useWallet } from '@senhub/providers'
 import { utils } from '@senswap/sen-js'
 
@@ -25,7 +24,7 @@ const useSortMintByBalance = () => {
             )
             if (
               !accounts[associatedAddress] ||
-              accounts[associatedAddress].amount === BigInt(0)
+              Number(accounts[associatedAddress].amount.toString())
             ) {
               return {
                 address: mint,

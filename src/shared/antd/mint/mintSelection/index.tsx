@@ -6,6 +6,9 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { useWallet } from '@senhub/providers'
+import { forceCheck } from '@senswap/react-lazyload'
+import { account } from '@senswap/sen-js'
 
 import {
   Button,
@@ -27,12 +30,9 @@ import LazyLoad from '@senswap/react-lazyload'
 import { useRecommendedMintAddresses } from './useRecommendedMintAddresses'
 import { useSearchedMintAddresses } from './useSearchedMintAddresses'
 import { useRandomMintAddresses } from './useRandomMintAddress'
+import { useNoSearchMintAddresses } from './useNoSearchMintAddress'
 import { createPDB } from 'shared/pdb'
 import configs from 'app/configs'
-import { useWallet } from '@senhub/providers'
-import { forceCheck } from '@senswap/react-lazyload'
-import { useNoSearchMintAddresses } from './useNoSearchMintAddress'
-import { account } from '@senswap/sen-js'
 import { net } from 'shared/runtime'
 
 const {
@@ -40,6 +40,7 @@ const {
 } = configs
 
 const LIMIT = 50
+const CACHE_LIMIT = 8
 
 export type MintSelectionProps = {
   value: string
@@ -81,7 +82,8 @@ const MintSelection = ({
           (await pdb.getItem(`${net}:recommended_token`)) || []
         if (
           cachedMints.length === 0 ||
-          (cachedMints.length < 8 && !cachedMints.includes(mintAddress))
+          (cachedMints.length < CACHE_LIMIT &&
+            !cachedMints.includes(mintAddress))
         ) {
           await pdb.setItem(`${net}:recommended_token`, [
             mintAddress,
