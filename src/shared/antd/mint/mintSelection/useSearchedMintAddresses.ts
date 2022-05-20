@@ -1,22 +1,20 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { useMint } from '@senhub/providers'
-import useSortMintByBalance from 'shared/hooks/useSortMintByBalance'
+import { useAllMintAddresses } from './useAllMintAddresses'
 
 let searching: NodeJS.Timeout
 
 export const useSearchedMintAddresses = (keyword: string = '') => {
   const [loading, setLoading] = useState(false)
-  const [searchedMintAddresses, setSearchedMintAddresses] = useState<
-    string[] | undefined
-  >()
-  const sortMintsByBalances = useSortMintByBalance()
+  const [searchedMints, setSearchedMints] = useState<string[]>([])
   const { tokenProvider } = useMint()
+  const mints = useAllMintAddresses()
 
   const getRecommendedMintAddresses = useCallback(async () => {
     if (!keyword) {
       setLoading(false)
-      return setSearchedMintAddresses(undefined)
+      return setSearchedMints(mints)
     }
     if (searching) clearTimeout(searching)
     setLoading(true)
@@ -25,15 +23,13 @@ export const useSearchedMintAddresses = (keyword: string = '') => {
         ({ address }) => address,
       )
       setLoading(false)
-      const sortedAddresses = await sortMintsByBalances(addresses)
-
-      return setSearchedMintAddresses(sortedAddresses)
+      return setSearchedMints(addresses)
     }, 500)
-  }, [keyword, sortMintsByBalances, tokenProvider])
+  }, [keyword, mints, tokenProvider])
 
   useEffect(() => {
     getRecommendedMintAddresses()
   }, [getRecommendedMintAddresses])
 
-  return { searchedMintAddresses, loading }
+  return { searchedMintAddresses: searchedMints, loading }
 }
