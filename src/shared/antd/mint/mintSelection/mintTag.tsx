@@ -3,6 +3,8 @@ import IonIcon from 'shared/antd/ionicon'
 import { MintAvatar } from 'shared/antd/mint'
 import MintSymbol from '../mintSymbol'
 
+import './index.less'
+
 export type MintTagProps = {
   mintAddress: string
   onClick?: (mintAddress: string) => void
@@ -16,16 +18,20 @@ const MintTag = ({
 }: MintTagProps) => {
   return (
     <Card
-      bodyStyle={{ padding: 8, cursor: 'pointer' }}
+      bodyStyle={{
+        padding: 8,
+        cursor: 'pointer',
+      }}
       style={{
         borderRadius: 8,
       }}
+      className="mint-tag"
       bordered={Boolean(active)}
       onClick={() => onClick(mintAddress)}
     >
-      <Space>
+      <Space size={8} style={{ width: '100%', justifyContent: 'center' }}>
         <MintAvatar mintAddress={mintAddress} />
-        <Typography.Text>
+        <Typography.Text ellipsis={true}>
           <MintSymbol mintAddress={mintAddress} />
         </Typography.Text>
         {active && <IonIcon name="checkmark-outline" />}

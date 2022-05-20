@@ -6,6 +6,7 @@ import { useAllMintAddresses } from './useAllMintAddresses'
 import { createPDB } from 'shared/pdb'
 import configs from 'app/configs'
 import useSortMintByBalance from 'shared/hooks/useSortMintByBalance'
+import { net } from 'shared/runtime'
 
 const {
   manifest: { appId },
@@ -41,14 +42,14 @@ export const useRecommendedMintAddresses = () => {
       allMintAddresses.includes(mintAddress),
     )
 
-    const defaultMint = (await sortMintsByBalances(addresses)).slice(0, 5)
+    const defaultMint = (await sortMintsByBalances(addresses)).slice(0, 7)
 
     const pdb = createPDB(address, appId)
     if (pdb) {
       const cachedMints: string[] =
-        (await pdb.getItem('recommended_token')) || []
+        (await pdb.getItem(`${net}:recommended_token`)) || []
       if (cachedMints.length === 0) {
-        await pdb.setItem('recommended_token', defaultMint)
+        await pdb.setItem(`${net}:recommended_token`, defaultMint)
         return setRecommendedMintAddresses(defaultMint)
       }
 

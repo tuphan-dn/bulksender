@@ -19,12 +19,21 @@ const useSortMintByBalance = () => {
       const mintInfo = await Promise.all(
         mintAddresses.map(async (mint) => {
           try {
-            const decimal = await getDecimals(mint)
             const associatedAddress = await splt.deriveAssociatedAddress(
               address,
               mint,
             )
-            if (!decimal || !accounts[associatedAddress]) {
+            if (
+              !accounts[associatedAddress] ||
+              accounts[associatedAddress].amount === BigInt(0)
+            ) {
+              return {
+                address: mint,
+                value: 0,
+              }
+            }
+            const decimal = await getDecimals(mint)
+            if (!decimal) {
               return {
                 address: mint,
                 value: 0,

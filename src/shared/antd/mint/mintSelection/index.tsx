@@ -33,6 +33,7 @@ import { useWallet } from '@senhub/providers'
 import { forceCheck } from '@senswap/react-lazyload'
 import { useNoSearchMintAddresses } from './useNoSearchMintAddress'
 import { account } from '@senswap/sen-js'
+import { net } from 'shared/runtime'
 
 const {
   manifest: { appId },
@@ -77,17 +78,23 @@ const MintSelection = ({
       const pdb = createPDB(address, appId)
       if (pdb) {
         const cachedMints: string[] =
-          (await pdb.getItem('recommended_token')) || []
+          (await pdb.getItem(`${net}:recommended_token`)) || []
         if (
           cachedMints.length === 0 ||
-          (cachedMints.length < 6 && !cachedMints.includes(mintAddress))
+          (cachedMints.length < 8 && !cachedMints.includes(mintAddress))
         ) {
-          await pdb.setItem('recommended_token', [mintAddress, ...cachedMints])
+          await pdb.setItem(`${net}:recommended_token`, [
+            mintAddress,
+            ...cachedMints,
+          ])
           return setRecommendedMintAddresses([mintAddress, ...cachedMints])
         }
         if (!cachedMints.includes(mintAddress)) {
           cachedMints.pop()
-          await pdb.setItem('recommended_token', [mintAddress, ...cachedMints])
+          await pdb.setItem(`${net}:recommended_token`, [
+            mintAddress,
+            ...cachedMints,
+          ])
           setRecommendedMintAddresses([mintAddress, ...cachedMints])
         }
       }
@@ -160,14 +167,14 @@ const MintSelection = ({
             <Col span={24}>
               <Row gutter={[8, 8]}>
                 {account.isAddress(value) ? (
-                  <Col span={6}>
+                  <Col xs={12} sm={8} md={6}>
                     <MintTag mintAddress={value} active />
                   </Col>
                 ) : null}
                 {recommendedMintAddresses
                   .filter((mintAddress) => mintAddress !== value)
                   .map((mintAddress) => (
-                    <Col span={8} key={mintAddress}>
+                    <Col xs={12} sm={8} md={6} key={mintAddress}>
                       <MintTag mintAddress={mintAddress} onClick={onSelect} />
                     </Col>
                   ))}
