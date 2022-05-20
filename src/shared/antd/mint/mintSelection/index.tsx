@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { useWallet } from '@senhub/providers'
 import { forceCheck } from '@senswap/react-lazyload'
-import { account } from '@senswap/sen-js'
+import LazyLoad, { account } from '@senswap/sen-js'
 
 import {
   Button,
@@ -25,15 +25,14 @@ import IonIcon from 'shared/antd/ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
 import MintCard from './mintCard'
-import LazyLoad from '@senswap/react-lazyload'
 
 import { useRecommendedMintAddresses } from './useRecommendedMintAddresses'
 import { useSearchedMintAddresses } from './useSearchedMintAddresses'
 import { useRandomMintAddresses } from './useRandomMintAddress'
 import { useNoSearchMintAddresses } from './useNoSearchMintAddress'
 import { createPDB } from 'shared/pdb'
-import configs from 'app/configs'
 import { net } from 'shared/runtime'
+import configs from 'app/configs'
 
 const {
   manifest: { appId },
