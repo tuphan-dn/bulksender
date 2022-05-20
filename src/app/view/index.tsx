@@ -49,7 +49,7 @@ const View = () => {
       <Col span={24}>
         <MintSelection
           value={selected}
-          onSelected={setSelected}
+          onChange={setSelected}
           // supportedMints={SUPPORTED_MINT}
           // disabled
         />

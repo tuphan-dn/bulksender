@@ -7,8 +7,7 @@ import {
   useState,
 } from 'react'
 import { useWallet } from '@senhub/providers'
-import { forceCheck } from '@senswap/react-lazyload'
-import LazyLoad, { account } from '@senswap/sen-js'
+import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
 
 import {
   Button,
@@ -43,14 +42,14 @@ const CACHE_LIMIT = 8
 
 export type MintSelectionProps = {
   value: string
-  onSelected: (value: string) => void
+  onChange: (value: string) => void
   style?: CSSProperties
   disabled?: boolean
 }
 
 const MintSelection = ({
   value,
-  onSelected,
+  onChange,
   style = {},
   disabled = false,
 }: MintSelectionProps) => {
@@ -74,7 +73,7 @@ const MintSelection = ({
   const onSelect = useCallback(
     async (mintAddress: string) => {
       setVisible(false)
-      onSelected(mintAddress)
+      onChange(mintAddress)
       const pdb = createPDB(address, appId)
       if (pdb) {
         const cachedMints: string[] =
@@ -100,7 +99,7 @@ const MintSelection = ({
         }
       }
     },
-    [address, onSelected, setRecommendedMintAddresses],
+    [address, onChange, setRecommendedMintAddresses],
   )
 
   const onRefresh = useCallback(() => {
@@ -167,18 +166,15 @@ const MintSelection = ({
           {!validSearched && (
             <Col span={24}>
               <Row gutter={[8, 8]}>
-                {account.isAddress(value) ? (
-                  <Col xs={12} sm={8} md={6}>
-                    <MintTag mintAddress={value} active />
+                {recommendedMintAddresses.map((mintAddress) => (
+                  <Col xs={12} sm={8} md={6} key={mintAddress}>
+                    <MintTag
+                      mintAddress={mintAddress}
+                      onClick={onSelect}
+                      active={mintAddress === value}
+                    />
                   </Col>
-                ) : null}
-                {recommendedMintAddresses
-                  .filter((mintAddress) => mintAddress !== value)
-                  .map((mintAddress) => (
-                    <Col xs={12} sm={8} md={6} key={mintAddress}>
-                      <MintTag mintAddress={mintAddress} onClick={onSelect} />
-                    </Col>
-                  ))}
+                ))}
               </Row>
             </Col>
           )}
