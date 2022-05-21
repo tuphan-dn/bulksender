@@ -13,10 +13,10 @@ class SolflareExtWallet extends BaseWallet {
     const { solflare } = window
     if (!solflare.isSolflare) throw new Error('Wallet is not connected')
     if (solflare.isConnected) return solflare
-    solflare.connect()
-    return await new Promise((resolve) =>
-      solflare.on('connect', () => resolve(solflare)),
-    )
+    return await new Promise((resolve) => {
+      solflare.on('connect', () => resolve(solflare))
+      return solflare.connect()
+    })
   }
 
   getAddress = async () => {
