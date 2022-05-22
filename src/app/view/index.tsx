@@ -1,48 +1,22 @@
-import { useCallback, useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useWallet } from '@senhub/providers'
+import { useEffect } from 'react'
+import { useUI } from '@senhub/providers'
 
-import { Row, Col, Typography, Button, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import { Row, Col } from 'antd'
 
-import { AppDispatch, AppState } from 'app/model'
-import { increaseCounter } from 'app/model/main.controller'
-import configs from 'app/configs'
-import { createPDB } from 'shared/pdb'
-
-const {
-  manifest: { appId },
-} = configs
+import BG from 'app/static/images/background.webp'
+import Pools from './pools'
 
 const View = () => {
-  const {
-    wallet: { address },
-  } = useWallet()
-  const dispatch = useDispatch<AppDispatch>()
-  const { counter } = useSelector((state: AppState) => state.main)
+  const { setBackground } = useUI()
 
-  const pdb = useMemo(() => createPDB(address, appId), [address])
-  const increase = useCallback(() => dispatch(increaseCounter()), [dispatch])
   useEffect(() => {
-    if (pdb) pdb.setItem('counter', counter)
-  }, [pdb, counter])
+    setBackground({ light: BG, dark: BG })
+  }, [setBackground])
 
   return (
-    <Row gutter={[24, 24]} align="middle">
-      <Col span={24}>
-        <Space align="center">
-          <IonIcon name="newspaper-outline" />
-          <Typography.Title level={4}>App View</Typography.Title>
-        </Space>
-      </Col>
-      <Col span={24}>
-        <Typography.Text>Address: {address}</Typography.Text>
-      </Col>
-      <Col>
-        <Typography.Text>Counter: {counter}</Typography.Text>
-      </Col>
-      <Col>
-        <Button onClick={increase}>Increase</Button>
+    <Row gutter={[24, 24]} align="middle" justify="center">
+      <Col style={{ maxWidth: 1200 }} span={24}>
+        <Pools />
       </Col>
     </Row>
   )
