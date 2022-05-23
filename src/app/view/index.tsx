@@ -47,12 +47,7 @@ const View = () => {
         <Button onClick={increase}>Increase</Button>
       </Col>
       <Col span={24}>
-        <MintSelection
-          value={selected}
-          onChange={setSelected}
-          // supportedMints={SUPPORTED_MINT}
-          // disabled
-        />
+        <MintSelection value={selected} onChange={setSelected} />
       </Col>
     </Row>
   )

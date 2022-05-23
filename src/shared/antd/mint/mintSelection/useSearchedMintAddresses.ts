@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-
 import { useMint } from '@senhub/providers'
+
 import { useAllMintAddresses } from './useAllMintAddresses'
 
 let searching: NodeJS.Timeout
@@ -19,7 +19,7 @@ export const useSearchedMintAddresses = (keyword: string = '') => {
     if (searching) clearTimeout(searching)
     setLoading(true)
     searching = setTimeout(async () => {
-      const addresses = (await tokenProvider.find(keyword, 10000)).map(
+      const addresses = (await tokenProvider.find(keyword)).map(
         ({ address }) => address,
       )
       setLoading(false)

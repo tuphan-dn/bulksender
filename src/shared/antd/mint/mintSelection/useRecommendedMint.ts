@@ -28,8 +28,8 @@ export const useRecommendedMint = () => {
     let selected_mints: string[] = []
     if (pdb) selected_mints = (await pdb.getItem(PDB_ID)) || []
     for (const mint of sortedMints) {
-      if (selected_mints.includes(mint)) continue
       if (selected_mints.length >= LIMIT_ITEM) break
+      if (selected_mints.includes(mint)) continue
       const mintInfo = await tokenProvider.findByAddress(mint)
       if (!mintInfo) continue
       selected_mints.push(mint)

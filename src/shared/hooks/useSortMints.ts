@@ -10,18 +10,18 @@ const useSortMints = (mints: string[]) => {
     for (const account of Object.values(accounts)) {
       mapMints[account.mint] = Number(account.amount.toString())
     }
+
     return mapMints
   }, [accounts])
 
   const sortMints = useCallback(
     async (mintAddresses: string[]) => {
       const sortedMints = mintAddresses.sort((a, b) => {
-        let amountA = mapMintAmounts[a]
-        let amountB = mapMintAmounts[b]
-        if (amountA === undefined) amountA = -1
-        if (amountB === undefined) amountB = -1
+        let amountA = mapMintAmounts[a] || -1
+        let amountB = mapMintAmounts[b] || -1
         return Number(amountB) - Number(amountA)
       })
+
       return setSortedMints(sortedMints)
     },
     [mapMintAmounts],

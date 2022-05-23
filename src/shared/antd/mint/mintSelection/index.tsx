@@ -3,7 +3,6 @@ import {
   Fragment,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react'
 import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
@@ -42,13 +41,8 @@ const MintSelection = ({
   const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
   const { sortedMints } = useSortMints(searchedMintAddresses)
 
-  const validSearched = useMemo(
-    () => !!keyword.length && !!searchedMintAddresses?.length,
-    [keyword, searchedMintAddresses?.length],
-  )
-
   const onSelect = useCallback(
-    async (mintAddress: string) => {
+    (mintAddress: string) => {
       setVisible(false)
       onChange(mintAddress)
       selectMint(mintAddress)
@@ -116,7 +110,7 @@ const MintSelection = ({
               onChange={(e) => setKeyword(e.target.value || '')}
             />
           </Col>
-          {!validSearched && (
+          {!keyword.length && (
             <Col span={24}>
               <Row gutter={[8, 8]}>
                 {recommendedMints.map((mintAddress) => (
