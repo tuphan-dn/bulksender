@@ -34,13 +34,14 @@ export const useRecommendedMint = () => {
       if (!mintInfo) continue
       selected_mints.push(mint)
     }
+    selected_mints = selected_mints.slice(0, LIMIT_ITEM)
     return setRecommendedMints(selected_mints)
   }, [address, sortedMints, tokenProvider])
 
   const selectMint = useCallback(
     async (mintAddress: string) => {
       const mints = recommendedMints.filter((mint) => mint !== mintAddress)
-      const newMints = [mintAddress, ...mints]
+      const newMints = [mintAddress, ...mints].slice(0, LIMIT_ITEM)
       const pdb = createPDB(address, appId)
       if (pdb) await pdb.setItem(PDB_ID, newMints)
       return setRecommendedMints(newMints)
