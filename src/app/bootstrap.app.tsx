@@ -1,18 +1,10 @@
 import { Provider } from 'react-redux'
-import {
-  WalletProvider,
-  UIProvider,
-  MintProvider,
-  AccountProvider,
-} from '@senhub/providers'
+import { WalletProvider, UIProvider } from '@senhub/providers'
 
 import View from 'app/view'
 
 import model from 'app/model'
 import configs from 'app/configs'
-
-import 'app/static/styles/light.less'
-import 'app/static/styles/dark.less'
 
 const {
   manifest: { appId },
@@ -20,15 +12,11 @@ const {
 
 export const Page = () => {
   return (
-    <UIProvider appId={appId} antd={{ prefixCls: appId }}>
+    <UIProvider appId={appId} antd>
       <WalletProvider>
-        <MintProvider>
-          <AccountProvider>
-            <Provider store={model}>
-              <View />
-            </Provider>
-          </AccountProvider>
-        </MintProvider>
+        <Provider store={model}>
+          <View />
+        </Provider>
       </WalletProvider>
     </UIProvider>
   )
