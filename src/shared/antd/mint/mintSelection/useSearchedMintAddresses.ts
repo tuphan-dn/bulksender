@@ -19,7 +19,7 @@ export const useSearchedMintAddresses = (keyword: string = '') => {
     if (searching) clearTimeout(searching)
     setLoading(true)
     searching = setTimeout(async () => {
-      const addresses = (await tokenProvider.find(keyword)).map(
+      const addresses = (await tokenProvider.find(keyword, 10000)).map(
         ({ address }) => address,
       )
       setLoading(false)

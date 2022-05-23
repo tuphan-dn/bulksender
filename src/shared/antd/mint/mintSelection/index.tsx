@@ -13,12 +13,14 @@ import IonIcon from 'shared/antd/ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
 import MintCard from './mintCard'
+import LoadMore from './loadMore'
 
 import { useRecommendedMint } from './useRecommendedMint'
 import { useSearchedMintAddresses } from './useSearchedMintAddresses'
 import useSortMints from 'shared/hooks/useSortMints'
 
 const LIMIT = 20
+const AMOUNT_BEFORE_LOAD_MORE = 5
 
 export type MintSelectionProps = {
   value: string
@@ -35,6 +37,7 @@ const MintSelection = ({
 }: MintSelectionProps) => {
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
+  const [offset, setOffset] = useState(LIMIT)
   const { recommendedMints, selectMint } = useRecommendedMint()
   const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
   const { sortedMints } = useSortMints(searchedMintAddresses)
@@ -43,11 +46,6 @@ const MintSelection = ({
     () => !!keyword.length && !!searchedMintAddresses?.length,
     [keyword, searchedMintAddresses?.length],
   )
-
-  const displayMints = useMemo(() => {
-    if (validSearched) return sortedMints
-    return sortedMints.slice(0, LIMIT)
-  }, [sortedMints, validSearched])
 
   const onSelect = useCallback(
     async (mintAddress: string) => {
@@ -59,8 +57,13 @@ const MintSelection = ({
   )
 
   useEffect(() => {
-    forceCheck()
-  }, [searchedMintAddresses])
+    setOffset(LIMIT)
+    setTimeout(() => {
+      const list = document.getElementById('sentre-token-selection-list')
+      if (list) list.scrollTop = 0
+      forceCheck()
+    }, 500)
+  }, [keyword, visible])
 
   useEffect(() => {
     if (!visible) setKeyword('')
@@ -136,12 +139,15 @@ const MintSelection = ({
               id="sentre-token-selection-list"
               justify="center"
             >
-              {displayMints.length ? (
-                displayMints.map((mintAddress) => (
-                  <Col span={24} key={mintAddress}>
+              {sortedMints.length ? (
+                sortedMints.slice(0, offset).map((mintAddress, index) => (
+                  <Col span={24} key={mintAddress + index}>
                     <LazyLoad height={60} overflow>
                       <MintCard mintAddress={mintAddress} onClick={onSelect} />
                     </LazyLoad>
+                    {index === offset - AMOUNT_BEFORE_LOAD_MORE && (
+                      <LoadMore callback={() => setOffset(offset + LIMIT)} />
+                    )}
                   </Col>
                 ))
               ) : (
