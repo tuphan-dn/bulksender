@@ -1,13 +1,20 @@
 import { useEffect } from 'react'
 import { Gateway } from '@sentre/connector'
+import { useUI } from '@senhub/providers'
 
 export type EmbededViewProps = {
   appId: string
   src: string
   title: string
+  background?: { light: string; dark: string }
 }
 
-const EmbededView = ({ appId, src, title }: EmbededViewProps) => {
+const EmbededView = ({ appId, src, title, background }: EmbededViewProps) => {
+  const { setBackground } = useUI()
+  // Set theme
+  useEffect(() => {
+    if (background) setBackground(background)
+  }, [setBackground, background])
   // Setup wallet gateway
   useEffect(() => {
     const gateway = new Gateway(window.sentre.wallet)
