@@ -10,7 +10,6 @@ const useSortMints = (mints: string[]) => {
     for (const account of Object.values(accounts)) {
       mapMints[account.mint] = Number(account.amount.toString())
     }
-
     return mapMints
   }, [accounts])
 
@@ -21,7 +20,6 @@ const useSortMints = (mints: string[]) => {
         let amountB = mapMintAmounts[b] || -1
         return Number(amountB) - Number(amountA)
       })
-
       return setSortedMints(sortedMints)
     },
     [mapMintAmounts],
