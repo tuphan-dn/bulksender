@@ -14,9 +14,8 @@ const Add = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [address, setAddress] = useState('')
   const [amount, setAmount] = useState('')
-  const {
-    main: { data, mintAddress },
-  } = useSelector((state: AppState) => state)
+  const data = useSelector((state: AppState) => state.main.data)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
   const decimals = useMintDecimals(mintAddress) || 0
 
   const onAddress = (e: ChangeEvent<HTMLInputElement>) =>

@@ -69,7 +69,7 @@ class Tx {
   protected addRecentCommitment = async (
     transaction: Transaction,
   ): Promise<Transaction> => {
-    const { blockhash } = await this.connection.getRecentBlockhash('confirmed')
+    const { blockhash } = await this.connection.getLatestBlockhash('confirmed')
     transaction.recentBlockhash = blockhash
     return transaction
   }

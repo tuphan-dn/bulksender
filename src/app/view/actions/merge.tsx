@@ -14,9 +14,7 @@ export type MergeProps = {
 
 const Merge = ({ disabled = false }: MergeProps) => {
   const dispatch = useDispatch()
-  const {
-    main: { data },
-  } = useSelector((state: AppState) => state)
+  const data = useSelector((state: AppState) => state.main.data)
 
   // Merge duplicated addresses (must call when no error)
   const merge = useCallback(async () => {

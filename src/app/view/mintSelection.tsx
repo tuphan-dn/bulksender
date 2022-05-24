@@ -11,9 +11,7 @@ import { useAccountBalanceByMintAddress } from 'shared/hooks/useAccountBalance'
 
 const MintSelection = () => {
   const dispatch = useDispatch()
-  const {
-    main: { mintAddress },
-  } = useSelector((state: AppState) => state)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
   const { accounts } = useAccount()
   const { balance } = useAccountBalanceByMintAddress(mintAddress)
 

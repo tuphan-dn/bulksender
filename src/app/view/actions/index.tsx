@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { account, AccountData } from '@senswap/sen-js'
+import { account, AccountData, utils } from '@senswap/sen-js'
 import { useAccount, useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Space } from 'antd'
@@ -12,19 +12,25 @@ import Send from './send'
 import { AppState } from 'app/model'
 import { Status, TransferData } from 'app/model/main.controller'
 import { toBigInt } from 'app/lib/utils'
+import useMintDecimals from 'shared/hooks/useMintDecimals'
+
+const TX_FEE = 0.015
 
 const Actions = () => {
   const [error, setError] = useState<boolean | string>(false)
   const [bulk, setBulk] = useState<Array<TransferData>>([])
-  const { data, mintAddress, status } = useSelector(
-    (state: AppState) => state.main,
-  )
+  const data = useSelector((state: AppState) => state.main.data)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
+  const status = useSelector((state: AppState) => state.main.status)
   const { accounts } = useAccount() as {
     accounts: { [key: string]: AccountData }
   }
   const {
-    wallet: { address: walletAddress },
+    wallet: { address: walletAddress, lamports },
   } = useWallet()
+  const decimals = useMintDecimals(mintAddress) || 0
+
+  const fee = useMemo(() => bulk.length * TX_FEE, [bulk.length])
 
   // Need to merge
   const duplicated = useMemo(() => {
@@ -55,7 +61,12 @@ const Actions = () => {
       return false
     })
     if (failedElements.length > 0) return setError(true)
-    // Check balance
+    // Check sol balance
+    if (Number(lamports) / 10 ** 9 < fee)
+      return setError(
+        `Not enough SOL to execute the transactions. It requires ${fee} SOL at least.`,
+      )
+    // Check token balance
     const {
       sentre: { splt },
     } = window
@@ -67,10 +78,19 @@ const Actions = () => {
       amount: BigInt(0),
     }
     const amount = data.reduce((a, [_, b]) => a + toBigInt(b), BigInt(0))
-    if (balance < amount) return setError('Not enough token balance')
+    if (balance < amount)
+      return setError(
+        `Not enough token balance. It requires ${utils.undecimalize(
+          amount,
+          decimals,
+        )} tokens over your balance, ${utils.undecimalize(
+          balance,
+          decimals,
+        )} tokens.`,
+      )
     // No error
     return setError(false)
-  }, [data, mintAddress, accounts, walletAddress])
+  }, [data, mintAddress, accounts, walletAddress, lamports, fee, decimals])
 
   useEffect(() => {
     checkError()
@@ -93,7 +113,7 @@ const Actions = () => {
             <Typography.Text type={bulk.length ? undefined : 'secondary'}>
               To send tokens to <strong>{data.length}</strong> address(es), you
               will need to sign <strong>{bulk.length}</strong> time(s) with the
-              total estimated fee is ~{bulk.length * 0.005} SOL.
+              total estimated fee is ~{fee} SOL.
             </Typography.Text>
           </Space>
         )}

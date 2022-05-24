@@ -130,8 +130,13 @@ class Bulksender extends Tx {
     dstAddresses: string[],
     mintAddress: string,
     wallet: WalletInterface,
+    fee: number,
+    taxmanAddress: string,
+    simulating: boolean = false,
   ): Promise<Transaction> => {
     // Validation
+    if (!account.isAddress(taxmanAddress))
+      throw new Error(`Invalid taxman address: ${taxmanAddress}`)
     for (const dstAddress of dstAddresses) {
       if (!account.isAddress(dstAddress))
         throw new Error(`Invalid destination address: ${dstAddress}`)
@@ -157,7 +162,8 @@ class Bulksender extends Tx {
     const mintPublicKey = account.fromAddress(mintAddress)
     // Build tx
     let transaction = new Transaction()
-    transaction = await this.addRecentCommitment(transaction)
+    if (!simulating) transaction = await this.addRecentCommitment(transaction)
+    // Bulk transfer ix
     const layout = new soproxABI.struct(
       [
         { key: 'code', type: 'u8' },
@@ -189,12 +195,19 @@ class Bulksender extends Tx {
         isWritable: true,
       })
     }
-    const instruction = new TransactionInstruction({
+    const bulkTransferInstruction = new TransactionInstruction({
       keys,
       programId: this.bulksenderProgramId,
       data: layout.toBuffer(),
     })
-    transaction.add(instruction)
+    transaction.add(bulkTransferInstruction)
+    // Fee ix
+    const feeInstruction = SystemProgram.transfer({
+      fromPubkey: payerPublicKey,
+      toPubkey: new PublicKey(taxmanAddress),
+      lamports: fee,
+    })
+    transaction.add(feeInstruction)
     transaction.feePayer = payerPublicKey
     return transaction
   }
@@ -212,6 +225,8 @@ class Bulksender extends Tx {
     dstAddresses: string[],
     mintAddress: string,
     wallet: WalletInterface,
+    fee: number,
+    taxmanAddress: string,
   ): Promise<boolean> => {
     // Build transaction
     const transaction = await this.buildCheckedBulkTransferTransaction(
@@ -219,6 +234,9 @@ class Bulksender extends Tx {
       dstAddresses,
       mintAddress,
       wallet,
+      fee,
+      taxmanAddress,
+      true,
     )
     // Simulate the transaction
     const {
@@ -241,6 +259,8 @@ class Bulksender extends Tx {
     dstAddresses: string[],
     mintAddress: string,
     wallet: WalletInterface,
+    fee: number,
+    taxmanAddress: string,
   ): Promise<{
     txId: string
   }> => {
@@ -250,6 +270,8 @@ class Bulksender extends Tx {
       dstAddresses,
       mintAddress,
       wallet,
+      fee,
+      taxmanAddress,
     )
     // Sign tx
     const payerSig = await wallet.rawSignTransaction(transaction)

@@ -8,9 +8,7 @@ import Decimals from './decimals'
 import { AppState } from 'app/model'
 
 const Representor = () => {
-  const {
-    main: { data },
-  } = useSelector((state: AppState) => state)
+  const data = useSelector((state: AppState) => state.main.data)
 
   return (
     <Row gutter={[16, 16]}>

@@ -12,7 +12,7 @@ import Bulksender from 'app/lib'
 import { toBigInt } from 'app/lib/utils'
 
 const {
-  sol: { spltAddress, splataAddress, bulksenderAddress, node },
+  sol: { spltAddress, splataAddress, bulksenderAddress, node, taxman, fee },
 } = configs
 
 export type EstimateProps = {
@@ -24,9 +24,9 @@ const Estimate = ({ disabled = false, onChange = () => {} }: EstimateProps) => {
   const [progress, setProgess] = useState(0)
   const [bulk, setBulk] = useState<TransferData[]>([])
   const dispatch = useDispatch<AppDispatch>()
-  const {
-    main: { data, mintAddress, status },
-  } = useSelector((state: AppState) => state)
+  const data = useSelector((state: AppState) => state.main.data)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
+  const status = useSelector((state: AppState) => state.main.status)
 
   // Compute bulk
   const computeBulk = useCallback(async () => {
@@ -57,6 +57,8 @@ const Estimate = ({ disabled = false, onChange = () => {} }: EstimateProps) => {
           simulatedBulk.map(([address, _]) => address),
           mintAddress,
           wallet,
+          fee,
+          taxman,
         )
       } catch (er) {
         ok = false
@@ -95,7 +97,7 @@ const Estimate = ({ disabled = false, onChange = () => {} }: EstimateProps) => {
       loading={status === Status.Estimating}
       block
     >
-      Estimate {Math.floor(progress * 100)}%
+      Optimize {Math.floor(progress * 100)}%
     </Button>
   )
 }

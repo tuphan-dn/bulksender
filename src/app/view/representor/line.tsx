@@ -18,9 +18,8 @@ export type LineProps = {
 
 const Line = ({ index, accountAddress, amount }: LineProps) => {
   const dispatch = useDispatch<AppDispatch>()
-  const {
-    main: { data, mintAddress },
-  } = useSelector((state: AppState) => state)
+  const data = useSelector((state: AppState) => state.main.data)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
   const decimals = useMintDecimals(mintAddress) || 0
 
   const remove = (index: number) => {

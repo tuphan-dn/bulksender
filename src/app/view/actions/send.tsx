@@ -12,7 +12,7 @@ import Bulksender from 'app/lib'
 import { toBigInt } from 'app/lib/utils'
 
 const {
-  sol: { spltAddress, splataAddress, bulksenderAddress, node },
+  sol: { spltAddress, splataAddress, bulksenderAddress, node, taxman, fee },
 } = configs
 
 export type SendProps = {
@@ -22,7 +22,7 @@ export type SendProps = {
 
 const Send = ({ bulk = [], disabled = false }: SendProps) => {
   const [loading, setLoading] = useState(false)
-  const { mintAddress } = useSelector((state: AppState) => state.main)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
 
   // Send a bulk
   const send = useCallback(async () => {
@@ -44,6 +44,8 @@ const Send = ({ bulk = [], disabled = false }: SendProps) => {
           transferData.map(([address, _]) => address),
           mintAddress,
           wallet,
+          fee,
+          taxman,
         )
         window.notify({
           type: 'success',

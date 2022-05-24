@@ -14,9 +14,9 @@ import { toBigInt } from 'app/lib/utils'
 
 const Decimals = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const {
-    main: { data, decimalized, mintAddress },
-  } = useSelector((state: AppState) => state)
+  const data = useSelector((state: AppState) => state.main.data)
+  const decimalized = useSelector((state: AppState) => state.main.decimalized)
+  const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
   const decimals = useMintDecimals(mintAddress) || 0
 
   const onSwitch = async (checked: boolean) => {
@@ -33,7 +33,7 @@ const Decimals = () => {
   return (
     <Row gutter={[8, 8]} justify="end" align="middle">
       <Col>
-        <Typography.Text>Decimals?</Typography.Text>
+        <Typography.Text>With Decimals?</Typography.Text>
       </Col>
       <Col>
         <Switch
