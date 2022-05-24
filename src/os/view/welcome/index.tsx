@@ -25,7 +25,7 @@ const Welcome = () => {
     const params = new URLSearchParams(search)
     const fallback = appIds.length ? `/app/${appIds[0]}` : '/store'
     const redirect = decodeURIComponent(params.get('redirect') || fallback)
-    if (account.isAddress(walletAddress) && !loading) history.push(redirect)
+    if (account.isAddress(walletAddress) && !loading) history.replace(redirect)
   }, [walletAddress, history, search, appIds, loading])
 
   return (

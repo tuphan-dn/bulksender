@@ -13,10 +13,10 @@ class PhantomWallet extends BaseWallet {
     const { solana } = window
     if (!solana?.isPhantom) throw new Error('Wallet is not connected')
     if (solana.isConnected) return solana
-    solana.connect()
-    return await new Promise((resolve) =>
-      solana.on('connect', () => resolve(solana)),
-    )
+    return await new Promise((resolve) => {
+      solana.on('connect', () => resolve(solana))
+      return solana.connect()
+    })
   }
 
   getAddress = async () => {

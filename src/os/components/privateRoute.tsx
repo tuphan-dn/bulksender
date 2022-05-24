@@ -9,9 +9,9 @@ export type PrivateRouteProps = {
 } & ComponentProps<typeof Route>
 
 const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {
-  const { address: walletAddress } = useRootSelector(
-    (state: RootState) => state.wallet,
-  )
+  const {
+    wallet: { address: walletAddress },
+  } = useRootSelector((state: RootState) => state)
 
   const render = useCallback(
     (props) => {
@@ -19,7 +19,9 @@ const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {
         window.location.href.replace(window.location.origin, ''),
       )
       if (!account.isAddress(walletAddress))
-        return <Redirect to={'/welcome?redirect=' + pathname} />
+        return (
+          <Redirect to={'/welcome?redirect=' + encodeURIComponent(pathname)} />
+        )
       return <Component {...props} />
     },
     [walletAddress, Component],
