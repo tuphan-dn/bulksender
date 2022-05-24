@@ -4,7 +4,6 @@ import { decode } from 'bs58'
 
 import BaseWallet from './baseWallet'
 
-
 class Coin98Wallet extends BaseWallet {
   constructor() {
     super('Coin98')
