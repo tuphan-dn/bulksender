@@ -1,10 +1,15 @@
-import { Row, Col, Typography } from 'antd'
+import { Row, Col, Typography, Card } from 'antd'
+import { useCallback } from 'react'
+import IonIcon from 'shared/antd/ionicon'
 import Actions from './actions'
 import Collector from './collector'
 import MintSelection from './mintSelection'
 import Representor from './representor'
 
 const View = () => {
+  const url = 'https://hub.sentre.io/app/lightning_tunnel?autoInstall=true'
+  const onLightningTunnel = useCallback(() => window.open(url, '_blank'), [url])
+
   return (
     <Row gutter={[24, 24]} justify="center">
       <Col span={24} style={{ maxWidth: 1200 }}>
@@ -12,8 +17,21 @@ const View = () => {
           <Col span={24}>
             <Typography.Title level={3}>Solana Bulk Sender</Typography.Title>
           </Col>
-          <Col xs={{ span: 24 }} md={{ span: 12 }}>
+          <Col xs={24} md={12}>
             <Row gutter={[24, 24]}>
+              <Col span={24}>
+                <Card onClick={onLightningTunnel} hoverable>
+                  <Typography.Text>
+                    <IonIcon name="information-circle-outline" /> If you plan to
+                    do an airdrop with more than 10 receivers, we highly
+                    recommend{' '}
+                    <span style={{ color: '#328f62', cursor: 'pointer' }}>
+                      Lightning Tunnel
+                    </span>{' '}
+                    to effectively save transaction fees.
+                  </Typography.Text>
+                </Card>
+              </Col>
               <Col span={24}>
                 <MintSelection />
               </Col>
@@ -22,7 +40,7 @@ const View = () => {
               </Col>
             </Row>
           </Col>
-          <Col xs={{ span: 24 }} md={{ span: 12 }}>
+          <Col xs={24} md={12}>
             <Row gutter={[24, 24]}>
               <Col span={24}>
                 <Representor />
