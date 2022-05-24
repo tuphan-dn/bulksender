@@ -15,46 +15,46 @@ import MintCard from './mintCard'
 import LoadMore from './loadMore'
 
 import { useRecommendedMint } from './useRecommendedMint'
-import { useSearchedMintAddresses } from './useSearchedMintAddresses'
-import useSortMints from 'shared/hooks/useSortMints'
+import { useSearchedMints } from './useSearchedMints'
+import { useSortMints } from 'shared/hooks/useSortMints'
 
 const LIMIT = 20
 const AMOUNT_BEFORE_LOAD_MORE = 5
 
 export type MintSelectionProps = {
   value: string
-  onChange: (value: string) => void
+  onChange?: (value: string) => void
   style?: CSSProperties
   disabled?: boolean
 }
 
 const MintSelection = ({
   value,
-  onChange,
+  onChange = () => {},
   style = {},
   disabled = false,
 }: MintSelectionProps) => {
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
   const [offset, setOffset] = useState(LIMIT)
-  const { recommendedMints, selectMint } = useRecommendedMint()
-  const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
-  const { sortedMints } = useSortMints(searchedMintAddresses)
+  const { recommendedMints, addRecommendMint } = useRecommendedMint()
+  const { searchedMints, loading } = useSearchedMints(keyword, offset)
+  const { sortedMints } = useSortMints(searchedMints)
 
   const onSelect = useCallback(
     (mintAddress: string) => {
       setVisible(false)
       onChange(mintAddress)
-      selectMint(mintAddress)
+      addRecommendMint(mintAddress)
     },
-    [onChange, selectMint],
+    [onChange, addRecommendMint],
   )
 
   useEffect(() => {
     setOffset(LIMIT)
+    const list = document.getElementById('sentre-token-selection-list')
+    if (list) list.scrollTop = 0
     setTimeout(() => {
-      const list = document.getElementById('sentre-token-selection-list')
-      if (list) list.scrollTop = 0
       forceCheck()
     }, 500)
   }, [keyword, visible])

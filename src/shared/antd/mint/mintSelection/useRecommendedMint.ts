@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useMint, useWallet } from '@senhub/providers'
+import { useWallet } from '@senhub/providers'
 
 import { useAllMintAddresses } from './useAllMintAddresses'
-import useSortMints from 'shared/hooks/useSortMints'
+import { useSortMints } from 'shared/hooks/useSortMints'
 import { net } from 'shared/runtime'
 import { createPDB } from 'shared/pdb'
 import configs from 'app/configs'
@@ -19,26 +19,23 @@ export const useRecommendedMint = () => {
   const {
     wallet: { address },
   } = useWallet()
-  const { tokenProvider } = useMint()
   const allMintAddresses = useAllMintAddresses()
   const { sortedMints } = useSortMints(allMintAddresses)
 
   const getRecommendedMints = useCallback(async () => {
+    let mints: string[] = []
     const pdb = createPDB(address, appId)
-    let selected_mints: string[] = []
-    if (pdb) selected_mints = (await pdb.getItem(PDB_ID)) || []
-    for (const mint of sortedMints) {
-      if (selected_mints.length >= LIMIT_ITEM) break
-      if (selected_mints.includes(mint)) continue
-      const mintInfo = await tokenProvider.findByAddress(mint)
-      if (!mintInfo) continue
-      selected_mints.push(mint)
-    }
-    selected_mints = selected_mints.slice(0, LIMIT_ITEM)
-    return setRecommendedMints(selected_mints)
-  }, [address, sortedMints, tokenProvider])
+    if (pdb) mints = (await pdb.getItem(PDB_ID)) || []
 
-  const selectMint = useCallback(
+    for (const mint of sortedMints) {
+      if (mints.length >= LIMIT_ITEM) break
+      if (mints.includes(mint)) continue
+      mints.push(mint)
+    }
+    return setRecommendedMints(mints.slice(0, LIMIT_ITEM))
+  }, [address, sortedMints])
+
+  const addRecommendMint = useCallback(
     async (mintAddress: string) => {
       const mints = recommendedMints.filter((mint) => mint !== mintAddress)
       const newMints = [mintAddress, ...mints].slice(0, LIMIT_ITEM)
@@ -55,6 +52,6 @@ export const useRecommendedMint = () => {
 
   return {
     recommendedMints,
-    selectMint,
+    addRecommendMint,
   }
 }

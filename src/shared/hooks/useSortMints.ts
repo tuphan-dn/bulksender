@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAccount } from '@senhub/providers'
 
-const useSortMints = (mints: string[]) => {
+export const useSortMints = (mints: string[]) => {
   const [sortedMints, setSortedMints] = useState<string[]>([])
   const { accounts } = useAccount()
 
@@ -30,5 +30,3 @@ const useSortMints = (mints: string[]) => {
 
   return { sortedMints, sortMints }
 }
-
-export default useSortMints

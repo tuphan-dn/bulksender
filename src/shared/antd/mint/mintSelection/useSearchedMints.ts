@@ -5,13 +5,13 @@ import { useAllMintAddresses } from './useAllMintAddresses'
 
 let searching: NodeJS.Timeout
 
-export const useSearchedMintAddresses = (keyword: string = '') => {
+export const useSearchedMints = (keyword: string = '', limit: number) => {
   const [loading, setLoading] = useState(false)
   const [searchedMints, setSearchedMints] = useState<string[]>([])
   const { tokenProvider } = useMint()
   const mints = useAllMintAddresses()
 
-  const getRecommendedMintAddresses = useCallback(async () => {
+  const search = useCallback(async () => {
     if (!keyword) {
       setLoading(false)
       return setSearchedMints(mints)
@@ -19,17 +19,17 @@ export const useSearchedMintAddresses = (keyword: string = '') => {
     if (searching) clearTimeout(searching)
     setLoading(true)
     searching = setTimeout(async () => {
-      const addresses = (await tokenProvider.find(keyword)).map(
+      const addresses = (await tokenProvider.find(keyword, limit)).map(
         ({ address }) => address,
       )
       setLoading(false)
       return setSearchedMints(addresses)
     }, 500)
-  }, [keyword, mints, tokenProvider])
+  }, [keyword, limit, mints, tokenProvider])
 
   useEffect(() => {
-    getRecommendedMintAddresses()
-  }, [getRecommendedMintAddresses])
+    search()
+  }, [search])
 
-  return { searchedMintAddresses: searchedMints, loading }
+  return { searchedMints, loading }
 }
