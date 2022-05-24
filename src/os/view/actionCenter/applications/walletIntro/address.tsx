@@ -31,7 +31,9 @@ const QR = ({ address }: { address: string }) => {
 }
 
 const Address = () => {
-  const { address } = useRootSelector((state: RootState) => state.wallet)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
   const [copied, setCopied] = useState(false)
 
   const onCopy = async () => {
@@ -45,16 +47,16 @@ const Address = () => {
     <Space size={10}>
       <Typography.Text
         style={{ color: '#E9E9EB', cursor: 'pointer' }}
-        onClick={() => window.open(explorer(address), '_blank')}
+        onClick={() => window.open(explorer(walletAddress), '_blank')}
       >
-        {shortenAddress(address, 3, '...')}
+        {shortenAddress(walletAddress, 3, '...')}
       </Typography.Text>
       <Tooltip title="Copied" visible={copied}>
-        <CopyToClipboard text={address} onCopy={onCopy}>
+        <CopyToClipboard text={walletAddress} onCopy={onCopy}>
           <IconButton name="copy-outline" onClick={onCopy} />
         </CopyToClipboard>
       </Tooltip>
-      <QR address={address} />
+      <QR address={walletAddress} />
     </Space>
   )
 }

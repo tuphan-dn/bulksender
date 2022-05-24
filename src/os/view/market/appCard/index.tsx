@@ -24,9 +24,7 @@ const AppCard = ({
   const history = useHistory()
   const [cardHeight, setCardHeight] = useState(0)
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    search: { visible },
-  } = useRootSelector((state: RootState) => state)
+  const visible = useRootSelector((state: RootState) => state.search.visible)
   const ref = useRef(null)
 
   const to = useCallback(

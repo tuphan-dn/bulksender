@@ -12,10 +12,10 @@ import { updateLoading } from 'os/store/flags.reducer'
 import { account } from '@senswap/sen-js'
 
 const Loading = () => {
-  const {
-    wallet: { address: walletAddress },
-    flags: { loading },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
+  const loading = useRootSelector((state: RootState) => state.flags.loading)
   const dispatch = useRootDispatch<RootDispatch>()
 
   const visible = account.isAddress(walletAddress) && loading

@@ -17,11 +17,13 @@ import './index.os.less'
 
 const Walkthrough = () => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    wallet: { address: walletAddress },
-    walkthrough: { type, run, step },
-    flags: { visited },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
+  const type = useRootSelector((state: RootState) => state.walkthrough.type)
+  const run = useRootSelector((state: RootState) => state.walkthrough.run)
+  const step = useRootSelector((state: RootState) => state.walkthrough.step)
+  const visited = useRootSelector((state: RootState) => state.flags.visited)
 
   const onCallback = async ({
     type,

@@ -13,9 +13,8 @@ const CustomAppIcon = ({
   appId,
   onCallback = () => {},
 }: CustomAppIconProps) => {
-  const {
-    page: { register, appIds },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
   const dispatch = useRootDispatch()
   const history = useHistory()
 

@@ -15,11 +15,13 @@ const ConfirmRestore = ({
   cid: string
   visible: boolean
 }) => {
-  const { address } = useRootSelector((state: RootState) => state.wallet)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   const onRestore = useCallback(async () => {
     try {
-      const pdb = new PDB(address)
+      const pdb = new PDB(walletAddress)
       await pdb.restore(cid)
       return (window.location.href = '/welcome')
     } catch (er) {
@@ -28,7 +30,7 @@ const ConfirmRestore = ({
         description: (er as any).message,
       })
     }
-  }, [address, cid])
+  }, [walletAddress, cid])
 
   return (
     <Modal visible={visible} footer={null} centered>

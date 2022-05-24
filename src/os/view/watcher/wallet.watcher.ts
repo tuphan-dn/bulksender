@@ -14,10 +14,12 @@ let watchId: any = null
 
 const WalletWatcher = () => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const { address } = useRootSelector((state: RootState) => state.wallet)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   const watchData = useCallback(async () => {
-    if (!account.isAddress(address)) {
+    if (!account.isAddress(walletAddress)) {
       try {
         await window.sentre.lamports.unwatch(watchId)
       } catch (er) {
@@ -27,14 +29,14 @@ const WalletWatcher = () => {
     } else {
       if (watchId) return console.warn('Already watched')
       watchId = window.sentre.lamports.watch(
-        address,
+        walletAddress,
         (er: string | null, re: number | null) => {
           if (er) return console.warn(er)
           return dispatch(updateWallet({ lamports: BigInt(re || 0) }))
         },
       )
     }
-  }, [dispatch, address])
+  }, [dispatch, walletAddress])
 
   useEffect(() => {
     watchData()

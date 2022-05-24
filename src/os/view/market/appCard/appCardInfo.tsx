@@ -50,12 +50,13 @@ export const ActionButton = ({
 const AppCardInfo = ({ appId }: { appId: string }) => {
   const history = useHistory()
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    page: { register, appIds },
-    walkthrough: { run },
-    wallet: { address: walletAddress },
-    search: { visible },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
+  const run = useRootSelector((state: RootState) => state.walkthrough.run)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
+  const visible = useRootSelector((state: RootState) => state.search.visible)
 
   const { name, verified, author } = register[appId] || {}
 

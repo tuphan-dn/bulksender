@@ -11,7 +11,7 @@ import { setTheme } from 'os/store/ui.reducer'
 
 const Theme = () => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const { theme } = useRootSelector((state: RootState) => state.ui)
+  const theme = useRootSelector((state: RootState) => state.ui.theme)
 
   const onSwitch = (checked: boolean) =>
     dispatch(setTheme(checked ? 'dark' : 'light'))

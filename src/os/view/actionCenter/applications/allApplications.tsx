@@ -21,7 +21,8 @@ const AllApplications = () => {
   const [disabled, setDisabled] = useState(true)
   const [appId, setAppId] = useState('')
   const [visible, setVisible] = useState(false)
-  const { appIds, register } = useRootSelector((state: RootState) => state.page)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
+  const register = useRootSelector((state: RootState) => state.page.register)
 
   const onChange = useCallback(
     (appIds: AppIds) => dispatch(updatePage(appIds)),
