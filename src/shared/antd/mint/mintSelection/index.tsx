@@ -135,7 +135,7 @@ const MintSelection = ({
             >
               {sortedMints.length ? (
                 sortedMints.slice(0, offset).map((mintAddress, index) => (
-                  <Col span={24} key={mintAddress + index}>
+                  <Col span={24} key={mintAddress}>
                     <LazyLoad height={60} overflow>
                       <MintCard mintAddress={mintAddress} onClick={onSelect} />
                     </LazyLoad>

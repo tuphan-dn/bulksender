@@ -1,22 +1,20 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Button, Space } from 'antd'
 import IonIcon from 'shared/antd/ionicon'
-import { MintSelection } from 'shared/antd/mint'
 
 import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'
-import { createPDB } from 'shared/pdb'
 import configs from 'app/configs'
+import { createPDB } from 'shared/pdb'
 
 const {
   manifest: { appId },
 } = configs
 
 const View = () => {
-  const [selected, setSelected] = useState<string>('abc')
   const {
     wallet: { address },
   } = useWallet()
@@ -45,9 +43,6 @@ const View = () => {
       </Col>
       <Col>
         <Button onClick={increase}>Increase</Button>
-      </Col>
-      <Col span={24}>
-        <MintSelection value={selected} onChange={setSelected} />
       </Col>
     </Row>
   )
