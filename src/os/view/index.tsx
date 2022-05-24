@@ -60,7 +60,7 @@ const View = () => {
     const DEFAULT_BG = theme === 'light' ? DEFAULT_LIGHT_BG : DEFAULT_DARK_BG
     const bg = background[theme] || DEFAULT_BG
     if (CSS.supports('background', bg)) document.body.style.background = bg
-    else document.body.style.background = `url(${bg})`
+    else document.body.style.backgroundImage = `url(${bg})`
   }, [theme, background])
 
   return (
