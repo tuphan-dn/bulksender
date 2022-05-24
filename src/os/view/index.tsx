@@ -31,10 +31,11 @@ import DEFAULT_LIGHT_BG from 'os/static/images/bg/light-bg.png'
 import DEFAULT_DARK_BG from 'os/static/images/bg/dark-bg.png'
 
 const View = () => {
-  const {
-    ui: { theme, background },
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const theme = useRootSelector((state: RootState) => state.ui.theme)
+  const background = useRootSelector((state: RootState) => state.ui.background)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
   const dispatch = useRootDispatch<RootDispatch>()
 
   // Load DApp flags, registry, page
@@ -57,9 +58,9 @@ const View = () => {
   useEffect(() => {
     document.body.setAttribute('id', theme)
     const DEFAULT_BG = theme === 'light' ? DEFAULT_LIGHT_BG : DEFAULT_DARK_BG
-    document.body.style.backgroundImage = `url(${
-      background[theme] || DEFAULT_BG
-    })`
+    const bg = background[theme] || DEFAULT_BG
+    if (CSS.supports('background', bg)) document.body.style.background = bg
+    else document.body.style.background = `url(${bg})`
   }, [theme, background])
 
   return (

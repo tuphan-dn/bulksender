@@ -30,9 +30,9 @@ import {
 
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   const reconnect = () => {
     const walletType = storage.get('WalletType')

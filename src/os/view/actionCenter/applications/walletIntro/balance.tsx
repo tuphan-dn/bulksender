@@ -14,7 +14,7 @@ const Balance = ({
   inUSD?: boolean
 }) => {
   const [cgkData, setCGKData] = useState<CgkData>()
-  const { lamports } = useRootSelector((state: RootState) => state.wallet)
+  const lamports = useRootSelector((state: RootState) => state.wallet.lamports)
 
   const balance = numeric(utils.undecimalize(lamports, 9)).format('0.[000]')
   const usd = useMemo(() => {

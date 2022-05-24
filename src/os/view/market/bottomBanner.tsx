@@ -22,9 +22,7 @@ const PANELS = [
 ]
 
 const BottomBanner = () => {
-  const {
-    ui: { width },
-  } = useRootSelector((state: RootState) => state)
+  const width = useRootSelector((state: RootState) => state.ui.width)
 
   const bannerHeightRatio = width < 768 ? HEIGHT_RATIO : HEIGHT_RATIO * 2
   const bannerWidth =

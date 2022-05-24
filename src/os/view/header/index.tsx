@@ -41,11 +41,13 @@ export const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
 }
 
 const Header = () => {
-  const {
-    wallet: { address: walletAddress },
-    ui: { width, theme },
-    walkthrough: { run, step },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
+  const width = useRootSelector((state: RootState) => state.ui.width)
+  const theme = useRootSelector((state: RootState) => state.ui.theme)
+  const run = useRootSelector((state: RootState) => state.walkthrough.run)
+  const step = useRootSelector((state: RootState) => state.walkthrough.step)
   const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
   const { pathname } = useLocation()

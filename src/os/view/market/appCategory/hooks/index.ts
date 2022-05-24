@@ -26,9 +26,7 @@ export const useAppCategory = ({
   related,
   filter,
 }: CategoryOptions) => {
-  const {
-    page: { register },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
   const [appIds, setAppIds] = useState<AppIds>([])
 
   const title = useMemo(() => {

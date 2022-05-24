@@ -12,11 +12,12 @@ import { useRootSelector, RootState } from 'os/store'
 import AppShare from './appShare'
 
 const AppDetails = ({ appId }: { appId: string }) => {
-  const {
-    ui: { infix },
-    page: { register, appIds },
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const infix = useRootSelector((state: RootState) => state.ui.infix)
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   const { description, author, name, tags, verified } = register[appId] || {}
   const isMobile = infix === 'xs' || infix === 'sm'

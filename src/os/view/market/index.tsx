@@ -15,9 +15,7 @@ const CATEGORIES = ['utility', 'DAO', 'liquidity', 'sentre']
 
 const Market = () => {
   const { search } = useLocation()
-  const {
-    page: { register },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
 
   const category = useMemo(
     () => new URLSearchParams(search).get('category'),

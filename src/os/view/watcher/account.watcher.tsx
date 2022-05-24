@@ -15,9 +15,10 @@ let prevLamports: BigInt | undefined = undefined
 
 const AccountWatcher = () => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    wallet: { address: walletAddress, lamports },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
+  const lamports = useRootSelector((state: RootState) => state.wallet.lamports)
 
   // First-time fetching
   const fetchData = useCallback(async () => {

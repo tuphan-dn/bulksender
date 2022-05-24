@@ -13,12 +13,11 @@ import {
 import { setVisibleInstaller } from 'os/store/ui.reducer'
 import { setValue } from 'os/store/search.reducer'
 
-const Dashboard = () => {
+const Page = () => {
   const { appId } = useParams<{ appId: string }>()
-  const {
-    page: { appIds, register },
-    flags: { loading },
-  } = useRootSelector((state: RootState) => state)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const loading = useRootSelector((state: RootState) => state.flags.loading)
   const dispatch = useRootDispatch<RootDispatch>()
 
   const existing = appIds.includes(appId) && register[appId]
@@ -43,4 +42,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Page
