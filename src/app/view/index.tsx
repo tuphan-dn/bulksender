@@ -23,11 +23,9 @@ const View = () => {
                 <Card onClick={onLightningTunnel} hoverable>
                   <Typography.Text>
                     <IonIcon name="information-circle-outline" /> If you plan to
-                    do an airdrop with more than 10 receivers, we highly
-                    recommend{' '}
-                    <span style={{ color: '#328f62', cursor: 'pointer' }}>
-                      Lightning Tunnel
-                    </span>{' '}
+                    do Airdrops (or Retroactives, Vesting, Distributions), we
+                    highly recommend{' '}
+                    <span style={{ color: '#328f62' }}>Lightning Tunnel</span>{' '}
                     to effectively save transaction fees.
                   </Typography.Text>
                 </Card>
