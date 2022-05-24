@@ -20,7 +20,6 @@ const useSortMints = (mints: string[]) => {
         let amountB = mapMintAmounts[b] || -1
         return Number(amountB) - Number(amountA)
       })
-
       return setSortedMints(sortedMints)
     },
     [mapMintAmounts],
