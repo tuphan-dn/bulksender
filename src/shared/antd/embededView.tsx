@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Gateway } from '@sentre/connector'
 import { useUI } from '@senhub/providers'
 
@@ -11,10 +11,12 @@ export type EmbededViewProps = {
 
 const EmbededView = ({ appId, src, title, background }: EmbededViewProps) => {
   const { setBackground } = useUI()
+  // This trick is to avoid render loop if user directly pass in an object
+  const theme = useMemo(() => JSON.stringify(background), [background])
   // Set theme
   useEffect(() => {
-    if (background) setBackground(background)
-  }, [setBackground, background])
+    if (theme) setBackground(JSON.parse(theme))
+  }, [setBackground, theme])
   // Setup wallet gateway
   useEffect(() => {
     const gateway = new Gateway(window.sentre.wallet)
