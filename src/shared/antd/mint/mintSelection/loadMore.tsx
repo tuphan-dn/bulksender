@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react'
-import LazyLoad from '@senswap/react-lazyload'
+import LazyLoad from '@sentre/react-lazyload'
 
 type PropsLoadMore = { callback: () => void }
 
