@@ -15,11 +15,12 @@ const SUGGESTION_LIMIT = 6
 
 const Installer = () => {
   const [recommendedApps, setRecommendeddApps] = useState<string[]>([])
-  const {
-    page: { appIds, register },
-    search: { value },
-    ui: { visibleInstaller },
-  } = useRootSelector((state: RootState) => state)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const value = useRootSelector((state: RootState) => state.search.value)
+  const visible = useRootSelector(
+    (state: RootState) => state.ui.visibleInstaller,
+  )
   const dispatch = useRootDispatch()
   const history = useHistory()
   const { pathname, search } = useLocation()
@@ -37,7 +38,7 @@ const Installer = () => {
   }, [dispatch, history])
 
   const onSearch = useCallback(async () => {
-    if (!visibleInstaller) return setRecommendeddApps([]) // For performance
+    if (!visible) return setRecommendeddApps([]) // For performance
     const engine = new SearchEngine(register)
     const appIds = engine.search(value)
     // Suggest additional apps
@@ -46,7 +47,7 @@ const Installer = () => {
       if (!appIds.includes(randAppId)) appIds.push(randAppId)
     }
     return setRecommendeddApps(appIds)
-  }, [allAppIds, register, value, visibleInstaller])
+  }, [allAppIds, register, value, visible])
 
   useEffect(() => {
     onSearch()
@@ -70,7 +71,7 @@ const Installer = () => {
       closeIcon={<IonIcon name="close-outline" />}
       footer={null}
       onCancel={closeInstaller}
-      visible={visibleInstaller}
+      visible={visible}
       destroyOnClose
     >
       <Row gutter={[18, 18]}>

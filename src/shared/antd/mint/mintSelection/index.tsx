@@ -5,7 +5,8 @@ import {
   useEffect,
   useState,
 } from 'react'
-import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
+import LazyLoad, { forceCheck } from '@sentre/react-lazyload'
+import { account } from '@senswap/sen-js'
 
 import { Button, Col, Empty, Input, Modal, Row, Space, Typography } from 'antd'
 import IonIcon from 'shared/antd/ionicon'

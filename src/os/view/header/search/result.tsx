@@ -16,9 +16,7 @@ let searching: NodeJS.Timeout
 
 const Result = ({ value }: { value: string }) => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    page: { register },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
   const [appIds, setAppIds] = useState<AppIds>([])
 
   const engine = useMemo(() => new SearchEngine(register), [register])

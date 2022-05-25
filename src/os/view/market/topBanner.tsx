@@ -16,9 +16,8 @@ const PAGE_PADDING = 20
 const PANELS = [storePanel1, storePanel2, storePanel3, storePanel4]
 
 const TopBanner = () => {
-  const {
-    ui: { width, infix },
-  } = useRootSelector((state: RootState) => state)
+  const width = useRootSelector((state: RootState) => state.ui.width)
+  const infix = useRootSelector((state: RootState) => state.ui.infix)
 
   const isMobile = infix === 'xs'
 

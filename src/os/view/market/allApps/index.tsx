@@ -7,9 +7,7 @@ import { RootState, useRootSelector } from 'os/store'
 
 const AllApps = () => {
   const history = useHistory()
-  const {
-    page: { register },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
   const appIds = Object.keys(register)
 
   return (

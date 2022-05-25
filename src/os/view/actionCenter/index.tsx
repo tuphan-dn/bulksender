@@ -15,9 +15,9 @@ import { setVisibleActionCenter } from 'os/store/ui.reducer'
 
 const ActionCenter = () => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    ui: { visibleActionCenter },
-  } = useRootSelector((state: RootState) => state)
+  const visible = useRootSelector(
+    (state: RootState) => state.ui.visibleActionCenter,
+  )
 
   const onActionCenter = useCallback(async () => {
     return dispatch(setVisibleActionCenter(true))
@@ -32,7 +32,7 @@ const ActionCenter = () => {
         id="button-action-center"
       />
       <Drawer
-        visible={visibleActionCenter}
+        visible={visible}
         onClose={() => dispatch(setVisibleActionCenter(false))}
         closable={false}
         contentWrapperStyle={{ width: '95%', maxWidth: 400 }}

@@ -11,7 +11,8 @@ import './index.os.less'
 const Navigation = () => {
   const history = useHistory()
   const { params } = useRouteMatch<{ appId: string }>('/app/:appId') || {}
-  const { appIds } = useRootSelector((state: RootState) => state.page)
+  const appIds = useRootSelector((state: RootState) => state.page.appIds)
+
   return (
     <Row gutter={[12, 12]} wrap={false} align="middle">
       {appIds.map((appId) => (

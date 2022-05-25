@@ -6,9 +6,9 @@ import Navigation from './navigation'
 import { useRootSelector, RootState } from 'os/store'
 
 const ContextMenu = () => {
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   if (!account.isAddress(walletAddress)) return null
   return (

@@ -23,10 +23,10 @@ const AppInstall = ({
   appId: string
 }) => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    ui: { infix },
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const infix = useRootSelector((state: RootState) => state.ui.infix)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
   const history = useHistory()
 
   const to = () => history.push(`/app/${appId}`)

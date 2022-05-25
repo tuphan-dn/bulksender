@@ -19,9 +19,9 @@ let watchId = 0
 
 const PoolWatcher = () => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   // First-time fetching
   const fetchData = useCallback(async () => {

@@ -13,9 +13,9 @@ const Backup = () => {
   const [link, setLink] = useState('')
   const [acceptable, setAcceptable] = useState(false)
   const [visible, setVisible] = useState(false)
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   const onBackup = useCallback(async () => {
     const pdb = new PDB(walletAddress)

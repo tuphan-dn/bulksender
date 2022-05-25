@@ -31,9 +31,7 @@ const ShareModal = ({
   onClose: () => void
 }) => {
   const [copied, setCopied] = useState(false)
-  const {
-    page: { register },
-  } = useRootSelector((state: RootState) => state)
+  const register = useRootSelector((state: RootState) => state.page.register)
   const { name } = register[appId] || {}
 
   const onClick = (type?: string) => {

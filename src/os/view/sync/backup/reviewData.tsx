@@ -8,9 +8,9 @@ import PDB from 'shared/pdb'
 
 const ReviewData = () => {
   const [data, setData] = useState({})
-  const {
-    wallet: { address: walletAddress },
-  } = useRootSelector((state: RootState) => state)
+  const walletAddress = useRootSelector(
+    (state: RootState) => state.wallet.address,
+  )
 
   useEffect(() => {
     const pdb = new PDB(walletAddress)
