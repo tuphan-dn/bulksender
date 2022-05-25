@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import LazyLoad, { forceCheck } from '@senswap/react-lazyload'
+import LazyLoad, { forceCheck } from '@sentre/react-lazyload'
 import { account } from '@senswap/sen-js'
 
 import {
