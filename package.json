@@ -7,7 +7,7 @@
     "@project-serum/sol-wallet-adapter": "^0.2.6",
     "@reduxjs/toolkit": "^1.8.0",
     "@senswap/sen-js": "^1.3.5",
-    "@sentre/antd-ionicon": "^1.0.0",
+    "@sentre/antd-ionicon": "^1.0.2",
     "@sentre/connector": "^0.0.26",
     "@sentre/react-lazyload": "^3.2.2",
     "@solana/spl-token-registry": "^0.2.3771",
@@ -44,7 +44,7 @@
     "deploy": "gh-pages -d build",
     "preserve": "npm run build:staging",
     "serve": "serve -s build -l 3000",
-    "manifest": "NODE_ENV=production node ./plugins/manifest-builder.js"
+    "manifest": "NODE_ENV=production node ./manifest-builder.js"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +59,7 @@
   ],
   "devDependencies": {
     "@craco/craco": "^6.4.3",
+    "@sentre/craco-plugins": "^1.0.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.2.1",
@@ -72,27 +73,11 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.1",
     "@types/remarkable": "^2.0.3",
-    "assert": "^2.0.0",
-    "craco-module-federation": "^1.1.0",
-    "crypto-browserify": "^3.12.0",
     "dotenv-cra": "^3.0.2",
     "env-cmd": "^10.1.0",
     "gh-pages": "^3.2.3",
-    "https-browserify": "^1.0.0",
-    "less": "^4.1.2",
-    "less-loader": "^10.2.0",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
-    "postcss": "^8.3.11",
-    "postcss-prefixwrap": "^1.25.0",
     "prettier": "2.5.0",
-    "process": "^0.11.10",
     "serve": "^12.0.1",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
-    "typescript": "^4.5.2",
-    "url": "^0.11.0",
-    "util": "^0.12.4",
-    "webpack-bundle-analyzer": "^4.5.0"
+    "typescript": "^4.5.2"
   }
 }
