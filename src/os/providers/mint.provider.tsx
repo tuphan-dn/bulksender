@@ -47,7 +47,7 @@ const MintContextProvider = ({ children }: { children: ReactNode }) => {
         throw new Error('Invalid mint address')
       // If the token is in token provider, return its decimals
       const tokenInfo = await tokenProvider.findByAddress(mintAddress)
-      if (tokenInfo?.decimals) return tokenInfo.decimals
+      if (tokenInfo?.decimals !== undefined) return tokenInfo.decimals
       // If the token is lp, return 9 as default
       const index = Object.values(pools).findIndex(
         ({ mint_lpt }) => mint_lpt === mintAddress,
