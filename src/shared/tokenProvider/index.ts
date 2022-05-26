@@ -79,6 +79,7 @@ class TokenProvider {
         if (token) tokens.push(token)
       }
     })
+    if (limit === 0) return tokens
     return tokens.slice(0, limit)
   }
 }

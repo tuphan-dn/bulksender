@@ -5,9 +5,9 @@ import {
   useEffect,
   useState,
 } from 'react'
-import LazyLoad, { forceCheck } from '@sentre/react-lazyload'
+import LazyLoad from '@sentre/react-lazyload'
 
-import { Button, Empty, Col, Input, Modal, Row, Space, Typography } from 'antd'
+import { Button, Empty, Col, Input, Modal, Row, Space } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
@@ -22,14 +22,14 @@ const LIMIT = 20
 const AMOUNT_BEFORE_LOAD_MORE = 5
 
 export type MintSelectionProps = {
-  value: string
+  value?: string
   onChange?: (value: string) => void
   style?: CSSProperties
   disabled?: boolean
 }
 
 const MintSelection = ({
-  value,
+  value = '',
   onChange = () => {},
   style = {},
   disabled = false,
@@ -38,7 +38,7 @@ const MintSelection = ({
   const [keyword, setKeyword] = useState('')
   const [offset, setOffset] = useState(LIMIT)
   const { recommendedMints, addRecommendMint } = useRecommendedMint()
-  const { searchedMints, loading } = useSearchedMints(keyword, offset)
+  const { searchedMints, loading } = useSearchedMints(keyword, 0)
   const { sortedMints } = useSortMints(searchedMints)
 
   const onSelect = useCallback(
@@ -54,9 +54,6 @@ const MintSelection = ({
     setOffset(LIMIT)
     const list = document.getElementById('sentre-token-selection-list')
     if (list) list.scrollTop = 0
-    setTimeout(() => {
-      forceCheck()
-    }, 500)
   }, [keyword, visible])
 
   useEffect(() => {
@@ -81,15 +78,10 @@ const MintSelection = ({
         visible={visible}
         onCancel={() => setVisible(false)}
         footer={null}
-        closeIcon={<IonIcon name="close-outline" />}
+        closable={false}
         centered
       >
         <Row gutter={[32, 32]}>
-          <Col span={24}>
-            <Typography.Title level={5} type="secondary">
-              Token Selection
-            </Typography.Title>
-          </Col>
           <Col span={24}>
             <Input
               placeholder="Search token symbol, name, address, ..."
