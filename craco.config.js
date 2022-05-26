@@ -3,18 +3,21 @@ require('dotenv-cra').config() // https://github.com/gsoft-inc/craco/issues/180
 const {
   CracoAppLessPlugin,
   CracoOsLessPlugin,
-} = require('./plugins/craco-less')
-const CracoTheme = require('./plugins/craco-theme')
-const CracoModuleFederation = require('./plugins/craco-module-federation')
-const CracoCompatibility = require('./plugins/craco-compatibility')
-const CracoWasm = require('./plugins/craco-wasm')
-const CracoSilence = require('./plugins/craco-silence')
-const CracoAnalyzer = require('./plugins/craco-analyzer')
+  CracoTheme,
+  CracoModuleFederation,
+  CracoCompatibility,
+  CracoWasm,
+  CracoSilence,
+  CracoAnalyzer,
+} = require('@sentre/craco-plugins')
 
 module.exports = {
   plugins: [
     {
       plugin: CracoModuleFederation,
+      options: {
+        uniqueName: process.env.REACT_APP_ID,
+      },
     },
     // Os style loaders
     {
@@ -48,7 +51,7 @@ module.exports = {
       plugin: CracoTheme,
       options: {
         theme: ['light', 'dark'],
-        appId: process.env.REACT_APP_ID,
+        uniqueName: process.env.REACT_APP_ID,
       },
     },
     {
