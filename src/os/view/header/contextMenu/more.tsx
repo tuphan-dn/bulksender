@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom'
 
 import { Avatar } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 const More = () => {
   const history = useHistory()

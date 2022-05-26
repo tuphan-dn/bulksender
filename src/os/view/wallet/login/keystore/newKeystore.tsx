@@ -3,7 +3,7 @@ import fileDownload from 'js-file-download'
 import { keystore as ks, Keystore } from '@senswap/sen-js'
 
 import { Row, Col, Button, Typography, Input, Modal } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 const NewKeyStore = ({
   visible = false,

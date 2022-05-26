@@ -6,10 +6,9 @@ import {
   useState,
 } from 'react'
 import LazyLoad, { forceCheck } from '@sentre/react-lazyload'
-import { account } from '@senswap/sen-js'
 
-import { Button, Col, Empty, Input, Modal, Row, Space, Typography } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import { Button, Empty, Col, Input, Modal, Row, Space, Typography } from 'antd'
+import IonIcon from '@sentre/antd-ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
 import MintCard from './mintCard'

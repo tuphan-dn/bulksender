@@ -4,7 +4,7 @@ import { useRemoteModule } from 'react-dynamic-remote-component'
 import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
 
 import { Row, Col, Typography, Button, Skeleton } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import ErrorBoundary from 'os/components/errorBoundary'
 
 import { RootDispatch, useRootDispatch } from 'os/store'

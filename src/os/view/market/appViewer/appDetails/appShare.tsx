@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Button, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import ShareModal from './shareModal'
 
 const AppShare = ({ appId }: { appId: string }) => {

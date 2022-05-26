@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react'
 
 import { Row, Col, Typography, Space, Badge, Card } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'

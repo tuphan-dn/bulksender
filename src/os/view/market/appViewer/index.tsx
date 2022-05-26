@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Row, Col, Card, Button } from 'antd'
 import AppDetails from './appDetails'
 import ScreenShot from './screenshot'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import AppCategorySlice from '../appCategory/slice'
 
 import { CustomCategory } from '../appCategory/hooks'

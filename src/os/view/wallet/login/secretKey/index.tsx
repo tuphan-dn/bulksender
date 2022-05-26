@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react'
 import { account } from '@senswap/sen-js'
 
 import { Row, Col, Typography, Input, Button, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { connectWallet } from 'os/store/wallet.reducer'

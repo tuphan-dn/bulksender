@@ -2,7 +2,7 @@ import { useState, ChangeEvent, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { Row, Col, Button, Input, Card } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import JsonViewer from 'os/components/jsonViewer'
 import ConfirmRestore from './confirm'
 
