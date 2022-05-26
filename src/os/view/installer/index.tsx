@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { Col, Modal, Row, Typography } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import CustomAppIcon from './customAppIcon'
 
 import { RootState, useRootDispatch, useRootSelector } from 'os/store'

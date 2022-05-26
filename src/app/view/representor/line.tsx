@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { account, utils } from '@senswap/sen-js'
 
 import { Row, Col, Button, Typography, Tooltip, Divider, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import { MintSymbol } from 'shared/antd/mint'
 
 import { AppDispatch, AppState } from 'app/model'

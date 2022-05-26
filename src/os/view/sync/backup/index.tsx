@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { Button, Card, Checkbox, Col, Row } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import BackupSuccess from './backupSuccess'
 import ReviewManual from './reviewManual'
 import ReviewData from './reviewData'

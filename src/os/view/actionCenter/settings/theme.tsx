@@ -1,5 +1,5 @@
 import { Row, Col, Switch, Typography, Card, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 import {
   useRootDispatch,

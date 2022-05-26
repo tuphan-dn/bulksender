@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Row, Col, Tooltip, Switch, Typography, Divider, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import Coin98 from './coin98'
 import Phantom from './phantom'
 import Slope from './slope'

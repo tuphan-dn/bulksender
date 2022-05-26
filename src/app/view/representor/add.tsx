@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { account, utils } from '@senswap/sen-js'
 
 import { Row, Col, Button, Input } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import NumericInput from 'shared/antd/numericInput'
 
 import { AppDispatch, AppState } from 'app/model'

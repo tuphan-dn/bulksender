@@ -1,5 +1,5 @@
 import { Row, Col, Card, Typography, Upload } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { installManifest } from 'os/store/page.reducer'

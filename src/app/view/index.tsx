@@ -1,6 +1,6 @@
 import { Row, Col, Typography, Card } from 'antd'
 import { useCallback } from 'react'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import Actions from './actions'
 import Collector from './collector'
 import MintSelection from './mintSelection'

@@ -4,7 +4,7 @@ import { account, AccountData, utils } from '@senswap/sen-js'
 import { useAccount, useWallet } from '@senhub/providers'
 
 import { Row, Col, Typography, Space } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import Estimate from './estimate'
 import Merge from './merge'
 import Send from './send'
