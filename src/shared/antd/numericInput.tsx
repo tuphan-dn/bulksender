@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, forwardRef, useCallback, useRef } from 'react'
 
 import { Input, Tooltip, Space, InputProps } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 let timeoutId: ReturnType<typeof setTimeout> | undefined
 

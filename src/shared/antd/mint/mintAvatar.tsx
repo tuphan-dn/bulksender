@@ -3,7 +3,7 @@ import { account } from '@senswap/sen-js'
 import { useMint, usePool } from '@senhub/providers'
 
 import { Avatar } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 const DEFAULT_AVATARS: Array<string | undefined> = [undefined]
 

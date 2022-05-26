@@ -7,13 +7,13 @@
     "@project-serum/sol-wallet-adapter": "^0.2.6",
     "@reduxjs/toolkit": "^1.8.0",
     "@senswap/sen-js": "^1.3.5",
+    "@sentre/antd-ionicon": "^1.0.0",
     "@sentre/connector": "^0.0.26",
     "@sentre/react-lazyload": "^3.2.2",
     "@solana/spl-token-registry": "^0.2.3771",
     "antd": "^4.20.2",
     "bn.js": "^5.2.0",
     "bs58": "^4.0.1",
-    "iconsax-react": "^0.0.7",
     "ipfs-core": "^0.14.2",
     "js-file-download": "^0.4.12",
     "localforage": "^1.10.0",
@@ -24,7 +24,6 @@
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
     "react-dynamic-remote-component": "0.0.3",
-    "react-helmet": "^6.1.0",
     "react-joyride": "^2.3.2",
     "react-json-view": "^1.21.3",
     "react-redux": "^7.2.6",
@@ -45,7 +44,8 @@
     "deploy": "gh-pages -d build",
     "preserve": "npm run build:staging",
     "serve": "serve -s build -l 3000",
-    "manifest": "NODE_ENV=production node ./plugins/manifest-builder.js"
+    "manifest": "NODE_ENV=production node ./plugins/manifest-builder.js",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
@@ -71,7 +71,6 @@
     "@types/react": "^17.0.38",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "@types/react-dom": "^17.0.9",
-    "@types/react-helmet": "^6.1.5",
     "@types/react-router-dom": "^5.3.1",
     "@types/remarkable": "^2.0.3",
     "assert": "^2.0.0",
@@ -90,6 +89,7 @@
     "prettier": "2.5.0",
     "process": "^0.11.10",
     "serve": "^12.0.1",
+    "source-map-explorer": "^2.5.2",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "typescript": "^4.5.2",

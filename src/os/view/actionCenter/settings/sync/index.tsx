@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom'
 
 import { Row, Col, Button, Card, Typography } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 
 import { useRootDispatch, RootDispatch } from 'os/store'
 import { setVisibleActionCenter } from 'os/store/ui.reducer'

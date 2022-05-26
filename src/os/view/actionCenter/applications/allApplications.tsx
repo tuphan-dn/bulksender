@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { Button, Col, Modal, Row, Space, Typography, Switch } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import WidgetLayout from './widgetLayout'
 
 import {

@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState } from 'react'
 
 import { Row, Col, Space, Button, Typography, Input } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import NewKeyStore from './newKeystore'
 
 import { useRootDispatch, RootDispatch } from 'os/store'

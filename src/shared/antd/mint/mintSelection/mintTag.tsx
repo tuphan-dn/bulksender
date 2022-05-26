@@ -1,5 +1,5 @@
 import { Card, Space, Typography } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import { MintAvatar, MintName } from 'shared/antd/mint'
 
 import { randomColor } from 'shared/util'

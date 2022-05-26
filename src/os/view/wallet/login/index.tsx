@@ -1,5 +1,5 @@
 import { Modal } from 'antd'
-import IonIcon from 'shared/antd/ionicon'
+import IonIcon from '@sentre/antd-ionicon'
 import WalletConnection from './walletConnection'
 
 import {
