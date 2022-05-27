@@ -8,7 +8,7 @@ import localStorage from 'shared/storage'
 const LIMIT_ITEM = 8
 const LOCAL_STORAGE_ID = `${net}:selected_mints`
 
-export const useRecommendedMint = () => {
+export const useRecommendedMints = () => {
   const [recommendedMints, setRecommendedMints] = useState<string[]>([])
   const allMintAddresses = useAllMintAddresses()
   const { sortedMints } = useSortMints(allMintAddresses)
