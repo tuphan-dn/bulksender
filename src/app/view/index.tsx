@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useWallet } from '@senhub/providers'
 
@@ -9,7 +9,10 @@ import { AppDispatch, AppState } from 'app/model'
 import { increaseCounter } from 'app/model/main.controller'
 import configs from 'app/configs'
 import { createPDB } from 'shared/pdb'
-import { MintSelection } from 'shared/antd/mint'
+
+// import './index.less'
+import './index.dark.less'
+import './index.light.less'
 
 const {
   manifest: { appId },
@@ -21,9 +24,6 @@ const View = () => {
   } = useWallet()
   const dispatch = useDispatch<AppDispatch>()
   const { counter } = useSelector((state: AppState) => state.main)
-  const [mintAddress, setMintAddress] = useState(
-    '5YwUkPdXLoujGkZuo9B4LsLKj3hdkDcfP4derpspifSJ',
-  )
 
   const pdb = useMemo(() => createPDB(address, appId), [address])
   const increase = useCallback(() => dispatch(increaseCounter()), [dispatch])
@@ -40,7 +40,9 @@ const View = () => {
         </Space>
       </Col>
       <Col span={24}>
-        <Typography.Text>Address: {address}</Typography.Text>
+        <Typography.Text className="text-demo">
+          Address: {address}
+        </Typography.Text>
       </Col>
       <Col>
         <Typography.Text>Counter: {counter}</Typography.Text>
@@ -48,7 +50,6 @@ const View = () => {
       <Col>
         <Button onClick={increase}>Increase</Button>
       </Col>
-      <MintSelection value={mintAddress} onChange={setMintAddress} />
     </Row>
   )
 }

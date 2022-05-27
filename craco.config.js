@@ -3,13 +3,13 @@ require('dotenv-cra').config() // https://github.com/gsoft-inc/craco/issues/180
 const {
   CracoAppLessPlugin,
   CracoOsLessPlugin,
-  CracoTheme,
   CracoModuleFederation,
   CracoCompatibility,
   CracoWasm,
   CracoSilence,
   CracoAnalyzer,
 } = require('@sentre/craco-plugins')
+const CracoTheme = require('./craco-theme')
 
 module.exports = {
   plugins: [
