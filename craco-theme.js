@@ -1,18 +1,21 @@
 /**
- * Postcss Prefixwrap
- * https://www.npmjs.com/package/postcss-prefixwrap
+ * Postcss Prefix Selector
+ * https://www.npmjs.com/package/postcss-prefix-selector
  * Theme changing by CSS selector
  * https://gist.github.com/sbusch/a90eafaf5a5b61c6d6172da6ff76ddaa
  */
 const path = require('path')
 const { getLoaders, loaderByName } = require('@craco/craco')
-const PrefixWrap = require('postcss-prefixwrap')
+const prefixer = require('postcss-prefix-selector')
 
 const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
   // Cannot use prebuilt options in craco, so we have to add it manually
   // https://stackoverflow.com/questions/68738215/craco-plugin-not-loading
   const { theme, uniqueName } = pluginOptions
   const pathSep = path.sep
+  const uniqueSelector = '#' + uniqueName
+  const themeSelectors = theme.map((e) => '#' + e.trim())
+  const prefixed = themeSelectors.map((e) => new RegExp(`^${e} `, 'i'))
   const styleExt = '.(c|(le)|(sa)|(sc))ss'
   const any = '.*'
   const osExt = '.os'
@@ -25,24 +28,41 @@ const overrideWebpackConfig = ({ context, webpackConfig, pluginOptions }) => {
     loaderByName('postcss-loader'),
   )
   if (!hasFoundAny) return webpackConfig
-  const osPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`#${selector}`, {
-      ignoredSelectors: ['html'],
-      whitelist: [
+  const osThemePrefixer = theme.map((selector) =>
+    prefixer({
+      prefix: `#${selector}`,
+      exclude: ['html', 'body', ...prefixed],
+      includeFiles: [
         new RegExp(osPath + any + selector + osExt + styleExt + end, 'i'),
       ],
     }),
   )
-  const appPrefixWrap = theme.map((selector) =>
-    PrefixWrap(`#${selector} #${uniqueName}`, {
-      ignoredSelectors: ['html'],
-      whitelist: [new RegExp(appPath + any + selector + styleExt + end, 'i')],
+  const appThemePrefixer = theme.map((selector) =>
+    prefixer({
+      prefix: `#${selector}`,
+      exclude: ['html', 'body', ...prefixed],
+      includeFiles: [
+        new RegExp(appPath + any + selector + styleExt + end, 'i'),
+      ],
     }),
   )
+  const appIdPrefixer = prefixer({
+    prefix: uniqueSelector,
+    exclude: ['html', 'body'],
+    includeFiles: [new RegExp(appPath + any + styleExt + end, 'i')],
+    transform: (prefix, selector, prefixedSelector) => {
+      prefixedSelector = selector
+      themeSelectors.forEach((e) => {
+        prefixedSelector = prefixedSelector.replace(e, `${e} ${uniqueSelector}`)
+      })
+      return prefixedSelector
+    },
+  })
   matches.forEach((match) => {
     match.loader.options.postcssOptions.plugins.push(
-      ...osPrefixWrap,
-      ...appPrefixWrap,
+      ...osThemePrefixer,
+      ...appThemePrefixer,
+      appIdPrefixer,
     )
   })
   return webpackConfig

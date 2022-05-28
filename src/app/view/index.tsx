@@ -10,10 +10,6 @@ import { increaseCounter } from 'app/model/main.controller'
 import configs from 'app/configs'
 import { createPDB } from 'shared/pdb'
 
-// import './index.less'
-import './index.dark.less'
-import './index.light.less'
-
 const {
   manifest: { appId },
 } = configs
