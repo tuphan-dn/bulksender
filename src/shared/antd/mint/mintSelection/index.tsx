@@ -14,8 +14,8 @@ import MintTag from './mintTag'
 import MintCard from './mintCard'
 import LoadMore from './loadMore'
 
-import { useRecommendedMint } from './useRecommendedMint'
-import { useSearchedMints } from './useSearchedMints'
+import { useRecommendedMints } from './hooks/useRecommendedMints'
+import { useSearchedMints } from './hooks/useSearchedMints'
 import { useSortMints } from 'shared/hooks/useSortMints'
 
 const LIMIT = 20
@@ -37,7 +37,7 @@ const MintSelection = ({
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
   const [offset, setOffset] = useState(LIMIT)
-  const { recommendedMints, addRecommendMint } = useRecommendedMint()
+  const { recommendedMints, addRecommendMint } = useRecommendedMints()
   const { searchedMints, loading } = useSearchedMints(keyword, 0)
   const { sortedMints } = useSortMints(searchedMints)
 
@@ -80,6 +80,7 @@ const MintSelection = ({
         footer={null}
         closable={false}
         centered
+        className="mint-select-modal"
       >
         <Row gutter={[32, 32]}>
           <Col span={24}>
@@ -128,7 +129,7 @@ const MintSelection = ({
               {sortedMints.length ? (
                 sortedMints.slice(0, offset).map((mintAddress, index) => (
                   <Col span={24} key={mintAddress}>
-                    <LazyLoad height={60} overflow>
+                    <LazyLoad height={60} overflow throttle={500}>
                       <MintCard mintAddress={mintAddress} onClick={onSelect} />
                     </LazyLoad>
                     {index === offset - AMOUNT_BEFORE_LOAD_MORE && (

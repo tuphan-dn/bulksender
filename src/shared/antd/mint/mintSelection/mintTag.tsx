@@ -3,6 +3,8 @@ import IonIcon from '@sentre/antd-ionicon'
 import { MintAvatar } from 'shared/antd/mint'
 import MintSymbol from '../mintSymbol'
 
+import { randomColor } from 'shared/util'
+
 import './index.less'
 
 export type MintTagProps = {
@@ -24,6 +26,7 @@ const MintTag = ({
       }}
       style={{
         borderRadius: 8,
+        backgroundColor: randomColor(mintAddress, 0.2),
       }}
       className="mint-tag"
       bordered={Boolean(active)}
@@ -31,7 +34,10 @@ const MintTag = ({
     >
       <Space size={8} style={{ width: '100%', justifyContent: 'center' }}>
         <MintAvatar mintAddress={mintAddress} />
-        <Typography.Text ellipsis={true}>
+        <Typography.Text
+          ellipsis={true}
+          style={{ color: randomColor(mintAddress) }}
+        >
           <MintSymbol mintAddress={mintAddress} />
         </Typography.Text>
         {active && <IonIcon name="checkmark-outline" />}
