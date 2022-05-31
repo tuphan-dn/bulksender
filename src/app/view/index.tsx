@@ -36,9 +36,7 @@ const View = () => {
         </Space>
       </Col>
       <Col span={24}>
-        <Typography.Text className="text-demo">
-          Address: {address}
-        </Typography.Text>
+        <Typography.Text>Address: {address}</Typography.Text>
       </Col>
       <Col>
         <Typography.Text>Counter: {counter}</Typography.Text>
