@@ -1,9 +1,9 @@
 require('dotenv-cra').config() // https://github.com/gsoft-inc/craco/issues/180
 
 const {
+  CracoTheme,
   CracoAppLessPlugin,
   CracoOsLessPlugin,
-  CracoTheme,
   CracoModuleFederation,
   CracoCompatibility,
   CracoWasm,

@@ -1,8 +1,11 @@
 import { Card, Space, Typography } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
-import { MintAvatar, MintName } from 'shared/antd/mint'
+import { MintAvatar } from 'shared/antd/mint'
+import MintSymbol from '../mintSymbol'
 
 import { randomColor } from 'shared/util'
+
+import './index.less'
 
 export type MintTagProps = {
   mintAddress: string
@@ -17,19 +20,27 @@ const MintTag = ({
 }: MintTagProps) => {
   return (
     <Card
-      bodyStyle={{ padding: 8, cursor: 'pointer' }}
-      style={{ backgroundColor: randomColor(mintAddress, 0.2) }}
+      bodyStyle={{
+        padding: 8,
+        cursor: 'pointer',
+      }}
+      style={{
+        borderRadius: 8,
+        backgroundColor: randomColor(mintAddress, 0.2),
+      }}
+      className="mint-tag"
       bordered={Boolean(active)}
       onClick={() => onClick(mintAddress)}
     >
-      <Space>
+      <Space size={8} style={{ width: '100%', justifyContent: 'center' }}>
         <MintAvatar mintAddress={mintAddress} />
-        <Space>
-          <Typography.Text style={{ color: randomColor(mintAddress) }}>
-            <MintName mintAddress={mintAddress} />
-          </Typography.Text>
-          {active ? <IonIcon name="checkmark-outline" /> : null}
-        </Space>
+        <Typography.Text
+          ellipsis={true}
+          style={{ color: randomColor(mintAddress) }}
+        >
+          <MintSymbol mintAddress={mintAddress} />
+        </Typography.Text>
+        {active && <IonIcon name="checkmark-outline" />}
       </Space>
     </Card>
   )

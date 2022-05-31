@@ -5,59 +5,56 @@ import {
   useEffect,
   useState,
 } from 'react'
-import LazyLoad, { forceCheck } from '@sentre/react-lazyload'
-import { account } from '@senswap/sen-js'
+import LazyLoad from '@sentre/react-lazyload'
 
-import {
-  Button,
-  Col,
-  Divider,
-  Input,
-  Modal,
-  Row,
-  Space,
-  Typography,
-} from 'antd'
+import { Button, Empty, Col, Input, Modal, Row, Space } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import { MintAvatar, MintSymbol } from 'shared/antd/mint'
 import MintTag from './mintTag'
 import MintCard from './mintCard'
+import LoadMore from './loadMore'
 
-import { useRecommendedMintAddresses } from './useRecommendedMintAddresses'
-import { useSearchedMintAddresses } from './useSearchedMintAddresses'
-import { useRandomMintAddresses } from './useRandomMintAddress'
+import { useRecommendedMints } from './hooks/useRecommendedMints'
+import { useSearchedMints } from './hooks/useSearchedMints'
+import { useSortMints } from 'shared/hooks/useSortMints'
 
-const LIMIT = 50
+const LIMIT = 20
+const AMOUNT_BEFORE_LOAD_MORE = 5
 
 export type MintSelectionProps = {
-  value: string
-  onChange: (value: string) => void
+  value?: string
+  onChange?: (value: string) => void
   style?: CSSProperties
+  disabled?: boolean
 }
 
-const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
+const MintSelection = ({
+  value = '',
+  onChange = () => {},
+  style = {},
+  disabled = false,
+}: MintSelectionProps) => {
   const [visible, setVisible] = useState(false)
   const [keyword, setKeyword] = useState('')
-  const recommendedMintAddresses = useRecommendedMintAddresses()
-  const { searchedMintAddresses, loading } = useSearchedMintAddresses(keyword)
-  const { randomHundredAddresses, refresh } = useRandomMintAddresses(LIMIT)
+  const [offset, setOffset] = useState(LIMIT)
+  const { recommendedMints, addRecommendMint } = useRecommendedMints()
+  const { searchedMints, loading } = useSearchedMints(keyword, 0)
+  const { sortedMints } = useSortMints(searchedMints)
 
   const onSelect = useCallback(
     (mintAddress: string) => {
       setVisible(false)
       onChange(mintAddress)
+      addRecommendMint(mintAddress)
     },
-    [onChange],
+    [onChange, addRecommendMint],
   )
-  const onRefresh = useCallback(() => {
-    const list = document.getElementById('sentre-token-selection-list')
-    if (list) list.scrollTop = 0
-    return refresh()
-  }, [refresh])
 
   useEffect(() => {
-    forceCheck()
-  }, [searchedMintAddresses])
+    setOffset(LIMIT)
+    const list = document.getElementById('sentre-token-selection-list')
+    if (list) list.scrollTop = 0
+  }, [keyword, visible])
 
   useEffect(() => {
     if (!visible) setKeyword('')
@@ -69,6 +66,7 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         type="text"
         onClick={() => setVisible(true)}
         style={{ padding: 4, ...style }}
+        disabled={disabled}
       >
         <Space>
           <MintAvatar mintAddress={value} />
@@ -80,16 +78,11 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
         visible={visible}
         onCancel={() => setVisible(false)}
         footer={null}
-        closeIcon={<IonIcon name="close-outline" />}
+        closable={false}
         centered
-        destroyOnClose
+        className="mint-select-modal"
       >
         <Row gutter={[32, 32]}>
-          <Col span={24}>
-            <Typography.Title level={5} type="secondary">
-              Token Selection
-            </Typography.Title>
-          </Col>
           <Col span={24}>
             <Input
               placeholder="Search token symbol, name, address, ..."
@@ -110,60 +103,45 @@ const MintSelection = ({ value, onChange, style = {} }: MintSelectionProps) => {
               onChange={(e) => setKeyword(e.target.value || '')}
             />
           </Col>
-          <Col span={24}>
-            <Row gutter={[8, 8]}>
-              {account.isAddress(value) ? (
-                <Col>
-                  <MintTag mintAddress={value} active />
-                </Col>
-              ) : null}
-              {recommendedMintAddresses
-                .filter((mintAddress) => mintAddress !== value)
-                .map((mintAddress) => (
-                  <Col key={mintAddress}>
-                    <MintTag mintAddress={mintAddress} onClick={onSelect} />
+          {!keyword.length && (
+            <Col span={24}>
+              <Row gutter={[8, 8]}>
+                {recommendedMints.map((mintAddress) => (
+                  <Col xs={12} sm={8} md={6} key={mintAddress}>
+                    <MintTag
+                      mintAddress={mintAddress}
+                      onClick={onSelect}
+                      active={mintAddress === value}
+                    />
                   </Col>
                 ))}
-            </Row>
-          </Col>
+              </Row>
+            </Col>
+          )}
           <Col span={24}>
             <Row
               gutter={[8, 8]}
               style={{ maxHeight: 360 }}
               className="scrollbar"
               id="sentre-token-selection-list"
+              justify="center"
             >
-              {(searchedMintAddresses || randomHundredAddresses).map(
-                (mintAddress) => (
+              {sortedMints.length ? (
+                sortedMints.slice(0, offset).map((mintAddress, index) => (
                   <Col span={24} key={mintAddress}>
-                    <LazyLoad height={60} overflow>
+                    <LazyLoad height={60} overflow throttle={500}>
                       <MintCard mintAddress={mintAddress} onClick={onSelect} />
                     </LazyLoad>
+                    {index === offset - AMOUNT_BEFORE_LOAD_MORE && (
+                      <LoadMore callback={() => setOffset(offset + LIMIT)} />
+                    )}
                   </Col>
-                ),
+                ))
+              ) : (
+                <Col>
+                  <Empty style={{ padding: 40 }} />
+                </Col>
               )}
-              {!searchedMintAddresses ? (
-                <Fragment>
-                  <Col span={24}>
-                    <Divider style={{ marginBottom: 0 }} />
-                  </Col>
-                  <Col span={24}>
-                    <Typography.Text type="secondary" className="caption">
-                      <IonIcon
-                        name="chatbox-ellipses-outline"
-                        style={{ marginRight: 6 }}
-                      />
-                      This is the list of {LIMIT} random tokens while the full
-                      list is pretty longer. You can find your tokens by the
-                      search bar. Or{' '}
-                      <Typography.Link onClick={onRefresh}>
-                        Click here
-                      </Typography.Link>{' '}
-                      to refresh the current list.
-                    </Typography.Text>
-                  </Col>
-                </Fragment>
-              ) : null}
             </Row>
           </Col>
         </Row>
