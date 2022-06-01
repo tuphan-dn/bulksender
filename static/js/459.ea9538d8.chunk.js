@@ -1,2 +1,0 @@
-"use strict";(globalThis.webpackChunkbulk_sender=globalThis.webpackChunkbulk_sender||[]).push([[459],{65243:(a,e,c)=>{c.r(e),c.d(e,{logo:()=>p,panels:()=>i,readme:()=>s});const b=c.p+"static/media/panel.6b76cca872cba442836f.png",d=c.p+"static/media/preview.1dc7ab4f81b92a27dbf6.png",p=c.p+"static/media/logo.1e3475aabcdd9e1626aa.png",s=c.p+"static/media/README.631f2b04a38660f9ec7f.md",i=[b,d]}}]);
-//# sourceMappingURL=459.ea9538d8.chunk.js.map
