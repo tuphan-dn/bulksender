@@ -1,6 +1,8 @@
 import { Suspense, forwardRef, cloneElement } from 'react'
-import { useRemoteModule } from 'react-dynamic-remote-component'
-import { RemoteModule } from 'react-dynamic-remote-component/dist/types/types'
+import {
+  useRemoteModule,
+  RemoteModule,
+} from '@sentre/react-dynamic-remote-component'
 
 import { Spin } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'

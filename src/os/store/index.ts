@@ -7,7 +7,7 @@ import {
 } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { RootContext } from '@senhub/context'
-import { devTools, bigintSerializationMiddleware } from 'shared/devTools'
+import { devTools, bigintSerializationMiddleware } from 'os/store/devTools'
 
 import ui from './ui.reducer'
 import flags from './flags.reducer'

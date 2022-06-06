@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect } from 'react'
+import { Connection } from '@solana/web3.js'
 
 import { Row, Col, Typography, Space, Badge, Card } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import NetSwitch from './netSwitch'
 
 import configs from 'os/configs'
-import { pingCluster } from 'shared/runtime'
 
 const {
   sol: { node },
@@ -19,6 +19,19 @@ enum NetworkStatus {
   Good,
 }
 let intervalId: ReturnType<typeof setTimeout> | undefined
+
+/**
+ * Ping Solana cluster
+ * @param nodeRpc - Solana's RPC cluster
+ * @returns ping time
+ */
+export const pingCluster = async (nodeRpc: string): Promise<number> => {
+  const connection = new Connection(nodeRpc)
+  const start = Date.now()
+  await connection.getVersion()
+  const end = Date.now()
+  return end - start
+}
 
 const parseType = (status: NetworkStatus) => {
   switch (status) {
