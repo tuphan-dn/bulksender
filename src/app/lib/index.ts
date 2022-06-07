@@ -110,8 +110,7 @@ class Bulksender extends Tx {
     transaction.add(instruction)
     transaction.feePayer = payerPublicKey
     // Sign tx
-    const payerSig = await wallet.rawSignTransaction(transaction)
-    this.addSignature(transaction, payerSig)
+    transaction = await wallet.signTransaction(transaction)
     // Send tx
     const txId = await this.sendTransaction(transaction)
     return { txId }
@@ -265,7 +264,7 @@ class Bulksender extends Tx {
     txId: string
   }> => {
     // Build transaction
-    const transaction = await this.buildCheckedBulkTransferTransaction(
+    let transaction = await this.buildCheckedBulkTransferTransaction(
       amounts,
       dstAddresses,
       mintAddress,
@@ -274,8 +273,7 @@ class Bulksender extends Tx {
       taxmanAddress,
     )
     // Sign tx
-    const payerSig = await wallet.rawSignTransaction(transaction)
-    this.addSignature(transaction, payerSig)
+    transaction = await wallet.signTransaction(transaction)
     // Send tx
     const txId = await this.sendTransaction(transaction)
     return { txId }

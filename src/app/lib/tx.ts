@@ -1,4 +1,3 @@
-import { Signature } from '@senswap/sen-js'
 import { Connection, Transaction } from '@solana/web3.js'
 
 export class TxError extends Error {
@@ -71,21 +70,6 @@ class Tx {
   ): Promise<Transaction> => {
     const { blockhash } = await this.connection.getLatestBlockhash('confirmed')
     transaction.recentBlockhash = blockhash
-    return transaction
-  }
-
-  /**
-   * Add transaction signature
-   * @param transaction
-   * @param { publicKey, signature } signature
-   * @returns transaction with added signature
-   */
-  protected addSignature = (
-    transaction: Transaction,
-    { publicKey, signature }: Signature,
-  ): Transaction => {
-    if (!transaction.feePayer) transaction.feePayer = publicKey
-    transaction.addSignature(publicKey, signature)
     return transaction
   }
 }
