@@ -9,6 +9,7 @@ const {
   CracoWasm,
   CracoSilence,
   CracoAnalyzer,
+  CracoAssetSenhub,
 } = require('@sentre/craco-plugins')
 
 module.exports = {
@@ -59,6 +60,12 @@ module.exports = {
     },
     {
       plugin: CracoWasm,
+    },
+    {
+      plugin: CracoAssetSenhub,
+      options: {
+        outputFile: process.env.REACT_APP_ID + '-asset-senhub',
+      },
     },
     {
       plugin: CracoSilence,
