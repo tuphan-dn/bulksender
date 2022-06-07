@@ -28,9 +28,7 @@ const useRemoteStatic = ({ url, scope }: RemoteModule): any => {
     ;(async () => {
       try {
         const res = await fetch(root + `${scope}-asset-senhub.json`)
-        console.log(res, root + `${scope}.json`)
         let data = await res.json()
-        console.log(data)
         Object.keys(data).forEach((key) => (data[key] = prefix(data[key])))
         return setData(data)
       } catch (er) {
