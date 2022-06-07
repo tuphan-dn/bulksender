@@ -1,6 +1,6 @@
-import { Transaction, PublicKey } from '@solana/web3.js'
+import { Transaction } from '@solana/web3.js'
 import * as nacl from 'tweetnacl'
-import { account, Signature } from '@senswap/sen-js'
+import { account } from '@senswap/sen-js'
 import { decode, encode } from 'bs58'
 
 import BaseWallet from './baseWallet'
@@ -21,23 +21,46 @@ class SlopeWallet extends BaseWallet {
     return this.provider
   }
 
-  getAddress = async () => {
+  getAddress = async (): Promise<string> => {
     const provider = await this.getProvider()
     const { data } = await provider.connect()
     if (!data.publicKey) throw new Error('Wallet is not connected')
     return data.publicKey
   }
 
-  rawSignTransaction = async (transaction: Transaction) => {
+  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
     const provider = await this.getProvider()
+    const address = await this.getAddress()
+    const publicKey = account.fromAddress(address)
+    if (!transaction.feePayer) transaction.feePayer = publicKey
     const message = encode(transaction.serializeMessage())
     const { msg, data } = await provider.signTransaction(message)
-
-    if (!data.publicKey) throw new Error(msg)
-    const publicKey = new PublicKey(data.publicKey)
+    if (!data.publicKey || !data.signature) throw new Error(msg)
     const signature = decode(data.signature)
+    transaction.addSignature(publicKey, signature)
+    return transaction
+  }
 
-    return { publicKey, signature } as Signature
+  signAllTransactions = async (
+    transactions: Transaction[],
+  ): Promise<Transaction[]> => {
+    const provider = await this.getProvider()
+    const address = await this.getAddress()
+    const publicKey = account.fromAddress(address)
+    transactions.forEach((transaction) => {
+      if (!transaction.feePayer) transaction.feePayer = publicKey
+    })
+    const messages = transactions.map((transaction) =>
+      encode(transaction.serializeMessage()),
+    )
+    const { msg, data } = await provider.signAllTransactions(messages)
+    if (!data.publicKey || data.signatures?.length !== transactions.length)
+      throw new Error(msg)
+    data.signatures.forEach((sig: string, i: number) => {
+      const signature = decode(sig)
+      transactions[i].addSignature(publicKey, signature)
+    })
+    return transactions
   }
 
   verifySignature = async (

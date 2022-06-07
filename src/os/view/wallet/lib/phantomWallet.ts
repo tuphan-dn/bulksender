@@ -1,6 +1,6 @@
 import { Transaction } from '@solana/web3.js'
 import * as nacl from 'tweetnacl'
-import { account, Signature, SignedMessage } from '@senswap/sen-js'
+import { account, SignedMessage } from '@senswap/sen-js'
 
 import BaseWallet from './baseWallet'
 
@@ -19,7 +19,7 @@ class PhantomWallet extends BaseWallet {
     })
   }
 
-  getAddress = async () => {
+  getAddress = async (): Promise<string> => {
     const provider = await this.getProvider()
     const address = provider.publicKey.toString()
     if (!account.isAddress(address))
@@ -27,13 +27,24 @@ class PhantomWallet extends BaseWallet {
     return address
   }
 
-  rawSignTransaction = async (transaction: Transaction) => {
+  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const publicKey = account.fromAddress(address)
-    transaction.feePayer = publicKey
-    const { signature } = await provider.signTransaction(transaction)
-    return { publicKey, signature } as Signature
+    if (!transaction.feePayer) transaction.feePayer = publicKey
+    return await provider.signTransaction(transaction)
+  }
+
+  signAllTransactions = async (
+    transactions: Transaction[],
+  ): Promise<Transaction[]> => {
+    const provider = await this.getProvider()
+    const address = await this.getAddress()
+    const publicKey = account.fromAddress(address)
+    transactions.forEach((transaction) => {
+      if (!transaction.feePayer) transaction.feePayer = publicKey
+    })
+    return await provider.signAllTransactions(transactions)
   }
 
   signMessage = async (message: string) => {

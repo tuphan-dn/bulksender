@@ -1,6 +1,6 @@
 import { Transaction } from '@solana/web3.js'
 import * as nacl from 'tweetnacl'
-import { account, Provider, Signature, SignedMessage } from '@senswap/sen-js'
+import { account, Provider, SignedMessage } from '@senswap/sen-js'
 import WalletAdapter from '@project-serum/sol-wallet-adapter'
 
 import BaseWallet from './baseWallet'
@@ -25,19 +25,30 @@ class SolletWallet extends BaseWallet {
     return this.provider
   }
 
-  getAddress = async () => {
+  getAddress = async (): Promise<string> => {
     const provider = await this.getProvider()
     if (!provider.publicKey) throw new Error('Cannot connect to Sollet Web')
     return provider.publicKey.toBase58()
   }
 
-  rawSignTransaction = async (transaction: Transaction) => {
+  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const publicKey = account.fromAddress(address)
-    transaction.feePayer = publicKey
-    const { signature } = await provider.signTransaction(transaction)
-    return { publicKey, signature } as Signature
+    if (!transaction.feePayer) transaction.feePayer = publicKey
+    return await provider.signTransaction(transaction)
+  }
+
+  signAllTransactions = async (
+    transactions: Transaction[],
+  ): Promise<Transaction[]> => {
+    const provider = await this.getProvider()
+    const address = await this.getAddress()
+    const publicKey = account.fromAddress(address)
+    transactions.forEach((transaction) => {
+      if (!transaction.feePayer) transaction.feePayer = publicKey
+    })
+    return await provider.signAllTransactions(transactions)
   }
 
   signMessage = async (message: string) => {

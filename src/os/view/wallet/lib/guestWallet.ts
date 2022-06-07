@@ -29,12 +29,19 @@ class GuestWallet extends BaseWallet {
     return provider
   }
 
-  getAddress = async () => {
+  getAddress = async (): Promise<string> => {
     const { address } = await this.getProvider()
     return address
   }
 
-  rawSignTransaction = async (transaction: Transaction) => {
+  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
+    await this._callback()
+    return this._error()
+  }
+
+  signAllTransaction = async (
+    transactions: Transaction[],
+  ): Promise<Transaction[]> => {
     await this._callback()
     return this._error()
   }

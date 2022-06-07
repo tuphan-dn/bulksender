@@ -1,10 +1,5 @@
 import { Transaction } from '@solana/web3.js'
-import {
-  WalletInterface,
-  Provider,
-  Signature,
-  SignedMessage,
-} from '@senswap/sen-js'
+import { Provider, WalletInterface, SignedMessage } from '@senswap/sen-js'
 
 import storage from 'shared/storage'
 
@@ -25,12 +20,12 @@ class BaseWallet implements WalletInterface {
   }
 
   signTransaction = async (transaction: Transaction): Promise<Transaction> => {
-    const { signature, publicKey } = await this.rawSignTransaction(transaction)
-    transaction.addSignature(publicKey, signature)
-    return transaction
+    throw new Error('Wallet is not connected')
   }
 
-  rawSignTransaction = async (transaction: Transaction): Promise<Signature> => {
+  signAllTransactions = async (
+    transactions: Transaction[],
+  ): Promise<Transaction[]> => {
     throw new Error('Wallet is not connected')
   }
 

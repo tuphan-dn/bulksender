@@ -1,6 +1,6 @@
 import { Transaction, Keypair } from '@solana/web3.js'
 import { sign, hash } from 'tweetnacl'
-import { account, Provider, Signature } from '@senswap/sen-js'
+import { account, Provider } from '@senswap/sen-js'
 
 import BaseWallet from './baseWallet'
 import session from 'shared/session'
@@ -66,19 +66,39 @@ class SecretKeyWallet extends BaseWallet {
     return provider
   }
 
-  getAddress = async () => {
+  getAddress = async (): Promise<string> => {
     const { keypair } = await this.getProvider()
     return keypair.publicKey.toBase58()
   }
 
-  rawSignTransaction = async (transaction: Transaction) => {
+  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
     const confirmed = window.confirm('Please confirm to sign the transaction!')
     if (!confirmed) throw new Error('User rejects to sign the transaction')
     const { keypair } = await this.getProvider()
     const signData = transaction.serializeMessage()
     const publicKey = keypair.publicKey
+    if (!transaction.feePayer) transaction.feePayer = publicKey
     const signature = sign.detached(signData, keypair.secretKey)
-    return { publicKey, signature } as Signature
+    transaction.addSignature(publicKey, Buffer.from(signature))
+    return transaction
+  }
+
+  signAllTransactions = async (
+    transactions: Transaction[],
+  ): Promise<Transaction[]> => {
+    const confirmed = window.confirm('Please confirm to sign the transactions!')
+    if (!confirmed) throw new Error('User rejects to sign the transactions')
+    const { keypair } = await this.getProvider()
+    const txs: Transaction[] = []
+    for (const transaction of transactions) {
+      const signData = transaction.serializeMessage()
+      const publicKey = keypair.publicKey
+      if (!transaction.feePayer) transaction.feePayer = publicKey
+      const signature = sign.detached(signData, keypair.secretKey)
+      transaction.addSignature(publicKey, Buffer.from(signature))
+      txs.push(transaction)
+    }
+    return txs
   }
 
   signMessage = async (message: string) => {
