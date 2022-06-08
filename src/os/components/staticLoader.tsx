@@ -1,19 +1,42 @@
-import { Suspense, forwardRef, cloneElement } from 'react'
-import {
-  useRemoteModule,
-  RemoteModule,
-} from '@sentre/react-dynamic-remote-component'
+import { Suspense, forwardRef, cloneElement, useCallback } from 'react'
+import { RemoteModule } from '@sentre/react-dynamic-remote-component'
+import { useQuery } from 'react-query'
 
 import { Spin } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
 
 import { useRootSelector, RootState } from 'os/store'
 
+const ONE_HOUR = 60 * 60 * 1000
+
 /**
  * Remote Static
  */
 type StaticType = 'logo' | 'readme'
 type MultiStaticType = 'panels'
+
+/**
+ * Load asset json
+ */
+const useRemoteStatic = ({ url, scope }: RemoteModule): any => {
+  const fetchAsset = useCallback(async () => {
+    const root = url.replace('index.js', '')
+    const prefix = (asset: string | string[]) => {
+      if (typeof asset === 'string') return root + asset
+      if (Array.isArray(asset)) return asset.map((value) => root + value)
+      throw new Error('Invalid static asset')
+    }
+    const res = await fetch(root + `${scope}-asset-senhub.json`)
+    let data = await res.json()
+    Object.keys(data).forEach((key) => (data[key] = prefix(data[key])))
+    return data
+  }, [url, scope])
+  const { data } = useQuery(scope, fetchAsset, {
+    cacheTime: ONE_HOUR,
+    staleTime: ONE_HOUR,
+  })
+  return data || {}
+}
 
 const RemoteStatic = forwardRef<
   HTMLElement,
@@ -23,7 +46,7 @@ const RemoteStatic = forwardRef<
     render: (src: string) => JSX.Element
   }
 >(({ type = 'default', manifest, render }, ref) => {
-  const { [type]: src } = useRemoteModule(manifest)
+  const { [type]: src } = useRemoteStatic(manifest)
   return cloneElement(render(src), ref ? { ref } : {})
 })
 
@@ -68,8 +91,8 @@ const RemoteMultiStatic = forwardRef<
     render: (src: string[]) => JSX.Element
   }
 >(({ type = 'default', manifest, render }, ref) => {
-  const { [type]: arrSrc } = useRemoteModule(manifest)
-  return cloneElement(render(arrSrc), ref ? { ref } : {})
+  const { [type]: arrSrc } = useRemoteStatic(manifest)
+  return cloneElement(render(arrSrc || []), ref ? { ref } : {})
 })
 
 /**
