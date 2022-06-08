@@ -1,10 +1,13 @@
-import { Suspense, forwardRef, cloneElement, useState, useEffect } from 'react'
+import { Suspense, forwardRef, cloneElement, useCallback } from 'react'
 import { RemoteModule } from '@sentre/react-dynamic-remote-component'
+import { useQuery } from 'react-query'
 
 import { Spin } from 'antd'
 import ErrorBoundary from 'os/components/errorBoundary'
 
 import { useRootSelector, RootState } from 'os/store'
+
+const ONE_HOUR = 60 * 60 * 1000
 
 /**
  * Remote Static
@@ -16,28 +19,23 @@ type MultiStaticType = 'panels'
  * Load asset json
  */
 const useRemoteStatic = ({ url, scope }: RemoteModule): any => {
-  const [data, setData] = useState({})
-
-  useEffect(() => {
+  const fetchAsset = useCallback(async () => {
     const root = url.replace('index.js', '')
     const prefix = (asset: string | string[]) => {
       if (typeof asset === 'string') return root + asset
       if (Array.isArray(asset)) return asset.map((value) => root + value)
       throw new Error('Invalid static asset')
     }
-    ;(async () => {
-      try {
-        const res = await fetch(root + `${scope}-asset-senhub.json`)
-        let data = await res.json()
-        Object.keys(data).forEach((key) => (data[key] = prefix(data[key])))
-        return setData(data)
-      } catch (er) {
-        return setData({})
-      }
-    })()
+    const res = await fetch(root + `${scope}-asset-senhub.json`)
+    let data = await res.json()
+    Object.keys(data).forEach((key) => (data[key] = prefix(data[key])))
+    return data
   }, [url, scope])
-
-  return data
+  const { data } = useQuery(scope, fetchAsset, {
+    cacheTime: ONE_HOUR,
+    staleTime: ONE_HOUR,
+  })
+  return data || {}
 }
 
 const RemoteStatic = forwardRef<
