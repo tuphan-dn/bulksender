@@ -3,13 +3,14 @@ import * as nacl from 'tweetnacl'
 import { account, SignedMessage } from '@senswap/sen-js'
 
 import BaseWallet from './baseWallet'
+import { collectFee, collectFees } from './decorators'
 
 class PhantomWallet extends BaseWallet {
   constructor() {
     super('Phantom')
   }
 
-  getProvider = async () => {
+  async getProvider() {
     const { solana } = window
     if (!solana?.isPhantom) throw new Error('Wallet is not connected')
     if (solana.isConnected) return solana
@@ -19,7 +20,7 @@ class PhantomWallet extends BaseWallet {
     })
   }
 
-  getAddress = async (): Promise<string> => {
+  async getAddress(): Promise<string> {
     const provider = await this.getProvider()
     const address = provider.publicKey.toString()
     if (!account.isAddress(address))
@@ -27,7 +28,8 @@ class PhantomWallet extends BaseWallet {
     return address
   }
 
-  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
+  @collectFee
+  async signTransaction(transaction: Transaction): Promise<Transaction> {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const publicKey = account.fromAddress(address)
@@ -35,9 +37,10 @@ class PhantomWallet extends BaseWallet {
     return await provider.signTransaction(transaction)
   }
 
-  signAllTransactions = async (
+  @collectFees
+  async signAllTransactions(
     transactions: Transaction[],
-  ): Promise<Transaction[]> => {
+  ): Promise<Transaction[]> {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const publicKey = account.fromAddress(address)
@@ -47,7 +50,7 @@ class PhantomWallet extends BaseWallet {
     return await provider.signAllTransactions(transactions)
   }
 
-  signMessage = async (message: string) => {
+  async signMessage(message: string) {
     if (!message) throw new Error('Message must be a non-empty string')
     const provider = await this.getProvider()
     const address = await this.getAddress()
@@ -58,11 +61,7 @@ class PhantomWallet extends BaseWallet {
     return data as SignedMessage
   }
 
-  verifySignature = async (
-    signature: string,
-    message: string,
-    address?: string,
-  ) => {
+  async verifySignature(signature: string, message: string, address?: string) {
     address = address || (await this.getAddress())
     const publicKey = account.fromAddress(address)
     const bufSig = Buffer.from(signature, 'hex')

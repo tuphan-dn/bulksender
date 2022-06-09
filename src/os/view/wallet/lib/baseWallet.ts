@@ -11,37 +11,37 @@ class BaseWallet implements WalletInterface {
     storage.set('WalletType', this.walletType)
   }
 
-  getProvider = async (): Promise<Provider> => {
+  async getProvider(): Promise<Provider> {
     throw new Error('Wallet is not connected')
   }
 
-  getAddress = async (): Promise<string> => {
+  async getAddress(): Promise<string> {
     throw new Error('Wallet is not connected')
   }
 
-  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
+  async signTransaction(transaction: Transaction): Promise<Transaction> {
     throw new Error('Wallet is not connected')
   }
 
-  signAllTransactions = async (
+  async signAllTransactions(
     transactions: Transaction[],
-  ): Promise<Transaction[]> => {
+  ): Promise<Transaction[]> {
     throw new Error('Wallet is not connected')
   }
 
-  signMessage = async (message: string): Promise<SignedMessage> => {
+  async signMessage(message: string): Promise<SignedMessage> {
     throw new Error('Wallet is not connected')
   }
 
-  verifySignature = async (
+  async verifySignature(
     signature: string,
     message: string,
     address?: string,
-  ): Promise<boolean> => {
+  ): Promise<boolean> {
     throw new Error('Wallet is not connected')
   }
 
-  disconnect = async (): Promise<void> => {
+  async disconnect(): Promise<void> {
     storage.clear('WalletType')
     const provider = await this.getProvider()
     provider.disconnect()

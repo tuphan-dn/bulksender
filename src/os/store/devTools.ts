@@ -33,7 +33,7 @@ const isPlain = (val: any): boolean => {
     typeof val === 'bigint' ||
     val instanceof PublicKey ||
     val instanceof BN ||
-    val instanceof Buffer
+    Buffer.isBuffer(val)
   )
 }
 BigInt.prototype.toJSON = function () {

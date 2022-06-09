@@ -13,6 +13,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "experimentalDecorators": true,
     "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx"
