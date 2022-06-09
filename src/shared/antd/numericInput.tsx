@@ -55,6 +55,7 @@ const NumericInput = forwardRef(
       >
         <InputNumber
           {...props}
+          stringMode
           type="number"
           controls={false}
           onChange={onAmount}
