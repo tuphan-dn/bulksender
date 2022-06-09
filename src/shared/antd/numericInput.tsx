@@ -16,7 +16,7 @@ let timeoutId: ReturnType<typeof setTimeout> | undefined
 const NumericInput = forwardRef(
   ({
     max,
-    onValue = () => {},
+    onChange = () => {},
     ...props
   }: InputNumberProps & {
     onValue?: (val: string) => void
@@ -38,9 +38,9 @@ const NumericInput = forwardRef(
         }
         if (max && Number(val) > parseFloat(max.toString()))
           return onError('Not enough balance')
-        return onValue(val.toString())
+        return onChange(val.toString())
       },
-      [max, onValue],
+      [max, onChange],
     )
 
     return (
