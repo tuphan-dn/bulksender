@@ -57,6 +57,7 @@ const NumericInput = forwardRef(
       >
         <InputNumber
           {...props}
+          className="numeric-input"
           type="number"
           controls={false}
           onChange={(value) => {
