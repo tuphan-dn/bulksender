@@ -3,8 +3,6 @@ import { useState, forwardRef, useCallback } from 'react'
 import { Tooltip, Space, InputNumber, InputNumberProps } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 
-import './index.less'
-
 let timeoutId: ReturnType<typeof setTimeout> | undefined
 
 /**
@@ -19,7 +17,6 @@ const NumericInput = forwardRef(
   ({
     max,
     onValue = () => {},
-    onChange = () => {},
     ...props
   }: InputNumberProps & {
     onValue?: (val: string) => void
@@ -29,7 +26,8 @@ const NumericInput = forwardRef(
 
     // Handle amount
     const onAmount = useCallback(
-      (val: number) => {
+      (val: number | string | null) => {
+        if (val === null) return
         const onError = (er: string) => {
           if (timeoutId) {
             clearTimeout(timeoutId)
@@ -38,7 +36,7 @@ const NumericInput = forwardRef(
           setError(er)
           timeoutId = setTimeout(() => setError(''), 500)
         }
-        if (max && val > parseFloat(max.toString()))
+        if (max && Number(val) > parseFloat(max.toString()))
           return onError('Not enough balance')
         return onValue(val.toString())
       },
@@ -57,13 +55,9 @@ const NumericInput = forwardRef(
       >
         <InputNumber
           {...props}
-          className="numeric-input"
           type="number"
           controls={false}
-          onChange={(value) => {
-            if (value === null || typeof value === 'string') return
-            onAmount(value)
-          }}
+          onChange={onAmount}
         />
       </Tooltip>
     )
