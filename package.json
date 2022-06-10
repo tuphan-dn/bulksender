@@ -1,6 +1,6 @@
 {
   "name": "senhub",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "dependencies": {
     "@dnd-kit/core": "^4.0.1",
     "@dnd-kit/sortable": "^5.0.0",
