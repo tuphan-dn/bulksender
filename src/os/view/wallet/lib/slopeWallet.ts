@@ -4,6 +4,7 @@ import { account } from '@senswap/sen-js'
 import { decode, encode } from 'bs58'
 
 import BaseWallet from './baseWallet'
+import { collectFee, collectFees } from './decorators'
 
 class SlopeWallet extends BaseWallet {
   private provider: any
@@ -12,7 +13,7 @@ class SlopeWallet extends BaseWallet {
     this.provider = null
   }
 
-  getProvider = async () => {
+  async getProvider() {
     const { Slope } = window || {}
     if (!Slope) throw new Error('Cannot connect to Slope')
     if (this.provider) return this.provider
@@ -21,14 +22,15 @@ class SlopeWallet extends BaseWallet {
     return this.provider
   }
 
-  getAddress = async (): Promise<string> => {
+  async getAddress(): Promise<string> {
     const provider = await this.getProvider()
     const { data } = await provider.connect()
     if (!data.publicKey) throw new Error('Wallet is not connected')
     return data.publicKey
   }
 
-  signTransaction = async (transaction: Transaction): Promise<Transaction> => {
+  @collectFee
+  async signTransaction(transaction: Transaction): Promise<Transaction> {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const publicKey = account.fromAddress(address)
@@ -41,9 +43,10 @@ class SlopeWallet extends BaseWallet {
     return transaction
   }
 
-  signAllTransactions = async (
+  @collectFees
+  async signAllTransactions(
     transactions: Transaction[],
-  ): Promise<Transaction[]> => {
+  ): Promise<Transaction[]> {
     const provider = await this.getProvider()
     const address = await this.getAddress()
     const publicKey = account.fromAddress(address)
@@ -63,11 +66,7 @@ class SlopeWallet extends BaseWallet {
     return transactions
   }
 
-  verifySignature = async (
-    signature: string,
-    message: string,
-    address?: string,
-  ) => {
+  async verifySignature(signature: string, message: string, address?: string) {
     const slopeAddress = address || (await this.getAddress())
     const publicKey = account.fromAddress(slopeAddress)
     const bufSig = Buffer.from(signature, 'hex')
