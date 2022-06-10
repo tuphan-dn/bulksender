@@ -4,7 +4,7 @@ import { account, utils } from '@senswap/sen-js'
 
 import { Row, Col, Button, Input } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
-import NumericInput from 'shared/antd/numericInput'
+import NumericInput from '@sentre/antd-numeric-input'
 
 import { AppDispatch, AppState } from 'app/model'
 import { setData } from 'app/model/main.controller'
@@ -40,7 +40,7 @@ const Add = () => {
         <Input placeholder="Address" value={address} onChange={onAddress} />
       </Col>
       <Col flex="auto">
-        <NumericInput placeholder="Amount" value={amount} onValue={onAmount} />
+        <NumericInput placeholder="Amount" value={amount} onChange={onAmount} />
       </Col>
       <Col>
         <Button
