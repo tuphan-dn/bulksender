@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback } from 'react'
+import { MouseEvent, useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
 
@@ -58,7 +58,10 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
   )
   const visible = useRootSelector((state: RootState) => state.search.visible)
 
-  const { name, verified, author } = register[appId] || {}
+  const { name, verified, author } = useMemo(
+    () => register[appId] || ({} as ComponentManifest),
+    [register, appId],
+  )
 
   const onInstall = useCallback(
     async (e: MouseEvent<HTMLButtonElement>) => {

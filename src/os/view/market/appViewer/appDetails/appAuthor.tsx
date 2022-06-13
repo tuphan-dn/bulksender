@@ -1,12 +1,11 @@
 import { Space, Typography } from 'antd'
 
-const ExtraTypography = ({
-  label,
-  title,
-}: {
+export type ExtraTypographyProps = {
   label: string
   title?: string
-}) => {
+}
+
+const ExtraTypography = ({ label, title }: ExtraTypographyProps) => {
   return (
     <Space>
       <Typography.Text type="secondary">{label}:</Typography.Text>

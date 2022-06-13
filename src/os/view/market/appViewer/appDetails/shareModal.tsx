@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import {
@@ -19,40 +19,52 @@ import { asyncWait } from 'shared/util'
 import Telegram from 'os/static/images/social/telegram.png'
 import Twitter from 'os/static/images/social/twitter.png'
 
+export type ShareModalProps = {
+  appId: string
+  shareWith: string
+  visible: boolean
+  onClose: () => void
+}
+
 const ShareModal = ({
   appId,
   shareWith,
   visible,
   onClose,
-}: {
-  appId: string
-  shareWith: string
-  visible: boolean
-  onClose: () => void
-}) => {
+}: ShareModalProps) => {
   const [copied, setCopied] = useState(false)
   const register = useRootSelector((state: RootState) => state.page.register)
-  const { name } = register[appId] || {}
 
-  const onClick = (type?: string) => {
-    let telegramURL = 'https://telegram.me/share/url?'
-    let twitterURL = 'http://twitter.com/intent/tweet?'
-    if (type === 'twitter') return onShare(twitterURL)
-    return onShare(telegramURL)
-  }
-  const onShare = (url?: string) => {
-    const params: Record<string, string> = {
-      url: window.location.href,
-      text: name || '',
-    }
-    for (const prop in params)
-      url += '&' + prop + '=' + encodeURIComponent(params[prop] || '')
-    window.open(
-      url,
-      '_blank',
-      'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0',
-    )
-  }
+  const { name } = useMemo(
+    () => register[appId] || ({} as ComponentManifest),
+    [register, appId],
+  )
+
+  const onShare = useCallback(
+    (url?: string) => {
+      const params: Record<string, string> = {
+        url: window.location.href,
+        text: name || '',
+      }
+      for (const prop in params)
+        url += '&' + prop + '=' + encodeURIComponent(params[prop] || '')
+      window.open(
+        url,
+        '_blank',
+        'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0',
+      )
+    },
+    [name],
+  )
+  const onClick = useCallback(
+    (type?: string) => {
+      let telegramURL = 'https://telegram.me/share/url?'
+      let twitterURL = 'http://twitter.com/intent/tweet?'
+      if (type === 'twitter') return onShare(twitterURL)
+      return onShare(telegramURL)
+    },
+    [onShare],
+  )
   const onCopy = async () => {
     setCopied(true)
     await asyncWait(1500)

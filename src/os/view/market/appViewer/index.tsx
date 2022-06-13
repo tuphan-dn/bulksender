@@ -1,9 +1,10 @@
+import { useCallback } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
 import { Row, Col, Card, Button } from 'antd'
+import IonIcon from '@sentre/antd-ionicon'
 import AppDetails from './appDetails'
 import ScreenShot from './screenshot'
-import IonIcon from '@sentre/antd-ionicon'
 import AppCategorySlice from '../appCategory/slice'
 
 import { CustomCategory } from '../appCategory/hooks'
@@ -13,7 +14,7 @@ const AppViewer = () => {
   const history = useHistory()
   const { appId } = useParams<{ appId: string }>()
 
-  const onBack = () => history.goBack()
+  const onBack = useCallback(() => history.goBack(), [history])
 
   return (
     <Row gutter={[24, 24]} justify="center">
