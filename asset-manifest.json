@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/static/js/main.b210b04b.js",
+    "main.js": "/static/js/main.5a0ac282.js",
     "bulk_sender.js": "/index.js",
     "static/css/src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.64f317e3.chunk.css": "/static/css/src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.64f317e3.chunk.css",
     "static/js/src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.304b0c8e.chunk.js": "/static/js/src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.304b0c8e.chunk.js",
@@ -19,7 +19,7 @@
     "static/js/src_os_providers_index_tsx.b4405ef5.chunk.js": "/static/js/src_os_providers_index_tsx.b4405ef5.chunk.js",
     "static/js/vendors-node_modules_project-serum_sol-wallet-adapter_dist_esm_index_js-node_modules_iso-rand-ae9fe6.5f32829e.chunk.js": "/static/js/vendors-node_modules_project-serum_sol-wallet-adapter_dist_esm_index_js-node_modules_iso-rand-ae9fe6.5f32829e.chunk.js",
     "static/js/vendors-node_modules_senswap_sen-js_dist_index_js-node_modules_solana_buffer-layout_lib_Layou-e1f4a8.06096faa.chunk.js": "/static/js/vendors-node_modules_senswap_sen-js_dist_index_js-node_modules_solana_buffer-layout_lib_Layou-e1f4a8.06096faa.chunk.js",
-    "static/js/vendors-node_modules_solana_spl-token-registry_dist_module_index_js.5d8b0d29.chunk.js": "/static/js/vendors-node_modules_solana_spl-token-registry_dist_module_index_js.5d8b0d29.chunk.js",
+    "static/js/vendors-node_modules_solana_spl-token-registry_dist_module_index_js.b5130120.chunk.js": "/static/js/vendors-node_modules_solana_spl-token-registry_dist_module_index_js.b5130120.chunk.js",
     "static/js/vendors-node_modules_antd_es_index_js.90564267.chunk.js": "/static/js/vendors-node_modules_antd_es_index_js.90564267.chunk.js",
     "static/js/vendors-node_modules_solana_web3_js_lib_index_browser_esm_js.f80438fe.chunk.js": "/static/js/vendors-node_modules_solana_web3_js_lib_index_browser_esm_js.f80438fe.chunk.js",
     "static/js/vendors-node_modules_is-ipfs_src_index_js-node_modules_libp2p-crypto_src_pbkdf2_js-node_modul-e2401a.be553499.chunk.js": "/static/js/vendors-node_modules_is-ipfs_src_index_js-node_modules_libp2p-crypto_src_pbkdf2_js-node_modul-e2401a.be553499.chunk.js",
@@ -70,8 +70,8 @@
     "static/media/slope.svg": "/static/media/slope.de08dadb3988dd770e2d0d58acf15a09.svg",
     "static/media/icon-telegram.svg": "/static/media/icon-telegram.2450489f40d03000fe65fc1c6f238d85.svg",
     "static/media/README.md": "/static/media/README.631f2b04a38660f9ec7f.md",
-    "static.app.tsx": "/bulk_sender-asset-senhub.json",
-    "main.b210b04b.js.map": "/static/js/main.b210b04b.js.map",
+    "static.app.tsx": "/asset-senhub.json",
+    "main.5a0ac282.js.map": "/static/js/main.5a0ac282.js.map",
     "index.js.map": "/index.js.map",
     "src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.64f317e3.chunk.css.map": "/static/css/src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.64f317e3.chunk.css.map",
     "src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.304b0c8e.chunk.js.map": "/static/js/src_bootstrap_tsx-src_os_static_images_bg_dark-bg_png-src_os_static_images_bg_light-bg_png-sr-b81640.304b0c8e.chunk.js.map",
@@ -90,7 +90,7 @@
     "src_os_providers_index_tsx.b4405ef5.chunk.js.map": "/static/js/src_os_providers_index_tsx.b4405ef5.chunk.js.map",
     "vendors-node_modules_project-serum_sol-wallet-adapter_dist_esm_index_js-node_modules_iso-rand-ae9fe6.5f32829e.chunk.js.map": "/static/js/vendors-node_modules_project-serum_sol-wallet-adapter_dist_esm_index_js-node_modules_iso-rand-ae9fe6.5f32829e.chunk.js.map",
     "vendors-node_modules_senswap_sen-js_dist_index_js-node_modules_solana_buffer-layout_lib_Layou-e1f4a8.06096faa.chunk.js.map": "/static/js/vendors-node_modules_senswap_sen-js_dist_index_js-node_modules_solana_buffer-layout_lib_Layou-e1f4a8.06096faa.chunk.js.map",
-    "vendors-node_modules_solana_spl-token-registry_dist_module_index_js.5d8b0d29.chunk.js.map": "/static/js/vendors-node_modules_solana_spl-token-registry_dist_module_index_js.5d8b0d29.chunk.js.map",
+    "vendors-node_modules_solana_spl-token-registry_dist_module_index_js.b5130120.chunk.js.map": "/static/js/vendors-node_modules_solana_spl-token-registry_dist_module_index_js.b5130120.chunk.js.map",
     "vendors-node_modules_antd_es_index_js.90564267.chunk.js.map": "/static/js/vendors-node_modules_antd_es_index_js.90564267.chunk.js.map",
     "vendors-node_modules_solana_web3_js_lib_index_browser_esm_js.f80438fe.chunk.js.map": "/static/js/vendors-node_modules_solana_web3_js_lib_index_browser_esm_js.f80438fe.chunk.js.map",
     "vendors-node_modules_is-ipfs_src_index_js-node_modules_libp2p-crypto_src_pbkdf2_js-node_modul-e2401a.be553499.chunk.js.map": "/static/js/vendors-node_modules_is-ipfs_src_index_js-node_modules_libp2p-crypto_src_pbkdf2_js-node_modul-e2401a.be553499.chunk.js.map",
@@ -104,6 +104,6 @@
     "src_os_store_index_ts-src_shared_dataloader_index_ts.178394d9.chunk.js.map": "/static/js/src_os_store_index_ts-src_shared_dataloader_index_ts.178394d9.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.b210b04b.js"
+    "static/js/main.5a0ac282.js"
   ]
 }
