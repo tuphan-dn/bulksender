@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Row, Col } from 'antd'
@@ -20,7 +20,10 @@ const Page = () => {
   const loading = useRootSelector((state: RootState) => state.flags.loading)
   const dispatch = useRootDispatch<RootDispatch>()
 
-  const existing = appIds.includes(appId) && register[appId]
+  const existing = useMemo(
+    () => appIds.includes(appId) && register[appId],
+    [register, appIds, appId],
+  )
 
   const openInstaller = useCallback(async () => {
     await dispatch(setVisibleInstaller(!existing))

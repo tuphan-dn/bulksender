@@ -35,7 +35,8 @@ export type MintProvider = {
  */
 const MintContextProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useRootDispatch<RootDispatch>()
-  const { mints, pools } = useRootSelector((state: RootState) => state)
+  const mints = useRootSelector((state: RootState) => state.mints)
+  const pools = useRootSelector((state: RootState) => state.pools)
   const getMint = useCallback(
     async (...args: Parameters<typeof _getMint>) =>
       await dispatch(_getMint(...args)).unwrap(),

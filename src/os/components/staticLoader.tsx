@@ -1,4 +1,4 @@
-import { Suspense, forwardRef, cloneElement, useCallback } from 'react'
+import { Suspense, forwardRef, cloneElement, useCallback, useMemo } from 'react'
 import { RemoteModule } from '@sentre/react-dynamic-remote-component'
 import { useQuery } from 'react-query'
 
@@ -62,9 +62,13 @@ export const StaticLoader = forwardRef<
     render: (url: string) => JSX.Element
   }
 >(({ type, appId, defaultData = '', render }, ref) => {
-  const { register } = useRootSelector((state: RootState) => state.page)
-  const url = register[appId]?.url || ''
-  const manifest: RemoteModule = { url, scope: appId, module: './static' }
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const url = useMemo(() => register[appId]?.url || '', [register, appId])
+  const manifest: RemoteModule = useMemo(
+    () => ({ url, scope: appId, module: './static' }),
+    [url, appId],
+  )
+
   if (!url) return null
   return (
     <ErrorBoundary defaultChildren={render(defaultData)}>
@@ -107,9 +111,13 @@ export const MultiStaticLoader = forwardRef<
     render: (url: string[]) => JSX.Element
   }
 >(({ type, appId, defaultData = [''], render }, ref) => {
-  const { register } = useRootSelector((state: RootState) => state.page)
-  const url = register[appId]?.url || ''
-  const manifest: RemoteModule = { url, scope: appId, module: './static' }
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const url = useMemo(() => register[appId]?.url || '', [register, appId])
+  const manifest: RemoteModule = useMemo(
+    () => ({ url, scope: appId, module: './static' }),
+    [url, appId],
+  )
+
   if (!url) return null
   return (
     <ErrorBoundary defaultChildren={render(defaultData)}>
