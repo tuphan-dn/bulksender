@@ -12,7 +12,7 @@ export const collectFee = (
   descriptor: PropertyDescriptor,
 ) => {
   const original = descriptor.value
-  descriptor.value = async (tx: Transaction) => {
+  descriptor.value = async function (tx: Transaction) {
     const ix = SystemProgram.transfer({
       fromPubkey: tx.feePayer || (await target.getAddress()),
       toPubkey: new PublicKey(taxmanAddress),

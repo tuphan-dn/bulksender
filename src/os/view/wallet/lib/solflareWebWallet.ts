@@ -7,23 +7,20 @@ import BaseWallet from './baseWallet'
 import configs from 'os/configs'
 import { collectFee, collectFees } from './decorators'
 
+const {
+  sol: { node },
+} = configs
 const PROVIDER_URL = 'https://solflare.com/provider'
+const PROVIDER: WalletAdapter & Provider = new WalletAdapter(PROVIDER_URL, node)
 
 class SolflareWebWallet extends BaseWallet {
-  private provider: WalletAdapter & Provider
-
   constructor() {
     super('SolflareWeb')
-
-    const {
-      sol: { node },
-    } = configs
-    this.provider = new WalletAdapter(PROVIDER_URL, node)
   }
 
   async getProvider() {
-    if (!this.provider.connected) await this.provider.connect()
-    return this.provider
+    if (!PROVIDER.connected) await PROVIDER.connect()
+    return PROVIDER
   }
 
   async getAddress() {
