@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 
 import { Swiper } from 'swiper/react'
 import { Navigation, SwiperOptions } from 'swiper'
@@ -12,9 +12,9 @@ export const SwiperOs = ({
   children,
   ...rest
 }: { children: ReactNode } & SwiperOptions) => {
-  const { infix } = useRootSelector((state: RootState) => state.ui)
+  const infix = useRootSelector((state: RootState) => state.ui.infix)
+  const isMobile = useMemo(() => infix === 'xs', [infix])
 
-  const isMobile = infix === 'xs'
   return (
     <Swiper
       slidesPerView={'auto'}

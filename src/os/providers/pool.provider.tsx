@@ -22,7 +22,7 @@ export type PoolProvider = {
  * Pool Context Provider
  */
 const PoolContextProvider = ({ children }: { children: ReactNode }) => {
-  const { pools } = useRootSelector((state: RootState) => state)
+  const pools = useRootSelector((state: RootState) => state.pools)
   const provider = useMemo(() => ({ pools }), [pools])
   return <Context.Provider value={provider}>{children}</Context.Provider>
 }

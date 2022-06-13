@@ -27,7 +27,7 @@ export type NavButtonProps = {
 }
 
 export const NavButton = ({ id, iconName, title, onClick }: NavButtonProps) => {
-  const { width } = useRootSelector((state: RootState) => state.ui)
+  const width = useRootSelector((state: RootState) => state.ui.width)
   return (
     <Button
       type="text"

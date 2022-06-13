@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 
 import { Space, Avatar, Typography, Badge, AvatarProps } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
@@ -41,10 +41,18 @@ const AppAvatar = ({
   )
 }
 
-const RawVerticalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
-  const { src, appId, onClick = () => {}, size = 64, name = true } = props
-  const { register } = useRootSelector((state: RootState) => state.page)
-  const { name: appName } = register[appId] || { name: 'Unknown' }
+const RawVerticalAppIcon = ({
+  src,
+  appId,
+  onClick = () => {},
+  size = 64,
+  name = true,
+}: AppIconProps & { src: ReactNode }) => {
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const { name: appName } = useMemo(
+    () => register[appId] || { name: 'Unknown' },
+    [register, appId],
+  )
 
   return (
     <Space
@@ -74,10 +82,18 @@ const RawVerticalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
   )
 }
 
-const RawHorizontalAppIcon = (props: AppIconProps & { src: ReactNode }) => {
-  const { src, appId, onClick = () => {}, size = 32, name = true } = props
-  const { register } = useRootSelector((state: RootState) => state.page)
-  const { name: appName } = register[appId] || { name: 'Unknown' }
+const RawHorizontalAppIcon = ({
+  src,
+  appId,
+  onClick = () => {},
+  size = 32,
+  name = true,
+}: AppIconProps & { src: ReactNode }) => {
+  const register = useRootSelector((state: RootState) => state.page.register)
+  const { name: appName } = useMemo(
+    () => register[appId] || { name: 'Unknown' },
+    [register, appId],
+  )
 
   return (
     <Space
