@@ -1,15 +1,14 @@
 import { Row, Col, Typography, Card } from 'antd'
-import { useCallback } from 'react'
 import IonIcon from '@sentre/antd-ionicon'
 import Actions from './actions'
 import Collector from './collector'
 import MintSelection from './mintSelection'
 import Representor from './representor'
 
-const View = () => {
-  const url = 'https://hub.sentre.io/app/lightning_tunnel?autoInstall=true'
-  const onLightningTunnel = useCallback(() => window.open(url, '_blank'), [url])
+const LIGHTNING_TUNNEL_URL =
+  'https://hub.sentre.io/app/lightning_tunnel?autoInstall=true'
 
+const View = () => {
   return (
     <Row gutter={[24, 24]} justify="center">
       <Col span={24} style={{ maxWidth: 1200 }}>
@@ -20,7 +19,10 @@ const View = () => {
           <Col xs={24} md={12}>
             <Row gutter={[24, 24]}>
               <Col span={24}>
-                <Card onClick={onLightningTunnel} hoverable>
+                <Card
+                  onClick={() => window.open(LIGHTNING_TUNNEL_URL, '_blank')}
+                  hoverable
+                >
                   <Typography.Text>
                     <IonIcon name="information-circle-outline" /> If you plan to
                     do Airdrops (or Retroactives, Vesting, Distributions), we
