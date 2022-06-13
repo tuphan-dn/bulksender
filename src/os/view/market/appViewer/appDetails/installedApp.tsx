@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
 
@@ -15,13 +15,12 @@ import { installApp, uninstallApp } from 'os/store/page.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
 import { updateVisited } from 'os/store/flags.reducer'
 
-const AppInstall = ({
-  installed,
-  appId,
-}: {
+export type InstalledAppProps = {
   installed: boolean
   appId: string
-}) => {
+}
+
+const InstalledApp = ({ installed, appId }: InstalledAppProps) => {
   const dispatch = useRootDispatch<RootDispatch>()
   const infix = useRootSelector((state: RootState) => state.ui.infix)
   const walletAddress = useRootSelector(
@@ -29,13 +28,10 @@ const AppInstall = ({
   )
   const history = useHistory()
 
-  const to = () => history.push(`/app/${appId}`)
+  const to = useCallback(() => history.push(`/app/${appId}`), [history, appId])
 
-  const isMobile = infix === 'xs' || infix === 'sm'
-  const setFloatElement = () => {
-    if (isMobile) return 'start'
-    return 'end'
-  }
+  const isMobile = useMemo(() => infix === 'xs' || infix === 'sm', [infix])
+  const justify = useMemo(() => (isMobile ? 'start' : 'end'), [isMobile])
 
   const onInstall = async () => {
     if (!account.isAddress(walletAddress)) return dispatch(openWallet())
@@ -44,7 +40,7 @@ const AppInstall = ({
   }
 
   return (
-    <Row gutter={[12, 12]} justify={setFloatElement()}>
+    <Row gutter={[12, 12]} justify={justify}>
       {installed ? (
         <Fragment>
           <Col span={isMobile ? 12 : undefined}>
@@ -84,4 +80,4 @@ const AppInstall = ({
   )
 }
 
-export default AppInstall
+export default InstalledApp

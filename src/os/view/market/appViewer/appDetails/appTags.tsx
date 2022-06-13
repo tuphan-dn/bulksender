@@ -2,7 +2,9 @@ import { Space, Tag } from 'antd'
 
 import { randomColor } from 'shared/util'
 
-const AppTags = ({ tags = [] }: { tags?: string[] }) => {
+export type AppTagsProps = { tags?: string[] }
+
+const AppTags = ({ tags = [] }: AppTagsProps) => {
   return (
     <Space size={8} wrap>
       {tags.map((tag, index) => (

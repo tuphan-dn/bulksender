@@ -4,8 +4,6 @@ import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry'
 import { net, chainId, ChainId, Net } from 'shared/runtime'
 import supplementary, { sntr, sol } from './supplementary'
 
-console.log('Debug OS Isolation:', process.env.REACT_APP_ID)
-
 class TokenProvider {
   private tokenMap: Map<string, TokenInfo>
   private engine: Index | undefined

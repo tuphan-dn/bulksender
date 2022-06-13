@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Card, Col, Row, Typography } from 'antd'
@@ -8,7 +9,7 @@ import { RootState, useRootSelector } from 'os/store'
 const AllApps = () => {
   const history = useHistory()
   const register = useRootSelector((state: RootState) => state.page.register)
-  const appIds = Object.keys(register)
+  const appIds = useMemo(() => Object.keys(register), [register])
 
   return (
     <Card bordered={false} className="glass" bodyStyle={{ padding: 32 }}>

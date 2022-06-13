@@ -31,11 +31,11 @@ const Markdown = ({ src }: { src: string }) => {
   )
 }
 
-export type AppReadmeProps = {
+export type ReadmeLoaderProps = {
   appId: string
 }
 
-const AppReadme = (props: AppReadmeProps) => {
+const ReadmeLoader = (props: ReadmeLoaderProps) => {
   const { appId } = props
   return (
     <StaticLoader
@@ -46,4 +46,4 @@ const AppReadme = (props: AppReadmeProps) => {
   )
 }
 
-export default AppReadme
+export default ReadmeLoader
