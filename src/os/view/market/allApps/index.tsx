@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { Card, Col, Row, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 
 import { RootState, useRootSelector } from 'os/store'
+import { useGoToStoreCallback } from 'os/hooks/useGotoStore'
 
 const AllApps = () => {
-  const history = useHistory()
   const register = useRootSelector((state: RootState) => state.page.register)
   const appIds = useMemo(() => Object.keys(register), [register])
+  const onGoToStore = useGoToStoreCallback()
 
   return (
     <Card bordered={false} className="glass" bodyStyle={{ padding: 32 }}>
@@ -30,7 +30,7 @@ const AllApps = () => {
                 <AppIcon
                   appId={appId}
                   size={72}
-                  onClick={() => history.push(`/store/${appId}`)}
+                  onClick={() => onGoToStore({ appId })}
                 />
               </Col>
             ))}

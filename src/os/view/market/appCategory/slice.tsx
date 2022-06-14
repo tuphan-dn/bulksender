@@ -1,15 +1,11 @@
-import { useCallback } from 'react'
-import { useHistory } from 'react-router'
-
 import { Button, Col, Row, Typography } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import AppCard from '../appCard'
 import { SwiperOs } from 'os/components/swiperOS'
 import { SwiperSlide } from 'swiper/react'
 
-import { RootDispatch, useRootDispatch } from 'os/store'
 import { CategoryOptions, useAppCategory } from './hooks'
-import { setValue } from 'os/store/search.reducer'
+import { useGoToStore } from 'os/hooks/useGotoStore'
 
 export type AppCategorySliceProps = {
   seeAll?: boolean
@@ -19,22 +15,13 @@ const AppCategorySlice = ({
   seeAll = true,
   ...options
 }: AppCategorySliceProps) => {
-  const dispatch = useRootDispatch<RootDispatch>()
-  const history = useHistory()
   const { title, appIds } = useAppCategory(options)
-
-  const onSeeAll = useCallback(async () => {
-    const { category } = options
-    await dispatch(setValue(''))
-    return history.push({
-      pathname: '/store',
-      search: `?category=${category}`,
-    })
-  }, [dispatch, history, options])
+  const onSeeAll = useGoToStore({
+    search: `?category=${options.category}`,
+  })
 
   // Do not display category if no application exists
   if (!appIds.length) return null
-
   return (
     <Row gutter={[20, 20]} align="bottom">
       {/* Title */}
