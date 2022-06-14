@@ -32,6 +32,7 @@ export const ContextMenu = ({ appId }: ContextMenuProps) => {
           label: 'Open in Picture Mode',
           icon: <IonIcon name="images-outline" />,
           onClick: onOpenInPictureMode,
+          disabled: true,
         },
         {
           key: 'view-in-store',
@@ -43,8 +44,8 @@ export const ContextMenu = ({ appId }: ContextMenuProps) => {
           key: 'uninstall',
           label: 'Uninstall',
           icon: <IonIcon name="trash-outline" />,
-          danger: true,
           onClick: onUninstall,
+          danger: true,
         },
       ]}
     />
