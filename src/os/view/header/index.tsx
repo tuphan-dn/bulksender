@@ -5,8 +5,8 @@ import { Row, Col, Button, Space } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import Wallet from 'os/view/wallet'
 import Brand from 'os/components/brand'
-import ActionCenter from '../actionCenter'
-import ContextMenu from './contextMenu'
+import ActionCenter from 'os/view/actionCenter'
+import Navigation from './navigation'
 import Search from './search'
 
 import {
@@ -18,6 +18,8 @@ import {
 import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { net } from 'shared/runtime'
 import { setVisible } from 'os/store/search.reducer'
+import { useGoToStore } from 'os/hooks/useGotoStore'
+import { useCallback } from 'react'
 
 export type NavButtonProps = {
   id: string
@@ -53,13 +55,14 @@ const Header = () => {
   const { pathname } = useLocation()
 
   const onSearch = () => dispatch(setVisible(true))
-  const onStore = async () => {
+  const onGoToStore = useGoToStore()
+  const onStore = useCallback(async () => {
     if (run && step === 0)
       await dispatch(
         setWalkthrough({ type: WalkThroughType.NewComer, step: 1 }),
       )
-    return history.push('/store')
-  }
+    return onGoToStore()
+  }, [dispatch, run, step, onGoToStore])
 
   return (
     <Row gutter={[12, 12]} align="middle" wrap={false}>
@@ -73,7 +76,7 @@ const Header = () => {
         />
       </Col>
       <Col flex="auto">
-        <ContextMenu />
+        <Navigation />
       </Col>
       <Col>
         <Space align="center">

@@ -1,5 +1,4 @@
 import { MouseEvent, useCallback, useMemo } from 'react'
-import { useHistory } from 'react-router'
 import { account } from '@senswap/sen-js'
 
 import { Button, Card, Col, Row, Space, Typography } from 'antd'
@@ -12,43 +11,15 @@ import {
   useRootDispatch,
   RootDispatch,
 } from 'os/store'
-import { installApp } from 'os/store/page.reducer'
 import { setWalkthrough, WalkThroughType } from 'os/store/walkthrough.reducer'
 import { openWallet } from 'os/store/wallet.reducer'
-import { updateVisited } from 'os/store/flags.reducer'
 import { setVisible } from 'os/store/search.reducer'
+import { useGoToApp } from 'os/hooks/useGotoApp'
+import { useInstallApp } from 'os/hooks/useInstallApp'
 
-export type ActionButtonProps = {
-  appIds: AppIds
-  appId: string
-  onOpen?: (e: MouseEvent<HTMLButtonElement>) => void
-  onInstall?: (e: MouseEvent<HTMLButtonElement>) => void
-}
+export type AppCardInfoProps = { appId: string }
 
-export const ActionButton = ({
-  appIds,
-  appId,
-  onOpen = () => {},
-  onInstall = () => {},
-}: ActionButtonProps) => {
-  return appIds.includes(appId) ? (
-    <Button ghost size="small" onClick={onOpen} id="open-action-button">
-      Open
-    </Button>
-  ) : (
-    <Button
-      type="primary"
-      onClick={onInstall}
-      size="small"
-      id="install-action-button"
-    >
-      Install
-    </Button>
-  )
-}
-
-const AppCardInfo = ({ appId }: { appId: string }) => {
-  const history = useHistory()
+const AppCardInfo = ({ appId }: AppCardInfoProps) => {
   const dispatch = useRootDispatch<RootDispatch>()
   const register = useRootSelector((state: RootState) => state.page.register)
   const appIds = useRootSelector((state: RootState) => state.page.appIds)
@@ -57,11 +28,14 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
     (state: RootState) => state.wallet.address,
   )
   const visible = useRootSelector((state: RootState) => state.search.visible)
+  const onInstallApp = useInstallApp(appId)
+  const onGoToApp = useGoToApp({ appId })
 
   const { name, verified, author } = useMemo(
     () => register[appId] || ({} as ComponentManifest),
     [register, appId],
   )
+  const installed = useMemo(() => appIds.includes(appId), [appIds, appId])
 
   const onInstall = useCallback(
     async (e: MouseEvent<HTMLButtonElement>) => {
@@ -71,12 +45,9 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
         await dispatch(
           setWalkthrough({ type: WalkThroughType.NewComer, step: 2 }),
         )
-      if (appId) {
-        await dispatch(updateVisited(true))
-        return dispatch(installApp(appId))
-      }
+      return onInstallApp()
     },
-    [appId, dispatch, run, walletAddress],
+    [onInstallApp, dispatch, run, walletAddress],
   )
 
   const onOpen = useCallback(
@@ -87,9 +58,9 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
         await dispatch(
           setWalkthrough({ type: WalkThroughType.NewComer, step: 3 }),
         )
-      return history.push(`/app/${appId}`)
+      return onGoToApp()
     },
-    [appId, history, dispatch, run, visible],
+    [onGoToApp, dispatch, run, visible],
   )
 
   return (
@@ -118,12 +89,25 @@ const AppCardInfo = ({ appId }: { appId: string }) => {
             </Space>
           </Col>
           <Col>
-            <ActionButton
-              appIds={appIds}
-              appId={appId}
-              onOpen={onOpen}
-              onInstall={onInstall}
-            />
+            {installed ? (
+              <Button
+                ghost
+                size="small"
+                onClick={onOpen}
+                id="open-action-button"
+              >
+                Open
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                onClick={onInstall}
+                size="small"
+                id="install-action-button"
+              >
+                Install
+              </Button>
+            )}
           </Col>
         </Row>
       </Card>

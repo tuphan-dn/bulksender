@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
 
 import { Button, Col, Modal, Row, Space, Typography, Switch } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
@@ -11,12 +10,11 @@ import {
   RootDispatch,
   RootState,
 } from 'os/store'
-import { uninstallApp, updatePage } from 'os/store/page.reducer'
-import { setVisibleActionCenter } from 'os/store/ui.reducer'
+import { updatePage } from 'os/store/page.reducer'
+import { useUninstallApp } from 'os/hooks/useUninstallApp'
+import { useGoToStore } from 'os/hooks/useGotoStore'
 
 const AllApplications = () => {
-  const history = useHistory()
-  const { pathname } = useLocation()
   const dispatch = useRootDispatch<RootDispatch>()
   const [disabled, setDisabled] = useState(true)
   const [appId, setAppId] = useState('')
@@ -36,16 +34,8 @@ const AllApplications = () => {
     await setAppId(appId)
     return setVisible(true)
   }
-  const onUninstall = useCallback(async () => {
-    await dispatch(uninstallApp(appId))
-    await onClose()
-    if (!pathname.startsWith(`/app/${appId}`)) return
-    return history.push('/welcome')
-  }, [dispatch, pathname, history, appId])
-  const onGotoStore = useCallback(async () => {
-    await dispatch(setVisibleActionCenter(false))
-    return history.push('/store')
-  }, [dispatch, history])
+  const onUninstall = useUninstallApp(appId)
+  const onGotoStore = useGoToStore()
 
   return (
     <Row gutter={[16, 16]}>

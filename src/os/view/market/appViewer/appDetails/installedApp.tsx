@@ -1,19 +1,12 @@
-import { Fragment, useCallback, useMemo } from 'react'
-import { useHistory } from 'react-router'
-import { account } from '@senswap/sen-js'
+import { Fragment, useMemo } from 'react'
 
 import { Button, Col, Row } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 
-import {
-  useRootDispatch,
-  useRootSelector,
-  RootDispatch,
-  RootState,
-} from 'os/store'
-import { installApp, uninstallApp } from 'os/store/page.reducer'
-import { openWallet } from 'os/store/wallet.reducer'
-import { updateVisited } from 'os/store/flags.reducer'
+import { useRootSelector, RootState } from 'os/store'
+import { useGoToApp } from 'os/hooks/useGotoApp'
+import { useUninstallApp } from 'os/hooks/useUninstallApp'
+import { useInstallApp } from 'os/hooks/useInstallApp'
 
 export type InstalledAppProps = {
   installed: boolean
@@ -21,23 +14,13 @@ export type InstalledAppProps = {
 }
 
 const InstalledApp = ({ installed, appId }: InstalledAppProps) => {
-  const dispatch = useRootDispatch<RootDispatch>()
   const infix = useRootSelector((state: RootState) => state.ui.infix)
-  const walletAddress = useRootSelector(
-    (state: RootState) => state.wallet.address,
-  )
-  const history = useHistory()
-
-  const to = useCallback(() => history.push(`/app/${appId}`), [history, appId])
+  const opOpen = useGoToApp({ appId })
+  const onInstall = useInstallApp(appId)
+  const onUninstall = useUninstallApp(appId)
 
   const isMobile = useMemo(() => infix === 'xs' || infix === 'sm', [infix])
   const justify = useMemo(() => (isMobile ? 'start' : 'end'), [isMobile])
-
-  const onInstall = async () => {
-    if (!account.isAddress(walletAddress)) return dispatch(openWallet())
-    await dispatch(updateVisited(true))
-    return dispatch(installApp(appId))
-  }
 
   return (
     <Row gutter={[12, 12]} justify={justify}>
@@ -46,7 +29,7 @@ const InstalledApp = ({ installed, appId }: InstalledAppProps) => {
           <Col span={isMobile ? 12 : undefined}>
             <Button
               icon={<IonIcon name="trash-outline" />}
-              onClick={() => dispatch(uninstallApp(appId))}
+              onClick={onUninstall}
               block={isMobile}
             >
               Uninstall
@@ -57,7 +40,7 @@ const InstalledApp = ({ installed, appId }: InstalledAppProps) => {
             <Button
               type="primary"
               icon={<IonIcon name="open-outline" />}
-              onClick={to}
+              onClick={opOpen}
               block={isMobile}
             >
               Open

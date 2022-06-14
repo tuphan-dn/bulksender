@@ -5,11 +5,16 @@ import { Col, Modal, Row, Typography } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import CustomAppIcon from './customAppIcon'
 
-import { RootState, useRootDispatch, useRootSelector } from 'os/store'
+import {
+  RootDispatch,
+  RootState,
+  useRootDispatch,
+  useRootSelector,
+} from 'os/store'
 import { setVisibleInstaller } from 'os/store/ui.reducer'
 import SearchEngine from 'os/view/header/search/searchEngine'
-import { installApp } from 'os/store/page.reducer'
 import { randChoose } from 'shared/util'
+import { useInstallAppCallback } from 'os/hooks/useInstallApp'
 
 const SUGGESTION_LIMIT = 6
 
@@ -21,9 +26,11 @@ const Installer = () => {
   const visible = useRootSelector(
     (state: RootState) => state.ui.visibleInstaller,
   )
-  const dispatch = useRootDispatch()
+  const dispatch = useRootDispatch<RootDispatch>()
   const history = useHistory()
   const { pathname, search } = useLocation()
+  const onInstall = useInstallAppCallback()
+
   const params = new URLSearchParams(search)
   const autoInstall = params.get('autoInstall') === 'true' ? true : false
 
@@ -31,6 +38,10 @@ const Installer = () => {
   const exactAppId = useMemo(() => {
     return allAppIds.find((id) => id === value)
   }, [allAppIds, value])
+  const installed = useMemo(
+    () => Boolean(exactAppId && appIds.includes(exactAppId)),
+    [appIds, exactAppId],
+  )
 
   const closeInstaller = useCallback(async () => {
     await dispatch(setVisibleInstaller(false))
@@ -54,15 +65,8 @@ const Installer = () => {
   }, [onSearch])
 
   useEffect(() => {
-    if (
-      autoInstall &&
-      exactAppId &&
-      register[exactAppId] &&
-      !appIds.includes(exactAppId)
-    ) {
-      dispatch(installApp(exactAppId))
-    }
-  }, [dispatch, autoInstall, exactAppId, appIds, register])
+    if (autoInstall && exactAppId && !installed) onInstall(exactAppId)
+  }, [onInstall, autoInstall, exactAppId, installed])
 
   if (autoInstall || !pathname.startsWith('/app')) return <Fragment />
   return (
