@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
-import { useMint, usePool } from '@senhub/providers'
+import { useMint, usePool } from '@sentre/senhub'
 
 import { Avatar } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useMint } from '@senhub/providers'
+import { useMint } from '@sentre/senhub'
 
 import { useAllMintAddresses } from './useAllMintAddresses'
 

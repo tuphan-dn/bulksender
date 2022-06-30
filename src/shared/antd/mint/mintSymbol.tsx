@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { account } from '@senswap/sen-js'
-import { useMint, usePool } from '@senhub/providers'
+import { useMint, usePool } from '@sentre/senhub'
 
 const DEFAULT_SYMBOL = 'TOKN'
 

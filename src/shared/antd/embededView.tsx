@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { Gateway } from '@sentre/connector'
-import { useUI } from '@senhub/providers'
+import { useUI } from '@sentre/senhub'
 
 export type EmbededViewProps = {
   appId: string

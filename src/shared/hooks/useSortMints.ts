@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useAccount } from '@senhub/providers'
+import { useAccount } from '@sentre/senhub'
 
 export const useSortMints = (mints: string[]) => {
   const [sortedMints, setSortedMints] = useState<string[]>([])
