@@ -4,7 +4,7 @@ import { util, useMintDecimals } from '@sentre/senhub'
 
 import { Row, Col, Button, Typography, Tooltip, Divider, Space } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
-import { MintSymbol } from 'shared/antd/mint'
+import { MintSymbol } from 'components/mint'
 
 import { AppDispatch, AppState } from 'model'
 import { setData } from 'model/main.controller'
