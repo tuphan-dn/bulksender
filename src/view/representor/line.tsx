@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { account, utils } from '@senswap/sen-js'
+import { utils } from '@senswap/sen-js'
+import { util, useMintDecimals } from '@sentre/senhub'
 
 import { Row, Col, Button, Typography, Tooltip, Divider, Space } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
 import { MintSymbol } from 'shared/antd/mint'
 
 import { AppDispatch, AppState } from 'model'
-import useMintDecimals from 'shared/hooks/useMintDecimals'
 import { setData } from 'model/main.controller'
 import { toBigInt } from 'lib/utils'
 
@@ -20,7 +20,7 @@ const Line = ({ index, accountAddress, amount }: LineProps) => {
   const dispatch = useDispatch<AppDispatch>()
   const data = useSelector((state: AppState) => state.main.data)
   const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
-  const decimals = useMintDecimals(mintAddress) || 0
+  const decimals = useMintDecimals({ mintAddress }) || 0
 
   const remove = (index: number) => {
     const nextData = [...data]
@@ -28,7 +28,7 @@ const Line = ({ index, accountAddress, amount }: LineProps) => {
     return dispatch(setData(nextData))
   }
 
-  const error = !account.isAddress(accountAddress)
+  const error = !util.isAddress(accountAddress)
     ? 'Invalid address'
     : !toBigInt(amount)
     ? 'Invalid amount'

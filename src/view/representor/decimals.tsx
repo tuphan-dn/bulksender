@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { utils } from '@senswap/sen-js'
+import { useMintDecimals } from '@sentre/senhub'
 
 import { Col, Row, Switch, Typography } from 'antd'
 
 import { AppDispatch, AppState } from 'model'
 import { setData, setDecimalized, TransferData } from 'model/main.controller'
-import useMintDecimals from 'shared/hooks/useMintDecimals'
 import { toBigInt } from 'lib/utils'
 
 const Decimals = () => {
@@ -13,7 +13,7 @@ const Decimals = () => {
   const data = useSelector((state: AppState) => state.main.data)
   const decimalized = useSelector((state: AppState) => state.main.decimalized)
   const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
-  const decimals = useMintDecimals(mintAddress) || 0
+  const decimals = useMintDecimals({ mintAddress }) || 0
 
   const onSwitch = async (checked: boolean) => {
     const nextData: TransferData = data.map(([address, amount]) => {

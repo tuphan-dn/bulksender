@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { account, AccountData, utils } from '@senswap/sen-js'
-import { useAccount, useWallet } from '@sentre/senhub'
+import { utils } from '@senswap/sen-js'
+import {
+  useAccounts,
+  useWalletAddress,
+  useWalletBalance,
+  useMintDecimals,
+  util,
+} from '@sentre/senhub'
 
 import { Row, Col, Typography, Space } from 'antd'
 import IonIcon from '@sentre/antd-ionicon'
@@ -12,7 +18,6 @@ import Send from './send'
 import { AppState } from 'model'
 import { Status, TransferData } from 'model/main.controller'
 import { toBigInt } from 'lib/utils'
-import useMintDecimals from 'shared/hooks/useMintDecimals'
 
 const TX_FEE = 0.015
 
@@ -22,13 +27,10 @@ const Actions = () => {
   const data = useSelector((state: AppState) => state.main.data)
   const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
   const status = useSelector((state: AppState) => state.main.status)
-  const { accounts } = useAccount() as {
-    accounts: { [key: string]: AccountData }
-  }
-  const {
-    wallet: { address: walletAddress, lamports },
-  } = useWallet()
-  const decimals = useMintDecimals(mintAddress) || 0
+  const accounts = useAccounts()
+  const walletAddress = useWalletAddress()
+  const lamports = useWalletBalance()
+  const decimals = useMintDecimals({ mintAddress }) || 0
 
   const fee = useMemo(() => bulk.length * TX_FEE, [bulk.length])
 
@@ -50,13 +52,13 @@ const Actions = () => {
     // Check data length
     if (!data || !data.length) return setError(true)
     // Check wallet address
-    if (!account.isAddress(walletAddress))
+    if (!util.isAddress(walletAddress))
       return setError('Please connect your wallet')
-    if (!account.isAddress(mintAddress))
+    if (!util.isAddress(mintAddress))
       return setError('Please select a token to send')
     // Check data contents
     const failedElements = data.filter(([address, amount]) => {
-      if (!account.isAddress(address)) return true
+      if (!util.isAddress(address)) return true
       if (!toBigInt(amount)) return true
       return false
     })
