@@ -13,7 +13,7 @@ const Decimals = () => {
   const data = useSelector((state: AppState) => state.main.data)
   const decimalized = useSelector((state: AppState) => state.main.decimalized)
   const mintAddress = useSelector((state: AppState) => state.main.mintAddress)
-  const decimals = useMintDecimals({ mintAddress }) || 0
+  const decimals = useMintDecimals({ mintAddress, force: true }) || 0
 
   const onSwitch = async (checked: boolean) => {
     const nextData: TransferData = data.map(([address, amount]) => {
