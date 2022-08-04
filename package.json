@@ -5,7 +5,7 @@
     "@reduxjs/toolkit": "^1.8.0",
     "@senswap/sen-js": "^1.4.0",
     "@sentre/antd-ionicon": "^1.0.36",
-    "@sentre/senhub": "^3.1.8",
+    "@sentre/senhub": "^3.1.9",
     "antd": "^4.21.1",
     "bn.js": "^5.2.0",
     "papaparse": "^5.3.1",
