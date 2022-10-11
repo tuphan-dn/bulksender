@@ -30,9 +30,7 @@ const Estimate = ({ disabled = false, onChange = () => {} }: EstimateProps) => {
 
   // Compute bulk
   const computeBulk = useCallback(async () => {
-    const {
-      sentre: { wallet },
-    } = window
+    const wallet = window.sentre.solana
     if (!wallet) return setBulk([])
 
     await dispatch(setStatus(Status.Estimating))

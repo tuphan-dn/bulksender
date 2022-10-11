@@ -7,6 +7,7 @@ import {
   useWalletBalance,
   useMintDecimals,
   util,
+  splt,
 } from '@sentre/senhub'
 
 import { Row, Col, Typography, Space } from 'antd'
@@ -69,9 +70,7 @@ const Actions = () => {
         `Not enough SOL to execute the transactions. It requires ${fee} SOL at least.`,
       )
     // Check token balance
-    const {
-      sentre: { splt },
-    } = window
+
     const accountAddress = await splt.deriveAssociatedAddress(
       walletAddress,
       mintAddress,

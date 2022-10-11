@@ -1,10 +1,11 @@
 import { Provider } from 'react-redux'
-import { UIProvider, PoolProvider } from '@sentre/senhub'
+import { AntdProvider } from '@sentre/senhub'
 
 import View from 'view'
 
 import model from 'model'
 import configs from 'configs'
+
 import 'static/styles/light.less'
 import 'static/styles/dark.less'
 
@@ -14,13 +15,11 @@ const {
 
 export const Page = () => {
   return (
-    <UIProvider appId={appId} antd={{ prefixCls: appId }}>
-      <PoolProvider>
-        <Provider store={model}>
-          <View />
-        </Provider>
-      </PoolProvider>
-    </UIProvider>
+    <AntdProvider appId={appId} prefixCls={appId}>
+      <Provider store={model}>
+        <View />
+      </Provider>
+    </AntdProvider>
   )
 }
 

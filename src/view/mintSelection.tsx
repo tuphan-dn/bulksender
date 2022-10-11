@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useAccounts, util } from '@sentre/senhub'
 
 import { Row, Col, Select, Space, Typography, Card } from 'antd'
-import { MintAvatar, MintName, MintSymbol } from 'components/mint'
+import { MintAvatar, MintName, MintSymbol } from '@sen-use/app'
 
 import { AppState } from 'model'
 import { setMintAddress } from 'model/main.controller'

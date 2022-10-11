@@ -17,7 +17,7 @@ export type AccountBalanceReturn = {
 
 const buildResult = (
   mintAddress?: string,
-  amount?: bigint,
+  amount?: string,
   decimals?: number,
 ) => {
   if (
@@ -30,7 +30,7 @@ const buildResult = (
     mintAddress,
     amount,
     decimals,
-    balance: Number(utils.undecimalize(amount, decimals)),
+    balance: Number(utils.undecimalize(BigInt(amount), decimals)),
   }
 }
 
@@ -56,9 +56,9 @@ const useAccountBalance = (accountAddress: string) => {
   if (!util.isAddress(walletAddress) || !util.isAddress(accountAddress))
     return buildResult()
   if (accountAddress === walletAddress)
-    return buildResult(DEFAULT_EMPTY_ADDRESS, lamports, 9)
+    return buildResult(DEFAULT_EMPTY_ADDRESS, lamports.toString(), 9)
 
-  return buildResult(mintAddress, amount, decimals)
+  return buildResult(mintAddress, amount.toString(), decimals)
 }
 
 export default useAccountBalance

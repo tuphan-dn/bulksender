@@ -36,7 +36,7 @@ const Send = ({ bulk = [], disabled = false }: SendProps) => {
     for (const transferData of bulk) {
       try {
         const {
-          sentre: { wallet },
+          sentre: { solana: wallet },
         } = window
         if (!wallet) return
         const { txId } = await bulksender.checkedBulkTransfer(

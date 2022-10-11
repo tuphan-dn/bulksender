@@ -19,7 +19,7 @@ const Add = () => {
 
   const onAddress = (e: ChangeEvent<HTMLInputElement>) =>
     setAddress(e.target.value || '')
-  const onAmount = (val: string) => setAmount(val)
+  const onAmount = (val: string | null) => setAmount(val || '0')
 
   const ok = useMemo(() => {
     if (!util.isAddress(address) || !Number(amount)) return false
