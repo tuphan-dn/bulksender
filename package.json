@@ -7,7 +7,7 @@
     "@sen-use/web3": "^3.3.1",
     "@senswap/sen-js": "^1.4.0",
     "@sentre/antd-ionicon": "^1.0.36",
-    "@sentre/senhub": "^4.0.6",
+    "@sentre/senhub": "^4.1.1",
     "antd": "^4.21.1",
     "bn.js": "^5.2.0",
     "papaparse": "^5.3.1",
